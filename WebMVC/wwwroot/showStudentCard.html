@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФАІТ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/showStudentCard.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<nav class="sidebar">
+    <div class="text"> <img src="logo1.png" width="36px"> КНУБА</div>
+    <ul>
+        <li>
+            <a href="#">Головна
+
+            </a>
+        </li>
+        <li>
+            <a href="#" class="card-btn">Картка студента
+                <span class="fas fa-caret-down first"></span>
+            </a>
+            <ul class="card-show">
+                <li>
+                    <a href="showStudentCard.html">Відобразити</a>
+                </li>
+                <li>
+                    <a href="addStudentCart.html">Додати</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" class="plan-btn">Навчальний план
+                <span class="fas fa-caret-down second"></span>
+            </a>
+            <ul class="plan-show">
+                <li>
+                    <a href="#">Відобразити</a>
+                </li>
+                <li>
+                    <a href="#">Додати</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Перевести</a>
+        </li>
+        <li>
+            <a href="#">Успішність</a>
+        </li>
+        <li>
+            <a href="#">Створити звіт</a>
+        </li>
+    </ul>
+
+    <div class="content">
+        <h1>Факультет автоматизацїї та інформаційних технологій</h1>
+        <section id="section1">
+            <br>
+            Факультет: <select>
+                <option>
+                    Оберіть Факультет
+                </option>
+            </select>
+            Група: <select>
+                <option>
+                    Оберіть групу
+                </option>
+            </select> 
+            </br>
+
+
+            Рівень вищої освіти/освітньо-кваліфікаційний рівень: 
+            <select>
+                <option>
+                    Оберіть рівень освіти
+                </option>
+            </select> 
+            </br>
+
+            Спеціальність: <select>
+                <option>
+                    Оберіть спеціальність
+                </option>
+            </select>
+            Спеціалізація: <select>
+                <option>
+                    Оберіть спеціалізацію
+                </option>
+            </select>
+            <button> Показати </button>
+        </section>
+    </div>
+
+</nav>
+<div class="content">
+    <h1>Факультет автоматизацїї та інформаційних технологій</h1>
+    <section id="section1">
+        <br>
+
+        Спеціальність: <select>
+            <option>
+                Оберіть спеціальність
+            </option>
+        </select>
+        Спеціалізація: <select>
+            <option>
+                Оберіть спеціалізацію
+            </option>
+        </select>
+        Рік: <select>
+            <option>
+                Оберіть рік
+            </option>
+        </select></br>
+
+        Група: <select>
+            <option>
+                Оберіть групу
+            </option>
+        </select>
+        Рік: <select>
+            <option>
+                Оберіть рік
+            </option>
+        </select></br>
+
+        Студент: <select>
+            <option>
+                Оберіть студента
+            </option>
+        </select>
+
+        <button> Показати </button>
+    </section>
+
+    </section>
+    <h2>Навчальна картка студента</h2>
+    <section id="section2">
+
+        Прізвище: <input type="text" placeholder="Пр.Шевченко" width="80px"> <button id="change"> Змінити </button></br>
+        Ім'я: <input type="text" placeholder="Пр.Андрій"> </br>
+        По-батькові: <input type="text" placeholder="Пр.Миколайович"> </br>
+        Середній бал: <input type="text"> <button> Розрахувати </button> </br>
+        Дата народження: <input type="date" placeholder=""> </br>
+        Місце народження: <input type="text" placeholder="Пр.Київ"> </br>
+        Громадянство <input type="text" placeholder="Пр.Українець"></br>
+        Сімейний стан:
+        <select>
+            <option> Обрати статус </option>
+        </select></br>
+        Місце проживання/місце реєстрації: <input type="text" placeholder="Пр.Київ"> </br>
+        Наявність пільг при вступі:
+        <select>
+            <option> Оберіть пільги </option>
+        </select></br>
+        Зарахований(а) наказом від: <input type="text" placeholder="Пр.31" width="80px">
+        <input type="text" placeholder="Пр.Серпень">
+        <input type="text" placeholder="Пр.2021">
+        №<input type="text" placeholder="1868"></br>
+        Трудова книжка: <input type="text" placeholder="Номер">
+        <input type="text" placeholder="Коли видана">
+        <input type="text" placeholder="Ким видана"></br>
+        Реєстраційний номер облікової картки
+        платника податків
+        або серія та номер паспорту:<input type="text" placeholder="Номер"></br>
+        Статус студента: <input type="text" placeholder="Пр.Київ"></br>
+
+        Переведення з курсу на курс,
+        перерва в академ. навчанні: </br>
+        <table border="1px" width="50%">
+            <tr>
+                <td>Курс</td>
+                <td>Номер наказу</td>
+                <td>Дата наказу</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table></br>
+        Статус студента: <select>
+            <option>
+                Оберіть статус студента
+            </option>
+        </select>
+        
+        <button id="save"> Зберегти </button>
+    </section>
+</div>
+
+<script>
+    $('.card-btn').click(function () {
+        $('nav ul .card-show').toggleClass("show");
+        $('nav ul .first').toggleClass("rotate");
+    });
+    $('.plan-btn').click(function () {
+        $('nav ul .plan-show').toggleClass("show1");
+        $('nav ul .second').toggleClass("rotate");
+    });
+</script>
+
+</body>
+
+</html>
