@@ -1,0 +1,100 @@
+.content{
+    padding-left: 232px;
+    width: auto;
+    height: 100%;
+}
+
+.content h1{ 
+    padding-left: 216px;
+    padding-top: 10px;
+    padding-bottom: 24px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.content h2{
+    padding-left: 478px;
+    padding-top: 16px;
+    padding-bottom: 8px;
+    font-size: 26px;
+    font-weight: 26px;
+}
+
+.content section{
+margin-left: 24px;
+font-size: 16px;
+}
+
+.content #section1{
+    background: #F2F4F4;
+    width: 687px;
+    height: auto;
+    padding-left: 24px;
+    padding-top: 24px;
+    font-weight: bold;
+    font-size: 16px;
+    float: left;
+}
+
+.content #section1 select{
+    margin-top: 16px;
+}
+
+.content #section1  #select1{
+    margin-left: 146px;
+}
+.content #section1  #select2{
+    margin-left: 134px;
+}
+.content #section1  #select3{
+    margin-left: 65px;
+}
+.content #section1  #select4{
+    margin-left: 125px;
+}
+
+.content #section1 #select5{
+    margin-left: 26px;
+    width: 372px;
+}
+.content #section1 #select5.display{
+    display: none;
+}
+
+.content #section1 select{
+    margin-bottom: 16px;
+    width: 208px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.content #section2{
+    background: #F2F4F4;
+    width: 375px;
+    height: 653px;
+    padding-left: 24px;
+    padding-top: 24px;
+    font-weight: bold;
+    font-size: 16px;
+    float: right;
+}
+
+.content #section2 button{
+    width: 201px;
+    height: 32px;
+    border-radius: 10px;
+    margin-top: 16px;
+    margin-left: 50px;
+
+}
+
+.content #section2 #transfer{
+    background-color: #003586;
+    color: #F3F6F7;
+    margin-bottom: 166px
+}
+
+.content #section2 #enable.display{
+    background-color: #003586;
+    color: #F3F6F7;
+}

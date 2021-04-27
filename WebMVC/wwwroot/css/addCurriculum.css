@@ -73,8 +73,19 @@ font-size: 16px;
     background-color: #003586;
     color: #F3F6F7;
 }
+.content #section1 #button3{
+    width: 32px;
+    height: 32px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
 
-.content #section2 #button3{
+.content #section2 #button4{
     width: 154px;
     height: 32px;
     font-size: 14px;

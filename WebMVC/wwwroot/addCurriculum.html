@@ -49,10 +49,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Перевести</a>
+                        <a href="transferStudent.html">Перевести</a>
                     </li>
                     <li>
-                        <a href="#">Успішність</a>
+                        <a href="progress.html">Успішність</a>
                     </li>
                     <li>
                         <a href="createReport.html">Створити звіт</a>
@@ -85,7 +85,7 @@
                     </option>
                 </select>
                 <button id="button2">+</button>
-                <button id="button2">-</button>
+                <button id="button3">-</button>
 
             </section>
             <h2>Навчальний план студента</h2>
@@ -111,8 +111,8 @@
                     </tbody>
                 </table>
 
-                <button id="button3" href="javascript://" onclick="addRow('myTable');return false;"> Додати поле</button>
-                <button id="button3" href="javascript://" onclick="delRow('myTable');return false;"> Видалити поле</button>
+                <button id="button4" href="javascript://" onclick="addRow('myTable');return false;"> Додати поле</button>
+                <button id="button4" href="javascript://" onclick="delRow('myTable');return false;"> Видалити поле</button>
 
             </section>
         </div>
@@ -140,7 +140,7 @@
             var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
             var row = document.createElement("TR")
             var td1 = document.createElement("TD")
-            td1.appendChild(document.createTextNode("1"))
+            td1.appendChild(document.createNode("1"))
             var td2 = document.createElement("TD")
             td2.appendChild(document.createTextNode("2"))
             var td3 = document.createElement("TD")
@@ -166,7 +166,11 @@
             tbody.appendChild(row);
         }
 
+        /* Список */ 
 
+        var addChild = function(newBranch) {
+    $("#button2").append("<option value='"+newBranch+"'>"+newBranch+"</option>");
+}
     </script>
 
 </body>
