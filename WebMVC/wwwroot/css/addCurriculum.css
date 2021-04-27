@@ -1,0 +1,111 @@
+.content{
+    padding-left: 232px;
+    width: 1134px;
+    height: 100%;
+}
+
+.content h1{ 
+    padding-left: 216px;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    font-size: 26px;
+    font-weight: 26px;
+}
+
+.content h2{
+    padding-left: 414px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+
+.content section{
+margin-left: 40px;
+font-size: 16px;
+}
+
+.content #section1{
+    background: #F2F4F4;
+    width: 1086px;
+    height: auto;
+    padding-left: 8px;
+    padding-top: 8px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.content #section1 select{
+    margin-bottom: 16px;
+    width: 208px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.content #section1  #select1{
+    margin-left: 56px;
+}
+.content #section1  #select2{
+    margin-left: 47px;
+}
+.content #section1  #select3{
+    margin-left: 27px;
+}
+
+.content #section1 #button1{
+    width: 100px;
+    height: 32px;
+    float: right;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
+
+.content #section1 #button2{
+    width: 32px;
+    height: 32px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
+.content #section1 #button3{
+    width: 32px;
+    height: 32px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
+
+.content #section2 #button4{
+    width: 154px;
+    height: 32px;
+    font-size: 14px;
+    float: right;
+    margin-left: 8px;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
+
+.content #section2{
+    width: 1086px;
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
+.content #section2 table{
+    width: 100%;
+}
+

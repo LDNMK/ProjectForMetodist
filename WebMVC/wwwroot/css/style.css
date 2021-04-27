@@ -90,3 +90,18 @@ nav ul li a span{
 nav ul li a span.rotate{
     transform: translateY(-50%) rotate(-180deg);   
 }
+
+
+.content{
+    padding-left: 232px;
+    width: 1134px;
+    height: 100%;
+}
+
+.content h1{ 
+    padding-left: 216px;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    font-size: 26px;
+    font-weight: 26px;
+}

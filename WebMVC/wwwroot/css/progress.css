@@ -1,0 +1,95 @@
+.content{
+    padding-left: 232px;
+    width: 1134px;
+    height: 100%;
+}
+
+.content h1{ 
+    padding-left: 216px;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    font-size: 26px;
+    font-weight: 26px;
+}
+
+.content section{
+margin-left: 40px;
+font-size: 16px;
+}
+
+.content #section1{
+    background: #F2F4F4;
+    width: 1070px;
+    height: 144px;
+    padding-left: 8px;
+}
+.content #section1 button{
+    float: right;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    width: 100px;
+    height: 32px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
+.content #section2 button{
+    float: right;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    width: 100px;
+    height: 32px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}
+
+.content #section2{
+    background: #F2F4F4;
+    width: 1070px;
+    padding-bottom: 50px;
+    padding-left: 8px;
+}
+
+.content h2{ 
+    padding-top: 32px;
+    padding-left: 519px;
+    padding-bottom: 24px;
+}
+.content section input{
+height: 32px;
+margin: 8px;
+border-radius: 4px;
+text-align: center;
+}
+
+.content section select{
+    width: 208px;
+    height: 32px;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.content section select{
+    width: 208px;
+    height: 32px;
+    margin-right: 16px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+.content section #select1{
+    margin-left: 4px;
+}
+.content section #select2{
+    margin-left: 16px;
+}
+.content section #select3{
+    margin-left: 60px;
+}
+.content section #select4{
+    margin-left: 28px;
+}
+.content section #select5{
+    margin-left: 16px;
+}
