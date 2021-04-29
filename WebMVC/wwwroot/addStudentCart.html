@@ -8,6 +8,7 @@
     <title>ФАІТ</title>
     <link rel="stylesheet" href="css/addCard.css">
     <link rel="stylesheet" href="css/style.css">
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
@@ -65,7 +66,6 @@
         <h1>Факультет автоматизацїї та інформаційних технологій</h1>
         <section id="section1">
             <br>
-
             Факультет: <select>
                 <option>
                     Оберіть Факультет
@@ -75,7 +75,8 @@
                 <option>
                     Оберіть групу
                 </option>
-            </select> </br>
+            </select> 
+            </br>
 
 
             Рівень вищої освіти/освітньо-кваліфікаційний рівень: <select>
@@ -100,11 +101,10 @@
         </section>
         <h2>Навчальна картка студента</h2>
         <section id="section2">
-
-            Прізвище: <input type="text" placeholder="Пр.Шевченко" width="80px"></br>
-            Ім'я: <input type="text" placeholder="Пр.Андрій"> </br>
-            По-батькові: <input type="text" placeholder="Пр.Миколайович"> </br>
-            Дата народження: <input type="date" placeholder=""> </br>
+            Прізвище: <input type="text" id="surname" placeholder="Пр.Шевченко" width="80px"></br>
+            Ім'я: <input type="text" id="name" placeholder="Пр.Андрій"> </br>
+            По-батькові: <input type="text" id="patronyc" placeholder="Пр.Миколайович"> </br>
+            Дата народження: <input type="date" id="birthday" placeholder=""> </br>
             Місце народження: <input type="text" placeholder="Пр.Київ"> </br>
             Громадянство <input type="text" placeholder="Пр.Українець"></br>
             Сімейний стан:
@@ -127,14 +127,10 @@
             платника податків 
             або серія та номер паспорту:<input type="text" placeholder="Номер"></br>
             Статус студента: <input type="text" placeholder="Пр.Київ">
-            <button> Зберегти </button>
+            <button id="btn"> Зберегти </button>
         </section>
     </div>
-
-
-
 </div>
-
 </div>
 
 <script>
@@ -146,6 +142,23 @@
         $('nav ul .plan-show').toggleClass("show1");
         $('nav ul .second').toggleClass("rotate");
     });
+
+    document.getElementById('btn').onclick = function (e) {
+        e.preventDefault();
+        let data = {
+            Surname: document.getElementById('surname').value,
+            Name: document.getElementById('name').value,
+            Patronymic: document.getElementById('patronyc').value,
+            Birthday: document.getElementById('birthday').value
+        }
+        fetch('api/StudentCard/SaveStudentCardInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+    };
 </script>
 
 </body>
