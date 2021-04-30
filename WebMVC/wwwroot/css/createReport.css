@@ -1,0 +1,65 @@
+.content{
+    padding-left: 232px;
+    width: 1134px;
+    height: 100%;
+}
+
+.content h1{ 
+    padding-left: 216px;
+    padding-top: 16px;
+    padding-bottom: 24px;
+    font-size: 26px;
+    font-weight: 26px;
+}
+
+.content section{
+margin-left: 40px;
+font-size: 16px;
+}
+
+.content #section1{
+    background: #F2F4F4;
+    width: 1086px;
+    height: 682px;
+    padding-left: 24px;
+    padding-top: 24px;
+    font-size: 16px;
+}
+.content #section1 select{
+    width: 208px;
+    height: 32px;
+    margin-top: 24px;
+    border-radius: 4px;
+    padding-left: 16px;
+}
+
+.content #section1  #select1{
+    margin-left: 93px;
+}
+
+.content #section1  #select2{
+    margin-left: 106px;
+}
+
+.content #section1  #select3{
+    margin-left: 32px;
+}
+
+.content #section1  #select4{
+    margin-left: 89px;
+}
+
+.content #section1  #select5{
+    width: 403px;
+    height: 32px;
+    margin-left: 72px;
+}
+
+.content #section1 button{
+    margin-top: 24px;
+    width: 195px;
+    height: 32px;
+    border-radius: 10px ;
+    background-color: #003586;
+    color: #F3F6F7;
+}

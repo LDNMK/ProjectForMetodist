@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +14,7 @@ namespace WebAPI.Models
         public string Name { get; set; }
         public string Patronymic { get; set; }
         public DateTime Birthday { get; set; }
+
         public string BirthPlace  { get; set; }
         //Громадянство 
         public string Immenseness { get; set; }
