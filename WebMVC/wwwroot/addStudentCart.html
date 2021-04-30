@@ -8,6 +8,7 @@
     <title>ФАІТ</title>
     <link rel="stylesheet" href="css/addCard.css">
     <link rel="stylesheet" href="css/style.css">
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="icon" type="image/png" href="logo1.png">
@@ -137,9 +138,6 @@
                 <button> Зберегти </button>
             </section>
         </div>
-
-
-
     </div>
 
     </div>
@@ -153,8 +151,6 @@
             $('nav ul .plan-show').toggleClass("show1");
             $('nav ul .second').toggleClass("rotate");
         });
-
-
 
         /* Запит */
         // получаем объект формы
@@ -178,9 +174,24 @@
             }
             request.send(formData);
         }
-
+      
+        document.getElementById('btn').onclick = function (e) {
+        e.preventDefault();
+        let data = {
+            Surname: document.getElementById('surname').value,
+            Name: document.getElementById('name').value,
+            Patronymic: document.getElementById('patronyc').value,
+            Birthday: document.getElementById('birthday').value
+        }
+        fetch('api/StudentCard/SaveStudentCardInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+    };
     </script>
-
 </body>
 
 </html>
