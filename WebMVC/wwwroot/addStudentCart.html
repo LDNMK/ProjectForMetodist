@@ -108,7 +108,7 @@
                     Прізвище: <input id="surname" type="text" placeholder="Пр.Шевченко" width="80px"></br>
                     Ім'я: <input id="name" type="text" placeholder="Пр.Андрій"> </br>
                     По-батькові: <input id="middle_name" type="text" placeholder="Пр.Миколайович"> </br>
-                    Дата народження: <input id="birthday" type="date" placeholder=""> </br>
+                    Дата народження: </br>
                     Місце народження: <input id="birthplace" type="text" placeholder="Пр.Київ"> </br>
                     Громадянство <input id="citizenship" type="text" placeholder="Пр.Українець"></br>
                     Сімейний стан:
@@ -121,9 +121,7 @@
                     <select id="privilege">
                         <option> Оберіть пільги </option>
                     </select></br>
-                    Зарахований(а) наказом від: <input id="day_reckoned" type="text" placeholder="Пр.31" width="80px">
-                    <input id="month_reckoned" type="text" placeholder="Пр.Серпень">
-                    <input id="year_reckoned" type="text" placeholder="Пр.2021">
+                    Зарахований(а) наказом від: <input id="date_reckoned" type="date" placeholder="">
                     №<input id="number_reckoned" type="text" placeholder="1868"></br>
                     Трудова книжка: <input id="employment_history_number" type="text" placeholder="Номер">
                     <input id="employment_history_when issued" type="text" placeholder="Коли видана">
@@ -174,23 +172,23 @@
             }
             request.send(formData);
         }
-      
+
         document.getElementById('btn').onclick = function (e) {
-        e.preventDefault();
-        let data = {
-            Surname: document.getElementById('surname').value,
-            Name: document.getElementById('name').value,
-            Patronymic: document.getElementById('patronyc').value,
-            Birthday: document.getElementById('birthday').value
-        }
-        fetch('api/StudentCard/SaveStudentCardInfo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-    };
+            e.preventDefault();
+            let data = {
+                Surname: document.getElementById('surname').value,
+                Name: document.getElementById('name').value,
+                Patronymic: document.getElementById('patronyc').value,
+                Birthday: document.getElementById('birthday').value
+            }
+            fetch('api/StudentCard/SaveStudentCardInfo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+        };
     </script>
 </body>
 
