@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccessToDb\AccessToDb.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Fait.DAL\Fait.DAL.csproj" />
-    <ProjectReference Include="..\Fait.DTO\Fait.DTO.csproj" />
   </ItemGroup>
 
 </Project>
