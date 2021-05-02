@@ -15,6 +15,7 @@ namespace Fait.DAL
         public int Id { get; set; }
         public int? PlanId { get; set; }
         public int GroupName { get; set; }
+        public bool Actual { get; set; }
 
         public virtual YearPlan Plan { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
