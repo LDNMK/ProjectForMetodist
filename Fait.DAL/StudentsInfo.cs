@@ -7,7 +7,7 @@ namespace Fait.DAL
 {
     public partial class StudentsInfo
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public DateTime Birthdate { get; set; }
         public string BirthPlace { get; set; }
         public string Immenseness { get; set; }
@@ -20,9 +20,9 @@ namespace Fait.DAL
         public string Uniq { get; set; }
         public string NoCompetititon { get; set; }
         public byte? Ammends { get; set; }
-        public int EmploymentNumber { get; set; }
+        public int? EmploymentNumber { get; set; }
         public string EmploymentAuthority { get; set; }
-        public DateTime EmploymentGivenDate { get; set; }
+        public DateTime? EmploymentGivenDate { get; set; }
         public string RegistrOrPassportNumber { get; set; }
 
         public virtual Student IdNavigation { get; set; }

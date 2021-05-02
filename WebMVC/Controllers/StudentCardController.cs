@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Fait.DTO;
 using FaitLogic;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
 
