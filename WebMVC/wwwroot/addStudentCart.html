@@ -82,18 +82,21 @@
                 </select> </br>
 
 
-                Рівень вищої освіти/освітньо-кваліфікаційний рівень: <select>
+                Рівень вищої освіти/освітньо-кваліфікаційний рівень: 
+                <select>
                     <option>
                         Оберіть рівень освіти
                     </option>
                 </select> </br>
 
-                Спеціальність: <select>
+                Спеціальність: 
+                <select>
                     <option>
                         Оберіть спеціальність
                     </option>
                 </select>
-                Спеціалізація: <select>
+                Спеціалізація: 
+                <select>
                     <option>
                         Оберіть спеціалізацію
                     </option>
@@ -101,9 +104,9 @@
                 <button> Показати </button>
             </section>
 
-            </section>
             <h2>Навчальна картка студента</h2>
             <section id="section2">
+<<<<<<< HEAD
                 <form name="user" action="http://localhost:8080/postdata.php">
                     Прізвище: <input id="surname" type="text" placeholder="Пр.Шевченко" width="80px"></br>
                     Ім'я: <input id="name" type="text" placeholder="Пр.Андрій"> </br>
@@ -134,10 +137,38 @@
                     <input type="submit" name="submit" value="Отправить" />
                 </form>
                 <button> Зберегти </button>
+=======
+                Прізвище: <input id="surname" type="text" placeholder="Пр.Шевченко" width="80px"></br>
+                Ім'я: <input id="name" type="text" placeholder="Пр.Андрій"> </br>
+                По-батькові: <input id="middle_name" type="text" placeholder="Пр.Миколайович"> </br>
+                Дата народження: <input id="birthday" type="date" placeholder=""> </br>
+                Місце народження: <input id="birthplace" type="text" placeholder="Пр.Київ"> </br>
+                Громадянство <input id="citizenship" type="text" placeholder="Пр.Українець"></br>
+                Сімейний стан:
+                <select id="marital_status">
+                    <option> Обрати статус </option>
+                </select></br>
+                Місце проживання/місце реєстрації: <input id="place_of_residence" type="text" placeholder="Пр.Київ">
+                </br>
+                Наявність пільг при вступі:
+                <select id="privilege">
+                    <option> Оберіть пільги </option>
+                </select></br>
+                Зарахований(а) наказом від: <input id="day_reckoned" type="text" placeholder="Пр.31" width="80px">
+                <input id="month_reckoned" type="text" placeholder="Пр.Серпень">
+                <input id="year_reckoned" type="text" placeholder="Пр.2021">
+                №<input id="number_reckoned" type="text" placeholder="1868"></br>
+                Трудова книжка: <input id="employment_history_number" type="text" placeholder="Номер">
+                <input id="employment_given_date" type="text" placeholder="Коли видана">
+                <input id="employment_history_by_whom_issued" type="text" placeholder="Ким видана"></br>
+                Реєстраційний номер облікової картки
+                платника податків
+                або серія та номер паспорту:<input id="registration_number" type="text" placeholder="Номер"></br>
+                Статус студента: <input id="student_status" type="text" placeholder="Пр.Київ">
+                <button id="btn"> Зберегти </button>
+>>>>>>> ce644bf087d15701792e8b35384d8a9d9073163f
             </section>
         </div>
-    </div>
-
     </div>
 
     <script>
@@ -150,6 +181,7 @@
             $('nav ul .second').toggleClass("rotate");
         });
 
+<<<<<<< HEAD
         /* Запит */
         // получаем объект формы
         var form = document.forms.user;
@@ -173,13 +205,32 @@
             request.send(formData);
         }
 
+=======
+>>>>>>> ce644bf087d15701792e8b35384d8a9d9073163f
         document.getElementById('btn').onclick = function (e) {
             e.preventDefault();
             let data = {
                 Surname: document.getElementById('surname').value,
                 Name: document.getElementById('name').value,
+<<<<<<< HEAD
                 Patronymic: document.getElementById('patronyc').value,
                 Birthday: document.getElementById('birthday').value
+=======
+                Patronymic: document.getElementById('middle_name').value,
+                Birthday: document.getElementById('birthday').value,
+                BirthPlace: document.getElementById('birthplace').value,
+                Immenseness: document.getElementById('citizenship').value,
+                MaritalStatus: document.getElementById('marital_status').value,
+                Registartion: document.getElementById('place_of_residence').value,
+                Exemption: document.getElementById('privilege').value,
+                //Patronymic: document.getElementById('month_reckoned').value,
+                OrderNumber: document.getElementById('number_reckoned').value,
+                EmploymentNumber: document.getElementById('employment_history_number').value,
+                //Surname: document.getElementById('employment_given_date').value,
+                EmploymentAuthority: document.getElementById('employment_history_by_whom_issued').value,
+                TaxPassportNumber: document.getElementById('registration_number').value,
+                State: document.getElementById('student_status').value
+>>>>>>> ce644bf087d15701792e8b35384d8a9d9073163f
             }
             fetch('api/StudentCard/SaveStudentCardInfo', {
                 method: 'POST',

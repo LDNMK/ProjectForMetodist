@@ -22,6 +22,7 @@ namespace Fait.DAL
         public byte StudState { get; set; }
 
         public virtual Speciality Speciality { get; set; }
+        public virtual StudentsInfo StudentsInfo { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }
         public virtual ICollection<TransferOrder> TransferOrders { get; set; }
