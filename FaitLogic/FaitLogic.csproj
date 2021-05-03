@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AccessToDb\AccessToDb.csproj" />
     <ProjectReference Include="..\Fait.DAL\Fait.DAL.csproj" />
-    <ProjectReference Include="..\Fait.DTO\Fait.DTO.csproj" />
+    <ProjectReference Include="..\Fait.LogicObjects\Fait.LogicObjects.csproj" />
   </ItemGroup>
 
 </Project>

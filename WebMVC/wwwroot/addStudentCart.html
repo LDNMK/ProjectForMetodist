@@ -116,9 +116,9 @@
                 <select id="marital_status">
                     <option> Обрати статус </option>
                 </select></br>
-                Місце проживання/місце реєстрації: <input id="place_of_residence" type="text" placeholder="Київ"> </br>             
+                Місце проживання/місце реєстрації: <input id="registration_place" type="text" placeholder="Київ"> </br>             
                 Наявність пільг при вступі:
-                <select id="privilege">
+                <select id="exemption">
                     <option> Оберіть пільги </option>
                 </select></br>
                 Зарахований(а) наказом від: <input id="date_reckoned" type="date" placeholder="31" width="80px">
@@ -128,7 +128,7 @@
                 <input id="employment_history_by_whom_issued" type="text"  placeholder="Ким видана"></br>
                 Реєстраційний номер облікової картки
                 платника податків
-                або серія та номер паспорту:<input id="registration_number" type="text" placeholder="Номер"></br>
+                або серія та номер паспорту:<input id="registration_or_passport_number" type="text" placeholder="Номер"></br>
                 Статус студента:
                 <select id="student_status">
                     <option>
@@ -160,15 +160,15 @@
                 BirthPlace: document.getElementById('birthplace').value,
                 Immenseness: document.getElementById('citizenship').value,
                 MaritalStatus: document.getElementById('marital_status').value,
-                Registartion: document.getElementById('place_of_residence').value,
-                Exemption: document.getElementById('privilege').value,
-                //Patronymic: document.getElementById('month_reckoned').value,
+                Registration: document.getElementById('registration_place').value,
+                Exemption: document.getElementById('exemption').value,
+                OrderDate: document.getElementById('date_reckoned').value,
                 OrderNumber: document.getElementById('number_reckoned').value,
                 EmploymentNumber: document.getElementById('employment_history_number').value,
-                //Surname: document.getElementById('employment_given_date').value,
+                EmploymentGivenDate: document.getElementById('employment_given_date').value,
                 EmploymentAuthority: document.getElementById('employment_history_by_whom_issued').value,
-                TaxPassportNumber: document.getElementById('registration_number').value,
-                State: document.getElementById('student_status').value
+                RegistrOrPassportNumber: document.getElementById('registration_or_passport_number').value,
+                StudState: document.getElementById('student_status').value
             }
             fetch('api/StudentCard/SaveStudentCardInfo', {
                 method: 'POST',

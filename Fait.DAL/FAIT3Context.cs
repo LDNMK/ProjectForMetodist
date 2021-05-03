@@ -210,10 +210,10 @@ namespace Fait.DAL
                     .HasMaxLength(30)
                     .HasColumnName("no_competititon");
 
-                entity.Property(e => e.Registartion)
+                entity.Property(e => e.Registration)
                     .IsRequired()
                     .HasMaxLength(30)
-                    .HasColumnName("registartion");
+                    .HasColumnName("registration");
 
                 entity.Property(e => e.RegistrOrPassportNumber)
                     .HasMaxLength(50)

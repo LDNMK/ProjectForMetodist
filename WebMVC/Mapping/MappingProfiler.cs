@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Fait.DTO;
+using Fait.LogicObjects.DTO;
 using WebAPI.Models;
 
 public class MappingProfile : Profile

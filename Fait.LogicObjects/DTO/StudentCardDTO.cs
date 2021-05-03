@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fait.DTO
+namespace Fait.LogicObjects.DTO
 {
     public class StudentCardDTO
     {
@@ -11,19 +11,17 @@ namespace Fait.DTO
         public string Name { get; set; }
         public string Patronymic { get; set; }
         public DateTime Birthday { get; set; }
-
         public string BirthPlace { get; set; }
-        //Громадянство 
-        public string Immenseness { get; set; }
+        public string Immenseness { get; set; } //Громадянство 
         public string MaritalStatus { get; set; }
-        public string Registartion { get; set; }
+        public string Registration { get; set; }
         public string Exemption { get; set; }
-        public int OrderNumber { get; set; }
-        // TODO:Хранение даты приказа, 9-ки
+        public int OrderNumber { get; set; } //Номер наказу 
+        public DateTime OrderDate { get; set; } //Дата наказу
         public int EmploymentNumber { get; set; }
         public string EmploymentAuthority { get; set; }
-        public string EmploymentLocation { get; set; }
-        public string TaxPassportNumber { get; set; }
-        public string State { get; set; }
+        public DateTime EmploymentGivenDate { get; set; }
+        public string RegistrOrPassportNumber { get; set; }
+        public string StudState { get; set; }
     }
 }

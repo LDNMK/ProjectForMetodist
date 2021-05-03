@@ -1,14 +1,14 @@
 ﻿using AccessToDb;
 using Fait.DAL;
-using Fait.DTO;
+using Fait.LogicObjects.DTO;
 using System;
 
 namespace FaitLogic
 {
     public class StudentInfoLogic
     {
-        private AccessStudentInfo accessStudentInfo { get; set; } = new AccessStudentInfo();
-        public void AddStudentInfo(StudentCardDTO studentCard)
+        private AccessStudentCard accessStudentInfo { get; set; } = new AccessStudentCard();
+        public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
             var isValid = ValidateStudentCard(studentCard);
             if (!isValid)
@@ -22,7 +22,7 @@ namespace FaitLogic
                 BirthPlace = studentCard.BirthPlace,
                 Immenseness = studentCard.Immenseness,
                 //MaritalStatus = studentCard.MaritalStatus,
-                Registartion = studentCard.Registartion,
+                Registration = studentCard.Registration,
                 Exemption = studentCard.Exemption,
                 //Competition = studentCard.C,
                 //FromIns = studentCard.,
@@ -32,11 +32,19 @@ namespace FaitLogic
                 //Ammends = studentCard.A,
                 EmploymentNumber = studentCard.EmploymentNumber,
                 EmploymentAuthority = studentCard.EmploymentAuthority,
-                //EmploymentGivenDate = studentCard.,
-                RegistrOrPassportNumber = studentCard.TaxPassportNumber
+                EmploymentGivenDate = studentCard.EmploymentGivenDate,
+                RegistrOrPassportNumber = studentCard.RegistrOrPassportNumber
+            };
+            var student = new Student
+            {
+                //SpecialityId = studentCard.
+                FirstName = studentCard.Name,
+                LastName = studentCard.Surname,
+                Patronymic = studentCard.Patronymic,
+                //StudState = studentCard.StudState
             };
 
-            accessStudentInfo.AddStudentInfoToDb(studentInfo);
+            accessStudentInfo.AddStudentCardToDb(studentInfo, student);
         }
 
         private bool ValidateStudentCard(StudentCardDTO studentCard)

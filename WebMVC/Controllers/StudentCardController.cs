@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Fait.DTO;
+using Fait.LogicObjects.DTO;
 using FaitLogic;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         public IActionResult SaveStudentCardInfo([FromBody]StudentCardModel model)
         {
             var bs = new StudentInfoLogic();
-            bs.AddStudentInfo(_mapper.Map<StudentCardDTO>(model));
+            bs.AddStudentCardInfo(_mapper.Map<StudentCardDTO>(model));
 
             return Ok();
         }

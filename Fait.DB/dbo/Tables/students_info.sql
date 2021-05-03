@@ -4,7 +4,7 @@
     [birth_place]     NVARCHAR (30) NOT NULL,
     [immenseness]     NVARCHAR (30) NOT NULL,
     [marital_status]  TINYINT       DEFAULT ((3)) NULL,
-    [registartion]    NVARCHAR (30) NOT NULL,
+    [registration]    NVARCHAR (30) NOT NULL,
     [exemption]       NVARCHAR (30) NOT NULL,
     [competition]     TINYINT       DEFAULT ((3)) NULL,
     [from_ins]        NVARCHAR (30) NULL,
