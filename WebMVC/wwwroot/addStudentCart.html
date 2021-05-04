@@ -82,20 +82,20 @@
                 </select> </br>
 
 
-                Рівень вищої освіти/освітньо-кваліфікаційний рівень: 
+                Рівень вищої освіти/освітньо-кваліфікаційний рівень:
                 <select>
                     <option>
                         Оберіть рівень освіти
                     </option>
                 </select> </br>
 
-                Спеціальність: 
+                Спеціальність:
                 <select>
                     <option>
                         Оберіть спеціальність
                     </option>
                 </select>
-                Спеціалізація: 
+                Спеціалізація:
                 <select>
                     <option>
                         Оберіть спеціалізацію
@@ -116,19 +116,53 @@
                 <select id="marital_status">
                     <option> Обрати статус </option>
                 </select></br>
-                Місце проживання/місце реєстрації: <input id="registration_place" type="text" placeholder="Київ"> </br>             
+                Місце проживання/місце реєстрації: <input id="registration_place" type="text" placeholder="Київ"> </br>
                 Наявність пільг при вступі:
                 <select id="exemption">
                     <option> Оберіть пільги </option>
                 </select></br>
                 Зарахований(а) наказом від: <input id="date_reckoned" type="date" placeholder="31" width="80px">
                 №<input id="number_reckoned" type="text" placeholder="1868"></br>
+                1) За конкурсом:
+                <select id="competition">
+                    <option value="">
+                        Оберіть стаж
+                    </option>
+                    <option value="">
+                        Із стажем
+                    </option>
+                    <option value="">
+                        Без стажу
+                    </option>
+                </select></br>
+                2) У порядку переведення з <input type="text" id="transfer_order"></br>
+                3) За направленням <input type="text" id="by_direction"></br>
+                4) За особливими умовами участі у конкурсі <input type="text"
+                    id="special_conditions_of_competition"></br>
+                5) Поза конкурсом <input type="text" id="out_of_competition"></br>
+                6) На умовах повного відшкодування
+                <select id="full_refund">
+                    <option value="">
+                        Оберіть умову
+                    </option>
+                    <option value="">
+                        Державний кредит
+                    </option>
+                    <option value="">
+                        Фізична особа
+                    </option>
+                    <option value="">
+                        Юридична особа
+                    </option>
+                </select></br>
+
                 Трудова книжка: <input id="employment_history_number" type="text" placeholder="Номер">
                 <input id="employment_given_date" type="date" placeholder="Коли видана">
-                <input id="employment_history_by_whom_issued" type="text"  placeholder="Ким видана"></br>
+                <input id="employment_history_by_whom_issued" type="text" placeholder="Ким видана"></br>
                 Реєстраційний номер облікової картки
                 платника податків
-                або серія та номер паспорту:<input id="registration_or_passport_number" type="text" placeholder="Номер"></br>
+                або серія та номер паспорту:<input id="registration_or_passport_number" type="text"
+                    placeholder="Номер"></br>
                 Статус студента:
                 <select id="student_status">
                     <option>
@@ -163,6 +197,12 @@
                 Registration: document.getElementById('registration_place').value,
                 Exemption: document.getElementById('exemption').value,
                 OrderDate: document.getElementById('date_reckoned').value,
+                Competition: document.getElementById('competition').value,
+                TransferOrder: document.getElementById('transfer_order').value,
+                ByDirection: document.getElementById('by_direction').value,
+                SpecialConditionsOfCompetition: document.getElementById('special_conditions_of_competition').value,
+                OutOfCompetition: document.getElementById('out_of_competition').value,
+                FullRefund: document.getElementById('full_refund').value,
                 OrderNumber: document.getElementById('number_reckoned').value,
                 EmploymentNumber: document.getElementById('employment_history_number').value,
                 EmploymentGivenDate: document.getElementById('employment_given_date').value,
