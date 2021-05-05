@@ -14,17 +14,17 @@ namespace WebAPI.Models
         public string Name { get; set; }
         public string Patronymic { get; set; }
         public DateTime Birthday { get; set; }
-        public string BirthPlace  { get; set; }
+        public string BirthPlace  { get; set; }//Місце народження
         public string Immenseness { get; set; } //Громадянство 
-        public string MaritalStatus { get; set; }
-        public string Registration { get; set; }
-        public string Exemption { get; set; }
+        public string MaritalStatus { get; set; }//Сімейний стан
+        public string Registration { get; set; }//Місце проживання\регістрації
+        public string Exemption { get; set; }//Наявність пільг при втсупі
         public int OrderNumber { get; set; } //Номер наказу 
         public DateTime OrderDate { get; set; } //Дата наказу
-        public int EmploymentNumber { get; set; }
-        public string EmploymentAuthority { get; set; }
-        public DateTime EmploymentGivenDate { get; set; }
-        public string RegistrOrPassportNumber { get; set; }
-        public string StudState { get; set; }
+        public int EmploymentNumber { get; set; }// код рабочей кнжики
+        public string EmploymentAuthority { get; set; }// кто выдал рабочую книжку
+        public DateTime EmploymentGivenDate { get; set; } //дата ее выдачи
+        public string RegistrOrPassportNumber { get; set; }// код регистарции или серия и номер паспорта
+        public string StudState { get; set; }// состояние студента
     }
 }
