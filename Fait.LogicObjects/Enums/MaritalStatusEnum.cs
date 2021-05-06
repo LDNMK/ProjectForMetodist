@@ -6,8 +6,8 @@ namespace Fait.LogicObjects.Enums
 {
     public enum MaritalStatusEnum
     {
-        Married = 1,
-        Divorced = 2,
+        NoInformation = 1,
+        Maried = 2,
         Single = 3
     }
 }
