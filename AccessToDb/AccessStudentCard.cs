@@ -8,7 +8,7 @@ namespace AccessToDb
     {
         public void AddStudentCardToDb(StudentsInfo studentsInfo, Student student)
         {
-            using (var dbContext = new FAIT3Context())
+            using (var dbContext = new FAIT4Context())
             {
                 dbContext.Students.Add(student);
                 dbContext.SaveChanges();

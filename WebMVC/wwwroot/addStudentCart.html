@@ -114,7 +114,15 @@
                 Громадянство <input id="citizenship" type="text" placeholder="Українець"></br>
                 Сімейний стан:
                 <select id="marital_status">
-                    <option> Обрати статус </option>
+                    <option value="1"> 
+                        Обрати статус 
+                    </option>
+                    <option value="2">
+                        Одружений/Заміжня
+                    </option>
+                    <option value="3">
+                        Не одружений/Не заміжня
+                    </option>
                 </select></br>
                 Місце проживання/місце реєстрації: <input id="registration_place" type="text" placeholder="Київ"> </br>
                 Наявність пільг при вступі:
@@ -125,13 +133,13 @@
                 №<input id="number_reckoned" type="text" placeholder="1868"></br>
                 1) За конкурсом:
                 <select id="competition">
-                    <option value="">
+                    <option value="1">
                         Оберіть стаж
                     </option>
-                    <option value="">
+                    <option value="2">
                         Із стажем
                     </option>
-                    <option value="">
+                    <option value="3">
                         Без стажу
                     </option>
                 </select></br>
@@ -142,16 +150,16 @@
                 5) Поза конкурсом <input type="text" id="out_of_competition"></br>
                 6) На умовах повного відшкодування
                 <select id="full_refund">
-                    <option value="">
+                    <option value="1">
                         Оберіть умову
                     </option>
-                    <option value="">
+                    <option value="2">
                         Державний кредит
                     </option>
-                    <option value="">
+                    <option value="3">
                         Фізична особа
                     </option>
-                    <option value="">
+                    <option value="4">
                         Юридична особа
                     </option>
                 </select></br>
@@ -165,8 +173,23 @@
                     placeholder="Номер"></br>
                 Статус студента:
                 <select id="student_status">
-                    <option>
+                    <option value="1">
                         Оберіть статус
+                    </option>
+                    <option value="2">
+                        Переведен з групой
+                    </option>
+                    <option value="3">
+                        В академічній відпустці
+                    </option>
+                    <option value="4">
+                        Не закрив сесію
+                    </option>
+                    <option value="5">
+                        Виключен з навчання
+                    </option>
+                    <option value="6">
+                        Закінчив степінь
                     </option>
                 </select>
                 <button id="btn"> Зберегти </button>
@@ -193,22 +216,22 @@
                 Birthday: document.getElementById('birthday').value,
                 BirthPlace: document.getElementById('birthplace').value,
                 Immenseness: document.getElementById('citizenship').value,
-                MaritalStatus: document.getElementById('marital_status').value,
+                MaritalStatusId: document.getElementById('marital_status').value,
                 Registration: document.getElementById('registration_place').value,
                 Exemption: document.getElementById('exemption').value,
                 OrderDate: document.getElementById('date_reckoned').value,
-                Competition: document.getElementById('competition').value,
-                TransferOrder: document.getElementById('transfer_order').value,
-                ByDirection: document.getElementById('by_direction').value,
-                SpecialConditionsOfCompetition: document.getElementById('special_conditions_of_competition').value,
-                OutOfCompetition: document.getElementById('out_of_competition').value,
-                FullRefund: document.getElementById('full_refund').value,
+                ExpirienceCompetitionId: document.getElementById('competition').value,
+                TransferFrom: document.getElementById('transfer_order').value,
+                TransferDirection: document.getElementById('by_direction').value,
+                CompetitionConditions: document.getElementById('special_conditions_of_competition').value,
+                OutOfCompetitionInfo: document.getElementById('out_of_competition').value,
+                AmmendsId: document.getElementById('full_refund').value,
                 OrderNumber: document.getElementById('number_reckoned').value,
                 EmploymentNumber: document.getElementById('employment_history_number').value,
                 EmploymentGivenDate: document.getElementById('employment_given_date').value,
                 EmploymentAuthority: document.getElementById('employment_history_by_whom_issued').value,
                 RegistrOrPassportNumber: document.getElementById('registration_or_passport_number').value,
-                StudState: document.getElementById('student_status').value
+                StudStateId: document.getElementById('student_status').value
             }
             fetch('api/StudentCard/SaveStudentCardInfo', {
                 method: 'POST',
