@@ -1,7 +1,9 @@
 ﻿using AccessToDb;
 using Fait.DAL;
 using Fait.LogicObjects.DTO;
+using Fait.LogicObjects.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace FaitLogic
 {
@@ -21,15 +23,15 @@ namespace FaitLogic
                 Birthdate = studentCard.Birthday,
                 BirthPlace = studentCard.BirthPlace,
                 Immenseness = studentCard.Immenseness,
-                //MaritalStatus = studentCard.MaritalStatus,
+                MaritalStatus = studentCard.MaritalStatusId,
                 Registration = studentCard.Registration,
                 Exemption = studentCard.Exemption,
-                //Competition = studentCard.C,
-                //FromIns = studentCard.,
-                //Direction = studentCard.Birthday,
-                //Uniq = studentCard.OrderNumber,
-                //NoCompetititon = studentCard.Birthday,
-                //Ammends = studentCard.A,
+                ExpirienceCompetition = studentCard.ExpirienceCompetitionId,
+                TransferFrom = studentCard.TransferFrom,
+                TransferDirection = studentCard.TransferDirection,
+                CompetitionConditions = studentCard.CompetitionConditions,
+                OutOfCompetitionInfo = studentCard.OutOfCompetitionInfo,
+                Ammends = studentCard.AmmendsId,
                 EmploymentNumber = studentCard.EmploymentNumber,
                 EmploymentAuthority = studentCard.EmploymentAuthority,
                 EmploymentGivenDate = studentCard.EmploymentGivenDate,
@@ -41,7 +43,7 @@ namespace FaitLogic
                 FirstName = studentCard.Name,
                 LastName = studentCard.Surname,
                 Patronymic = studentCard.Patronymic,
-                //StudState = studentCard.StudState
+                StudentState = studentCard.StudStateId
             };
 
             accessStudentInfo.AddStudentCardToDb(studentInfo, student);

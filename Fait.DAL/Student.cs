@@ -19,9 +19,10 @@ namespace Fait.DAL
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
-        public byte StudState { get; set; }
+        public byte StudentState { get; set; }
 
         public virtual Speciality Speciality { get; set; }
+        public virtual StudentState StudentStateNavigation { get; set; }
         public virtual StudentsInfo StudentsInfo { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }

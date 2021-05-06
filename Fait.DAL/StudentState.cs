@@ -5,17 +5,15 @@ using System.Collections.Generic;
 
 namespace Fait.DAL
 {
-    public partial class Speciality
+    public partial class StudentState
     {
-        public Speciality()
+        public StudentState()
         {
             Students = new HashSet<Student>();
         }
 
-        public int Id { get; set; }
-        public byte Kode { get; set; }
-        public string Speciality1 { get; set; }
-        public string Specialization { get; set; }
+        public byte Id { get; set; }
+        public string StudentStateName { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
     }

@@ -6,14 +6,14 @@
     <Name>Fait.DB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{fea58353-a670-4852-b37f-daf6676ce995}</ProjectGuid>
+    <ProjectGuid>{be1555ee-2337-4846-8a44-cb80e0bd3cd9}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
     <RootNamespace>Fait.DB</RootNamespace>
     <AssemblyName>Fait.DB</AssemblyName>
-    <ModelCollation>1033, CI</ModelCollation>
+    <ModelCollation>1049,CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -22,6 +22,8 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Cyrillic_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -56,26 +58,30 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo" />
-    <Folder Include="dbo\Stored Procedures" />
-    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Stored Procedures\add_speciality.sql" />
-    <Build Include="dbo\Stored Procedures\add_subject.sql" />
-    <Build Include="dbo\Stored Procedures\add_year_plan.sql" />
-    <Build Include="dbo\Stored Procedures\add_years_plans.sql" />
-    <Build Include="dbo\Tables\actual_groups.sql" />
-    <Build Include="dbo\Tables\groups.sql" />
-    <Build Include="dbo\Tables\marks.sql" />
     <Build Include="dbo\Tables\specialities.sql" />
+    <Build Include="dbo\Tables\student_states.sql" />
     <Build Include="dbo\Tables\students.sql" />
+    <Build Include="dbo\Tables\marital_statuses.sql" />
+    <Build Include="dbo\Tables\expirience_competitiones.sql" />
+    <Build Include="dbo\Tables\ammendes.sql" />
     <Build Include="dbo\Tables\students_info.sql" />
-    <Build Include="dbo\Tables\subjects.sql" />
     <Build Include="dbo\Tables\transfer_orders.sql" />
     <Build Include="dbo\Tables\year_plans.sql" />
+    <Build Include="dbo\Tables\groups.sql" />
+    <Build Include="dbo\Tables\actual_groups.sql" />
+    <Build Include="dbo\Tables\subjects.sql" />
+    <Build Include="dbo\Tables\marks.sql" />
+    <Build Include="dbo\Stored Procedures\add_mariatal_statuses.sql" />
+    <Build Include="dbo\Stored Procedures\add_student_states.sql" />
+    <Build Include="dbo\Stored Procedures\add_expirience_competitiones.sql" />
+    <Build Include="dbo\Stored Procedures\add_ammendes.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Fait.DB.publish.xml" />
+    <RefactorLog Include="Fait.DB.refactorlog" />
   </ItemGroup>
 </Project>

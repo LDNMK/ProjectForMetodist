@@ -14,17 +14,20 @@ namespace Fait.DAL
         public byte? MaritalStatus { get; set; }
         public string Registration { get; set; }
         public string Exemption { get; set; }
-        public byte? Competition { get; set; } //??
-        public string FromIns { get; set; } 
-        public string Direction { get; set; } //??
-        public string Uniq { get; set; } //??
-        public string NoCompetititon { get; set; } //??
-        public byte? Ammends { get; set; } //??
+        public byte? ExpirienceCompetition { get; set; }
+        public string TransferFrom { get; set; }
+        public string TransferDirection { get; set; }
+        public string CompetitionConditions { get; set; }
+        public string OutOfCompetitionInfo { get; set; }
+        public byte? Ammends { get; set; }
         public int? EmploymentNumber { get; set; }
         public string EmploymentAuthority { get; set; }
         public DateTime? EmploymentGivenDate { get; set; }
         public string RegistrOrPassportNumber { get; set; }
 
+        public virtual Ammende AmmendsNavigation { get; set; }
+        public virtual ExpirienceCompetitione ExpirienceCompetitionNavigation { get; set; }
         public virtual Student IdNavigation { get; set; }
+        public virtual MaritalStatus MaritalStatusNavigation { get; set; }
     }
 }

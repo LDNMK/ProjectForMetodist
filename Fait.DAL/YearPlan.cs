@@ -17,6 +17,7 @@ namespace Fait.DAL
         public string PlanName { get; set; }
         public int PlanYear { get; set; }
         public byte Course { get; set; }
+        public bool Actual { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<Subject> Subjects { get; set; }
