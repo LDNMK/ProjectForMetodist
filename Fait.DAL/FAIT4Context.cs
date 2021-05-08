@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Fait.DAL
+#nullable disable
+
+namespace Fait.Dal
 {
     public partial class FAIT4Context : DbContext
     {
@@ -19,6 +21,7 @@ namespace Fait.DAL
         public virtual DbSet<Ammende> Ammendes { get; set; }
         public virtual DbSet<ExpirienceCompetitione> ExpirienceCompetitiones { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<GroupName> GroupNames { get; set; }
         public virtual DbSet<MaritalStatus> MaritalStatuses { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
         public virtual DbSet<Speciality> Specialities { get; set; }
@@ -33,7 +36,8 @@ namespace Fait.DAL
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.\\;Database=FAIT4;Trusted_Connection=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=FAIT4;Trusted_Connection=True;");
             }
         }
 
@@ -54,12 +58,12 @@ namespace Fait.DAL
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.ActualGroups)
                     .HasForeignKey(d => d.GroupId)
-                    .HasConstraintName("FK__actual_gr__group__4316F928");
+                    .HasConstraintName("FK__actual_gr__group__45F365D3");
 
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.ActualGroups)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__actual_gr__stude__440B1D61");
+                    .HasConstraintName("FK__actual_gr__stude__46E78A0C");
             });
 
             modelBuilder.Entity<Ammende>(entity =>
@@ -69,7 +73,7 @@ namespace Fait.DAL
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.AmmendType)
-                    .HasMaxLength(20)
+                    .HasMaxLength(40)
                     .HasColumnName("ammend_type");
             });
 
@@ -80,7 +84,7 @@ namespace Fait.DAL
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.ExpirienceName)
-                    .HasMaxLength(20)
+                    .HasMaxLength(40)
                     .HasColumnName("expirience_name");
             });
 
@@ -94,15 +98,33 @@ namespace Fait.DAL
 
                 entity.Property(e => e.GroupName).HasColumnName("group_name");
 
+                entity.Property(e => e.GroupNumber).HasColumnName("group_number");
+
                 entity.Property(e => e.GroupYear).HasColumnName("group_year");
 
                 entity.Property(e => e.PlanId).HasColumnName("plan_id");
+
+                entity.HasOne(d => d.GroupNameNavigation)
+                    .WithMany(p => p.Groups)
+                    .HasForeignKey(d => d.GroupName)
+                    .HasConstraintName("FK__groups__group_na__4316F928");
 
                 entity.HasOne(d => d.Plan)
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.PlanId)
                     .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("FK__groups__plan_id__403A8C7D");
+                    .HasConstraintName("FK__groups__plan_id__4222D4EF");
+            });
+
+            modelBuilder.Entity<GroupName>(entity =>
+            {
+                entity.ToTable("group_names");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.GroupName1)
+                    .HasMaxLength(40)
+                    .HasColumnName("group_name");
             });
 
             modelBuilder.Entity<MaritalStatus>(entity =>
@@ -112,7 +134,7 @@ namespace Fait.DAL
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.MaritalStatusName)
-                    .HasMaxLength(20)
+                    .HasMaxLength(40)
                     .HasColumnName("marital_status_name");
             });
 
@@ -133,12 +155,12 @@ namespace Fait.DAL
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Marks)
                     .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK__marks__student_i__4BAC3F29");
+                    .HasConstraintName("FK__marks__student_i__4E88ABD4");
 
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Marks)
                     .HasForeignKey(d => d.SubjectId)
-                    .HasConstraintName("FK__marks__subject_i__4CA06362");
+                    .HasConstraintName("FK__marks__subject_i__4F7CD00D");
             });
 
             modelBuilder.Entity<Speciality>(entity =>
@@ -267,14 +289,14 @@ namespace Fait.DAL
                     .HasMaxLength(30)
                     .HasColumnName("out_of_competition_info");
 
+                entity.Property(e => e.Registartion)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnName("registartion");
+
                 entity.Property(e => e.RegistrOrPassportNumber)
                     .HasMaxLength(50)
                     .HasColumnName("registr_or_passport_number");
-
-                entity.Property(e => e.Registration)
-                    .IsRequired()
-                    .HasMaxLength(30)
-                    .HasColumnName("registration");
 
                 entity.Property(e => e.TransferDirection)
                     .HasMaxLength(30)
@@ -287,23 +309,23 @@ namespace Fait.DAL
                 entity.HasOne(d => d.AmmendsNavigation)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.Ammends)
-                    .HasConstraintName("FK__students___ammen__36B12243");
+                    .HasConstraintName("FK__students___ammen__38996AB5");
 
                 entity.HasOne(d => d.ExpirienceCompetitionNavigation)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.ExpirienceCompetition)
-                    .HasConstraintName("FK__students___expir__34C8D9D1");
+                    .HasConstraintName("FK__students___expir__36B12243");
 
                 entity.HasOne(d => d.IdNavigation)
                     .WithOne(p => p.StudentsInfo)
                     .HasForeignKey<StudentsInfo>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__students___regis__38996AB5");
+                    .HasConstraintName("FK__students___regis__3A81B327");
 
                 entity.HasOne(d => d.MaritalStatusNavigation)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.MaritalStatus)
-                    .HasConstraintName("FK__students___marit__32E0915F");
+                    .HasConstraintName("FK__students___marit__34C8D9D1");
             });
 
             modelBuilder.Entity<Subject>(entity =>
@@ -332,13 +354,13 @@ namespace Fait.DAL
                 entity.HasOne(d => d.Plan)
                     .WithMany(p => p.Subjects)
                     .HasForeignKey(d => d.PlanId)
-                    .HasConstraintName("FK__subjects__plan_i__46E78A0C");
+                    .HasConstraintName("FK__subjects__plan_i__49C3F6B7");
             });
 
             modelBuilder.Entity<TransferOrder>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__transfer__4659622991DFC31D");
+                    .HasName("PK__transfer__46596229E35685CB");
 
                 entity.ToTable("transfer_orders");
 
@@ -363,7 +385,7 @@ namespace Fait.DAL
                     .WithMany(p => p.TransferOrders)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("FK__transfer___stude__3B75D760");
+                    .HasConstraintName("FK__transfer___stude__3D5E1FD2");
             });
 
             modelBuilder.Entity<YearPlan>(entity =>
@@ -374,7 +396,7 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Actual).HasColumnName("actual");
 
-                entity.Property(e => e.Course).HasColumnName("course");
+                entity.Property(e => e.Courese).HasColumnName("courese");
 
                 entity.Property(e => e.PlanName)
                     .IsRequired()
