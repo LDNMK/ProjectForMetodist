@@ -49,6 +49,24 @@ namespace FaitLogic
             accessStudentInfo.AddStudentCardToDb(studentInfo, student);
         }
 
+        public ICollection<int> GetListOfGroups()
+        {
+            return accessStudentInfo.GetAllGroups();
+        }
+
+        public ICollection<string> GetListOfStudents(string group)
+        {
+            var array = group.Split('-');
+            var groupNumber = Convert.ToInt32(array[1]);
+            var groupNameId = accessStudentInfo.FindGroupNameId(array[1]);
+            return accessStudentInfo.GetAllStudents(groupNumber, groupNameId);
+        }
+
+        public ICollection<string> GetStudentInfo(int studentId)
+        {
+            return accessStudentInfo.GetAllStudents(studentId);
+        }
+
         private bool ValidateStudentCard(StudentCardDTO studentCard)
         {
             if (studentCard.Name == null && studentCard.Name == "")

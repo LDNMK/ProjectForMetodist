@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Fait.Dal
+namespace Fait.DAL
 {
     public partial class FAIT4Context : DbContext
     {
@@ -36,8 +36,7 @@ namespace Fait.Dal
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=FAIT4;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\;Database=FAIT4;Trusted_Connection=True;");
             }
         }
 
@@ -289,7 +288,7 @@ namespace Fait.Dal
                     .HasMaxLength(30)
                     .HasColumnName("out_of_competition_info");
 
-                entity.Property(e => e.Registartion)
+                entity.Property(e => e.Registration)
                     .IsRequired()
                     .HasMaxLength(30)
                     .HasColumnName("registartion");
@@ -396,7 +395,7 @@ namespace Fait.Dal
 
                 entity.Property(e => e.Actual).HasColumnName("actual");
 
-                entity.Property(e => e.Courese).HasColumnName("courese");
+                entity.Property(e => e.Course).HasColumnName("courese");
 
                 entity.Property(e => e.PlanName)
                     .IsRequired()

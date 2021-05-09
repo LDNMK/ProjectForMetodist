@@ -26,5 +26,33 @@ namespace WebAPI.Controllers
 
             return Ok();
         }
+
+
+        [HttpGet]
+        public IActionResult GetGroups()
+        {
+            var bs = new StudentInfoLogic();
+            var result = bs.GetListOfGroups();
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult GetListOfStudents(string group)
+        {
+            var bs = new StudentInfoLogic();
+            var result = bs.GetListOfStudents(group);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult ShowStudentInfo(int studentId)
+        {
+            var bs = new StudentInfoLogic();
+            var result = bs.GetStudentInfo(studentId);
+
+            return Ok(result);
+        }
     }
 }

@@ -77,13 +77,16 @@
                     <option>
                         Оберіть Факультет
                     </option>
+                    <option value="ФАІТ">
+                        ФАІТ
+                    </option>
                 </select>
                 Курс: <select>
                     <option>
                         Оберіть курс
                     </option>
                 </select>
-                Група: <select>
+                Група: <select id="group">
                     <option>
                         Оберіть групу
                     </option>
@@ -94,6 +97,9 @@
                 <select>
                     <option>
                         Оберіть рівень освіти
+                    </option>
+                    <option value="Бакалавр">
+                        Бакалавр
                     </option>
                 </select> </br>
 
@@ -249,6 +255,41 @@
                 body: JSON.stringify(data),
             })
         };
+
+        document.getElementById('group').onclick = function (e) {
+            e.preventDefault();
+            var selected = this.selectedIndex;
+            fetch('api/StudentCard/GetGroups', {
+                method: 'GET'
+            })
+            .then((resp) => resp.json())
+            .then(function (data) {
+                let groups = data;
+
+                var select = document.getElementById('group');
+                removeOptions(select);
+                select.value = this.innerHTML;
+                this.innerHTML = '';
+                for (var i in groups) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", i);
+
+                    option.text = groups[i];
+
+                    select.appendChild(option);
+                }
+            }).then(function () {
+                document.getElementById("group").selectedIndex = selected;
+            })
+        };
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i > 0; i--) {
+                selectElement.remove(i);
+            }
+        }
+
     </script>
 </body>
 
