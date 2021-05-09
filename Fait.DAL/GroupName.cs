@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Fait.Dal
+namespace Fait.DAL
 {
     public partial class GroupName
     {
