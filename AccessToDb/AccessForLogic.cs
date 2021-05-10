@@ -2,10 +2,11 @@
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace AccessToDb
 {
-    public class AccessStudentCard
+    public class AccessForLogic
     {
         public void AddStudentCardToDb(StudentsInfo studentsInfo, Student student)
         {
@@ -24,16 +25,57 @@ namespace AccessToDb
             }
         }
 
-        public ICollection<int> GetAllGroups()
+        public ICollection<string> AddGroupToDb(Group group)
         {
-            var groups = new List<int>();
+            var groups = new List<string>();
             using (var dbContext = new FAIT4Context())
             {
-                //groups = dbContext.Groups.Where(x => x.Actual == true).Select(x => x.GroupNumber+x.GroupName).ToList();
+                dbContext.Groups.Add(group);
+                dbContext.SaveChanges();
             }
 
             return groups;
         }
+
+        public byte? FindGroupName(string groupName)
+        {
+            var groupNameId = (byte)0;
+            using (var dbContext = new FAIT4Context())
+            {
+                groupNameId = dbContext.GroupNames
+                    .SingleOrDefault(x => x.NameOfGroup.Contains(groupName)).Id;
+            }
+
+            return groupNameId;
+        }
+
+        public byte CreateNewGroupName(GroupName groupName)
+        {
+            var groupNameId = (byte)0;
+            using (var dbContext = new FAIT4Context())
+            {
+                dbContext.GroupNames.Add(groupName);
+                dbContext.SaveChanges();
+                groupNameId = dbContext.GroupNames.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+            }
+            return groupNameId;
+        }
+
+        public ICollection<string> GetAllGroups()
+        {
+            var groups = new List<string>();
+            using (var dbContext = new FAIT4Context())
+            {
+                groups = dbContext.Groups
+                    .Include(x => x.GroupName)
+                    .Where(x => x.Actual == true)
+                    .Select(x => $"{x.GroupName.NameOfGroup}-{x.GroupNumber}")
+                    .ToList();
+            }
+
+            return groups;
+        }
+
         public int FindGroupNameId(string groupName)
         {
             int groupNameId;
@@ -44,6 +86,7 @@ namespace AccessToDb
 
             return groupNameId;
         }
+
         public ICollection<string> GetAllStudents(int groupNumber, int groupNameId)
         {
             var groups = new List<string>();

@@ -9,7 +9,7 @@ namespace FaitLogic
 {
     public class StudentInfoLogic
     {
-        private AccessStudentCard accessStudentInfo { get; set; } = new AccessStudentCard();
+        private AccessForLogic accessStudentInfo { get; set; } = new AccessForLogic();
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
             var isValid = ValidateStudentCard(studentCard);
@@ -49,7 +49,7 @@ namespace FaitLogic
             accessStudentInfo.AddStudentCardToDb(studentInfo, student);
         }
 
-        public ICollection<int> GetListOfGroups()
+        public ICollection<string> GetListOfGroups()
         {
             return accessStudentInfo.GetAllGroups();
         }

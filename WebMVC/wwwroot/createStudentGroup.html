@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -62,44 +62,6 @@
                 <a href="createStudentGroup.html">Створити групу(и)</a>
             </li>
         </ul>
-
-        <div class="content">
-            <h1>Факультет автоматизацїї та інформаційних технологій</h1>
-            <section id="section1">
-                <br>
-
-                Факультет: <select id="faculty">
-                    <option>
-                        Оберіть Факультет
-                    </option>
-                </select>
-                Група: <select id="group">
-                    <option>
-                        Оберіть групу
-                    </option>
-                </select> </br>
-
-
-                Рівень вищої освіти/освітньо-кваліфікаційний рівень: <select id="level_of_higher_education">
-                    <option>
-                        Оберіть рівень освіти
-                    </option>
-                </select> </br>
-
-                Спеціальність: <select id="specialty">
-                    <option>
-                        Оберіть спеціальність
-                    </option>
-                </select>
-                Спеціалізація: <select id="specialization">
-                    <option>
-                        Оберіть спеціалізацію
-                    </option>
-                </select>
-                <button> Показати </button>
-            </section>
-        </div>
-
     </nav>
     <div class="content">
         <h1>Факультет автоматизацїї та інформаційних технологій</h1>
@@ -107,27 +69,22 @@
         <section id="section1">
             Створити групу:</br>
 
-            Рік: <select id="select1">
+            Рік:
+            <select id="select1">
                 <option>
                     Оберіть рік
                 </option>
             </select> </br>
 
-            Група: <select id="select4">
-                <option>
-                    Оберіть групу
-                </option>
-            </select> </br>
-            
-            <button >Створити групу</button>
-
-
+            Назва групи: <input id="groupName" type="text" name="КН-31"></br>
+            <button id="createGroup">Створити групу</button>
         </section>
 
         <section id="section2">
             Показати існуючі групи:</br>
 
-            Група: <select id="select4">
+            Група: 
+            <select id="select4">
                 <option>
                     Введіть назви нової групи 
                 </option>
@@ -136,7 +93,6 @@
             <textarea name="" id="" >
             </textarea>
             <button >Створити групи</button></br>
-
         </section>
     </div>
 
@@ -151,7 +107,6 @@
 
         });
 
-
         $(function () {
             $("button#enable").attr("disabled", "disabled");
             $("input#enableAll").toggleClass("display").click(
@@ -160,8 +115,7 @@
                     else $("button#enable").toggleClass("display").removeAttr("disabled")
                 }
             )
-        }
-        )
+        })
 
         $(function () {
             $("select#select5").attr("disabled", "disabled");
@@ -171,8 +125,21 @@
                     else $("select#select5").removeAttr("disabled")
                 }
             )
-        }
-        )
+        })
+
+        document.getElementById('createGroup').onclick = function (e) {
+            e.preventDefault();
+            let groupName = document.getElementById('groupName').value;
+
+            fetch('api/GroupCreation/CreateGroup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(groupName),
+            })
+        };
+        createGroup
     </script>
 
 </body>

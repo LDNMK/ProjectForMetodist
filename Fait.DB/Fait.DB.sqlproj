@@ -6,7 +6,7 @@
     <Name>Fait.DB</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{a68c47f2-6ca7-45e8-8c3f-9b79ff61f3cf}</ProjectGuid>
+    <ProjectGuid>{78680110-f610-4636-aaff-efb8f3746e34}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
