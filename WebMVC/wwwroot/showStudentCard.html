@@ -88,7 +88,7 @@
                 Оберіть курс
             </option>
         </select>
-        Група: <select>
+        Група: <select id="group">
             <option>
                 Оберіть група
             </option>
@@ -217,7 +217,6 @@
                 this.innerHTML = '';
                 for (var i in groups) {
                     var option = document.createElement("option");
-                    option.setAttribute("value", i);
 
                     option.text = groups[i];
 
@@ -234,6 +233,14 @@
             selectElement.remove(i);
         }
     }
+
+    document.getElementById('student').onclick = function (e) {
+        e.preventDefault();
+        var groupName = document.getElementById('group').value;
+        fetch('api/StudentCard/GetListOfStudents/' + groupName, {
+            method: 'GET'
+        })
+    };
 </script>
 
 </body>
