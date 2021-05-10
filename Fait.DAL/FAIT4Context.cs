@@ -95,7 +95,7 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Actual).HasColumnName("actual");
 
-                entity.Property(e => e.GroupName).HasColumnName("group_name");
+                entity.Property(e => e.GroupNameId).HasColumnName("group_name_id");
 
                 entity.Property(e => e.GroupNumber).HasColumnName("group_number");
 
@@ -103,9 +103,9 @@ namespace Fait.DAL
 
                 entity.Property(e => e.PlanId).HasColumnName("plan_id");
 
-                entity.HasOne(d => d.GroupNameNavigation)
+                entity.HasOne(d => d.GroupName)
                     .WithMany(p => p.Groups)
-                    .HasForeignKey(d => d.GroupName)
+                    .HasForeignKey(d => d.GroupNameId)
                     .HasConstraintName("FK__groups__group_na__4316F928");
 
                 entity.HasOne(d => d.Plan)
@@ -121,9 +121,9 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.GroupName1)
+                entity.Property(e => e.NameOfGroup)
                     .HasMaxLength(40)
-                    .HasColumnName("group_name");
+                    .HasColumnName("name_of_group");
             });
 
             modelBuilder.Entity<MaritalStatus>(entity =>
@@ -170,15 +170,15 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Kode).HasColumnName("kode");
 
-                entity.Property(e => e.Speciality1)
+                entity.Property(e => e.SpecialityName)
                     .IsRequired()
                     .HasMaxLength(30)
-                    .HasColumnName("speciality");
+                    .HasColumnName("speciality_name");
 
-                entity.Property(e => e.Specialization)
+                entity.Property(e => e.SpecializationName)
                     .IsRequired()
                     .HasMaxLength(30)
-                    .HasColumnName("specialization");
+                    .HasColumnName("specialization_name");
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -227,7 +227,7 @@ namespace Fait.DAL
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.StudentStateName)
-                    .HasMaxLength(20)
+                    .HasMaxLength(30)
                     .HasColumnName("student_state_name");
             });
 
@@ -239,8 +239,8 @@ namespace Fait.DAL
                     .ValueGeneratedNever()
                     .HasColumnName("id");
 
-                entity.Property(e => e.Ammends)
-                    .HasColumnName("ammends")
+                entity.Property(e => e.AmmendsId)
+                    .HasColumnName("ammends_id")
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.BirthPlace)
@@ -271,8 +271,8 @@ namespace Fait.DAL
                     .HasMaxLength(30)
                     .HasColumnName("exemption");
 
-                entity.Property(e => e.ExpirienceCompetition)
-                    .HasColumnName("expirience_competition")
+                entity.Property(e => e.ExpirienceCompetitionId)
+                    .HasColumnName("expirience_competition_id")
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Immenseness)
@@ -280,22 +280,22 @@ namespace Fait.DAL
                     .HasMaxLength(30)
                     .HasColumnName("immenseness");
 
-                entity.Property(e => e.MaritalStatus)
-                    .HasColumnName("marital_status")
+                entity.Property(e => e.MaritalStatusId)
+                    .HasColumnName("marital_status_id")
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.OutOfCompetitionInfo)
                     .HasMaxLength(30)
                     .HasColumnName("out_of_competition_info");
 
-                entity.Property(e => e.Registration)
-                    .IsRequired()
-                    .HasMaxLength(30)
-                    .HasColumnName("registartion");
-
                 entity.Property(e => e.RegistrOrPassportNumber)
                     .HasMaxLength(50)
                     .HasColumnName("registr_or_passport_number");
+
+                entity.Property(e => e.Registration)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnName("registration");
 
                 entity.Property(e => e.TransferDirection)
                     .HasMaxLength(30)
@@ -305,14 +305,14 @@ namespace Fait.DAL
                     .HasMaxLength(30)
                     .HasColumnName("transfer_from");
 
-                entity.HasOne(d => d.AmmendsNavigation)
+                entity.HasOne(d => d.Ammends)
                     .WithMany(p => p.StudentsInfos)
-                    .HasForeignKey(d => d.Ammends)
+                    .HasForeignKey(d => d.AmmendsId)
                     .HasConstraintName("FK__students___ammen__38996AB5");
 
-                entity.HasOne(d => d.ExpirienceCompetitionNavigation)
+                entity.HasOne(d => d.ExpirienceCompetition)
                     .WithMany(p => p.StudentsInfos)
-                    .HasForeignKey(d => d.ExpirienceCompetition)
+                    .HasForeignKey(d => d.ExpirienceCompetitionId)
                     .HasConstraintName("FK__students___expir__36B12243");
 
                 entity.HasOne(d => d.IdNavigation)
@@ -321,9 +321,9 @@ namespace Fait.DAL
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__students___regis__3A81B327");
 
-                entity.HasOne(d => d.MaritalStatusNavigation)
+                entity.HasOne(d => d.MaritalStatus)
                     .WithMany(p => p.StudentsInfos)
-                    .HasForeignKey(d => d.MaritalStatus)
+                    .HasForeignKey(d => d.MaritalStatusId)
                     .HasConstraintName("FK__students___marit__34C8D9D1");
             });
 
@@ -359,7 +359,7 @@ namespace Fait.DAL
             modelBuilder.Entity<TransferOrder>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__transfer__46596229E35685CB");
+                    .HasName("PK__transfer__46596229341D69C8");
 
                 entity.ToTable("transfer_orders");
 
@@ -395,7 +395,7 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Actual).HasColumnName("actual");
 
-                entity.Property(e => e.Course).HasColumnName("courese");
+                entity.Property(e => e.Course).HasColumnName("course");
 
                 entity.Property(e => e.PlanName)
                     .IsRequired()

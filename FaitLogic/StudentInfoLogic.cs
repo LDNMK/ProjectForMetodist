@@ -23,15 +23,15 @@ namespace FaitLogic
                 Birthdate = studentCard.Birthday,
                 BirthPlace = studentCard.BirthPlace,
                 Immenseness = studentCard.Immenseness,
-                MaritalStatus = studentCard.MaritalStatusId,
+                MaritalStatusId = studentCard.MaritalStatusId,
                 Registration = studentCard.Registration,
                 Exemption = studentCard.Exemption,
-                ExpirienceCompetition = studentCard.ExpirienceCompetitionId,
+                ExpirienceCompetitionId = studentCard.ExpirienceCompetitionId,
                 TransferFrom = studentCard.TransferFrom,
                 TransferDirection = studentCard.TransferDirection,
                 CompetitionConditions = studentCard.CompetitionConditions,
                 OutOfCompetitionInfo = studentCard.OutOfCompetitionInfo,
-                Ammends = studentCard.AmmendsId,
+                AmmendsId = studentCard.AmmendsId,
                 EmploymentNumber = studentCard.EmploymentNumber,
                 EmploymentAuthority = studentCard.EmploymentAuthority,
                 EmploymentGivenDate = studentCard.EmploymentGivenDate,
@@ -64,7 +64,7 @@ namespace FaitLogic
 
         public ICollection<string> GetStudentInfo(int studentId)
         {
-            return accessStudentInfo.GetAllStudents(studentId);
+            return new List<string>();//accessStudentInfo.GetAllStudents(studentId);
         }
 
         private bool ValidateStudentCard(StudentCardDTO studentCard)
