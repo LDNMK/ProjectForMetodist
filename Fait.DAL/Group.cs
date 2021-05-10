@@ -15,11 +15,11 @@ namespace Fait.DAL
         public int Id { get; set; }
         public int? PlanId { get; set; }//учебнвй план
         public int GroupNumber { get; set; }//номер группы
-        public byte? GroupName { get; set; }//код группы
+        public byte? GroupNameId { get; set; }//код группы
         public bool Actual { get; set; }//актуальна ли группа
         public int GroupYear { get; set; }//год
 
-        public virtual GroupName GroupNameNavigation { get; set; }
+        public virtual GroupName GroupName { get; set; }
         public virtual YearPlan Plan { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
     }

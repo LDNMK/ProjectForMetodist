@@ -13,7 +13,7 @@ namespace Fait.DAL
         }
 
         public byte Id { get; set; }
-        public string GroupName1 { get; set; }
+        public string NameOfGroup { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }
     }

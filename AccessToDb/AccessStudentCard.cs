@@ -39,7 +39,7 @@ namespace AccessToDb
             int groupNameId;
             using (var dbContext = new FAIT4Context())
             {
-                groupNameId = dbContext.GroupNames.Where(x => x.GroupName1 == groupName).Select(x=>x.Id).SingleOrDefault();
+                groupNameId = dbContext.GroupNames.Where(x => x.NameOfGroup == groupName).Select(x=>x.Id).SingleOrDefault();
             }
 
             return groupNameId;
