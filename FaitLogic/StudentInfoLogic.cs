@@ -1,5 +1,7 @@
 ﻿using AccessToDb;
+using AutoMapper;
 using Fait.DAL;
+using Fait.DAL.NotMapped;
 using Fait.LogicObjects.DTO;
 using Fait.LogicObjects.Enums;
 using System;
@@ -9,6 +11,13 @@ namespace FaitLogic
 {
     public class StudentInfoLogic
     {
+        private readonly IMapper _mapper;
+
+        // Assign the object in the constructor for dependency injection
+        public StudentInfoLogic(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
         private AccessForLogic accessStudentInfo { get; set; } = new AccessForLogic();
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
@@ -54,12 +63,16 @@ namespace FaitLogic
             return accessStudentInfo.GetAllGroups();
         }
 
-        public ICollection<string> GetListOfStudents(string group)
+        public ICollection<StudentNameWithIdDTO> GetListOfStudents(string group)
         {
-            var array = group.Split('-');
-            var groupNumber = Convert.ToInt32(array[1]);
-            var groupNameId = accessStudentInfo.FindGroupNameId(array[1]);
-            return accessStudentInfo.GetAllStudents(groupNumber, groupNameId);
+            var partOfGroup = group.Split(new[] { '-', '_', ' ' });
+            var groupNumber = Convert.ToInt32(partOfGroup[1]);
+            var groupName = partOfGroup[0];
+            var groupNameId = accessStudentInfo.FindGroupNameId(groupName);
+
+            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(accessStudentInfo.GetAllStudents(groupNumber, groupNameId));
+
+            return listOfStudents;
         }
 
         public ICollection<string> GetStudentInfo(int studentId)

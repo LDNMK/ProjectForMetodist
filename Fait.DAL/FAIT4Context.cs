@@ -1,6 +1,6 @@
-﻿using System;
+﻿
+using Fait.DAL.NotMapped;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
@@ -16,7 +16,7 @@ namespace Fait.DAL
             : base(options)
         {
         }
-
+        public virtual DbSet<StudentNameWithId> StudentNameWithIds { get; set; }
         public virtual DbSet<ActualGroup> ActualGroups { get; set; }
         public virtual DbSet<Ammende> Ammendes { get; set; }
         public virtual DbSet<ExpirienceCompetitione> ExpirienceCompetitiones { get; set; }
@@ -42,6 +42,8 @@ namespace Fait.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<StudentNameWithId>().HasNoKey();
+
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 
             modelBuilder.Entity<ActualGroup>(entity =>

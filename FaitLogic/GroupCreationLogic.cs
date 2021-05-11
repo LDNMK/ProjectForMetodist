@@ -12,13 +12,13 @@ namespace FaitLogic
         public void AddGroup(string groupName)
         {
             var parts = groupName.Split(new[] { '-', '_', ' ' });
-            var groupNam = parts[0];
+            var newGroupName = parts[0];
             var groupNumber = Convert.ToInt32(parts[1]);
 
-            var groupNameId = accessGroup.FindGroupName(groupNam);
+            var groupNameId = accessGroup.FindGroupName(newGroupName);
             if(groupNameId == null)
             {
-                groupNameId = accessGroup.CreateNewGroupName(new GroupName { NameOfGroup = groupNam });
+                groupNameId = accessGroup.CreateNewGroupName(new GroupName { NameOfGroup = newGroupName });
             }
 
             var newGroup = new Group
@@ -30,6 +30,11 @@ namespace FaitLogic
             };
 
             accessGroup.AddGroupToDb(newGroup);
+        }
+
+        public ICollection<string> GetGroups()
+        {
+            return accessGroup.GetAllGroups();
         }
     }
 }

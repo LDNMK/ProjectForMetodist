@@ -11,12 +11,22 @@ namespace WebAPI.Controllers
     [ApiController]
     public class GroupCreationController : Controller
     {
-        public IActionResult CreateGroup(string groupName)
+        [HttpPost]
+        public IActionResult CreateGroup([FromBody]string groupName)
         {
             var bs = new GroupCreationLogic();
             bs.AddGroup(groupName);
 
             return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetGroups()
+        {
+            var bs = new GroupCreationLogic();
+            var groups = bs.GetGroups();
+
+            return Ok(groups);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Fait.DAL;
 using System.Linq;
-using System;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Fait.DAL.NotMapped;
 
 namespace AccessToDb
 {
@@ -25,25 +26,22 @@ namespace AccessToDb
             }
         }
 
-        public ICollection<string> AddGroupToDb(Group group)
+        public void AddGroupToDb(Group group)
         {
-            var groups = new List<string>();
             using (var dbContext = new FAIT4Context())
             {
                 dbContext.Groups.Add(group);
                 dbContext.SaveChanges();
             }
-
-            return groups;
         }
 
         public byte? FindGroupName(string groupName)
         {
-            var groupNameId = (byte)0;
+            var groupNameId = (byte?)0;
             using (var dbContext = new FAIT4Context())
             {
                 groupNameId = dbContext.GroupNames
-                    .SingleOrDefault(x => x.NameOfGroup.Contains(groupName)).Id;
+                    .SingleOrDefault(x => x.NameOfGroup.Contains(groupName))?.Id;
             }
 
             return groupNameId;
@@ -51,14 +49,14 @@ namespace AccessToDb
 
         public byte CreateNewGroupName(GroupName groupName)
         {
-            var groupNameId = (byte)0;
             using (var dbContext = new FAIT4Context())
             {
+                var lastGroupNameId = dbContext.GroupNames.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+                groupName.Id = ++lastGroupNameId;
                 dbContext.GroupNames.Add(groupName);
                 dbContext.SaveChanges();
-                groupNameId = dbContext.GroupNames.OrderByDescending(x => x.Id).FirstOrDefault().Id;
             }
-            return groupNameId;
+            return groupName.Id;
         }
 
         public ICollection<string> GetAllGroups()
@@ -76,26 +74,33 @@ namespace AccessToDb
             return groups;
         }
 
-        public int FindGroupNameId(string groupName)
+        public byte? FindGroupNameId(string groupName)
         {
-            int groupNameId;
+            byte? groupNameId;
             using (var dbContext = new FAIT4Context())
             {
-                groupNameId = dbContext.GroupNames.Where(x => x.NameOfGroup == groupName).Select(x=>x.Id).SingleOrDefault();
+                groupNameId = dbContext.GroupNames.Where(x => x.NameOfGroup == groupName).SingleOrDefault()?.Id;
             }
 
             return groupNameId;
         }
 
-        public ICollection<string> GetAllStudents(int groupNumber, int groupNameId)
+        public ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId)
         {
-            var groups = new List<string>();
+            var students = new List<StudentNameWithId>();
             using (var dbContext = new FAIT4Context())
             {
-                //groups = dbContext.Students.Where(x => x.ActualGroups.)
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@group_number", groupNumber),
+                    new SqlParameter("@group_name_id", groupNameId)
+                };
+
+                students = dbContext.StudentNameWithIds.FromSqlRaw("SELECT id, full_name " +
+                    "FROM dbo.return_students_from_group (@group_number, @group_name_id)", parameters).ToList();
             }
 
-            return groups;
+            return students;
         }
 
         public ICollection<string> GetStudentInfo(int studentId)

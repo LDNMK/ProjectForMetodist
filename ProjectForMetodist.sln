@@ -20,6 +20,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{FD5CE803-CA01-47FC-B3C8-B636CE8D31CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccessToDb", "AccessToDb\AccessToDb.csproj", "{974326A8-BC88-4D0A-A69B-6FDE7CE282B2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F0521542-9BED-4A02-BAD3-03AB531F4303} = {F0521542-9BED-4A02-BAD3-03AB531F4303}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fait.LogicObjects", "Fait.LogicObjects\Fait.LogicObjects.csproj", "{F0521542-9BED-4A02-BAD3-03AB531F4303}"
 EndProject
