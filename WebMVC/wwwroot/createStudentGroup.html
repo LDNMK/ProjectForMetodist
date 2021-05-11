@@ -84,12 +84,12 @@
             Показати існуючі групи:</br>
 
             Група: 
-            <select id="select4">
+            <select id="groups">
                 <option>
-                    Введіть назви нової групи 
+                    Виберіть існуючу групи 
                 </option>
             </select> </br>
-            <button >Додати групу</button></br>
+            <button id="addGroupInList">Додати групу</button></br>
             <textarea name="" id="" >
             </textarea>
             <button >Створити групи</button></br>
@@ -127,6 +127,13 @@
             )
         })
 
+        document.getElementById('addGroupInList').onclick = function (e) {
+            e.preventDefault();
+            let groupName = document.getElementById('groups').value;
+
+            //
+        };
+
         document.getElementById('createGroup').onclick = function (e) {
             e.preventDefault();
             let groupName = document.getElementById('groupName').value;
@@ -139,7 +146,40 @@
                 body: JSON.stringify(groupName),
             })
         };
-        createGroup
+
+        document.getElementById('groups').onclick = function (e) {
+            e.preventDefault();
+            var selected = this.selectedIndex;
+            fetch('api/GroupCreation/GetGroups', {
+                method: 'GET'
+            })
+            .then((resp) => resp.json())
+            .then(function (data) {
+                let groups = data;
+
+                var select = document.getElementById('groups');
+                removeOptions(select);
+                select.value = this.innerHTML;
+                this.innerHTML = '';
+                for (var i in groups) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", i);
+
+                    option.text = groups[i];
+
+                    select.appendChild(option);
+                }
+            }).then(function () {
+                document.getElementById("groups").selectedIndex = selected;
+            })
+        };
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i > 0; i--) {
+                selectElement.remove(i);
+            }
+        }
     </script>
 
 </body>

@@ -237,7 +237,8 @@
     document.getElementById('student').onclick = function (e) {
         e.preventDefault();
         var groupName = document.getElementById('group').value;
-        fetch('api/StudentCard/GetListOfStudents/' + groupName, {
+        var url = 'api/StudentCard/GetListOfStudents/' + groupName;
+        fetch(url, {
             method: 'GET'
         })
     };
