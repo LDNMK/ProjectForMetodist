@@ -1,4 +1,5 @@
 using AutoMapper;
+using FaitLogic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,7 @@ namespace WebMVC
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddSingleton<StudentInfoLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
