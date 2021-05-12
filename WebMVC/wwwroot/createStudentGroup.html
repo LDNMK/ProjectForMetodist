@@ -16,7 +16,7 @@
 
 <body>
     <nav class="sidebar">
-        <div class="text"> <img src="logo1.png" width="36px"> КНУБА</div>
+        <div class="text"><img src="logo1.png" width="36px"> КНУБА</div>
         <ul>
             <li>
                 <a href="index.html">Головна
@@ -70,36 +70,27 @@
         <section id="section1">
             Створити групу:</br>
 
-            Рік: <select id="select1">
-                <option>
-                    Оберіть рік
-                </option>
-            </select> </br>
+            Рік: <input type="text" id="select1" placeholder="Введіть рік"></br>
 
-            Група: <select id="select4">
-                <option>
-                    Оберіть групу
-                </option>
-            </select> </br>
-            
-            <button >Створити групу</button>
-
-
+            Назва групи: <input id="groupName" type="text" name="КН-31" placeholder="Введіть назву групи"></br>
+            <button id="createGroup">Створити групу</button>
         </section>
 
         <section id="section2">
             Показати існуючі групи:</br>
 
-            Група: <select id="select4">
+            Група:
+            <select id="groups">
                 <option>
-                    Введіть назви нової групи 
+                    Виберіть існуючу групи
                 </option>
-            </select> </br>
-            <button >Додати групу</button></br>
-            <textarea name="" id="" >
-            </textarea>
-            <button >Створити групи</button></br>
 
+            </select> </br>
+            <button id="addGroupInList">Додати групу</button>
+            </br>
+            <textarea name="" id="groupsTextarea"></textarea>
+            <button>Створити групи</button>
+            </br>
         </section>
     </div>
 
@@ -134,8 +125,66 @@
                     else $("select#select5").removeAttr("disabled")
                 }
             )
+        })
+
+        document.getElementById('addGroupInList').onclick = function (e) {
+            e.preventDefault();
+            let groupName = document.getElementById('groups');
+            let groupList = document.getElementById('groupsTextarea');
+
+            groupList.value += groupName.value + `\n`;
+
+
+            //ДЕНИСУ
+        };
+
+        document.getElementById('createGroup').onclick = function (e) {
+            e.preventDefault();
+            let groupName = document.getElementById('groupName').value;
+
+            fetch('api/GroupCreation/CreateGroup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(groupName),
+            })
+        };
+
+        document.getElementById('groups').onclick = function (e) {
+            e.preventDefault();
+            var selected = this.selectedIndex;
+            fetch('api/GroupCreation/GetGroups', {
+                method: 'GET'
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let groups = data;
+
+                    var select = document.getElementById('groups');
+                    removeOptions(select);
+                    select.value = this.innerHTML;
+                    this.innerHTML = '';
+                    for (var i in groups) {
+                        var option = document.createElement("option");
+                        option.setAttribute("value", i);
+
+                        option.text = groups[i];
+
+                        select.appendChild(option);
+                    }
+                }).then(function () {
+                    document.getElementById("groups").selectedIndex = selected;
+                })
+        };
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i > 0; i--) {
+                selectElement.remove(i);
+            }
         }
-        )
+        ;
     </script>
 
 </body>

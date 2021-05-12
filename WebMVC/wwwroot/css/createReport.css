@@ -39,6 +39,12 @@ font-size: 16px;
 
 .content #section1  #select2{
     margin-left: 106px;
+    width: 208px;
+    margin-top: 24px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid black;
+    padding: 8px;
 }
 
 .content #section1  #select3{

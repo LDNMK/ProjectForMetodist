@@ -17,7 +17,7 @@
     <div class="container">
         <div class="sidebar">
             <nav class="sidebar">
-                <div class="text"> <img src="logo1.png" width="36px"> КНУБА</div>
+                <div class="text"><img src="logo1.png" width="36px"> КНУБА</div>
                 <ul>
                     <li>
                         <a href="index.html">Головна
@@ -73,32 +73,38 @@
                     <option>
                         Оберіть Курс
                     </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
                 <button id="button1">Створити</button>
-                <button id="button1">Зберегти</button> </br>
+                <button id="button1">Зберегти</button>
+                </br>
 
-                Назва:<select id="select2">
-                    <option>
-                        Оберіть назву плану
-                    </option>
-                </select></br>
-
-                Група(и):<select id="select3">
-                    <option>
-                        Оберіть групу(и)
-                    </option>
-                </select>
-                <button id="button2" class="plus">+</button>
-                <button id="button3">-</button>
+                Назва:<input type="text" id="nameCurriculum" class="input-name" placeholder="Введіть назву групи"></br>
+                <div class="select-container">
+                    <span>Група(и):</span>
+                    <select id="select3">
+                        <option>
+                            Оберіть групу(и)
+                        </option>
+                    </select>
+                </div>
+                <div class="additional-selects"></div>
+                <div class="button-container">
+                    <button id="button2" class="plus">+</button>
+                    <button id="button3">-</button>
+                </div>
 
             </section>
             <h2>Навчальний план студента</h2>
             <section id="section2">
 
                 <table id="myTable" onclick="tableclick(event)" cellspacing="0" border="1">
-                    <tbody>
+                    <tbody id="tableBody">
                         <tr>
-                            <td rowspan="2">№ п/п</td>
+                            <td style="width: 31px" rowspan="2">№ п/п</td>
                             <td rowspan="2">Назва дисципліни</td>
                             <td rowspan="2">Кількість годин/кредитів ECTS</td>
                             <td colspan="2">Осінній семестр</td>
@@ -116,13 +122,14 @@
                 </table>
 
                 <button id="button4" href="javascript://" onclick="addRow('myTable');return false;"> Додати
-                    поле</button>
-                <button id="button4" href="javascript://" onclick="delRow('myTable');return false;"> Видалити
-                    поле</button>
+                    поле
+                </button>
+                <button id="button4" href="javascript://" onclick="delRow('tableBody');return false;"> Видалити
+                    поле
+                </button>
 
             </section>
         </div>
-
 
 
     </div>
@@ -142,45 +149,59 @@
         });
 
         /* Таблиця */
+        let tableCount = 1
+
         function addRow(id) {
-            var tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
-            var row = document.createElement("TR")
-            var td1 = document.createElement("TD")
-            td1.appendChild(document.createTextNode("1"))
-            var td2 = document.createElement("TD")
-            td2.appendChild(document.createTextNode("2"))
-            var td3 = document.createElement("TD")
-            td3.appendChild(document.createTextNode("3"))
-            var td4 = document.createElement("TD")
-            td4.appendChild(document.createTextNode("4"))
-            var td5 = document.createElement("TD")
-            td5.appendChild(document.createTextNode("5"))
-            var td6 = document.createElement("TD")
-            td6.appendChild(document.createTextNode("6"))
-            var td7 = document.createElement("TD")
-            td7.appendChild(document.createTextNode("7"))
-            var td8 = document.createElement("TD")
-            td8.appendChild(document.createTextNode("8"))
-            row.appendChild(td1);
-            row.appendChild(td2);
-            row.appendChild(td3);
-            row.appendChild(td4);
-            row.appendChild(td5);
-            row.appendChild(td6);
-            row.appendChild(td7);
-            row.appendChild(td8);
-            tbody.appendChild(row);
+            let tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
+            let row = document.createElement("TR")
+            let td1 = document.createElement("TD")
+            td1.textContent = `${tableCount++}`
+            let td2 = document.createElement("TD")
+            td2.insertAdjacentHTML('afterbegin', `<input style="width: 136px" class="tableInput" type="text">`)
+            let td3 = document.createElement("TD")
+            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" class="tableInput" type="text">`)
+            let td4 = document.createElement("TD")
+            td4.insertAdjacentHTML('afterbegin', `<input style="width: 179px" class="tableInput" type="text">`)
+            let td5 = document.createElement("TD")
+            td5.insertAdjacentHTML('afterbegin', `<input style="width: 120px" class="tableInput" type="text">`)
+            let td6 = document.createElement("TD")
+            td6.insertAdjacentHTML('afterbegin', `<input style="width: 180px" class="tableInput" type="text">`)
+            let td7 = document.createElement("TD")
+            td7.insertAdjacentHTML('afterbegin', `<input style="width: 121px" class="tableInput" type="text">`)
+            let td8 = document.createElement("TD")
+            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" class="tableInput" type="text">`)
+            row.append(td1, td2, td3, td4, td5, td6, td7, td8);
+            tbody.append(row);
+        }
+
+        function delRow(id) {
+            let tableBody = document.getElementById(id)
+            tableBody.lastChild.remove()
+            tableCount--
         }
 
         /* Список */
+        let addSelectButton = document.getElementById('button2')
+        let deleteSelectButton = document.getElementById('button3')
+        addSelectButton.addEventListener('click', addSelect)
+        deleteSelectButton.addEventListener('click', deleteSelect)
 
-        var addChild = function (newBranch) {
-            $("#button2").append("<option value='" + newBranch + "'>" + newBranch + "</option>");
+        function addSelect() {
+            let select = document.getElementById('select3')
+            let newSelect = document.createElement('select')
+            newSelect.id = select.id
+            let parent = document.querySelector('.additional-selects')
+            newSelect.style.marginLeft = '99px'
+            parent.append(newSelect)
+            console.log(select.value);
         }
 
-        $(function () {
-            $("tr:nth-child(odd)").css("background-color", "#F2F4F4");
-        });
+        function deleteSelect() {
+            let selectContainer = document.querySelector('.additional-selects')
+            selectContainer.lastChild.remove()
+        }
+
+
     </script>
 
 </body>

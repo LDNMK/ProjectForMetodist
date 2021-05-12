@@ -82,6 +82,10 @@
                     <option>
                         Оберіть курс
                     </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
                 Група: <select>
                     <option>
@@ -122,8 +126,8 @@
                 Громадянство <input id="citizenship" type="text" placeholder="Українець"></br>
                 Сімейний стан:
                 <select id="marital_status">
-                    <option value="1"> 
-                        Обрати статус 
+                    <option value="1">
+                        Обрати статус
                     </option>
                     <option value="2">
                         Одружений/Заміжня
@@ -249,6 +253,41 @@
                 body: JSON.stringify(data),
             })
         };
+
+        document.getElementById('group').onclick = function (e) {
+            e.preventDefault();
+            var selected = this.selectedIndex;
+            fetch('api/StudentCard/GetGroups', {
+                method: 'GET'
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let groups = data;
+
+                    var select = document.getElementById('group');
+                    removeOptions(select);
+                    select.value = this.innerHTML;
+                    this.innerHTML = '';
+                    for (var i in groups) {
+                        var option = document.createElement("option");
+                        option.setAttribute("value", i);
+
+                        option.text = groups[i];
+
+                        select.appendChild(option);
+                    }
+                }).then(function () {
+                    document.getElementById("group").selectedIndex = selected;
+                })
+        };
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i > 0; i--) {
+                selectElement.remove(i);
+            }
+        }
+
     </script>
 </body>
 

@@ -108,4 +108,31 @@ font-size: 16px;
 .content #section2 table{
     width: 100%;
 }
+#nameCurriculum,.input-name{
+    height: 32px;
+    border-radius: 4px;
+    margin-left: 49px;
+    width: 208px;
+    margin-bottom: 16px;
+    border: 1px solid black;
+    padding-left: 8px;
+}
 
+.additional-selects{
+    display: flex;
+    flex-wrap: wrap;
+    width: 350px;
+}
+.selectTest{
+    position: relative;
+}
+.button-container{
+    position: fixed;
+    left: 590px;
+    top: 174px;
+
+}
+.tableInput{
+    border: none;
+    outline: none;
+}
