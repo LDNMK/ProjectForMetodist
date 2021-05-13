@@ -55,7 +55,22 @@ namespace FaitLogic
                 StudentState = studentCard.StudStateId
             };
 
-            accessStudentInfo.AddStudentCardToDb(studentInfo, student);
+            var studentId = accessStudentInfo.AddStudentCardToDb(studentInfo, student);
+
+            var parts = studentCard.Group.Split(new[] { '-', '_', ' ' });
+            var groupName = parts[0];
+            var groupNumber = Convert.ToInt32(parts[1]);
+
+            var groupNameId = accessStudentInfo.FindGroupName(groupName);
+            var groupId = accessStudentInfo.GetGroupId(groupNumber, groupNameId);
+
+            var actualGroup = new ActualGroup
+            {
+                StudentId = studentId,
+                GroupId = groupId
+            };
+
+            accessStudentInfo.AddActualGroup(actualGroup);
         }
 
         public ICollection<string> GetListOfGroups()
@@ -68,7 +83,7 @@ namespace FaitLogic
             var partOfGroup = group.Split(new[] { '-', '_', ' ' });
             var groupNumber = Convert.ToInt32(partOfGroup[1]);
             var groupName = partOfGroup[0];
-            var groupNameId = accessStudentInfo.FindGroupNameId(groupName);
+            var groupNameId = accessStudentInfo.FindGroupName(groupName);
 
             var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(accessStudentInfo.GetAllStudents(groupNumber, groupNameId));
 

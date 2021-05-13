@@ -7,9 +7,9 @@ namespace WebAPI.Models
 {
     public class StudentCardModel
     {
-        //public string Faculty { get; set; }
-        //public string Group { get; set; }
-        //public string LevelOfStudying { get; set; }
+        public int Course { get; set; }
+        public string Group { get; set; }
+
         public string Surname { get; set; }
         public string Name { get; set; }
         public string Patronymic { get; set; }

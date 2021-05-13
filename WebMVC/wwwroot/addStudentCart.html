@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -81,7 +81,7 @@
                         ФАІТ
                     </option>
                 </select>
-                Курс: <select>
+                Курс: <select id="course">
                     <option>
                         Оберіть курс
                     </option>
@@ -228,6 +228,8 @@
         document.getElementById('btn').onclick = function (e) {
             e.preventDefault();
             let data = {
+                Course: document.getElementById('course').value,
+                Group: document.getElementById('group').value,
                 Surname: document.getElementById('surname').value,
                 Name: document.getElementById('name').value,
                 Patronymic: document.getElementById('middle_name').value,

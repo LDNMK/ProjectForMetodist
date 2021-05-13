@@ -32,6 +32,23 @@ namespace FaitLogic
             accessGroup.AddGroupToDb(newGroup);
         }
 
+        public void ActivateGroups(string groupsNames)
+        {
+            var groupsNamesArray = groupsNames.Split('\n');
+
+            foreach (var group in groupsNamesArray)
+            {
+                var partsOfName = group.Split(new[] { '-', '_', ' ' });
+
+                var existingGroupName = partsOfName[0];
+                var groupNumber = Convert.ToInt32(partsOfName[1]);
+
+                var groupNameId = accessGroup.FindGroupName(existingGroupName);
+
+                accessGroup.FindExistingGroupAndMakeActual(groupNumber, groupNameId);
+            }
+        }
+
         public ICollection<string> GetGroups()
         {
             return accessGroup.GetAllGroups();
