@@ -87,6 +87,16 @@ font-size: 16px;
     background-color: #003586;
     color: #F3F6F7;
 }
+.content #section1 #select1{
+    margin-left: 146px;
+    width: 208px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid black;
+    padding: 8px;
+}
 
 .content #section2 button{
     width: 201px;
@@ -105,9 +115,21 @@ font-size: 16px;
     margin-top: 16px;
 }
 
+
 .content #section2 textarea{
     width: 378px;
     height: 258px;
     margin-top: 60px;
     margin-left: 16px;
+    
+}
+
+#groupName{
+    height: 32px;
+    border-radius: 4px;
+    margin-left: 79px;
+    width: 208px;
+    margin-bottom: 16px;
+    border: 1px solid black;
+    padding-left: 8px;
 }

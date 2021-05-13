@@ -89,6 +89,11 @@ text-align: center;
 }
 .content section #select4{
     margin-left: 28px;
+    width: 208px;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid black;
+    padding: 8px;
 }
 .content section #select5{
     margin-left: 16px;

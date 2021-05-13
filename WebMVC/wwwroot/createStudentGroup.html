@@ -16,7 +16,7 @@
 
 <body>
     <nav class="sidebar">
-        <div class="text"> <img src="logo1.png" width="36px"> КНУБА</div>
+        <div class="text"><img src="logo1.png" width="36px"> КНУБА</div>
         <ul>
             <li>
                 <a href="index.html">Головна
@@ -69,30 +69,24 @@
         <section id="section1">
             Створити групу:</br>
 
-            Рік:
-            <select id="select1">
-                <option>
-                    Оберіть рік
-                </option>
-            </select> </br>
+            Рік: <input type="text" id="select1" placeholder="Введіть рік"></br>
 
-            Назва групи: <input id="groupName" type="text" name="КН-31"></br>
+            Назва групи: <input id="groupName" type="text" name="КН-31" placeholder="Введіть назву групи"></br>
+
             <button id="createGroup">Створити групу</button>
         </section>
 
         <section id="section2">
             Показати існуючі групи:</br>
-
-            Група: 
+            Група:
             <select id="groups">
                 <option>
-                    Виберіть існуючу групи 
+                    Виберіть існуючу групи
                 </option>
-            </select> </br>
+            </select></br>
             <button id="addGroupInList">Додати групу</button></br>
-            <textarea name="" id="" >
-            </textarea>
-            <button >Створити групи</button></br>
+            <textarea name="" id="groupsTextarea"></textarea>
+            <button>Створити групи</button></br>
         </section>
     </div>
 
@@ -129,9 +123,10 @@
 
         document.getElementById('addGroupInList').onclick = function (e) {
             e.preventDefault();
-            let groupName = document.getElementById('groups').value;
+            let groupName = document.getElementById('groups');
+            let groupList = document.getElementById('groupsTextarea');
 
-            //ДЕНИСУ
+            groupList.value += groupName.value + `\n`;
         };
 
         document.getElementById('createGroup').onclick = function (e) {
@@ -179,7 +174,7 @@
             for (i = L; i > 0; i--) {
                 selectElement.remove(i);
             }
-        }
+        };
     </script>
 
 </body>
