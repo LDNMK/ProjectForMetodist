@@ -56,5 +56,30 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Functions" />
+    <Folder Include="dbo\Stored Procedures" />
+    <Folder Include="dbo\Tables" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Functions\return_students_from_group.sql" />
+    <Build Include="dbo\Stored Procedures\add_ammendes.sql" />
+    <Build Include="dbo\Stored Procedures\add_expirience_competitiones.sql" />
+    <Build Include="dbo\Stored Procedures\add_mariatal_statuses.sql" />
+    <Build Include="dbo\Stored Procedures\add_student_states.sql" />
+    <Build Include="dbo\Tables\actual_groups.sql" />
+    <Build Include="dbo\Tables\ammendes.sql" />
+    <Build Include="dbo\Tables\expirience_competitiones.sql" />
+    <Build Include="dbo\Tables\group_names.sql" />
+    <Build Include="dbo\Tables\groups.sql" />
+    <Build Include="dbo\Tables\marital_statuses.sql" />
+    <Build Include="dbo\Tables\marks.sql" />
+    <Build Include="dbo\Tables\specialities.sql" />
+    <Build Include="dbo\Tables\student_states.sql" />
+    <Build Include="dbo\Tables\students.sql" />
+    <Build Include="dbo\Tables\students_info.sql" />
+    <Build Include="dbo\Tables\subjects.sql" />
+    <Build Include="dbo\Tables\transfer_orders.sql" />
+    <Build Include="dbo\Tables\year_plans.sql" />
   </ItemGroup>
 </Project>
