@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 
 #nullable disable
-
+//таблица оценок
 namespace Fait.DAL
 {
     public partial class Mark
     {
+
         public int Id { get; set; }
         public int? StudentId { get; set; }
         public int? SubjectId { get; set; }

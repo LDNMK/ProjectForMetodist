@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -77,6 +77,9 @@
                     <option>
                         Оберіть Факультет
                     </option>
+                    <option value="ФАІТ">
+                        ФАІТ
+                    </option>
                 </select>
                 Курс: <select>
                     <option>
@@ -87,7 +90,7 @@
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select>
-                Група: <select>
+                Група: <select id="group">
                     <option>
                         Оберіть групу
                     </option>
@@ -98,6 +101,9 @@
                 <select>
                     <option>
                         Оберіть рівень освіти
+                    </option>
+                    <option value="Бакалавр">
+                        Бакалавр
                     </option>
                 </select> </br>
 
@@ -260,25 +266,25 @@
             fetch('api/StudentCard/GetGroups', {
                 method: 'GET'
             })
-                .then((resp) => resp.json())
-                .then(function (data) {
-                    let groups = data;
+            .then((resp) => resp.json())
+            .then(function (data) {
+                let groups = data;
 
-                    var select = document.getElementById('group');
-                    removeOptions(select);
-                    select.value = this.innerHTML;
-                    this.innerHTML = '';
-                    for (var i in groups) {
-                        var option = document.createElement("option");
-                        option.setAttribute("value", i);
+                var select = document.getElementById('group');
+                removeOptions(select);
+                select.value = this.innerHTML;
+                this.innerHTML = '';
+                for (var i in groups) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", i);
 
-                        option.text = groups[i];
+                    option.text = groups[i];
 
-                        select.appendChild(option);
-                    }
-                }).then(function () {
-                    document.getElementById("group").selectedIndex = selected;
-                })
+                    select.appendChild(option);
+                }
+            }).then(function () {
+                document.getElementById("group").selectedIndex = selected;
+            })
         };
 
         function removeOptions(selectElement) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -62,7 +62,6 @@
                 <a href="createStudentGroup.html">Створити групу(и)</a>
             </li>
         </ul>
-
     </nav>
     <div class="content">
         <h1>Факультет автоматизацїї та інформаційних технологій</h1>
@@ -73,24 +72,21 @@
             Рік: <input type="text" id="select1" placeholder="Введіть рік"></br>
 
             Назва групи: <input id="groupName" type="text" name="КН-31" placeholder="Введіть назву групи"></br>
+
             <button id="createGroup">Створити групу</button>
         </section>
 
         <section id="section2">
             Показати існуючі групи:</br>
-
             Група:
             <select id="groups">
                 <option>
                     Виберіть існуючу групи
                 </option>
-
-            </select> </br>
-            <button id="addGroupInList">Додати групу</button>
-            </br>
+            </select></br>
+            <button id="addGroupInList">Додати групу</button></br>
             <textarea name="" id="groupsTextarea"></textarea>
-            <button>Створити групи</button>
-            </br>
+            <button>Створити групи</button></br>
         </section>
     </div>
 
@@ -105,7 +101,6 @@
 
         });
 
-
         $(function () {
             $("button#enable").attr("disabled", "disabled");
             $("input#enableAll").toggleClass("display").click(
@@ -114,8 +109,7 @@
                     else $("button#enable").toggleClass("display").removeAttr("disabled")
                 }
             )
-        }
-        )
+        })
 
         $(function () {
             $("select#select5").attr("disabled", "disabled");
@@ -133,9 +127,6 @@
             let groupList = document.getElementById('groupsTextarea');
 
             groupList.value += groupName.value + `\n`;
-
-
-            //ДЕНИСУ
         };
 
         document.getElementById('createGroup').onclick = function (e) {
@@ -157,25 +148,25 @@
             fetch('api/GroupCreation/GetGroups', {
                 method: 'GET'
             })
-                .then((resp) => resp.json())
-                .then(function (data) {
-                    let groups = data;
+            .then((resp) => resp.json())
+            .then(function (data) {
+                let groups = data;
 
-                    var select = document.getElementById('groups');
-                    removeOptions(select);
-                    select.value = this.innerHTML;
-                    this.innerHTML = '';
-                    for (var i in groups) {
-                        var option = document.createElement("option");
-                        option.setAttribute("value", i);
+                var select = document.getElementById('groups');
+                removeOptions(select);
+                select.value = this.innerHTML;
+                this.innerHTML = '';
+                for (var i in groups) {
+                    var option = document.createElement("option");
+                    option.setAttribute("value", i);
 
-                        option.text = groups[i];
+                    option.text = groups[i];
 
-                        select.appendChild(option);
-                    }
-                }).then(function () {
-                    document.getElementById("groups").selectedIndex = selected;
-                })
+                    select.appendChild(option);
+                }
+            }).then(function () {
+                document.getElementById("groups").selectedIndex = selected;
+            })
         };
 
         function removeOptions(selectElement) {
@@ -183,8 +174,7 @@
             for (i = L; i > 0; i--) {
                 selectElement.remove(i);
             }
-        }
-        ;
+        };
     </script>
 
 </body>
