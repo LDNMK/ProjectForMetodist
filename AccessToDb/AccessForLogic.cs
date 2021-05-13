@@ -9,8 +9,9 @@ namespace AccessToDb
 {
     public class AccessForLogic
     {
-        public void AddStudentCardToDb(StudentsInfo studentsInfo, Student student)
+        public int AddStudentCardToDb(StudentsInfo studentsInfo, Student student)
         {
+            var studentId = 0;
             using (var dbContext = new FAIT4Context())
             {
                 dbContext.Students.Add(student);
@@ -23,7 +24,10 @@ namespace AccessToDb
                 
                 dbContext.StudentsInfos.Add(studentsInfo);
                 dbContext.SaveChanges();
+                studentId = lastStudent.Id;
             }
+
+            return studentId;
         }
 
         public void AddGroupToDb(Group group)
@@ -45,6 +49,35 @@ namespace AccessToDb
             }
 
             return groupNameId;
+        }
+
+        public void FindExistingGroupAndMakeActual(int groupNumber, byte? groupNameId)
+        {
+            using (var dbContext = new FAIT4Context())
+            {
+                var group = dbContext.Groups.Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber).SingleOrDefault();
+                group.Actual = true;
+                dbContext.SaveChanges();
+            }
+        }
+
+        public int GetGroupId(int groupNumber, byte? groupNameId)
+        {
+            var group = 0;
+            using (var dbContext = new FAIT4Context())
+            {
+                group = dbContext.Groups.Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber).SingleOrDefault().Id;
+            }
+            return group;
+        }
+
+        public void AddActualGroup(ActualGroup actualGroup)
+        {
+            using (var dbContext = new FAIT4Context())
+            {
+                dbContext.ActualGroups.Add(actualGroup);
+                dbContext.SaveChanges();
+            }
         }
 
         public byte CreateNewGroupName(GroupName groupName)
@@ -72,17 +105,6 @@ namespace AccessToDb
             }
 
             return groups;
-        }
-
-        public byte? FindGroupNameId(string groupName)
-        {
-            byte? groupNameId;
-            using (var dbContext = new FAIT4Context())
-            {
-                groupNameId = dbContext.GroupNames.Where(x => x.NameOfGroup == groupName).SingleOrDefault()?.Id;
-            }
-
-            return groupNameId;
         }
 
         public ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId)

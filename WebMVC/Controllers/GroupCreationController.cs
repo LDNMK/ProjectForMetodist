@@ -11,11 +11,25 @@ namespace WebAPI.Controllers
     [ApiController]
     public class GroupCreationController : Controller
     {
+        private readonly GroupCreationLogic groupLogic;
+        // Assign the object in the constructor for dependency injection
+        public GroupCreationController(GroupCreationLogic groupLogic)
+        {
+            this.groupLogic = groupLogic;
+        }
+
         [HttpPost]
         public IActionResult CreateGroup([FromBody]string groupName)
         {
-            var bs = new GroupCreationLogic();
-            bs.AddGroup(groupName);
+            groupLogic.AddGroup(groupName);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult ActivateExistingGroups([FromBody] string groupsNames)
+        {
+            groupLogic.ActivateGroups(groupsNames);
 
             return Ok();
         }
@@ -23,8 +37,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetGroups()
         {
-            var bs = new GroupCreationLogic();
-            var groups = bs.GetGroups();
+            var groups = groupLogic.GetGroups();
 
             return Ok(groups);
         }

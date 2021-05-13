@@ -86,7 +86,7 @@
             </select></br>
             <button id="addGroupInList">Додати групу</button></br>
             <textarea name="" id="groupsTextarea"></textarea>
-            <button>Створити групи</button></br>
+            <button id="activateExistingGroups">Створити групи</button></br>
         </section>
     </div>
 
@@ -139,6 +139,19 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(groupName),
+            })
+        };
+
+        document.getElementById('activateExistingGroups').onclick = function (e) {
+            e.preventDefault();
+            let groupsNames = document.getElementById('groupsTextarea').value;
+
+            fetch('api/GroupCreation/ActivateExistingGroups', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(groupsNames),
             })
         };
 
