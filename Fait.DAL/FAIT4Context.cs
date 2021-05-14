@@ -42,7 +42,14 @@ namespace Fait.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StudentNameWithId>().HasNoKey();
+            modelBuilder.Entity<StudentNameWithId>(entity =>
+            {
+                entity.Property(e => e.StudentId).HasColumnName("id");
+
+                entity.Property(e => e.StudentName).HasColumnName("full_name");
+
+                entity.HasNoKey();
+            });
 
             modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 

@@ -2,6 +2,7 @@
 using Fait.LogicObjects.DTO;
 using FaitLogic;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -48,7 +49,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult ShowStudentInfo(int studentId)
         {
-            var result = studentInfoLogic.GetStudentInfo(studentId);
+            var result = _mapper.Map<StudentCardModel>(studentInfoLogic.GetStudentInfo(studentId));
 
             return Ok(result);
         }

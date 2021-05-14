@@ -218,6 +218,7 @@
                     for (var i in groups) {
                         var option = document.createElement("option");
 
+                        option.setAttribute("value", groups[i]);
                         option.text = groups[i];
 
                         select.appendChild(option);
@@ -227,21 +228,54 @@
                 })
         };
 
+        document.getElementById('show').onclick = function (e) {
+            e.preventDefault();
+
+            var studentId = document.getElementById('student').value;
+
+            var url = 'api/StudentCard/ShowStudentInfo?studentId=' + studentId;
+            fetch(url, {
+                method: 'GET'
+            })
+        };
+
+        document.getElementById('student').onclick = function (e) {
+            e.preventDefault();
+
+            var selected = this.selectedIndex;
+            var groupName = document.getElementById('group').value;
+
+            var url = 'api/StudentCard/GetListOfStudents?group=' + groupName;
+            fetch(url, {
+                method: 'GET'
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let students = data;
+
+                    var select = document.getElementById('student');
+                    removeOptions(select);
+                    select.value = this.innerHTML;
+                    this.innerHTML = '';
+                    for (var i in students) {
+                        var option = document.createElement("option");
+
+                        option.setAttribute("value", students[i].studentId);
+                        option.text = students[i].studentName;
+
+                        select.appendChild(option);
+                    }
+                }).then(function () {
+                    document.getElementById("student").selectedIndex = selected;
+                })
+        };
+
         function removeOptions(selectElement) {
             var i, L = selectElement.options.length - 1;
             for (i = L; i > 0; i--) {
                 selectElement.remove(i);
             }
         }
-
-        document.getElementById('student').onclick = function (e) {
-            e.preventDefault();
-            var groupName = document.getElementById('group').value;
-            var url = 'api/StudentCard/GetListOfStudents?group=' + groupName;
-            fetch(url, {
-                method: 'GET'
-            })
-        };
     </script>
 </body>
 

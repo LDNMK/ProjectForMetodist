@@ -125,15 +125,26 @@ namespace AccessToDb
             return students;
         }
 
-        public ICollection<string> GetStudentInfo(int studentId)
+        public StudentsInfo GetStudentExtendedInfo(int studentId)
         {
-            var groups = new List<string>();
+            var studentInfo = new StudentsInfo();
             using (var dbContext = new FAIT4Context())
             {
-                //groups = dbContext.Students.Where(x => x.ActualGroups.)
+                studentInfo = dbContext.StudentsInfos.Where(x => x.Id == studentId).SingleOrDefault();
             }
 
-            return groups;
+            return studentInfo;
+        }
+
+        public Student GetStudentMainInfo(int studentId)
+        {
+            var student = new Student();
+            using (var dbContext = new FAIT4Context())
+            {
+                student = dbContext.Students.Where(x => x.Id == studentId).SingleOrDefault();
+            }
+
+            return student;
         }
     }
 }
