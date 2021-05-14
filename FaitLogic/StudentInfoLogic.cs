@@ -18,7 +18,9 @@ namespace FaitLogic
         {
             _mapper = mapper;
         }
+
         private AccessForLogic accessStudentInfo { get; set; } = new AccessForLogic();
+
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
             var isValid = ValidateStudentCard(studentCard);
@@ -90,9 +92,18 @@ namespace FaitLogic
             return listOfStudents;
         }
 
-        public ICollection<string> GetStudentInfo(int studentId)
+        public StudentCardDTO GetStudentInfo(int studentId)
         {
-            return new List<string>();//accessStudentInfo.GetAllStudents(studentId);
+            var studentInfo = _mapper.Map<StudentsInfo, StudentCardDTO>(accessStudentInfo.GetStudentExtendedInfo(studentId));
+
+            var student = accessStudentInfo.GetStudentMainInfo(studentId);
+
+            studentInfo.Surname = student.LastName;
+            studentInfo.Name = student.FirstName;
+            studentInfo.Patronymic = student.Patronymic;
+            studentInfo.StudStateId = student.StudentState;
+
+            return studentInfo;
         }
 
         private bool ValidateStudentCard(StudentCardDTO studentCard)
