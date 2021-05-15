@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fait.LogicObjects.DTO
+namespace FaitLogic.DTO
 {
     public class StudentCardDTO
     {

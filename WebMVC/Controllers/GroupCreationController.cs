@@ -1,9 +1,5 @@
-﻿using FaitLogic;
+﻿using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -11,9 +7,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class GroupCreationController : Controller
     {
-        private readonly GroupCreationLogic groupLogic;
+        private readonly GroupLogic groupLogic;
         // Assign the object in the constructor for dependency injection
-        public GroupCreationController(GroupCreationLogic groupLogic)
+        public GroupCreationController(GroupLogic groupLogic)
         {
             this.groupLogic = groupLogic;
         }
@@ -44,7 +40,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetGroups()
         {
-            var groups = groupLogic.GetGroups();
+            var groups = groupLogic.GetGroupsList();
 
             return Ok(groups);
         }

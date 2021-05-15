@@ -9,9 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AccessToDb\AccessToDb.csproj" />
     <ProjectReference Include="..\Fait.DAL\Fait.DAL.csproj" />
-    <ProjectReference Include="..\Fait.LogicObjects\Fait.LogicObjects.csproj" />
   </ItemGroup>
 
 </Project>

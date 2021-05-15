@@ -265,7 +265,7 @@
         document.getElementById('group').onclick = function (e) {
             e.preventDefault();
             var selected = this.selectedIndex;
-            fetch('api/StudentCard/GetGroups', {
+            fetch('api/GroupCreation/GetGroups', {
                 method: 'GET'
             })
             .then((resp) => resp.json())
