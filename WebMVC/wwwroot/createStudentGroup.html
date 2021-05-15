@@ -140,6 +140,12 @@
                 },
                 body: JSON.stringify(groupName),
             })
+            .then((resp) => resp.json())
+            .then(function (data) {
+                let resp = data;
+
+                alert(resp.response);
+            })
         };
 
         document.getElementById('activateExistingGroups').onclick = function (e) {

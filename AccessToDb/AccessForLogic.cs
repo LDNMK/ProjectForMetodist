@@ -51,11 +51,21 @@ namespace AccessToDb
             return groupNameId;
         }
 
-        public void FindExistingGroupAndMakeActual(int groupNumber, byte? groupNameId)
+        public Group FindExistingGroup(int groupNumber, byte? groupNameId)
+        {
+            var group = new Group();
+            using (var dbContext = new FAIT4Context())
+            {
+                group = dbContext.Groups.Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber).SingleOrDefault();
+            }
+
+            return group;
+        }
+
+        public void MakeGroupActive(Group group)
         {
             using (var dbContext = new FAIT4Context())
             {
-                var group = dbContext.Groups.Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber).SingleOrDefault();
                 group.Actual = true;
                 dbContext.SaveChanges();
             }
@@ -82,14 +92,15 @@ namespace AccessToDb
 
         public byte CreateNewGroupName(GroupName groupName)
         {
+            byte lastGroupNameId;
             using (var dbContext = new FAIT4Context())
             {
-                var lastGroupNameId = dbContext.GroupNames.OrderByDescending(x => x.Id).FirstOrDefault().Id;
-                groupName.Id = ++lastGroupNameId;
                 dbContext.GroupNames.Add(groupName);
                 dbContext.SaveChanges();
+
+                lastGroupNameId = dbContext.GroupNames.OrderByDescending(x => x.Id).FirstOrDefault().Id;
             }
-            return groupName.Id;
+            return lastGroupNameId;
         }
 
         public ICollection<string> GetAllGroups()

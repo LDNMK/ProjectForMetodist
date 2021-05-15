@@ -9,7 +9,8 @@ namespace FaitLogic
     public class GroupCreationLogic
     {
         private AccessForLogic accessGroup { get; set; } = new AccessForLogic();
-        public void AddGroup(string groupName)
+
+        public bool AddGroup(string groupName)
         {
             var parts = groupName.Split(new[] { '-', '_', ' ' });
             var newGroupName = parts[0];
@@ -21,6 +22,13 @@ namespace FaitLogic
                 groupNameId = accessGroup.CreateNewGroupName(new GroupName { NameOfGroup = newGroupName });
             }
 
+            var findedGroup = accessGroup.FindExistingGroup(groupNumber, groupNameId);
+
+            if(findedGroup != null)
+            {
+                return false;
+            }
+
             var newGroup = new Group
             {
                 GroupNumber = groupNumber,
@@ -30,6 +38,8 @@ namespace FaitLogic
             };
 
             accessGroup.AddGroupToDb(newGroup);
+
+            return true;
         }
 
         public void ActivateGroups(string groupsNames)
@@ -49,7 +59,8 @@ namespace FaitLogic
 
                 var groupNameId = accessGroup.FindGroupName(existingGroupName);
 
-                accessGroup.FindExistingGroupAndMakeActual(groupNumber, groupNameId);
+                var findedGroup = accessGroup.FindExistingGroup(groupNumber, groupNameId);
+                accessGroup.MakeGroupActive(findedGroup);
             }
         }
 
