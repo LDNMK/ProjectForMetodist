@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Fait.LogicObjects.DTO;
-using FaitLogic;
+using FaitLogic.DTO;
+using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -13,9 +12,9 @@ namespace WebAPI.Controllers
     {
         private readonly IMapper _mapper;
 
-        private readonly StudentInfoLogic studentInfoLogic;
+        private readonly StudentCardLogic studentInfoLogic;
         // Assign the object in the constructor for dependency injection
-        public StudentCardController(IMapper mapper, StudentInfoLogic studentInfoLogic)
+        public StudentCardController(IMapper mapper, StudentCardLogic studentInfoLogic)
         {
             _mapper = mapper;
             this.studentInfoLogic = studentInfoLogic;
@@ -27,15 +26,6 @@ namespace WebAPI.Controllers
             studentInfoLogic.AddStudentCardInfo(_mapper.Map<StudentCardDTO>(model));
 
             return Ok();
-        }
-
-
-        [HttpGet]
-        public IActionResult GetGroups()
-        {
-            var result = studentInfoLogic.GetListOfGroups();
-
-            return Ok(result);
         }
 
         [HttpGet]

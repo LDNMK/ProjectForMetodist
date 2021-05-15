@@ -1,14 +1,18 @@
-﻿using AccessToDb;
-using Fait.DAL;
+﻿using Fait.DAL;
+using FaitLogic.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace FaitLogic
+namespace FaitLogic.Logic
 {
-    public class GroupCreationLogic
+    public class GroupLogic
     {
-        private AccessForLogic accessGroup { get; set; } = new AccessForLogic();
+        private readonly GroupRepository groupRepo;
+
+        public GroupLogic(GroupRepository groupRepository)
+        {
+            groupRepo = groupRepository;
+        }
 
         public bool AddGroup(string groupName)
         {
@@ -16,13 +20,13 @@ namespace FaitLogic
             var newGroupName = parts[0];
             var groupNumber = Convert.ToInt32(parts[1]);
 
-            var groupNameId = accessGroup.FindGroupName(newGroupName);
+            var groupNameId = groupRepo.FindGroupName(newGroupName);
             if(groupNameId == null)
             {
-                groupNameId = accessGroup.CreateNewGroupName(new GroupName { NameOfGroup = newGroupName });
+                groupNameId = groupRepo.CreateNewGroupName(new GroupName { NameOfGroup = newGroupName });
             }
 
-            var findedGroup = accessGroup.FindExistingGroup(groupNumber, groupNameId);
+            var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
 
             if(findedGroup != null)
             {
@@ -37,7 +41,7 @@ namespace FaitLogic
                 GroupYear = 2021
             };
 
-            accessGroup.AddGroupToDb(newGroup);
+            groupRepo.AddGroupToDb(newGroup);
 
             return true;
         }
@@ -57,16 +61,16 @@ namespace FaitLogic
                 var existingGroupName = partsOfName[0];
                 var groupNumber = Convert.ToInt32(partsOfName[1]);
 
-                var groupNameId = accessGroup.FindGroupName(existingGroupName);
+                var groupNameId = groupRepo.FindGroupName(existingGroupName);
 
-                var findedGroup = accessGroup.FindExistingGroup(groupNumber, groupNameId);
-                accessGroup.MakeGroupActive(findedGroup);
+                var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
+                groupRepo.MakeGroupActive(findedGroup);
             }
         }
 
-        public ICollection<string> GetGroups()
+        public ICollection<string> GetGroupsList()
         {
-            return accessGroup.GetAllGroups();
+            return groupRepo.GetAllGroups();
         }
     }
 }

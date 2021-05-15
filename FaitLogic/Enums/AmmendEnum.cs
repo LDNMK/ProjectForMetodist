@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fait.LogicObjects.Enums
+namespace FaitLogic.Enums
 {
     public enum AmmendEnum
     {

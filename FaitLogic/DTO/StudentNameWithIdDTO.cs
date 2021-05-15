@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fait.LogicObjects.DTO
+namespace FaitLogic.DTO
 {
     public class StudentNameWithIdDTO
     {

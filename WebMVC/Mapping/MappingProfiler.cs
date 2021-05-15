@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Fait.DAL;
 using Fait.DAL.NotMapped;
-using Fait.LogicObjects.DTO;
+using FaitLogic.DTO;
 using WebAPI.Models;
 
 public class MappingProfile : Profile

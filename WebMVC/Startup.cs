@@ -1,7 +1,10 @@
 using AutoMapper;
-using FaitLogic;
+using Fait.DAL;
+using FaitLogic.Logic;
+using FaitLogic.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,8 +37,11 @@ namespace WebMVC
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
-            services.AddSingleton<StudentInfoLogic>();
-            services.AddSingleton<GroupCreationLogic>();
+            services.AddDbContext<FAIT4Context>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddScoped<StudentCardLogic>();
+            services.AddScoped<GroupLogic>();
+            services.AddScoped<StudentCardRepository>();
+            services.AddScoped<GroupRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

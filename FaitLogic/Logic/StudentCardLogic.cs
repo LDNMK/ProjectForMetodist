@@ -1,25 +1,26 @@
-﻿using AccessToDb;
-using AutoMapper;
+﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.NotMapped;
-using Fait.LogicObjects.DTO;
-using Fait.LogicObjects.Enums;
+using FaitLogic.DTO;
+using FaitLogic.Repository;
 using System;
 using System.Collections.Generic;
 
-namespace FaitLogic
+namespace FaitLogic.Logic
 {
-    public class StudentInfoLogic
+    public class StudentCardLogic
     {
         private readonly IMapper _mapper;
 
-        // Assign the object in the constructor for dependency injection
-        public StudentInfoLogic(IMapper mapper)
+        private readonly StudentCardRepository studentCardRepo;
+
+        private readonly GroupRepository groupRepo;
+
+        public StudentCardLogic(IMapper mapper, StudentCardRepository studentCardRepository, GroupRepository groupRepository)
         {
             _mapper = mapper;
+            studentCardRepo = studentCardRepository;
+            groupRepo = groupRepository;
         }
-
-        private AccessForLogic accessStudentInfo { get; set; } = new AccessForLogic();
 
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
@@ -57,14 +58,14 @@ namespace FaitLogic
                 StudentState = studentCard.StudStateId
             };
 
-            var studentId = accessStudentInfo.AddStudentCardToDb(studentInfo, student);
+            var studentId = studentCardRepo.AddStudentCardToDb(studentInfo, student);
 
             var parts = studentCard.Group.Split(new[] { '-', '_', ' ' });
             var groupName = parts[0];
             var groupNumber = Convert.ToInt32(parts[1]);
 
-            var groupNameId = accessStudentInfo.FindGroupName(groupName);
-            var groupId = accessStudentInfo.GetGroupId(groupNumber, groupNameId);
+            var groupNameId = groupRepo.FindGroupName(groupName);
+            var groupId = groupRepo.GetGroupId(groupNumber, groupNameId);
 
             var actualGroup = new ActualGroup
             {
@@ -72,12 +73,7 @@ namespace FaitLogic
                 GroupId = groupId
             };
 
-            accessStudentInfo.AddActualGroup(actualGroup);
-        }
-
-        public ICollection<string> GetListOfGroups()
-        {
-            return accessStudentInfo.GetAllGroups();
+            groupRepo.AddActualGroup(actualGroup);
         }
 
         public ICollection<StudentNameWithIdDTO> GetListOfStudents(string group)
@@ -85,22 +81,22 @@ namespace FaitLogic
             var partOfGroup = group.Split(new[] { '-', '_', ' ' });
             var groupNumber = Convert.ToInt32(partOfGroup[1]);
             var groupName = partOfGroup[0];
-            var groupNameId = accessStudentInfo.FindGroupName(groupName);
+            var groupNameId = groupRepo.FindGroupName(groupName);
 
-            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(accessStudentInfo.GetAllStudents(groupNumber, groupNameId));
+            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(studentCardRepo.GetAllStudents(groupNumber, groupNameId));
 
             return listOfStudents;
         }
 
         public StudentCardDTO GetStudentInfo(int studentId)
         {
-            var studentInfo = accessStudentInfo.GetStudentExtendedInfo(studentId);
+            var studentInfo = studentCardRepo.GetStudentExtendedInfo(studentId);
             var studentFullInfo = _mapper.Map<StudentsInfo, StudentCardDTO>(studentInfo);
 
             studentFullInfo.Birthday = studentInfo.Birthdate.ToString("yyyy-MM-dd");
             studentFullInfo.EmploymentGivenDate = studentInfo.EmploymentGivenDate.Value.ToString("yyyy-MM-dd");
 
-            var student = accessStudentInfo.GetStudentMainInfo(studentId);
+            var student = studentCardRepo.GetStudentMainInfo(studentId);
 
             studentFullInfo.Surname = student.LastName;
             studentFullInfo.Name = student.FirstName;
