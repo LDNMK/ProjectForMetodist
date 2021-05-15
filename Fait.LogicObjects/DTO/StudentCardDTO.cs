@@ -11,7 +11,7 @@ namespace Fait.LogicObjects.DTO
         public string Surname { get; set; }
         public string Name { get; set; }
         public string Patronymic { get; set; }
-        public DateTime Birthday { get; set; }
+        public string Birthday { get; set; }
         public string BirthPlace { get; set; }//Місце народження
         public string Immenseness { get; set; } //Громадянство 
         public byte? MaritalStatusId { get; set; }//Сімейний стан
@@ -24,10 +24,10 @@ namespace Fait.LogicObjects.DTO
         public string OutOfCompetitionInfo { get; set; }
         public byte? AmmendsId { get; set; }
         public int OrderNumber { get; set; } //Номер наказу 
-        public DateTime OrderDate { get; set; } //Дата наказу
+        public string OrderDate { get; set; } //Дата наказу
         public int EmploymentNumber { get; set; }// код рабочей кнжики
         public string EmploymentAuthority { get; set; }// кто выдал рабочую книжку
-        public DateTime EmploymentGivenDate { get; set; } //дата ее выдачи
+        public string EmploymentGivenDate { get; set; } //дата ее выдачи
         public string RegistrOrPassportNumber { get; set; }// код регистарции или серия и номер паспорта
         public byte StudStateId { get; set; }// состояние студента
     }

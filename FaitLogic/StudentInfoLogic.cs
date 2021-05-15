@@ -31,7 +31,7 @@ namespace FaitLogic
 
             var studentInfo = new StudentsInfo
             {
-                Birthdate = studentCard.Birthday,
+                Birthdate = Convert.ToDateTime(studentCard.Birthday),
                 BirthPlace = studentCard.BirthPlace,
                 Immenseness = studentCard.Immenseness,
                 MaritalStatusId = studentCard.MaritalStatusId,
@@ -45,7 +45,7 @@ namespace FaitLogic
                 AmmendsId = studentCard.AmmendsId,
                 EmploymentNumber = studentCard.EmploymentNumber,
                 EmploymentAuthority = studentCard.EmploymentAuthority,
-                EmploymentGivenDate = studentCard.EmploymentGivenDate,
+                EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate),
                 RegistrOrPassportNumber = studentCard.RegistrOrPassportNumber
             };
             var student = new Student
@@ -94,16 +94,20 @@ namespace FaitLogic
 
         public StudentCardDTO GetStudentInfo(int studentId)
         {
-            var studentInfo = _mapper.Map<StudentsInfo, StudentCardDTO>(accessStudentInfo.GetStudentExtendedInfo(studentId));
+            var studentInfo = accessStudentInfo.GetStudentExtendedInfo(studentId);
+            var studentFullInfo = _mapper.Map<StudentsInfo, StudentCardDTO>(studentInfo);
+
+            studentFullInfo.Birthday = studentInfo.Birthdate.ToString("yyyy-MM-dd");
+            studentFullInfo.EmploymentGivenDate = studentInfo.EmploymentGivenDate.Value.ToString("yyyy-MM-dd");
 
             var student = accessStudentInfo.GetStudentMainInfo(studentId);
 
-            studentInfo.Surname = student.LastName;
-            studentInfo.Name = student.FirstName;
-            studentInfo.Patronymic = student.Patronymic;
-            studentInfo.StudStateId = student.StudentState;
+            studentFullInfo.Surname = student.LastName;
+            studentFullInfo.Name = student.FirstName;
+            studentFullInfo.Patronymic = student.Patronymic;
+            studentFullInfo.StudStateId = student.StudentState;
 
-            return studentInfo;
+            return studentFullInfo;
         }
 
         private bool ValidateStudentCard(StudentCardDTO studentCard)

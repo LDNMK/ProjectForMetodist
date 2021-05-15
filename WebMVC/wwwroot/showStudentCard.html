@@ -109,32 +109,56 @@
             Прізвище: <input id="surname" type="text" width="80px"> <button id="change"> Змінити
             </button></br>
             Ім'я: <input id="name" type="text"> </br>
-            По-батькові: <input id="birthday" id="middle_name" type="text"> </br>
+            По-батькові: <input id="middle_name" type="text"> </br>
             Середній бал: <input id="gpa" type="text"> <button> Розрахувати </button> </br>
             Дата народження: <input id="birthday" type="date"> </br>
             Місце народження: <input id="birthplace" type="text"> </br>
             Громадянство <input id="citizenship" type="text"></br>
             Сімейний стан:
             <select id="marital_status">
-                <option> Обрати статус </option>
+                <option value="1">
+                    Обрати статус
+                </option>
+                <option value="2">
+                    Одружений/Заміжня
+                </option>
+                <option value="3">
+                    Не одружений/Не заміжня
+                </option>
             </select></br>
-            Місце проживання/місце реєстрації: <input id="place_of_residence" type="text"> </br>
+            Місце проживання/місце реєстрації: <input id="registration_place" type="text"> </br>
             Наявність пільг при вступі:
-            <select id="privilege">
+            <select id="exemption">
                 <option> Оберіть пільги </option>
             </select></br>
             Зарахований(а) наказом від: <input id="date_reckoned" type="date" width="80px">
             №<input id="number_reckoned" type="text" placeholder="1868"></br>
             Трудова книжка: <input id="employment_history_number" type="text">
-            <input id="employment_history_when issued" type="date">
-            <input id="employment_history_
-        by_whom_issued" type="text" placeholder=></br>
+            <input id="employment_given_date" type="date">
+            <input id="employment_history_by_whom_issued" type="text"></br>
             Реєстраційний номер облікової картки
             платника податків
-            або серія та номер паспорту:<input type="text"></br>
+            або серія та номер паспорту:<input id="registration_or_passport_number" type="text"></br>
             Статус студента:
             <select id="student_status">
-                <option>Оберіть статус</option>
+                <option value="1">
+                    Оберіть статус
+                </option>
+                <option value="2">
+                    Переведен з групой
+                </option>
+                <option value="3">
+                    В академічній відпустці
+                </option>
+                <option value="4">
+                    Не закрив сесію
+                </option>
+                <option value="5">
+                    Виключен з навчання
+                </option>
+                <option value="6">
+                    Закінчив степінь
+                </option>
             </select></br>
 
             Переведення з курсу на курс,
@@ -166,12 +190,6 @@
                     <td></td>
                 </tr>
             </table></br>
-            Статус студента:
-            <select>
-                <option>
-                    Оберіть статус студента
-                </option>
-            </select>
 
             <button id="save"> Зберегти </button>
         </section>
@@ -237,6 +255,34 @@
             fetch(url, {
                 method: 'GET'
             })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let studentInfo = data;
+
+                    document.getElementById('surname').value = studentInfo.surname;
+                    document.getElementById('name').value = studentInfo.name;
+                    document.getElementById('middle_name').value = studentInfo.patronymic;
+                    document.getElementById('birthday').value = studentInfo.birthday;
+                    document.getElementById('birthplace').value = studentInfo.birthPlace;
+                    document.getElementById('citizenship').value = studentInfo.immenseness;
+                    document.getElementById('marital_status').value = studentInfo.maritalStatusId;
+                    document.getElementById('registration_place').value = studentInfo.registration;
+                    document.getElementById('exemption').value = studentInfo.exemption;
+                    document.getElementById('date_reckoned').value = studentInfo.orderDate;
+                    //document.getElementById('competition').value = studentInfo.expirienceCompetitionId;
+                    //document.getElementById('transfer_order').value = studentInfo.transferFrom;
+                    //document.getElementById('by_direction').value = studentInfo.transferDirection;
+                    //document.getElementById('special_conditions_of_competition').value = studentInfo.competitionConditions;
+                    //document.getElementById('out_of_competition').value = studentInfo.outOfCompetitionInfo;
+                    //document.getElementById('full_refund').value = studentInfo.ammendsId;
+                    document.getElementById('number_reckoned').value = studentInfo.orderNumber;
+                    document.getElementById('employment_history_number').value = studentInfo.employmentNumber;
+                    document.getElementById('employment_given_date').value = studentInfo.employmentGivenDate;
+                    document.getElementById('employment_history_by_whom_issued').value = studentInfo.employmentAuthority;
+                    document.getElementById('registration_or_passport_number').value = studentInfo.registrOrPassportNumber;
+                    document.getElementById('student_status').value = studentInfo.studStateId;
+
+                })
         };
 
         document.getElementById('student').onclick = function (e) {
