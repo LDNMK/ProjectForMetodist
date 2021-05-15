@@ -128,7 +128,9 @@ namespace Fait.DAL
             {
                 entity.ToTable("group_names");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("id");
 
                 entity.Property(e => e.NameOfGroup)
                     .HasMaxLength(40)

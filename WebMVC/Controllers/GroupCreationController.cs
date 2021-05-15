@@ -21,9 +21,16 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult CreateGroup([FromBody]string groupName)
         {
-            groupLogic.AddGroup(groupName);
+            var isSuccessfully = groupLogic.AddGroup(groupName);
 
-            return Ok();
+            if(isSuccessfully)
+            {
+                return Ok(new { response = "Group was added" });
+            }
+            else
+            {
+                return BadRequest(new { response = "Group already existed" });
+            }
         }
 
         [HttpPost]
