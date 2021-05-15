@@ -35,9 +35,13 @@ namespace FaitLogic
         public void ActivateGroups(string groupsNames)
         {
             var groupsNamesArray = groupsNames.Split('\n');
-
             foreach (var group in groupsNamesArray)
             {
+                if (group.Length < 1)
+                { 
+                    return; 
+                }
+
                 var partsOfName = group.Split(new[] { '-', '_', ' ' });
 
                 var existingGroupName = partsOfName[0];
