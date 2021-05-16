@@ -10,6 +10,8 @@ namespace FaitLogic.Repository.IRepository
     {
         int AddStudentCardToDb(StudentsInfo studentsInfo, Student student);
 
+        void UpdateStudentCardInDb(StudentsInfo studentsInfo, Student student);
+
         ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId);
 
         StudentsInfo GetStudentExtendedInfo(int studentId);

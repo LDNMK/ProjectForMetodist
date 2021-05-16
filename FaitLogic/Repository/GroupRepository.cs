@@ -21,6 +21,17 @@ namespace FaitLogic.Repository
             dbContext.SaveChanges();
         }
 
+        public ActualGroup FindActualStudentGroup(int studentId)
+        {
+            return dbContext.ActualGroups.Where(x => x.StudentId == studentId && x.Group.Actual == true).SingleOrDefault();
+        }
+
+        public void UpdateActualGroup(ActualGroup group)
+        {
+            dbContext.ActualGroups.Update(group);
+            dbContext.SaveChanges();
+        }
+
         public void AddGroupToDb(Group group)
         {
             dbContext.Groups.Add(group);

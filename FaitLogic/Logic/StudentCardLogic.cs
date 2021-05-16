@@ -24,12 +24,6 @@ namespace FaitLogic.Logic
 
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
-            var isValid = ValidateStudentCard(studentCard);
-            if (!isValid)
-            {
-                return;
-            }
-
             var studentInfo = new StudentsInfo
             {
                 Birthdate = Convert.ToDateTime(studentCard.Birthday),
@@ -76,6 +70,53 @@ namespace FaitLogic.Logic
             groupRepo.AddActualGroup(actualGroup);
         }
 
+        public void UpdateStudentCardInfo(int studentId, StudentCardDTO studentCard)
+        {
+            var studentInfo = new StudentsInfo
+            {
+                Id = studentId,
+                Birthdate = Convert.ToDateTime(studentCard.Birthday),
+                BirthPlace = studentCard.BirthPlace,
+                Immenseness = studentCard.Immenseness,
+                MaritalStatusId = studentCard.MaritalStatusId,
+                Registration = studentCard.Registration,
+                Exemption = studentCard.Exemption,
+                ExpirienceCompetitionId = studentCard.ExpirienceCompetitionId,
+                TransferFrom = studentCard.TransferFrom,
+                TransferDirection = studentCard.TransferDirection,
+                CompetitionConditions = studentCard.CompetitionConditions,
+                OutOfCompetitionInfo = studentCard.OutOfCompetitionInfo,
+                AmmendsId = studentCard.AmmendsId,
+                EmploymentNumber = studentCard.EmploymentNumber,
+                EmploymentAuthority = studentCard.EmploymentAuthority,
+                EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate),
+                RegistrOrPassportNumber = studentCard.RegistrOrPassportNumber
+            };
+            var student = new Student
+            {
+                Id = studentId,
+                //SpecialityId = studentCard.
+                FirstName = studentCard.Name,
+                LastName = studentCard.Surname,
+                Patronymic = studentCard.Patronymic,
+                StudentState = studentCard.StudStateId
+            };
+
+            studentCardRepo.UpdateStudentCardInDb(studentInfo, student);
+
+            var parts = studentCard.Group.Split(new[] { '-', '_', ' ' });
+            var groupName = parts[0];
+            var groupNumber = Convert.ToInt32(parts[1]);
+
+            var groupNameId = groupRepo.FindGroupName(groupName);
+            var groupId = groupRepo.GetGroupId(groupNumber, groupNameId);
+
+            var actualStudentGroup = groupRepo.FindActualStudentGroup(studentId);
+            actualStudentGroup.GroupId = groupId;
+
+            groupRepo.UpdateActualGroup(actualStudentGroup);
+        }
+
         public ICollection<StudentNameWithIdDTO> GetListOfStudents(string group)
         {
             var partOfGroup = group.Split(new[] { '-', '_', ' ' });
@@ -104,15 +145,6 @@ namespace FaitLogic.Logic
             studentFullInfo.StudStateId = student.StudentState;
 
             return studentFullInfo;
-        }
-
-        private bool ValidateStudentCard(StudentCardDTO studentCard)
-        {
-            if (studentCard.Name == null && studentCard.Name == "")
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

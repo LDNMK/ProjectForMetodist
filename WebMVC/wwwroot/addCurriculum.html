@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -69,7 +69,7 @@
         <div class="content">
             <h1>Факультет автоматизацїї та інформаційних технологій</h1>
             <section id="section1">
-                Курс:<select id="select1">
+                Курс:<select id="course">
                     <option>
                         Оберіть Курс
                     </option>
@@ -79,7 +79,7 @@
                     <option value="4">4</option>
                 </select>
                 <button id="button1">Створити</button>
-                <button id="button1">Зберегти</button>
+                <button id="saveCurriculum">Зберегти</button>
                 </br>
 
                 Назва:<input type="text" id="nameCurriculum" class="input-name" placeholder="Введіть назву групи"></br>
@@ -155,23 +155,24 @@
             let tbody = document.getElementById(id).getElementsByTagName("TBODY")[0];
             let row = document.createElement("TR")
             let td1 = document.createElement("TD")
-            td1.textContent = `${tableCount++}`
+            td1.textContent = `${tableCount}`
             let td2 = document.createElement("TD")
-            td2.insertAdjacentHTML('afterbegin', `<input style="width: 136px" class="tableInput" type="text">`)
+            td2.insertAdjacentHTML('afterbegin', `<input style="width: 136px" id="${'subjName' + tableCount}" class="tableInput" type="text">`)
             let td3 = document.createElement("TD")
-            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" class="tableInput" type="text">`)
+            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" id="${'subjHours' + tableCount}" class="tableInput" type="text">`)
             let td4 = document.createElement("TD")
-            td4.insertAdjacentHTML('afterbegin', `<input style="width: 179px" class="tableInput" type="text">`)
+            td4.insertAdjacentHTML('afterbegin', `<input style="width: 179px" id="${'autmnTask' + tableCount}" class="tableInput" type="text">`)
             let td5 = document.createElement("TD")
-            td5.insertAdjacentHTML('afterbegin', `<input style="width: 120px" class="tableInput" type="text">`)
+            td5.insertAdjacentHTML('afterbegin', `<input style="width: 120px" id="${'autmnMonitoring' + tableCount}" class="tableInput" type="text">`)
             let td6 = document.createElement("TD")
-            td6.insertAdjacentHTML('afterbegin', `<input style="width: 180px" class="tableInput" type="text">`)
+            td6.insertAdjacentHTML('afterbegin', `<input style="width: 180px" id="${'springTask' + tableCount}" class="tableInput" type="text">`)
             let td7 = document.createElement("TD")
-            td7.insertAdjacentHTML('afterbegin', `<input style="width: 121px" class="tableInput" type="text">`)
+            td7.insertAdjacentHTML('afterbegin', `<input style="width: 121px" id="${'springMonitoring' + tableCount}" class="tableInput" type="text">`)
             let td8 = document.createElement("TD")
-            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" class="tableInput" type="text">`)
+            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" id="${'Kafedra' + tableCount}" class="tableInput" type="text">`)
             row.append(td1, td2, td3, td4, td5, td6, td7, td8);
             tbody.append(row);
+            tableCount++;
         }
 
         function delRow(id) {
@@ -201,7 +202,39 @@
             selectContainer.lastChild.remove()
         }
 
+        document.getElementById('saveCurriculum').onclick = function (e) {
+            e.preventDefault();
+            let table = document.getElementById('myTable');
+            let data = {
+                Course: document.getElementById('course').value,
+                //Group: document.getElementById('group').value,
+                PlanName: document.getElementById('nameCurriculum').value,
+                SubjectInfo: createArrayWithSubjects(table)
+            }
+            fetch('api/Curriculum/AddCurriculum', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+        };
+        function createArrayWithSubjects(table) {
+            var arr = new Array(table.rows.length-2);
 
+            for (var i = 0; i < table.rows.length-2; i++) {
+                nb = i + 1;
+                arr[i] = {
+                    SubName: document.getElementById('subjName' + nb).value,
+                    SubHours: document.getElementById('subjHours' + nb).value,
+                    Ects: document.getElementById('autmnTask' + nb).value,
+                    Monitoring: document.getElementById('autmnMonitoring' + nb).value,
+                    Task: document.getElementById('springTask' + nb).value,
+                    Semester: document.getElementById('springMonitoring' + nb).value
+                }
+            }
+            return arr;
+        };
     </script>
 
 </body>

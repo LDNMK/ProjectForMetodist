@@ -7,6 +7,10 @@ namespace FaitLogic.Repository.IRepository
     {
         void AddGroupToDb(Group group);
 
+        void UpdateActualGroup(ActualGroup group);
+
+        ActualGroup FindActualStudentGroup(int studentId);
+
         byte? FindGroupName(string groupName);
 
         Group FindExistingGroup(int groupNumber, byte? groupNameId);

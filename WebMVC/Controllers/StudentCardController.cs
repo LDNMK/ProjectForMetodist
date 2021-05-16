@@ -28,6 +28,14 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult UpdateStudentCardInfo([FromQuery]int studentId, [FromBody] StudentCardModel model)
+        {
+            studentInfoLogic.UpdateStudentCardInfo(studentId, _mapper.Map<StudentCardDTO>(model));
+
+            return Ok();
+        }
+
         [HttpGet]
         public IActionResult GetListOfStudents([FromQuery]string group)
         {
