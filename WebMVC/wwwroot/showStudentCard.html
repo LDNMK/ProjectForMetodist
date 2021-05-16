@@ -191,7 +191,7 @@
                 </tr>
             </table></br>
 
-            <button id="save"> Зберегти </button>
+            <button id="saveChanges"> Зберегти </button>
         </section>
     </div>
 
@@ -204,20 +204,6 @@
             $('nav ul .plan-show').toggleClass("show1");
             $('nav ul .second').toggleClass("rotate");
         });
-
-        document.getElementById('show').onclick = function (e) {
-            e.preventDefault();
-            let data = {
-                StudentId: document.getElementById('student').value,
-            }
-            fetch('api/StudentCard/SaveStudentCardInfo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data),
-            })
-        };
 
         document.getElementById('group').onclick = function (e) {
             e.preventDefault();
@@ -244,6 +230,51 @@
                 }).then(function () {
                     document.getElementById("group").selectedIndex = selected;
                 })
+        };
+
+        document.getElementById('saveChanges').onclick = function (e) {
+            e.preventDefault();
+
+            let data = {
+                //Course: document.getElementById('course').value,
+                Group: document.getElementById('group').value,
+                Surname: document.getElementById('surname').value,
+                Name: document.getElementById('name').value,
+                Patronymic: document.getElementById('middle_name').value,
+                Birthday: document.getElementById('birthday').value,
+                BirthPlace: document.getElementById('birthplace').value,
+                Immenseness: document.getElementById('citizenship').value,
+                MaritalStatusId: document.getElementById('marital_status').value,
+                Registration: document.getElementById('registration_place').value,
+                Exemption: document.getElementById('exemption').value,
+                OrderDate: document.getElementById('date_reckoned').value,
+                //ExpirienceCompetitionId: document.getElementById('competition').value,
+                //TransferFrom: document.getElementById('transfer_order').value,
+                //TransferDirection: document.getElementById('by_direction').value,
+                //CompetitionConditions: document.getElementById('special_conditions_of_competition').value,
+                //OutOfCompetitionInfo: document.getElementById('out_of_competition').value,
+                //AmmendsId: document.getElementById('full_refund').value,
+                OrderNumber: document.getElementById('number_reckoned').value,
+                EmploymentNumber: document.getElementById('employment_history_number').value,
+                EmploymentGivenDate: document.getElementById('employment_given_date').value,
+                EmploymentAuthority: document.getElementById('employment_history_by_whom_issued').value,
+                RegistrOrPassportNumber: document.getElementById('registration_or_passport_number').value,
+                StudStateId: document.getElementById('student_status').value
+            }
+
+            var studentId = document.getElementById('student').value;
+            var url = 'api/StudentCard/UpdateStudentCardInfo?studentId=' + studentId;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+                //.then((resp) => resp.json())
+                //.then(function (resp) {
+                //    alert(resp.msg);
+                //})
         };
 
         document.getElementById('show').onclick = function (e) {

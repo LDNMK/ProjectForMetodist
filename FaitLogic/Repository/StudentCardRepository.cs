@@ -36,6 +36,13 @@ namespace FaitLogic.Repository
             return studentId;
         }
 
+        public void UpdateStudentCardInDb(StudentsInfo studentsInfo, Student student)
+        {
+            dbContext.Students.Update(student);
+            dbContext.StudentsInfos.Update(studentsInfo);
+            dbContext.SaveChanges();
+        }
+
         public ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId)
         {
             var students = new List<StudentNameWithId>();
