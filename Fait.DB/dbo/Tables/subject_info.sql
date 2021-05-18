@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[subject_info]
 (
-	[Id] INT  IDENTITY NOT NULL PRIMARY KEY,
+	[id] INT  IDENTITY NOT NULL PRIMARY KEY,
 	 [plan_id]    INT           NULL,
 	[sub_name]   NVARCHAR (100) NOT NULL,
 	sub_hours INT NOT NULL,

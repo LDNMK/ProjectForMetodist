@@ -8,10 +8,13 @@ namespace WebAPI.Models
     public class SubjectModel
     {
         public string SubName { get; set; }//название предмета
-        public int SubHours { get; set; }// сколько часов
-        public int Ects { get; set; }//кредитов ECTS
-        public bool Monitoring { get; set; }//0 ЗАЧЕТ 1 КУРСОВАЯ
-        public bool Task { get; set; }// 0 задания нет, 1 есть
-        public byte Semester { get; set; }//семестр
+        public string SubHoursAndETCS { get; set; }// сколько часов
+      
+        public bool AutumnTask { get; set; }// 0 задания нет, 1 есть
+        public bool SpringTask { get; set; }
+        public bool AutumnMonitoing { get; set; }
+        public bool SpringMonitoing { get; set; }
+
+
     }
 }

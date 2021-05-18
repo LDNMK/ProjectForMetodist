@@ -5,6 +5,6 @@
     [task]       BIT           DEFAULT ((0)) NOT NULL,
     [semester]   BIT       NOT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),
-    FOREIGN KEY ([subject_info_id]) REFERENCES [dbo].subject_info ([id]) ON DELETE SET DEFAULT
+    FOREIGN KEY ([subject_info_id]) REFERENCES [dbo].[subject_info] ([id])
 );
 
