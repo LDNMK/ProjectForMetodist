@@ -10,6 +10,6 @@ namespace FaitLogic.DTO
         //public int PlanYear { get; set; }//год
         public int Course { get; set; }//курс 
         public string Groups { get; set; }//группы 
-        public string[] CurriculumRowInfo { get; set; }//
+        public SubjectDTO[] SubjectInfo { get; set; }//
     }
 }

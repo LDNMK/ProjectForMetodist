@@ -159,7 +159,7 @@
             let td2 = document.createElement("TD")
             td2.insertAdjacentHTML('afterbegin', `<input style="width: 136px" id="${'subjName' + tableCount}" class="tableInput" type="text">`)
             let td3 = document.createElement("TD")
-            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" id="${'subjHours' + tableCount}" class="tableInput" type="text">`)
+            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" id="${'subjHoursAndECTS' + tableCount}" class="tableInput" type="text">`)
             let td4 = document.createElement("TD")
             td4.insertAdjacentHTML('afterbegin', `<input style="width: 179px" id="${'autmnTask' + tableCount}" class="tableInput" type="text">`)
             let td5 = document.createElement("TD")
@@ -169,7 +169,7 @@
             let td7 = document.createElement("TD")
             td7.insertAdjacentHTML('afterbegin', `<input style="width: 121px" id="${'springMonitoring' + tableCount}" class="tableInput" type="text">`)
             let td8 = document.createElement("TD")
-            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" id="${'Kafedra' + tableCount}" class="tableInput" type="text">`)
+            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" id="${'faculty' + tableCount}" class="tableInput" type="text">`)
             row.append(td1, td2, td3, td4, td5, td6, td7, td8);
             tbody.append(row);
             tableCount++;
@@ -186,7 +186,7 @@
                 let groupName = document.getElementById('select3');
                 let groupList = document.getElementById('groupsTextarea');
 
-                groupList.value += groupName.value + `, `;
+                groupList.value += groupName.value + `\n`;
         }
        // function deleteGroup() {
          //       let groupName = document.getElementById('select3');
@@ -223,7 +223,7 @@
             let table = document.getElementById('myTable');
             let data = {
                 Course: document.getElementById('course').value,
-                //Group: document.getElementById('group').value,
+                Group: document.getElementById('group').value,
                 PlanName: document.getElementById('nameCurriculum').value,
                 SubjectInfo: createArrayWithSubjects(table)
             }
@@ -242,11 +242,12 @@
                 nb = i + 1;
                 arr[i] = {
                     SubName: document.getElementById('subjName' + nb).value,
-                    SubHours: document.getElementById('subjHours' + nb).value,
-                    Ects: document.getElementById('autmnTask' + nb).value,
-                    Monitoring: document.getElementById('autmnMonitoring' + nb).value,
-                    Task: document.getElementById('springTask' + nb).value,
-                    Semester: document.getElementById('springMonitoring' + nb).value
+                    SubHours: document.getElementById('subjHoursAndECTS' + nb).value,
+                    FallTask: document.getElementById('autmnTask' + nb).value,
+                    FallMonitoring: document.getElementById('autmnMonitoring' + nb).value,
+                    SpringTask: document.getElementById('springTask' + nb).value,
+                    SpringSemester: document.getElementById('springMonitoring' + nb).value,
+                    Faculty: document.getElementById('faculty' + nb).value
                 }
             }
             return arr;

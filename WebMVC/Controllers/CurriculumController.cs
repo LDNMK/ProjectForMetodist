@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
 using FaitLogic.Logic;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -28,7 +23,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult AddCurriculum([FromBody] CurriculumModel curriculumModel)
         {
-            curriculumLogic.AddCurruculum(_mapper.Map<CurriculumDTO>(curriculumModel));
+            curriculumLogic.AddCurriculum(_mapper.Map<CurriculumDTO>(curriculumModel));
 
             return Ok();
         }

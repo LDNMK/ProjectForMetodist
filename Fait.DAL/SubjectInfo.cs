@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace WebAPI.DBModels
+namespace Fait.DAL
 {
     public partial class SubjectInfo
     {
