@@ -3,7 +3,6 @@
     [plan_name] NVARCHAR (40) NOT NULL,
     [plan_year] INT           NOT NULL,
     [course]   TINYINT       NOT NULL,
-    [actual]    BIT           NOT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
