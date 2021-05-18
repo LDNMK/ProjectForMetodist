@@ -70,6 +70,7 @@
 
         <div class="content">
             <h1>Факультет автоматизацїї та інформаційних технологій</h1>
+            <h2>Навчальна картка студента</h2>
             <section id="section1">
                 <br>
 
@@ -119,10 +120,8 @@
                         Оберіть спеціалізацію
                     </option>
                 </select>
-                <button> Показати </button>
             </section>
 
-            <h2>Навчальна картка студента</h2>
             <section id="section2">
                 Прізвище: <input id="surname" type="text" placeholder="Шевченко" width="80px"></br>
                 Ім'я: <input id="name" type="text" placeholder="Андрій"> </br>
@@ -144,11 +143,9 @@
                 </select></br>
                 Місце проживання/місце реєстрації: <input id="registration_place" type="text" placeholder="Київ"> </br>
                 Наявність пільг при вступі:
-                <select id="exemption">
-                    <option> Оберіть пільги </option>
-                </select></br>
-                Зарахований(а) наказом від: <input id="date_reckoned" type="date" placeholder="31" width="80px">
-                №<input id="number_reckoned" type="text" placeholder="1868"></br>
+                <input type="text" placeholder="Введіть пільгу"></br>
+                Зарахований(а) наказом від: <input id="date_reckoned" type="date" placeholder="31" width="80px" >
+                №<input id="number_reckoned" type="text" placeholder="1868" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></br>
                 1) За конкурсом:
                 <select id="competition">
                     <option value="1">
@@ -182,13 +179,13 @@
                     </option>
                 </select></br>
 
-                Трудова книжка: <input id="employment_history_number" type="text" placeholder="Номер">
+                Трудова книжка: <input id="employment_history_number" type="text" placeholder="Номер" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
                 <input id="employment_given_date" type="date" placeholder="Коли видана">
                 <input id="employment_history_by_whom_issued" type="text" placeholder="Ким видана"></br>
                 Реєстраційний номер облікової картки
                 платника податків
                 або серія та номер паспорту:<input id="registration_or_passport_number" type="text"
-                    placeholder="Номер"></br>
+                    placeholder="Номер" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></br>
                 Статус студента:
                 <select id="student_status">
                     <option value="1">

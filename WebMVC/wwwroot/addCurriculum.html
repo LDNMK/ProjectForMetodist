@@ -96,7 +96,7 @@
                     <button id="button2" class="plus">+</button>
                     <button id="button3">-</button>
                 </div>
-
+                <textarea name="addGroups" id="groupsTextarea" cols="30" rows="10"></textarea>
             </section>
             <h2>Навчальний план студента</h2>
             <section id="section2">
@@ -181,11 +181,27 @@
             tableCount--
         }
 
+        // додати групу в textarea
+        function addGroup() {
+                let groupName = document.getElementById('select3');
+                let groupList = document.getElementById('groupsTextarea');
+
+                groupList.value += groupName.value + `, `;
+        }
+       // function deleteGroup() {
+         //       let groupName = document.getElementById('select3');
+           //     let groupList = document.getElementById('groupsTextarea');
+
+             //   groupList.value += groupName.value + `\n`;
+       // }
+
         /* Список */
         let addSelectButton = document.getElementById('button2')
         let deleteSelectButton = document.getElementById('button3')
-        addSelectButton.addEventListener('click', addSelect)
+        // addSelectButton.addEventListener('click', addSelect)
+        addSelectButton.addEventListener('click', addGroup)
         deleteSelectButton.addEventListener('click', deleteSelect)
+        deleteSelectButton.addEventListener('click', deleteGroup)
 
         function addSelect() {
             let select = document.getElementById('select3')

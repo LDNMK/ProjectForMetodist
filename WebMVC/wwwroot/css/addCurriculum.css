@@ -41,7 +41,7 @@ font-size: 16px;
     border-radius: 4px;
 }
 
-.content #section1  #select1{
+.content #section1  #course{
     margin-left: 56px;
 }
 .content #section1  #select2{
@@ -51,7 +51,7 @@ font-size: 16px;
     margin-left: 27px;
 }
 
-.content #section1 #button1{
+.content #section1 #button1, #saveCurriculum{
     width: 100px;
     height: 32px;
     float: right;
@@ -61,6 +61,7 @@ font-size: 16px;
     background-color: #003586;
     color: #F3F6F7;
 }
+
 
 .content #section1 #button2{
     width: 32px;
