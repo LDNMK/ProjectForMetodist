@@ -14,9 +14,9 @@ namespace Fait.DAL
 
         public int Id { get; set; }
         public int SubjectInfoId { get; set; }
-        public bool Monitoring { get; set; }
-        public bool Task { get; set; }
-        public bool Semester { get; set; }
+        public Byte Monitoring { get; set; }
+        public Byte Task { get; set; }
+        public Byte Semester { get; set; }
 
         public virtual SubjectInfo SubjectInfo { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }
