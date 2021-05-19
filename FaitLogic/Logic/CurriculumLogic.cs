@@ -16,7 +16,7 @@ namespace FaitLogic.Logic
             curriculumRepo = curriculumRepository;
         }
 
-        public void AddCurriculum(CurriculumDTO curriculumInfo)
+        public int? AddCurriculum(CurriculumDTO curriculumInfo)
         {
             var yearPlan = new YearPlan
             {
@@ -30,6 +30,8 @@ namespace FaitLogic.Logic
             {
                 AddSubjects(subject, yearPlanId);
             }
+
+            return yearPlanId;
         }
 
         private void AddSubjects(SubjectDTO subjectDto, int? yearPlanId)
@@ -56,7 +58,7 @@ namespace FaitLogic.Logic
                     SubjectInfoId = subjectInfoId.Value,
                     Monitoring = subjectDto.SpringMonitoring.Value,
                     Task = subjectDto.SpringTask.Value,
-                    Semester = true
+                    Semester = 0
                 };
                 curriculumRepo.AddSubject(springSubject);
             }
@@ -68,7 +70,7 @@ namespace FaitLogic.Logic
                     SubjectInfoId = subjectInfoId.Value,
                     Monitoring = subjectDto.AutumnMonitoring.Value,
                     Task = subjectDto.AutumnTask.Value,
-                    Semester = false
+                    Semester = 1
                 };
                 curriculumRepo.AddSubject(autumnSubject);
             }

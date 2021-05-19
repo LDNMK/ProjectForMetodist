@@ -91,9 +91,9 @@ namespace FaitLogic.Repository
             return group;
         }
 
-        public void MakeGroupActive(Group group)
+        public void UpdateGroup(Group group)
         {
-            group.Actual = true;
+            dbContext.Groups.Update(group);
             dbContext.SaveChanges();
         }
     }

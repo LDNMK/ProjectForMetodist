@@ -64,13 +64,39 @@ namespace FaitLogic.Logic
                 var groupNameId = groupRepo.FindGroupName(existingGroupName);
 
                 var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
-                groupRepo.MakeGroupActive(findedGroup);
+                findedGroup.Actual = true;
+
+                groupRepo.UpdateGroup(findedGroup);
             }
         }
 
         public ICollection<string> GetGroupsList()
         {
             return groupRepo.GetAllGroups();
+        }
+
+        public void SetYearPlan(string groupsNames, int yearPlanId)
+        {
+            var groupsNamesArray = groupsNames.Split('\n');
+            foreach (var group in groupsNamesArray)
+            {
+                if (group.Length < 1)
+                {
+                    return;
+                }
+
+                var partsOfName = group.Split(new[] { '-', '_', ' ' });
+
+                var existingGroupName = partsOfName[0];
+                var groupNumber = Convert.ToInt32(partsOfName[1]);
+
+                var groupNameId = groupRepo.FindGroupName(existingGroupName);
+
+                var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
+                findedGroup.PlanId = yearPlanId;
+
+                groupRepo.UpdateGroup(findedGroup);
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace FaitLogic.Repository
             dbContext.YearPlans.Add(yearPlan);
             dbContext.SaveChanges();
 
-            return dbContext.YearPlans.LastOrDefault()?.Id;
+            return dbContext.YearPlans.OrderBy(x =>x.Id).LastOrDefault()?.Id;
         }
 
         public int? AddSubjectInfo(SubjectInfo subjectInfo)
@@ -28,7 +28,7 @@ namespace FaitLogic.Repository
             dbContext.SubjectInfos.Add(subjectInfo);
             dbContext.SaveChanges();
 
-            return dbContext.SubjectInfos.LastOrDefault()?.Id;
+            return dbContext.SubjectInfos.OrderBy(x => x.Id).LastOrDefault()?.Id;
         }
 
         public void AddSubject(Subject subject)

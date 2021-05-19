@@ -82,10 +82,10 @@
                 <button id="saveCurriculum">Зберегти</button>
                 </br>
 
-                Назва:<input type="text" id="nameCurriculum" class="input-name" placeholder="Введіть назву групи"></br>
+                Назва:<input type="text" id="nameCurriculum" class="input-name" placeholder="Введіть назву плану"></br>
                 <div class="select-container">
                     <span>Група(и):</span>
-                    <select id="select3">
+                    <select id="group">
                         <option>
                             Оберіть групу(и)
                         </option>
@@ -96,7 +96,7 @@
                     <button id="button2" class="plus">+</button>
                     <button id="button3">-</button>
                 </div>
-                <textarea name="addGroups" id="groupsTextarea" cols="30" rows="10"></textarea>
+                <textarea id="groupList" cols="30" rows="10"></textarea>
             </section>
             <h2>Навчальний план студента</h2>
             <section id="section2">
@@ -130,9 +130,6 @@
 
             </section>
         </div>
-
-
-    </div>
 
     </div>
 
@@ -183,28 +180,28 @@
 
         // додати групу в textarea
         function addGroup() {
-                let groupName = document.getElementById('select3');
-                let groupList = document.getElementById('groupsTextarea');
+                let groupName = document.getElementById('group');
+            let groupsTextArea = document.getElementById('groupList');
 
-                groupList.value += groupName.value + `\n`;
+            groupsTextArea.value += groupName.value + `\n`;
         }
        // function deleteGroup() {
          //       let groupName = document.getElementById('select3');
-           //     let groupList = document.getElementById('groupsTextarea');
+           //     let groupsTextArea = document.getElementById('groupsTextarea');
 
-             //   groupList.value += groupName.value + `\n`;
+             //   groupsTextArea.value += groupName.value + `\n`;
        // }
 
         /* Список */
         let addSelectButton = document.getElementById('button2')
-        let deleteSelectButton = document.getElementById('button3')
+        let deleteSelectButton = document.getElementById('group')
         // addSelectButton.addEventListener('click', addSelect)
         addSelectButton.addEventListener('click', addGroup)
-        deleteSelectButton.addEventListener('click', deleteSelect)
-        deleteSelectButton.addEventListener('click', deleteGroup)
+        //deleteSelectButton.addEventListener('click', deleteSelect)
+        //deleteSelectButton.addEventListener('click', deleteGroup)
 
         function addSelect() {
-            let select = document.getElementById('select3')
+            let select = document.getElementById('group')
             let newSelect = document.createElement('select')
             newSelect.id = select.id
             let parent = document.querySelector('.additional-selects')
@@ -213,17 +210,17 @@
             console.log(select.value);
         }
 
-        function deleteSelect() {
-            let selectContainer = document.querySelector('.additional-selects')
-            selectContainer.lastChild.remove()
-        }
+        //function deleteSelect() {
+        //    let selectContainer = document.querySelector('.additional-selects')
+        //    selectContainer.lastChild.remove()
+        //}
 
         document.getElementById('saveCurriculum').onclick = function (e) {
             e.preventDefault();
             let table = document.getElementById('myTable');
             let data = {
                 Course: document.getElementById('course').value,
-                Group: document.getElementById('group').value,
+                Groups: document.getElementById('groupList').value,
                 PlanName: document.getElementById('nameCurriculum').value,
                 SubjectInfo: createArrayWithSubjects(table)
             }
@@ -242,16 +239,50 @@
                 nb = i + 1;
                 arr[i] = {
                     SubName: document.getElementById('subjName' + nb).value,
-                    SubHours: document.getElementById('subjHoursAndECTS' + nb).value,
-                    FallTask: document.getElementById('autmnTask' + nb).value,
-                    FallMonitoring: document.getElementById('autmnMonitoring' + nb).value,
+                    SubHoursAndETCS: document.getElementById('subjHoursAndECTS' + nb).value,
+                    AutumnTask: document.getElementById('autmnTask' + nb).value,
+                    AutumnMonitoring: document.getElementById('autmnMonitoring' + nb).value,
                     SpringTask: document.getElementById('springTask' + nb).value,
-                    SpringSemester: document.getElementById('springMonitoring' + nb).value,
+                    SpringMonitoring: document.getElementById('springMonitoring' + nb).value,
                     Faculty: document.getElementById('faculty' + nb).value
                 }
             }
             return arr;
         };
+
+        document.getElementById('group').onclick = function (e) {
+            e.preventDefault();
+            var selected = this.selectedIndex;
+            fetch('api/GroupCreation/GetGroups', {
+                method: 'GET'
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let groups = data;
+
+                    var select = document.getElementById('group');
+                    removeOptions(select);
+                    select.value = this.innerHTML;
+                    this.innerHTML = '';
+                    for (var i in groups) {
+                        var option = document.createElement("option");
+                        option.setAttribute("value", groups[i]);
+
+                        option.text = groups[i];
+
+                        select.appendChild(option);
+                    }
+                }).then(function () {
+                    document.getElementById("group").selectedIndex = selected;
+                })
+        };
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i > 0; i--) {
+                selectElement.remove(i);
+            }
+        }
     </script>
 
 </body>
