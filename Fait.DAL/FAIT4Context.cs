@@ -52,7 +52,7 @@ namespace Fait.DAL
                 entity.HasNoKey();
             });
 
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS");
 
             modelBuilder.Entity<ActualGroup>(entity =>
             {
@@ -363,6 +363,8 @@ namespace Fait.DAL
             modelBuilder.Entity<SubjectInfo>(entity =>
             {
                 entity.ToTable("subject_info");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Ects).HasColumnName("ects");
 

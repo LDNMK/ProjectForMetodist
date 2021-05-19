@@ -38,10 +38,13 @@ namespace WebMVC
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddDbContext<FAIT4Context>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+
             services.AddScoped<StudentCardLogic>();
             services.AddScoped<GroupLogic>();
+            services.AddScoped<CurriculumLogic>();
             services.AddScoped<StudentCardRepository>();
             services.AddScoped<GroupRepository>();
+            services.AddScoped<CurriculumRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

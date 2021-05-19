@@ -15,7 +15,7 @@ namespace FaitLogic.Repository.IRepository
 
         Group FindExistingGroup(int groupNumber, byte? groupNameId);
 
-        void MakeGroupActive(Group group);
+        void UpdateGroup(Group group);
 
         int GetGroupId(int groupNumber, byte? groupNameId);
 
