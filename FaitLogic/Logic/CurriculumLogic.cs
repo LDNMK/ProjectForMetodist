@@ -1,5 +1,6 @@
 ﻿using Fait.DAL;
 using FaitLogic.DTO;
+using FaitLogic.Enums;
 using FaitLogic.Repository;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,13 @@ namespace FaitLogic.Logic
             };
 
             var yearPlanId = curriculumRepo.AddYearPlan(yearPlan);
-
-            foreach (var subject in curriculumInfo.SubjectInfo)
+            if (yearPlanId != 0)
             {
-                AddSubjects(subject, yearPlanId);
+
+                foreach (var subject in curriculumInfo.SubjectInfo)
+                {
+                    AddSubjects(subject, yearPlanId);
+                }
             }
         }
 
@@ -48,29 +52,33 @@ namespace FaitLogic.Logic
             };
 
             var subjectInfoId = curriculumRepo.AddSubjectInfo(subjectInfo);
-
-            if (subjectDto.SpringMonitoring != null && subjectDto.SpringTask != null)
+            if (subjectInfoId != 0)
             {
-                var springSubject = new Subject
-                {
-                    SubjectInfoId = subjectInfoId.Value,
-                    Monitoring = subjectDto.SpringMonitoring.Value,
-                    Task = subjectDto.SpringTask.Value,
-                    Semester = true
-                };
-                curriculumRepo.AddSubject(springSubject);
-            }
 
-            if (subjectDto.AutumnMonitoring != null && subjectDto.AutumnTask != null)
-            {
-                var autumnSubject = new Subject
+                if (subjectDto.SpringMonitoring != null && subjectDto.SpringTask != null)
                 {
-                    SubjectInfoId = subjectInfoId.Value,
-                    Monitoring = subjectDto.AutumnMonitoring.Value,
-                    Task = subjectDto.AutumnTask.Value,
-                    Semester = false
-                };
-                curriculumRepo.AddSubject(autumnSubject);
+                    var springSubject = new Subject
+                    {
+                        SubjectInfoId = subjectInfoId.Value,
+                        Monitoring = subjectDto.SpringMonitoring.Value,
+                        Task = subjectDto.SpringTask.Value,
+                        Semester = (byte)SemesterEnum.Spring
+                    };
+
+                    curriculumRepo.AddSubject(springSubject);
+                }
+
+                if (subjectDto.AutumnMonitoring != null && subjectDto.AutumnTask != null)
+                {
+                    var autumnSubject = new Subject
+                    {
+                        SubjectInfoId = subjectInfoId.Value,
+                        Monitoring = subjectDto.AutumnMonitoring.Value,
+                        Task = subjectDto.AutumnTask.Value,
+                        Semester = (byte)SemesterEnum.Autumn
+                    };
+                    curriculumRepo.AddSubject(autumnSubject);
+                }
             }
         }
     }
