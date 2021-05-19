@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" href="logo1.png">
 
 </head>
+
 <body>
     <nav class="sidebar">
         <div class="text"> <img src="logo1.png" width="36px"> КНУБА</div>
@@ -130,13 +131,13 @@
             Наявність пільг при вступі:
             <input type="text" class="change"></br>
             Зарахований(а) наказом від: <input id="date_reckoned" type="date" width="80px" class="change">
-            №<input id="number_reckoned" type="text" class="change"  onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></br>
-            Трудова книжка: <input id="employment_history_number" type="text" class="change" onkeyup="this.value = this.value.replace(/[^\d]/g,'');">
+            №<input id="number_reckoned" type="text" class="change"></br>
+            Трудова книжка: <input id="employment_history_number" type="text" class="change">
             <input id="employment_given_date" type="date">
             <input id="employment_history_by_whom_issued" type="text" class="change"></br>
             Реєстраційний номер облікової картки
             платника податків
-            або серія та номер паспорту:<input id="registration_or_passport_number" type="text" class="change" onkeyup="this.value = this.value.replace(/[^\d]/g,'');"></br>
+            або серія та номер паспорту:<input id="registration_or_passport_number" type="text" class="change"></br>
             Статус студента:
             <select id="student_status" class="change">
                 <option value="1">
@@ -281,11 +282,34 @@
                 },
                 body: JSON.stringify(data),
             })
-                //.then((resp) => resp.json())
-                //.then(function (resp) {
-                //    alert(resp.msg);
-                //})
+            //.then((resp) => resp.json())
+            //.then(function (resp) {
+            //    alert(resp.msg);
+            //})
         };
+
+        let orderNumber = document.getElementById('number_reckoned')
+        let employmentNumber = document.getElementById('employment_history_number')
+        let registerOrPassportNumber = document.getElementById('registration_or_passport_number')
+        let error = document.createElement('span')
+        error.id = 'error_message'
+        error.textContent = 'Введіть будь ласка цифри'
+        error.classList.add('error')
+        document.body.addEventListener('focusout', ({ target }) => {
+            if (target === orderNumber || target === employmentNumber || target === registerOrPassportNumber)
+                if (isNaN(target.value)) {
+                    target.style.borderColor = 'red'
+                    target.after(error)
+                    error.classList.add('active')
+                } else if (target.value === '') {
+                    target.style.borderColor = 'black'
+                    error.classList.remove('active')
+                } else {
+                    target.style.borderColor = 'black'
+                    error.classList.remove('active')
+                }
+        })
+
 
         document.getElementById('show').onclick = function (e) {
             e.preventDefault();

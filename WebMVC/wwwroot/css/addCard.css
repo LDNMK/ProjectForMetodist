@@ -75,3 +75,11 @@ text-align: center;
 .content section select option{
     text-align: center;
 }
+
+.error {
+    color: red;
+    display: none
+}
+.active{
+    display: inline;
+}
