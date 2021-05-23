@@ -11,6 +11,6 @@ namespace WebAPI.Models
         //public int PlanYear { get; set; }//год
         public int Course { get; set; }//курс 
         public string Groups { get; set; }//группы 
-        public SubjectModel[] SubjectInfo { get; set; }//предметы     
+        public List<SubjectModel> SubjectInfo { get; set; }//предметы     
     }
 }

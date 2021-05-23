@@ -37,5 +37,26 @@ namespace WebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult ShowCurriculum(int yearPlanId)
+        {
+            var curriculum = _mapper.Map<CurriculumModel>(curriculumLogic.ShowCurriculum(yearPlanId));
+
+            if (curriculum == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(curriculum);
+        }
+
+        [HttpGet]
+        public IActionResult GetListOfYearPlans([FromQuery] int course)
+        {
+            var yearPlans = curriculumLogic.GetYearPlans(course);
+
+            return Ok(yearPlans);
+        }
     }
 }

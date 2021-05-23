@@ -6,7 +6,7 @@ namespace FaitLogic.Enums
 {
     public enum SemesterEnum
     {
-      Autumn=0,
-      Spring=1
+          Autumn=0,
+          Spring=1
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Fait.DAL;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,32 @@ namespace FaitLogic.Repository
         {
             dbContext = context;
         }
+
+        public YearPlan FindYearPlan(int yearPlanId)
+        {
+            return dbContext.YearPlans.Where(x => x.Id == yearPlanId).Single();
+        }
+
+        public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
+        {
+            return dbContext.Groups.Include(x=>x.GroupName).Where(x => x.PlanId == yearPlanId).ToList();
+        }
+
+        public List<SubjectInfo> FindSubjectsInfo(int curriculumId)
+        {
+            return dbContext.SubjectInfos.Where(x => x.PlanId == curriculumId).ToList();
+        }
+
+        public List<Subject> FindSubjects(int subjectId)
+        {
+            return dbContext.Subjects.Where(x => x.SubjectInfoId == subjectId).ToList();
+        }
+
+        public List<YearPlan> GetListOfYearPlans(int course)
+        {
+            return dbContext.YearPlans.Where(x => x.Course == course).ToList();
+        }
+
 
         public int? AddYearPlan(YearPlan yearPlan)
         {

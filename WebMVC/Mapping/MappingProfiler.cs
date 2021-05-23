@@ -16,5 +16,9 @@ public class MappingProfile : Profile
         CreateMap<StudentNameWithIdDTO, StudentNameWithId>().ReverseMap();
         CreateMap<CurriculumModel, CurriculumDTO>().ReverseMap();
         CreateMap<SubjectModel, SubjectDTO>().ReverseMap();
+
+        CreateMap<YearPlan, YearPlanNameWithIdDTO>()
+            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(x=>x.Id))
+            .ReverseMap();
     }
 }

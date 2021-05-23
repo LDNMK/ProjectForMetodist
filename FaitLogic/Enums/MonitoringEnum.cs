@@ -6,7 +6,8 @@ namespace FaitLogic.Enums
 {
     public enum MonitoringEnum
     {
-        Credit=0,
-        Exam=1
+        SemesterNotExist = 0,
+        Credit = 1,
+        Exam = 2
     }
 }
