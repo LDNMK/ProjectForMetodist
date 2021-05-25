@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -68,30 +68,35 @@
             <section id="section1">
                 <br>
 
-                Факультет: <select id="faculty">
+                Факультет: 
+                <select id="faculty">
                     <option>
                         Оберіть Факультет
                     </option>
                 </select>
-                Група: <select id="group">
+                Група: 
+                <select id="group">
                     <option>
                         Оберіть групу
                     </option>
                 </select> </br>
 
 
-                Рівень вищої освіти/освітньо-кваліфікаційний рівень: <select id="level_of_higher_education">
+                Рівень вищої освіти/освітньо-кваліфікаційний рівень: 
+                <select id="level_of_higher_education">
                     <option>
                         Оберіть рівень освіти
                     </option>
                 </select> </br>
 
-                Спеціальність: <select id="specialty">
+                Спеціальність: 
+                <select id="specialty">
                     <option>
                         Оберіть спеціальність
                     </option>
                 </select>
-                Спеціалізація: <select id="specialization">
+                Спеціалізація: 
+                <select id="specialization">
                     <option>
                         Оберіть спеціалізацію
                     </option>
@@ -99,17 +104,18 @@
                 <button> Показати </button>
             </section>
         </div>
-
     </nav>
+
     <div class="content">
         <h1>Факультет автоматизацїї та інформаційних технологій</h1>
         <h2>Переведення</h2>
         <section id="section1">
             Перевести</br>
 
-            Рік: <input type="text" id="select1" placeholder="Введіть рік"></br>
+            Рік: <input type="text" id="year" placeholder="Введіть рік"></br>
 
-            Курс: <select id="select2">
+            Курс: 
+            <select id="course">
                 <option>
                     Оберіть курс
                 </option>
@@ -119,26 +125,25 @@
                 <option value="4">4</option>
             </select> </br>
 
-            Спеціальність: <select id="select3">
+            Спеціальність: 
+            <select id="select3">
                 <option>
                     Оберіть спеціальність
                 </option>
             </select> </br>
 
-            Група: <select id="select4">
+            Група: 
+            <select id="groups">
                 <option>
                     Оберіть групу
                 </option>
             </select> </br>
-            <input id="enableAll" type="checkbox" /> Обирати студента
-            <select id="select5">
+            <input id="isOneStudent" type="checkbox" /> Обирати студента
+            <select id="students">
                 <option>
                     Оберіть студента
                 </option>
             </select> </br>
-
-
-
         </section>
 
         <section id="section2">
@@ -149,9 +154,6 @@
             <button id="enable">Залишити на другий рік</button></br>
             <button id="enable">Відрахувати</button></br>
             <button id="enable">Відновити</button></br>
-
-
-
         </section>
     </div>
 
@@ -166,17 +168,15 @@
 
         });
 
-
         $(function () {
             $("button#enable").attr("disabled", "disabled");
-            $("input#enableAll").toggleClass("display").click(
+            $("input#isOneStudent").toggleClass("display").click(
                 function () {
                     if ($(this)[0].checked == false) $("button#enable").toggleClass("display").attr("disabled", "disabled")
                     else $("button#enable").toggleClass("display").removeAttr("disabled")
                 }
             )
-        }
-        )
+        });
 
         $(function () {
             $("select#select5").attr("disabled", "disabled");
@@ -186,8 +186,92 @@
                     else $("select#select5").removeAttr("disabled")
                 }
             )
-        }
-        )
+        });
+
+        document.getElementById('groups').onclick = function (e) {
+            e.preventDefault();
+
+            var selected = this.selectedIndex;
+            var course = document.getElementById('course').value;
+            var year = document.getElementById('year').value;
+
+            var url = `api/TransferStudent/GetListOfGroups?course=${course}&year=${year}`;
+            fetch(url, {
+                method: 'GET'
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let groups = data;
+
+                    var select = document.getElementById('groups');
+                    removeOptions(select);
+                    select.value = this.innerHTML;
+                    this.innerHTML = '';
+                    for (var i in groups) {
+                        var option = document.createElement("option");
+
+                        option.setAttribute("value", groups[i].groupId);
+                        option.text = groups[i].groupName;
+
+                        select.appendChild(option);
+                    }
+                }).then(function () {
+                    document.getElementById("groups").selectedIndex = selected;
+                })
+        };
+
+        document.getElementById('students').onclick = function (e) {
+            e.preventDefault();
+
+            var selected = this.selectedIndex;
+            var group = document.getElementById('groups').value;
+
+            var url = `api/StudentCard/GetListOfStudents?group=${group}`;
+            fetch(url, {
+                method: 'GET'
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    let groups = data;
+
+                    var select = document.getElementById('students');
+                    removeOptions(select);
+                    select.value = this.innerHTML;
+                    this.innerHTML = '';
+                    for (var i in students) {
+                        var option = document.createElement("option");
+
+                        option.setAttribute("value", students[i].studentId);
+                        option.text = students[i].studentName;
+
+                        select.appendChild(option);
+                    }
+                }).then(function () {
+                    document.getElementById("students").selectedIndex = selected;
+                })
+        };
+
+        document.getElementById('transfer').onclick = function (e) {
+            e.preventDefault();
+
+            var isOneStudent = document.getElementById('isOneStudent').value;
+            if (isOneStudent == true) {
+                var studentId = document.getElementById('isOneStudent').value;
+
+                var url = `api/StudentCard/GetStudent?studentId=${studentId}`;
+                fetch(url, {
+                    method: 'GET'
+                })
+            }
+            else {
+                var group = document.getElementById('groups').value;
+
+                var url = `api/StudentCard/GetListOfStudents?group=${group}`;
+                fetch(url, {
+                    method: 'GET'
+                })
+            }
+        };
     </script>
 
 </body>
