@@ -83,5 +83,6 @@
     <Build Include="dbo\Tables\transfer_orders.sql" />
     <Build Include="dbo\Tables\year_plans.sql" />
     <Build Include="dbo\Tables\subject_info.sql" />
+    <Build Include="dbo\Stored Procedures\transfer_student_to_next_group.sql" />
   </ItemGroup>
 </Project>
