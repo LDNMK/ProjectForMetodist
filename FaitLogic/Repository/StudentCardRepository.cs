@@ -45,19 +45,26 @@ namespace FaitLogic.Repository
 
         public ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId)
         {
-            var students = new List<StudentNameWithId>();
-
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@group_number", groupNumber),
                 new SqlParameter("@group_name_id", groupNameId)
             };
 
-            students = dbContext.StudentNameWithIds.FromSqlRaw("SELECT id, full_name " +
+            return dbContext.StudentNameWithIds.FromSqlRaw("SELECT id, full_name " +
                 "FROM dbo.return_students_from_group (@group_number, @group_name_id)", parameters).ToList();
-
-            return students;
         }
+
+        //public ICollection<StudentNameWithId> GetAllStudents(int groupId)
+        //{
+        //    var students = dbContext.ActualGroups.GroupBy(x=>x.GroupId).Where(y => y.Key == groupId).LastOrDefault()
+        //    return dbContext.ActualGroups.Where(y => y.GroupId == groupId).OrderBy(x=>x.Id).LastOrDefault()
+        //        .Select(x => new StudentNameWithId 
+        //        { 
+        //            StudentId = x.Id, 
+        //            StudentName =$"{x.LastName} {x.FirstName} {x.Patronymic}"
+        //        }).ToList();
+        //}
 
         public StudentsInfo GetStudentExtendedInfo(int studentId)
         {
