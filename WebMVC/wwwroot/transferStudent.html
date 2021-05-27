@@ -210,7 +210,7 @@
                     for (var i in groups) {
                         var option = document.createElement("option");
 
-                        option.setAttribute("value", groups[i].groupId);
+                        option.setAttribute("value", groups[i].groupName);
                         option.text = groups[i].groupName;
 
                         select.appendChild(option);
@@ -272,6 +272,13 @@
                 })
             }
         };
+
+        function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for (i = L; i > 0; i--) {
+                selectElement.remove(i);
+            }
+        }
     </script>
 
 </body>

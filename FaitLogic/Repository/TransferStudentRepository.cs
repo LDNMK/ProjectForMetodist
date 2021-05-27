@@ -1,4 +1,5 @@
 ﻿using Fait.DAL;
+using Fait.DAL.NotMapped;
 using FaitLogic.DTO;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -34,19 +35,16 @@ namespace FaitLogic.Repository
                     new GroupWithIdDTO 
                     { 
                         GroupId = x.Id, 
-                        GroupName = x.GroupName.NameOfGroup
+                        GroupName = $"{x.GroupName.NameOfGroup}-{x.GroupNumber}"
                     })
                 .ToList();
         }
 
-        public void TransferStudentToNextGroup(int studentId)
+        public GroupId GetNextGroupOfStudent(int studentId)
         {
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@studentId", studentId)
-            };
+            var groupId = dbContext.GroupIds.FromSqlRaw("EXEC return_student_group_id (@studentId)", new SqlParameter("@studentId", studentId)).FirstOrDefault();
 
-            dbContext.Database.ExecuteSqlRaw("EXEC transfer_student_to_next_group (@student)", parameters);
+            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student (@group_id)", new SqlParameter("@group_id", groupId)).FirstOrDefault();
         }
     }
 }
