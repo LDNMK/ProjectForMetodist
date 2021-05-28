@@ -160,32 +160,29 @@
             td1.innerHTML = `${tableCount}`
 
             let td2 = document.createElement("TD")
-            td2.insertAdjacentHTML('afterbegin', `<input style="width: 136px" id="${'subjName' + tableCount}" class="tableInput" type="text">`)
-            td2.innerHTML = `${subject.subName}`
+            td2.insertAdjacentHTML('afterbegin', `<input style="width: 136px" id="${'subjName' + tableCount}" class="tableInput" type="text" value="${subject.subName}">`)
 
             let td3 = document.createElement("TD")
-            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" id="${'subjHoursAndECTS' + tableCount}" class="tableInput" type="text">`)
-            td3.innerHTML = `${subject.subHoursAndETCS}`
+            td3.insertAdjacentHTML('afterbegin', `<input style="width: 236px" id="${'subjHoursAndECTS' + tableCount}" class="tableInput" type="text" value="${subject.subHoursAndETCS}">`)
 
             let td4 = document.createElement("TD")
             td4.insertAdjacentHTML('afterbegin', `<select style="width: 179px" id="${'autmnTask' + tableCount}" class="tableInput"><option value="0"></option><option value="1">Немає</option><option value="2">Є</option></select>`)
-            td4.insertAdjacentHTML.value = `${subject.autumnTask}`
+            td4.getElementById(`${'autmnTask' + tableCount}`).value = `${subject.autumnTask}`
 
             let td5 = document.createElement("TD")
             td5.insertAdjacentHTML('afterbegin', `<select style="width: 120px" id="${'autmnMonitoring' + tableCount}" class="tableInput"><option value="0"></option><option value="1">Кредит</option><option value="2">Екзамен</option></select>`)
-            td5.insertAdjacentHTML.value = `${subject.autumnMonitoring}`
+            td5.etElementById(`${'autmnMonitoring' + tableCount}`).value = `${subject.autumnMonitoring}`
 
             let td6 = document.createElement("TD")
             td6.insertAdjacentHTML('afterbegin', `<select style="width: 180px" id="${'springTask' + tableCount}" class="tableInput"><option value="0"></option><option value="1">Немає</option><option value="2">Є</option></select>`)
-            td6.insertAdjacentHTML.value = `${subject.springTask}`
+            td6.etElementById(`${'springTask' + tableCount}`).value = `${subject.springTask}`
 
             let td7 = document.createElement("TD")
             td7.insertAdjacentHTML('afterbegin', `<select style="width: 121px" id="${'springMonitoring' + tableCount}" class="tableInput"><option value="0"></option><option value="1">Кредит</option><option value="2">Екзамен</option></select>`)
-            td7.insertAdjacentHTML.value = subject.springMonitoring
+            td7.etElementById(`${'springMonitoring' + tableCount}`).value = subject.springMonitoring
 
             let td8 = document.createElement("TD")
-            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" id="${'faculty' + tableCount}" class="tableInput" type="text">`)
-            td8.innerHTML = `${subject.faculty}`
+            td8.insertAdjacentHTML('afterbegin', `<input style="width: 67px" id="${'faculty' + tableCount}" class="tableInput" type="text" value="${subject.faculty}">`)
 
             row.append(td1, td2, td3, td4, td5, td6, td7, td8);
             table.append(row);

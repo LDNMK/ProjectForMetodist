@@ -15,13 +15,16 @@ namespace FaitLogic.Logic
 
         private readonly GroupRepository groupRepo;
 
+        private readonly StudentCardRepository studentRepo;
+
         private readonly IMapper mapper;
 
-        public TransferStudentLogic(IMapper mapper, TransferStudentRepository curriculumRepository, GroupRepository groupRepository)
+        public TransferStudentLogic(IMapper mapper, TransferStudentRepository curriculumRepository, GroupRepository groupRepository, StudentCardRepository studentRepository)
         {
             this.mapper = mapper;
             transferRepo = curriculumRepository;
             groupRepo = groupRepository;
+            studentRepo = studentRepository;
         }
 
         public ICollection<GroupWithIdDTO> GetGroupsList(int course, int year)
@@ -54,6 +57,40 @@ namespace FaitLogic.Logic
             };
 
             groupRepo.AddActualGroup(actualGroup);
+        }
+
+        public void TransferGroup(string group)
+        {
+            var partOfGroup = group.Split(new[] { '-', '_', ' ' });
+            var groupNumber = Convert.ToInt32(partOfGroup[1]);
+            var groupName = partOfGroup[0];
+            var groupNameId = groupRepo.FindGroupName(groupName);
+
+            var listOfStudents = studentRepo.GetAllStudents(groupNumber, groupNameId);
+
+            if (listOfStudents == null)
+            {
+                throw new Exception();
+            }
+
+            var nextGroupId = transferRepo.GetNextGroupOfStudent(listOfStudents.First().StudentId);
+
+            if (nextGroupId == null)
+            {
+                throw new Exception();
+            }
+
+            var actualGroups = new List<ActualGroup>();
+            foreach (var student in listOfStudents)
+            {
+                actualGroups.Add(new ActualGroup
+                {
+                    StudentId = student.StudentId,
+                    GroupId = nextGroupId.Id
+                });
+            }
+
+            groupRepo.AddActualGroups(actualGroups);
         }
     }
 }

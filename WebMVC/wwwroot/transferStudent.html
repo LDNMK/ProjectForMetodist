@@ -62,48 +62,6 @@
                 <a href="createStudentGroup.html">Створити групу(и)</a>
             </li>
         </ul>
-
-        <div class="content">
-            <h1>Факультет автоматизацїї та інформаційних технологій</h1>
-            <section id="section1">
-                <br>
-
-                Факультет: 
-                <select id="faculty">
-                    <option>
-                        Оберіть Факультет
-                    </option>
-                </select>
-                Група: 
-                <select id="group">
-                    <option>
-                        Оберіть групу
-                    </option>
-                </select> </br>
-
-
-                Рівень вищої освіти/освітньо-кваліфікаційний рівень: 
-                <select id="level_of_higher_education">
-                    <option>
-                        Оберіть рівень освіти
-                    </option>
-                </select> </br>
-
-                Спеціальність: 
-                <select id="specialty">
-                    <option>
-                        Оберіть спеціальність
-                    </option>
-                </select>
-                Спеціалізація: 
-                <select id="specialization">
-                    <option>
-                        Оберіть спеціалізацію
-                    </option>
-                </select>
-                <button> Показати </button>
-            </section>
-        </div>
     </nav>
 
     <div class="content">
@@ -138,7 +96,7 @@
                     Оберіть групу
                 </option>
             </select> </br>
-            <input id="isOneStudent" type="checkbox" /> Обирати студента
+            <input id="isOneStudent" type="checkbox" /> Обрати студента
             <select id="students">
                 <option>
                     Оберіть студента
@@ -232,7 +190,7 @@
             })
                 .then((resp) => resp.json())
                 .then(function (data) {
-                    let groups = data;
+                    let students = data;
 
                     var select = document.getElementById('students');
                     removeOptions(select);
@@ -255,20 +213,20 @@
             e.preventDefault();
 
             var isOneStudent = document.getElementById('isOneStudent').value;
-            if (isOneStudent == true) {
-                var studentId = document.getElementById('isOneStudent').value;
+            if (isOneStudent == "") {
+                var studentId = document.getElementById('students').value;
 
-                var url = `api/StudentCard/GetStudent?studentId=${studentId}`;
+                var url = `api/TransferStudent/TransferStudent?studentId=${studentId}`;
                 fetch(url, {
-                    method: 'GET'
+                    method: 'PATCH'
                 })
             }
             else {
                 var group = document.getElementById('groups').value;
 
-                var url = `api/StudentCard/GetListOfStudents?group=${group}`;
+                var url = `api/TransferStudent/TransferGroups?group=${group}`;
                 fetch(url, {
-                    method: 'GET'
+                    method: 'PATCH'
                 })
             }
         };

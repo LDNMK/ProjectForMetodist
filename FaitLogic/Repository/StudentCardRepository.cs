@@ -43,6 +43,7 @@ namespace FaitLogic.Repository
             dbContext.SaveChanges();
         }
 
+        //add condition about group have to be active!
         public ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId)
         {
             var parameters = new SqlParameter[]
