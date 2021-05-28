@@ -138,7 +138,7 @@
                     Оберіть групу
                 </option>
             </select> </br>
-            <input id="isOneStudent" type="checkbox" /> Обирати студента
+            <input id="isOneStudent" type="checkbox" /> Обрати студента
             <select id="students">
                 <option>
                     Оберіть студента
@@ -232,7 +232,7 @@
             })
                 .then((resp) => resp.json())
                 .then(function (data) {
-                    let groups = data;
+                    let students = data;
 
                     var select = document.getElementById('students');
                     removeOptions(select);
@@ -255,20 +255,20 @@
             e.preventDefault();
 
             var isOneStudent = document.getElementById('isOneStudent').value;
-            if (isOneStudent == true) {
-                var studentId = document.getElementById('isOneStudent').value;
+            if (isOneStudent == "") {
+                var studentId = document.getElementById('students').value;
 
-                var url = `api/StudentCard/GetStudent?studentId=${studentId}`;
+                var url = `api/TransferStudent/TransferStudent?studentId=${studentId}`;
                 fetch(url, {
-                    method: 'GET'
+                    method: 'PATCH'
                 })
             }
             else {
                 var group = document.getElementById('groups').value;
 
-                var url = `api/StudentCard/GetListOfStudents?group=${group}`;
+                var url = `api/TransferStudent/TransferGroups?group=${group}`;
                 fetch(url, {
-                    method: 'GET'
+                    method: 'PATCH'
                 })
             }
         };

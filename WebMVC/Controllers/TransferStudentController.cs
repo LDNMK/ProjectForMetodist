@@ -22,15 +22,15 @@ namespace WebAPI.Controllers
             return Ok(groups);
         }
 
-        //[HttpGet]
-        //public IActionResult TransferGroups(int group)
-        //{
-        //    var groups = transfLogic.GetGroupsList(course, year);
+        [HttpPatch]
+        public IActionResult TransferGroups(string group)
+        {
+            transfLogic.TransferGroup(group);
 
-        //    return Ok(groups);
-        //}
+            return Ok();
+        }
 
-        [HttpGet]
+        [HttpPatch]
         public IActionResult TransferStudent(int studentId)
         {
             transfLogic.TransferStudent(studentId);

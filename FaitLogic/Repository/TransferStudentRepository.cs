@@ -42,9 +42,9 @@ namespace FaitLogic.Repository
 
         public GroupId GetNextGroupOfStudent(int studentId)
         {
-            var groupId = dbContext.GroupIds.FromSqlRaw("EXEC return_student_group_id (@studentId)", new SqlParameter("@studentId", studentId)).FirstOrDefault();
+            var groupId = dbContext.GroupIds.FromSqlRaw("EXEC return_student_group_id @student_id", new SqlParameter("@student_id", studentId)).AsEnumerable().FirstOrDefault();
 
-            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student (@group_id)", new SqlParameter("@group_id", groupId)).FirstOrDefault();
+            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId.Id)).AsEnumerable().FirstOrDefault();
         }
     }
 }
