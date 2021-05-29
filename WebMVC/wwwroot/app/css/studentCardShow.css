@@ -1,0 +1,25 @@
+.student-card__show-general {
+  text-align: center;
+}
+
+.student-card__show-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px 0;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  justify-items: right;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.student-card__show-item select,
+.student-card__show-item input {
+  margin-left: 10px;
+  min-width: 200px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.student-card__show-item input {
+  text-align: center;
+}

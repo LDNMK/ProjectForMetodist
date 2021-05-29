@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="img/logo.png">
+
+    <!-- Add google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Delete? Will use pure JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
+
+    <!-- <link rel="stylesheet" href="css/reset.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.min.css">
+
+    <title>ФАІТ</title>
+</head>
+
+<body>
+    <div class="container flex-container">
+        <div class="sidebar">
+            <div class="sidebar__logo">
+                <a href="#" class="sidebar__logo-link">
+                    <img class="sidebar__logo-img" src="img/logo.png" alt="">
+                    <span class="sidebar__logo-text">КНУБА</span>
+                </a>
+            </div>
+
+            <ul class="sidebar__menu">
+                <li class="sidebar__menu-item"><a href="#" data-page="mainPage" class="sidebar__menu-link">Головна</a>
+                </li>
+                <li class="sidebar__menu-item sidebar__dropdown">
+                    <a href="#" class="sidebar__menu-link">Картка студента</a>
+                    <span class="fas fa-caret-down"></span>
+                    <ul class="sidebar__menu-item-submenu">
+                        <li class="sidebar__menu-item"><a href="#" data-page="studentCardShowPage"
+                                class="sidebar__menu-link">Відобразити</a></li>
+                        <li class="sidebar__menu-item"><a href="#" data-page="studentCardAddPage"
+                                class="sidebar__menu-link">Додати</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar__menu-item sidebar__dropdown">
+                    <a href="#" class="sidebar__menu-link">Навчальний план</a>
+                    <span class="fas fa-caret-down"></span>
+                    <ul class="sidebar__menu-item-submenu">
+                        <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Відобразити</a></li>
+                        <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Додати</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Перевести</a></li>
+                <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Успішність</a></li>
+                <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Створити звіт</a></li>
+                <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Створити групу(и)</a></li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="main__header">
+                <h1>Факультет автоматизацїї та інформаційних технологій</h1>
+            </div>
+            <div class="main__content">
+                
+            </div>
+        </div>
+    </div>
+    <script src="js/main.min.js"></script>
+</body>
+
+</html>

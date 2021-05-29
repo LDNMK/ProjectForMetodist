@@ -1,0 +1,69 @@
+.student-card__show {
+    display: grid;
+    grid-template-columns: minmax(250px, 1fr) minmax(250px, 2fr);
+    column-gap: 80px;
+
+    &-general {
+        margin-bottom: 100px;
+    }
+
+    &-grid {
+        display: grid;
+        gap: 20px 60px;
+        padding: 20px 0;
+        grid-template-columns: minmax(250px, 1fr);
+        align-items: center;
+
+        margin-bottom: 30px;
+    }
+
+    &-buttons {
+        text-align: center;
+    }
+
+    &-info {
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+
+            top: 0;
+            bottom: 0;
+            left: -38px;
+            width: 1px;
+            background-color: #337ab7;
+            opacity: .2;
+
+        }
+    }
+
+    &-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(100px, 1fr));
+        column-gap: 20px;
+    }
+
+    &-average-score {
+        position: relative;
+
+        &-btn {
+            position: absolute;
+            padding: 5px 7px;
+            font-size: 24px;
+            background-color: transparent;
+            top: 0;
+            right: 0;
+
+            &:hover {
+                background-color: transparent;
+                color: #ee75a7;
+            }
+        }
+    }
+
+
+
+
+
+}
