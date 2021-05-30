@@ -16,7 +16,7 @@ namespace FaitLogic.Logic
 
         public bool AddGroup(string groupName)
         {
-            var parts = groupName.Split(new[] { '-', '_', ' ' });
+            var parts = groupName.Split('-');
             var newGroupName = parts[0];
             var groupNumber = Convert.ToInt32(parts[1]);
 
@@ -56,7 +56,7 @@ namespace FaitLogic.Logic
                     return; 
                 }
 
-                var partsOfName = group.Split(new[] { '-', '_', ' ' });
+                var partsOfName = group.Split('-');
 
                 var existingGroupName = partsOfName[0];
                 var groupNumber = Convert.ToInt32(partsOfName[1]);
@@ -85,7 +85,7 @@ namespace FaitLogic.Logic
                     return;
                 }
 
-                var partsOfName = group.Split(new[] { '-', '_', ' ' });
+                var partsOfName = group.Split('-');
 
                 var existingGroupName = partsOfName[0];
                 var groupNumber = Convert.ToInt32(partsOfName[1]);

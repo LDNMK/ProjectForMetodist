@@ -4,9 +4,9 @@
     [first_name]    NVARCHAR (60) NOT NULL,
     [last_name]     NVARCHAR (60) NOT NULL,
     [patronymic]    NVARCHAR (60) NOT NULL,
-    [student_state] TINYINT       DEFAULT ((1)) NOT NULL,
+    [student_state_id] TINYINT       DEFAULT ((1)) NOT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),
     FOREIGN KEY ([speciality_id]) REFERENCES [dbo].[specialities] ([id]),
-    FOREIGN KEY ([student_state]) REFERENCES [dbo].[student_states] ([id])
+    FOREIGN KEY ([student_state_id]) REFERENCES [dbo].[student_states] ([id])
 );
 

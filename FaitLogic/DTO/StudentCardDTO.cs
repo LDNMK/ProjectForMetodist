@@ -8,8 +8,8 @@ namespace FaitLogic.DTO
         //public string LevelOfStudying { get; set; }
         public int Course { get; set; }
         public string Group { get; set; }
-        public string Surname { get; set; }
-        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
         public string Patronymic { get; set; }
         public string Birthday { get; set; }
         public string BirthPlace { get; set; }//Місце народження
@@ -29,6 +29,6 @@ namespace FaitLogic.DTO
         public string EmploymentAuthority { get; set; }// кто выдал рабочую книжку
         public string EmploymentGivenDate { get; set; } //дата ее выдачи
         public string RegistrOrPassportNumber { get; set; }// код регистарции или серия и номер паспорта
-        public byte StudStateId { get; set; }// состояние студента
+        public byte StudentStateId { get; set; }// состояние студента
     }
 }
