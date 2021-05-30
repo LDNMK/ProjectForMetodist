@@ -24,42 +24,17 @@ namespace FaitLogic.Logic
 
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
-            var studentInfo = new StudentsInfo
-            {
-                Birthdate = Convert.ToDateTime(studentCard.Birthday),
-                BirthPlace = studentCard.BirthPlace,
-                Immenseness = studentCard.Immenseness,
-                MaritalStatusId = studentCard.MaritalStatusId,
-                Registration = studentCard.Registration,
-                Exemption = studentCard.Exemption,
-                ExpirienceCompetitionId = studentCard.ExpirienceCompetitionId,
-                TransferFrom = studentCard.TransferFrom,
-                TransferDirection = studentCard.TransferDirection,
-                CompetitionConditions = studentCard.CompetitionConditions,
-                OutOfCompetitionInfo = studentCard.OutOfCompetitionInfo,
-                AmmendsId = studentCard.AmmendsId,
-                EmploymentNumber = studentCard.EmploymentNumber,
-                EmploymentAuthority = studentCard.EmploymentAuthority,
-                EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate),
-                RegistrOrPassportNumber = studentCard.RegistrOrPassportNumber
-            };
-            var student = new Student
-            {
-                //SpecialityId = studentCard.
-                FirstName = studentCard.Name,
-                LastName = studentCard.Surname,
-                Patronymic = studentCard.Patronymic,
-                StudentState = studentCard.StudStateId
-            };
+            var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
+
+            studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
+            studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
+
+            //SpecialityId = studentCard.!!!!
+            var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
 
             var studentId = studentCardRepo.AddStudentCardToDb(studentInfo, student);
 
-            var parts = studentCard.Group.Split(new[] { '-', '_', ' ' });
-            var groupName = parts[0];
-            var groupNumber = Convert.ToInt32(parts[1]);
-
-            var groupNameId = groupRepo.FindGroupName(groupName);
-            var groupId = groupRepo.GetGroupId(groupNumber, groupNameId);
+            var groupId = GetGroupIdByGroupName(studentCard.Group);
 
             var actualGroup = new ActualGroup
             {
@@ -72,44 +47,17 @@ namespace FaitLogic.Logic
 
         public void UpdateStudentCardInfo(int studentId, StudentCardDTO studentCard)
         {
-            var studentInfo = new StudentsInfo
-            {
-                Id = studentId,
-                Birthdate = Convert.ToDateTime(studentCard.Birthday),
-                BirthPlace = studentCard.BirthPlace,
-                Immenseness = studentCard.Immenseness,
-                MaritalStatusId = studentCard.MaritalStatusId,
-                Registration = studentCard.Registration,
-                Exemption = studentCard.Exemption,
-                ExpirienceCompetitionId = studentCard.ExpirienceCompetitionId,
-                TransferFrom = studentCard.TransferFrom,
-                TransferDirection = studentCard.TransferDirection,
-                CompetitionConditions = studentCard.CompetitionConditions,
-                OutOfCompetitionInfo = studentCard.OutOfCompetitionInfo,
-                AmmendsId = studentCard.AmmendsId,
-                EmploymentNumber = studentCard.EmploymentNumber,
-                EmploymentAuthority = studentCard.EmploymentAuthority,
-                EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate),
-                RegistrOrPassportNumber = studentCard.RegistrOrPassportNumber
-            };
-            var student = new Student
-            {
-                Id = studentId,
-                //SpecialityId = studentCard.
-                FirstName = studentCard.Name,
-                LastName = studentCard.Surname,
-                Patronymic = studentCard.Patronymic,
-                StudentState = studentCard.StudStateId
-            };
+            var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
+
+            studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
+            studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
+
+            //SpecialityId = studentCard.!!!!
+            var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
 
             studentCardRepo.UpdateStudentCardInDb(studentInfo, student);
 
-            var parts = studentCard.Group.Split(new[] { '-', '_', ' ' });
-            var groupName = parts[0];
-            var groupNumber = Convert.ToInt32(parts[1]);
-
-            var groupNameId = groupRepo.FindGroupName(groupName);
-            var groupId = groupRepo.GetGroupId(groupNumber, groupNameId);
+            var groupId = GetGroupIdByGroupName(studentCard.Group);
 
             var actualStudentGroup = groupRepo.FindActualStudentGroup(studentId);
             actualStudentGroup.GroupId = groupId;
@@ -119,7 +67,7 @@ namespace FaitLogic.Logic
 
         public ICollection<StudentNameWithIdDTO> GetListOfStudents(string group)
         {
-            var partOfGroup = group.Split(new[] { '-', '_', ' ' });
+            var partOfGroup = group.Split('-');
             var groupNumber = Convert.ToInt32(partOfGroup[1]);
             var groupName = partOfGroup[0];
             var groupNameId = groupRepo.FindGroupName(groupName);
@@ -139,12 +87,22 @@ namespace FaitLogic.Logic
 
             var student = studentCardRepo.GetStudentMainInfo(studentId);
 
-            studentFullInfo.Surname = student.LastName;
-            studentFullInfo.Name = student.FirstName;
+            studentFullInfo.LastName = student.LastName;
+            studentFullInfo.FirstName = student.FirstName;
             studentFullInfo.Patronymic = student.Patronymic;
-            studentFullInfo.StudStateId = student.StudentState;
+            studentFullInfo.StudentStateId = student.StudentStateId;
 
             return studentFullInfo;
+        }
+
+        public int GetGroupIdByGroupName(string groupName)
+        {
+            var parts = groupName.Split('-');
+            var groupAbbreviation = parts[0];
+            var groupNumber = Convert.ToInt32(parts[1]);
+
+            var groupNameId = groupRepo.FindGroupName(groupAbbreviation);
+            return groupRepo.GetGroupId(groupNumber, groupNameId);
         }
     }
 }

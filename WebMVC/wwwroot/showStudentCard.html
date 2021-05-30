@@ -248,8 +248,8 @@
             let data = {
                 //Course: document.getElementById('course').value,
                 Group: document.getElementById('group').value,
-                Surname: document.getElementById('surname').value,
-                Name: document.getElementById('name').value,
+                LastName: document.getElementById('surname').value,
+                FirstName: document.getElementById('name').value,
                 Patronymic: document.getElementById('middle_name').value,
                 Birthday: document.getElementById('birthday').value,
                 BirthPlace: document.getElementById('birthplace').value,
@@ -269,13 +269,13 @@
                 EmploymentGivenDate: document.getElementById('employment_given_date').value,
                 EmploymentAuthority: document.getElementById('employment_history_by_whom_issued').value,
                 RegistrOrPassportNumber: document.getElementById('registration_or_passport_number').value,
-                StudStateId: document.getElementById('student_status').value
+                StudentStateId: document.getElementById('student_status').value
             }
 
             var studentId = document.getElementById('student').value;
             var url = 'api/StudentCard/UpdateStudentCardInfo?studentId=' + studentId;
             fetch(url, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -300,8 +300,8 @@
                 .then(function (data) {
                     let studentInfo = data;
 
-                    document.getElementById('surname').value = studentInfo.surname;
-                    document.getElementById('name').value = studentInfo.name;
+                    document.getElementById('surname').value = studentInfo.lastName;
+                    document.getElementById('name').value = studentInfo.firstName;
                     document.getElementById('middle_name').value = studentInfo.patronymic;
                     document.getElementById('birthday').value = studentInfo.birthday;
                     document.getElementById('birthplace').value = studentInfo.birthPlace;
@@ -321,7 +321,7 @@
                     document.getElementById('employment_given_date').value = studentInfo.employmentGivenDate;
                     document.getElementById('employment_history_by_whom_issued').value = studentInfo.employmentAuthority;
                     document.getElementById('registration_or_passport_number').value = studentInfo.registrOrPassportNumber;
-                    document.getElementById('student_status').value = studentInfo.studStateId;
+                    document.getElementById('student_status').value = studentInfo.studentStateId;
 
                 })
         };

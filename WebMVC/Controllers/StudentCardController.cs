@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
         private readonly IMapper _mapper;
 
         private readonly StudentCardLogic studentInfoLogic;
-        // Assign the object in the constructor for dependency injection
+
         public StudentCardController(IMapper mapper, StudentCardLogic studentInfoLogic)
         {
             _mapper = mapper;
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult UpdateStudentCardInfo([FromQuery]int studentId, [FromBody] StudentCardModel model)
         {
             studentInfoLogic.UpdateStudentCardInfo(studentId, _mapper.Map<StudentCardDTO>(model));

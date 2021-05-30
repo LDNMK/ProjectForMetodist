@@ -37,9 +37,6 @@ namespace Fait.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -224,8 +221,8 @@ namespace Fait.DAL
 
                 entity.Property(e => e.SpecialityId).HasColumnName("speciality_id");
 
-                entity.Property(e => e.StudentState)
-                    .HasColumnName("student_state")
+                entity.Property(e => e.StudentStateId)
+                    .HasColumnName("student_state_Id")
                     .HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Speciality)
@@ -233,9 +230,9 @@ namespace Fait.DAL
                     .HasForeignKey(d => d.SpecialityId)
                     .HasConstraintName("FK__students__specia__4AB81AF0");
 
-                entity.HasOne(d => d.StudentStateNavigation)
+                entity.HasOne(d => d.StudentState)
                     .WithMany(p => p.Students)
-                    .HasForeignKey(d => d.StudentState)
+                    .HasForeignKey(d => d.StudentStateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__students__studen__4BAC3F29");
             });
@@ -365,7 +362,7 @@ namespace Fait.DAL
                     .WithMany(p => p.Subjects)
                     .HasForeignKey(d => d.SubjectInfoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__subjects__subjec__5441852A");
+                    .HasConstraintName("FK__subjects__subjec__5165187F");
             });
 
             modelBuilder.Entity<SubjectInfo>(entity =>
@@ -398,7 +395,7 @@ namespace Fait.DAL
             modelBuilder.Entity<TransferOrder>(entity =>
             {
                 entity.HasKey(e => e.OrderId)
-                    .HasName("PK__transfer__46596229753DCBD4");
+                    .HasName("PK__transfer__46596229ADF6C66F");
 
                 entity.ToTable("transfer_orders");
 
@@ -423,7 +420,7 @@ namespace Fait.DAL
                     .WithMany(p => p.TransferOrders)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("FK__transfer___stude__5535A963");
+                    .HasConstraintName("FK__transfer___stude__52593CB8");
             });
 
             modelBuilder.Entity<YearPlan>(entity =>

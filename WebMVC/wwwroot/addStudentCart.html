@@ -227,8 +227,8 @@
             let data = {
                 Course: document.getElementById('course').value,
                 Group: document.getElementById('group').value,
-                Surname: document.getElementById('surname').value,
-                Name: document.getElementById('name').value,
+                LastName: document.getElementById('surname').value,
+                FirstName: document.getElementById('name').value,
                 Patronymic: document.getElementById('middle_name').value,
                 Birthday: document.getElementById('birthday').value,
                 BirthPlace: document.getElementById('birthplace').value,
@@ -248,7 +248,7 @@
                 EmploymentGivenDate: document.getElementById('employment_given_date').value,
                 EmploymentAuthority: document.getElementById('employment_history_by_whom_issued').value,
                 RegistrOrPassportNumber: document.getElementById('registration_or_passport_number').value,
-                StudStateId: document.getElementById('student_status').value
+                StudentStateId: document.getElementById('student_status').value
             }
             fetch('api/StudentCard/SaveStudentCardInfo', {
                 method: 'POST',
