@@ -23,10 +23,11 @@ const scssFiles = [
 
 //Порядок подключения js файлов
 const jsFiles = [
-	'app/js/main.js',
+	'app/js/mapper.js',
 	'app/js/sidebar.js',
 	'app/js/form.js',
 	'app/js/student-card-show.js',
+	'app/js/main.js',
 ];
 
 function sassToCss() {
