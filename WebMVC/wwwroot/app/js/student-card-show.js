@@ -1,17 +1,18 @@
-function getStudentCardShow() {
+function getStudentCardShowPage() {
     return `
-            <div class="student-card__show">
+        <div class="student-card__show">
             <div class="student-card__show-general">
+                <h1 class="student-card__show-title">Пошук</h1>
                 <!-- <form class="student-card__find" action="get"> -->
                 <div class="student-card__show-grid">
                     <div class="form-element form-select">
-                        <select class="form-element-field" id="specialization">
+                        <select class="form-element-field" id="speciality">
                             <option class="form-select-placeholder" value="" disabled selected></option>
                             <option value="1">Test 1</option>
                             <option value="2">Lorem ipsum dolor</option>
                         </select>
                         <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="specialization">Спеціальність</label>
+                        <label class="form-element-label" for="speciality">Спеціальність</label>
                     </div>
                     <div class="form-element form-select">
                         <select class="form-element-field" id="specialization">
@@ -28,22 +29,31 @@ function getStudentCardShow() {
                         <label class="form-element-label" for="year">Рік</label>
                     </div>
                     <div class="form-element form-select">
-                        <select class="form-element-field" id="specialization">
+                        <select class="form-element-field" id="course">
                             <option class="form-select-placeholder" value="" disabled selected></option>
                             <option value="1">Test 1</option>
                             <option value="2">Lorem ipsum dolor</option>
                         </select>
                         <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="specialization">Курс</label>
+                        <label class="form-element-label" for="course">Курс</label>
                     </div>
                     <div class="form-element form-select">
-                        <select class="form-element-field" id="specialization">
+                        <select class="form-element-field" id="group">
                             <option class="form-select-placeholder" value="" disabled selected></option>
                             <option value="1">Test 1</option>
                             <option value="2">Lorem ipsum dolor</option>
                         </select>
                         <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="specialization">Група</label>
+                        <label class="form-element-label" for="group">Група</label>
+                    </div>
+
+                    <div class="form-element form-select">
+                        <select class="form-element-field" id="student">
+                            <option class="form-select-placeholder" value="" disabled selected></option>
+                            <option value="1">Сидорчук Владислав Геннадійович</option>
+                        </select>
+                        <div class="form-element-bar"></div>
+                        <label class="form-element-label" for="student">Студент</label>
                     </div>
                 </div>
 
@@ -54,22 +64,24 @@ function getStudentCardShow() {
                     </button>
                     <button class="btn student-card__show-btn-show">
                         <i class="btn-icon fas fa-search"></i>
-                        <span class="btn-text">Знайти студентів</span>
+                        <span class="btn-text">Знайти студента</span>
                     </button>
                 </div>
                 <!-- </form> -->
             </div>
 
             <div class="student-card__show-info">
-                <div class="form-element form-select">
-                    <select class="form-element-field" id="specialization">
-                        <option class="form-select-placeholder" value="" disabled selected></option>
-                        <option value="1">Сидорчук Владислав Геннадійович</option>
-                    </select>
-                    <div class="form-element-bar"></div>
-                    <label class="form-element-label" for="specialization">Навчальна картка студента</label>
+                <h1 class="student-card__show-title">Навчальна картка студента</h1>
+                <div class="student-card__show-info-buttons">
+                    <button class="btn student-card__show-btn-edit">
+                        <i class="btn-icon fas fa-user-edit"></i>
+                        <span class="btn-text">Редагувати</span>
+                    </button>
+                    <button class="btn student-card__show-btn-save">
+                        <i class="btn-icon fas fa-save"></i>
+                        <span class="btn-text">Зберегти</span>
+                    </button>
                 </div>
-
                 <div class="student-card__show-row">
                     <div class="form-element form-input">
                         <input id="surname" class="form-element-field" placeholder="Введіть прізвище"
