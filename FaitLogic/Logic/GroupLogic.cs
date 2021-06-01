@@ -1,4 +1,7 @@
-﻿using Fait.DAL;
+﻿using AutoMapper;
+using Fait.DAL;
+using Fait.DAL.NotMapped;
+using FaitLogic.DTO;
 using FaitLogic.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,8 +12,11 @@ namespace FaitLogic.Logic
     {
         private readonly GroupRepository groupRepo;
 
-        public GroupLogic(GroupRepository groupRepository)
+        private readonly IMapper mapper;
+
+        public GroupLogic(IMapper mapper, GroupRepository groupRepository)
         {
+            this.mapper = mapper;
             groupRepo = groupRepository;
         }
 
@@ -26,9 +32,9 @@ namespace FaitLogic.Logic
                 groupNameId = groupRepo.CreateNewGroupName(new GroupName { NameOfGroup = newGroupName });
             }
 
-            var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
+            var isExisted = groupRepo.CheckIfGroupExist(groupNumber, groupNameId);
 
-            if(findedGroup != null)
+            if(isExisted)
             {
                 return false;
             }
@@ -41,58 +47,44 @@ namespace FaitLogic.Logic
                 GroupYear = 2021
             };
 
-            groupRepo.AddGroupToDb(newGroup);
+            groupRepo.AddGroup(newGroup);
 
             return true;
         }
 
-        public void ActivateGroups(string groupsNames)
+        public void ActivateGroups(string groupsIds)
         {
-            var groupsNamesArray = groupsNames.Split('\n');
-            foreach (var group in groupsNamesArray)
+            var groupsIdsArray = groupsIds.Split(',');
+            foreach (var groupId in groupsIdsArray)
             {
-                if (group.Length < 1)
+                if (groupId.Length < 1)
                 { 
                     return; 
                 }
 
-                var partsOfName = group.Split('-');
-
-                var existingGroupName = partsOfName[0];
-                var groupNumber = Convert.ToInt32(partsOfName[1]);
-
-                var groupNameId = groupRepo.FindGroupName(existingGroupName);
-
-                var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
+                var findedGroup = groupRepo.FindExistingGroup(Convert.ToInt32(groupId));
                 findedGroup.Actual = true;
 
                 groupRepo.UpdateGroup(findedGroup);
             }
         }
 
-        public ICollection<string> GetGroupsList()
+        public ICollection<GroupNameWithIdDTO> GetGroupsList()
         {
-            return groupRepo.GetAllGroups();
+            return mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetAllGroups());
         }
 
-        public void SetYearPlan(string groupsNames, int yearPlanId)
+        public void SetYearPlan(string groupsIds, int yearPlanId)
         {
-            var groupsNamesArray = groupsNames.Split('\n');
-            foreach (var group in groupsNamesArray)
+            var groupsIdsArray = groupsIds.Split(',');
+            foreach (var groupId in groupsIdsArray)
             {
-                if (group.Length < 1)
+                if (groupId.Length < 1)
                 {
                     return;
                 }
 
-                var partsOfName = group.Split('-');
-
-                var existingGroupName = partsOfName[0];
-                var groupNumber = Convert.ToInt32(partsOfName[1]);
-
-                var groupNameId = groupRepo.FindGroupName(existingGroupName);
-
-                var findedGroup = groupRepo.FindExistingGroup(groupNumber, groupNameId);
+                var findedGroup = groupRepo.FindExistingGroup(Convert.ToInt32(groupId));
                 findedGroup.PlanId = yearPlanId;
 
                 groupRepo.UpdateGroup(findedGroup);

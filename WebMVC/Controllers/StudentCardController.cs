@@ -37,9 +37,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetListOfStudents([FromQuery]string group)
+        public IActionResult GetListOfStudents([FromQuery]int groupId)
         {
-            var result = studentInfoLogic.GetListOfStudents(group);
+            var result = studentInfoLogic.GetListOfStudents(groupId);
 
             return Ok(result);
         }

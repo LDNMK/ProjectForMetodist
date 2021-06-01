@@ -122,12 +122,16 @@
             )
         })
 
+        document.getElementById('groupsTextarea').text = '';
         document.getElementById('addGroupInList').onclick = function (e) {
             e.preventDefault();
             let groupName = document.getElementById('groups');
             let groupList = document.getElementById('groupsTextarea');
 
-            groupList.value += groupName.value + `\n`;
+            groupList.value += groupName.selectedOptions[0].text + `\n`;
+
+            //make it like array!!
+            groupList.text += groupName.value + `,`;
         };
 
         document.getElementById('createGroup').onclick = function (e) {
@@ -151,7 +155,7 @@
 
         document.getElementById('activateExistingGroups').onclick = function (e) {
             e.preventDefault();
-            let groupsNames = document.getElementById('groupsTextarea').value;
+            let groupsNames = document.getElementById('groupsTextarea').text;
 
             fetch('api/GroupCreation/ActivateExistingGroups', {
                 method: 'POST',
@@ -178,9 +182,9 @@
                 this.innerHTML = '';
                 for (var i in groups) {
                     var option = document.createElement("option");
-                    option.setAttribute("value", groups[i]);
+                    option.setAttribute("value", groups[i].groupId);
 
-                    option.text = groups[i];
+                    option.text = groups[i].groupName;
 
                     select.appendChild(option);
                 }

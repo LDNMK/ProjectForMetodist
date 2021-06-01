@@ -1,11 +1,12 @@
 ﻿using Fait.DAL;
+using Fait.DAL.NotMapped;
 using System.Collections.Generic;
 
 namespace FaitLogic.Repository.IRepository
 {
     interface IGroupRepository
     {
-        void AddGroupToDb(Group group);
+        void AddGroup(Group group);
 
         void UpdateActualGroup(ActualGroup group);
 
@@ -13,7 +14,7 @@ namespace FaitLogic.Repository.IRepository
 
         byte? FindGroupName(string groupName);
 
-        Group FindExistingGroup(int groupNumber, byte? groupNameId);
+        Group FindExistingGroup(int groupId);
 
         void UpdateGroup(Group group);
 
@@ -23,6 +24,6 @@ namespace FaitLogic.Repository.IRepository
 
         byte CreateNewGroupName(GroupName groupName);
 
-        ICollection<string> GetAllGroups();
+        ICollection<GroupNameWithId> GetAllGroups();
     }
 }

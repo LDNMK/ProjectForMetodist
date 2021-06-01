@@ -185,19 +185,24 @@
             tableCount--
         }
 
+        document.getElementById('groupList').text = '';
         // додати групу в textarea
         function addGroup() {
-                let groupName = document.getElementById('group');
+            let groupName = document.getElementById('group');
             let groupsTextArea = document.getElementById('groupList');
 
-            groupsTextArea.value += groupName.value + `\n`;
-        }
-       // function deleteGroup() {
-         //       let groupName = document.getElementById('select3');
-           //     let groupsTextArea = document.getElementById('groupsTextarea');
+            groupsTextArea.value += groupName.selectedOptions[0].text + `\n`;
 
-             //   groupsTextArea.value += groupName.value + `\n`;
-       // }
+            //make it like array!!
+            groupsTextArea.text += groupName.value + `,`;
+        }
+
+        //function deleteGroup() {
+        //    let groupName = document.getElementById('select3');
+        //    let groupsTextArea = document.getElementById('groupsTextarea');
+
+        //    groupsTextArea.value += groupName.value + `\n`;
+        //}
 
         /* Список */
         let addSelectButton = document.getElementById('button2')
@@ -227,7 +232,7 @@
             let table = document.getElementById('myTable');
             let data = {
                 Course: document.getElementById('course').value,
-                Groups: document.getElementById('groupList').value,
+                Groups: document.getElementById('groupList').text,
                 PlanName: document.getElementById('nameCurriculum').value,
                 SubjectInfo: createArrayWithSubjects(table)
             }
@@ -273,9 +278,9 @@
                     this.innerHTML = '';
                     for (var i in groups) {
                         var option = document.createElement("option");
-                        option.setAttribute("value", groups[i]);
+                        option.setAttribute("value", groups[i].groupId);
 
-                        option.text = groups[i];
+                        option.text = groups[i].groupName;
 
                         select.appendChild(option);
                     }

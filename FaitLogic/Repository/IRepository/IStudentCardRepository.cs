@@ -12,7 +12,7 @@ namespace FaitLogic.Repository.IRepository
 
         void UpdateStudentCardInDb(StudentsInfo studentsInfo, Student student);
 
-        ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId);
+        ICollection<StudentNameWithId> GetAllStudents(int groupId);
 
         StudentsInfo GetStudentExtendedInfo(int studentId);
 

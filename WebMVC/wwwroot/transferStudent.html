@@ -168,7 +168,7 @@
                     for (var i in groups) {
                         var option = document.createElement("option");
 
-                        option.setAttribute("value", groups[i].groupName);
+                        option.setAttribute("value", groups[i].groupId);
                         option.text = groups[i].groupName;
 
                         select.appendChild(option);
@@ -182,9 +182,9 @@
             e.preventDefault();
 
             var selected = this.selectedIndex;
-            var group = document.getElementById('groups').value;
+            var groupId = document.getElementById('groups').value;
 
-            var url = `api/StudentCard/GetListOfStudents?group=${group}`;
+            var url = `api/StudentCard/GetListOfStudents?groupId=${groupId}`;
             fetch(url, {
                 method: 'GET'
             })
@@ -213,18 +213,17 @@
             e.preventDefault();
 
             var isOneStudent = document.getElementById('isOneStudent').value;
+            var groupId = document.getElementById('groups').value;
             if (isOneStudent == "") {
                 var studentId = document.getElementById('students').value;
 
-                var url = `api/TransferStudent/TransferStudent?studentId=${studentId}`;
+                var url = `api/TransferStudent/TransferStudent?studentId=${studentId}&groupId=${groupId}`;
                 fetch(url, {
                     method: 'PATCH'
                 })
             }
             else {
-                var group = document.getElementById('groups').value;
-
-                var url = `api/TransferStudent/TransferGroups?group=${group}`;
+                var url = `api/TransferStudent/TransferGroups?groupId=${groupId}`;
                 fetch(url, {
                     method: 'PATCH'
                 })

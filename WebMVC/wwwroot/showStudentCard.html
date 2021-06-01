@@ -231,9 +231,9 @@
                     this.innerHTML = '';
                     for (var i in groups) {
                         var option = document.createElement("option");
+                        option.setAttribute("value", groups[i].groupId);
 
-                        option.setAttribute("value", groups[i]);
-                        option.text = groups[i];
+                        option.text = groups[i].groupName;
 
                         select.appendChild(option);
                     }
@@ -328,9 +328,9 @@
             e.preventDefault();
 
             var selected = this.selectedIndex;
-            var groupName = document.getElementById('group').value;
+            var groupId = document.getElementById('group').value;
 
-            var url = 'api/StudentCard/GetListOfStudents?group=' + groupName;
+            var url = 'api/StudentCard/GetListOfStudents?groupId=' + groupId;
             fetch(url, {
                 method: 'GET'
             })

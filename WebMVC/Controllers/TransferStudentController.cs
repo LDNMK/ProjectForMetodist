@@ -23,17 +23,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPatch]
-        public IActionResult TransferGroups(string group)
+        public IActionResult TransferGroups(int groupId)
         {
-            transfLogic.TransferGroup(group);
+            transfLogic.TransferGroup(groupId);
 
             return Ok();
         }
 
         [HttpPatch]
-        public IActionResult TransferStudent(int studentId)
+        public IActionResult TransferStudent(int studentId, int groupId)
         {
-            transfLogic.TransferStudent(studentId);
+            transfLogic.TransferStudent(studentId, groupId);
 
             return Ok();
         }
