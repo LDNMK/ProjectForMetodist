@@ -34,12 +34,10 @@ namespace FaitLogic.Logic
 
             var studentId = studentCardRepo.AddStudentCardToDb(studentInfo, student);
 
-            var groupId = GetGroupIdByGroupName(studentCard.Group);
-
             var actualGroup = new ActualGroup
             {
                 StudentId = studentId,
-                GroupId = groupId
+                GroupId = studentCard.GroupId
             };
 
             groupRepo.AddActualGroup(actualGroup);
@@ -49,30 +47,20 @@ namespace FaitLogic.Logic
         {
             var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
 
+            studentInfo.Id = studentId;
             studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
             studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
 
             //SpecialityId = studentCard.!!!!
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
+            student.Id = studentId;
 
             studentCardRepo.UpdateStudentCardInDb(studentInfo, student);
-
-            var groupId = GetGroupIdByGroupName(studentCard.Group);
-
-            var actualStudentGroup = groupRepo.FindActualStudentGroup(studentId);
-            actualStudentGroup.GroupId = groupId;
-
-            groupRepo.UpdateActualGroup(actualStudentGroup);
         }
 
-        public ICollection<StudentNameWithIdDTO> GetListOfStudents(string group)
+        public ICollection<StudentNameWithIdDTO> GetListOfStudents(int groupId)
         {
-            var partOfGroup = group.Split('-');
-            var groupNumber = Convert.ToInt32(partOfGroup[1]);
-            var groupName = partOfGroup[0];
-            var groupNameId = groupRepo.FindGroupName(groupName);
-
-            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(studentCardRepo.GetAllStudents(groupNumber, groupNameId));
+            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(studentCardRepo.GetAllStudents(groupId));
 
             return listOfStudents;
         }
@@ -93,16 +81,6 @@ namespace FaitLogic.Logic
             studentFullInfo.StudentStateId = student.StudentStateId;
 
             return studentFullInfo;
-        }
-
-        public int GetGroupIdByGroupName(string groupName)
-        {
-            var parts = groupName.Split('-');
-            var groupAbbreviation = parts[0];
-            var groupNumber = Convert.ToInt32(parts[1]);
-
-            var groupNameId = groupRepo.FindGroupName(groupAbbreviation);
-            return groupRepo.GetGroupId(groupNumber, groupNameId);
         }
     }
 }

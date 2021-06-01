@@ -3,6 +3,7 @@ using Fait.DAL.NotMapped;
 using FaitLogic.Repository.IRepository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,21 +18,19 @@ namespace FaitLogic.Repository
             dbContext = context;
         }
 
+        //Add transaction!!
         public int AddStudentCardToDb(StudentsInfo studentsInfo, Student student)
         {
-            var studentId = 0;
-
             dbContext.Students.Add(student);
             dbContext.SaveChanges();
-            var lastStudent = dbContext.Students.OrderByDescending(x => x.Id).FirstOrDefault();
-            if (lastStudent != null)
-            {
-                studentsInfo.IdNavigation = lastStudent;
-            }
 
+            var lastStudentId = dbContext.Students.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+
+            studentsInfo.Id = lastStudentId;
             dbContext.StudentsInfos.Add(studentsInfo);
             dbContext.SaveChanges();
-            studentId = lastStudent.Id;
+
+            var studentId = lastStudentId;
 
             return studentId;
         }
@@ -43,17 +42,15 @@ namespace FaitLogic.Repository
             dbContext.SaveChanges();
         }
 
-        //add condition about group have to be active!
-        public ICollection<StudentNameWithId> GetAllStudents(int groupNumber, byte? groupNameId)
+        public ICollection<StudentNameWithId> GetAllStudents(int groupId)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@group_number", groupNumber),
-                new SqlParameter("@group_name_id", groupNameId)
+                new SqlParameter("@group_id", groupId)
             };
 
             return dbContext.StudentNameWithIds.FromSqlRaw("SELECT id, full_name " +
-                "FROM dbo.return_students_from_group (@group_number, @group_name_id)", parameters).ToList();
+                "FROM dbo.return_students_from_group (@group_id)", parameters).ToList();
         }
 
         //public ICollection<StudentNameWithId> GetAllStudents(int groupId)

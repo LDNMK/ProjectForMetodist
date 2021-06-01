@@ -231,9 +231,9 @@
                     this.innerHTML = '';
                     for (var i in groups) {
                         var option = document.createElement("option");
+                        option.setAttribute("value", groups[i].groupId);
 
-                        option.setAttribute("value", groups[i]);
-                        option.text = groups[i];
+                        option.text = groups[i].groupName;
 
                         select.appendChild(option);
                     }
@@ -246,8 +246,6 @@
             e.preventDefault();
 
             let data = {
-                //Course: document.getElementById('course').value,
-                Group: document.getElementById('group').value,
                 LastName: document.getElementById('surname').value,
                 FirstName: document.getElementById('name').value,
                 Patronymic: document.getElementById('middle_name').value,
@@ -330,9 +328,9 @@
             e.preventDefault();
 
             var selected = this.selectedIndex;
-            var groupName = document.getElementById('group').value;
+            var groupId = document.getElementById('group').value;
 
-            var url = 'api/StudentCard/GetListOfStudents?group=' + groupName;
+            var url = 'api/StudentCard/GetListOfStudents?groupId=' + groupId;
             fetch(url, {
                 method: 'GET'
             })

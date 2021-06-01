@@ -27,12 +27,12 @@ namespace FaitLogic.Repository
                 .ToList();
         }
 
-        public List<GroupWithIdDTO> GetGroupsNames(IEnumerable<int> groupIds)
+        public List<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds)
         {
             return dbContext.Groups
                 .Where(x => groupIds.Contains(x.Id))
                 .Select(x => 
-                    new GroupWithIdDTO 
+                    new GroupNameWithId 
                     { 
                         GroupId = x.Id, 
                         GroupName = $"{x.GroupName.NameOfGroup}-{x.GroupNumber}"
@@ -40,11 +40,9 @@ namespace FaitLogic.Repository
                 .ToList();
         }
 
-        public GroupId GetNextGroupOfStudent(int studentId)
+        public GroupId GetNextGroupOfStudent(int groupId)
         {
-            var groupId = dbContext.GroupIds.FromSqlRaw("EXEC return_student_group_id @student_id", new SqlParameter("@student_id", studentId)).AsEnumerable().FirstOrDefault();
-
-            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId.Id)).AsEnumerable().FirstOrDefault();
+            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId)).AsEnumerable().FirstOrDefault();
         }
     }
 }

@@ -27,23 +27,23 @@ namespace FaitLogic.Logic
             studentRepo = studentRepository;
         }
 
-        public ICollection<GroupWithIdDTO> GetGroupsList(int course, int year)
+        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int year)
         {
             var groups = transferRepo.GetGroups(course, year);
 
-            var groupNames = new List<GroupWithIdDTO>();
+            var groupNames = new List<GroupNameWithIdDTO>();
             foreach (var groupsOfYearPlan in groups)
             {
                 var groupsIds = groupsOfYearPlan.Select(x => x.Id);
-                groupNames.AddRange(transferRepo.GetGroupsNames(groupsIds));
+                groupNames.AddRange(mapper.Map<ICollection<GroupNameWithIdDTO>>(transferRepo.GetGroupsNames(groupsIds)));
             }
 
             return groupNames;
         }
 
-        public void TransferStudent(int studentId)
+        public void TransferStudent(int studentId, int groupId)
         {
-            var nextGroupId = transferRepo.GetNextGroupOfStudent(studentId);
+            var nextGroupId = transferRepo.GetNextGroupOfStudent(groupId);
 
             if(nextGroupId == null)
             {
@@ -59,23 +59,16 @@ namespace FaitLogic.Logic
             groupRepo.AddActualGroup(actualGroup);
         }
 
-        public void TransferGroup(string group)
+        public void TransferGroup(int groupId)
         {
-            var partOfGroup = group.Split(new[] { '-', '_', ' ' });
-            var groupNumber = Convert.ToInt32(partOfGroup[1]);
-            var groupName = partOfGroup[0];
-            var groupNameId = groupRepo.FindGroupName(groupName);
-
-            var listOfStudents = studentRepo.GetAllStudents(groupNumber, groupNameId);
-
-            if (listOfStudents == null)
+            var nextGroupId = transferRepo.GetNextGroupOfStudent(groupId);
+            if (nextGroupId == null)
             {
                 throw new Exception();
             }
 
-            var nextGroupId = transferRepo.GetNextGroupOfStudent(listOfStudents.First().StudentId);
-
-            if (nextGroupId == null)
+            var listOfStudents = studentRepo.GetAllStudents(groupId);
+            if (listOfStudents == null)
             {
                 throw new Exception();
             }
@@ -89,8 +82,11 @@ namespace FaitLogic.Logic
                     GroupId = nextGroupId.Id
                 });
             }
-
             groupRepo.AddActualGroups(actualGroups);
+
+            var grou = groupRepo.FindExistingGroup(groupId);
+            grou.Actual = false;
+            groupRepo.UpdateGroup(grou);
         }
     }
 }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
-#nullable disable
 
 namespace Fait.DAL
 {
@@ -27,7 +24,7 @@ namespace Fait.DAL
 
         public virtual Ammende Ammends { get; set; }
         public virtual ExpirienceCompetitione ExpirienceCompetition { get; set; }
-        public virtual Student IdNavigation { get; set; }
+        public virtual Student Student { get; set; }
         public virtual MaritalStatus MaritalStatus { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace Fait.DAL
         {
         }
         public virtual DbSet<StudentNameWithId> StudentNameWithIds { get; set; }
+        public virtual DbSet<GroupNameWithId> GroupNameWithIds { get; set; }
         public virtual DbSet<GroupId> GroupIds { get; set; }
         public virtual DbSet<ActualGroup> ActualGroups { get; set; }
         public virtual DbSet<Ammende> Ammendes { get; set; }
@@ -46,6 +47,15 @@ namespace Fait.DAL
                 entity.Property(e => e.StudentId).HasColumnName("id");
 
                 entity.Property(e => e.StudentName).HasColumnName("full_name");
+
+                entity.HasNoKey();
+            });
+
+            modelBuilder.Entity<GroupNameWithId>(entity =>
+            {
+                entity.Property(e => e.GroupId).HasColumnName("id");
+
+                entity.Property(e => e.GroupName).HasColumnName("full_name");
 
                 entity.HasNoKey();
             });
@@ -332,7 +342,7 @@ namespace Fait.DAL
                     .HasForeignKey(d => d.ExpirienceCompetitionId)
                     .HasConstraintName("FK__students___expir__4D94879B");
 
-                entity.HasOne(d => d.IdNavigation)
+                entity.HasOne(d => d.Student)
                     .WithOne(p => p.StudentsInfo)
                     .HasForeignKey<StudentsInfo>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)

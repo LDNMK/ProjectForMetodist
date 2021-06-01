@@ -1,13 +1,12 @@
-﻿using System;
-
-namespace FaitLogic.DTO
+﻿namespace FaitLogic.DTO
 {
     public class StudentCardDTO
     {
-        //public string Faculty { get; set; }
-        //public string LevelOfStudying { get; set; }
         public int Course { get; set; }
-        public string Group { get; set; }
+        public int GroupId { get; set; }
+        //public string LevelOfDegree { get; set; }
+        public string Speciality { get; set; }
+        public string Specialization { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Patronymic { get; set; }

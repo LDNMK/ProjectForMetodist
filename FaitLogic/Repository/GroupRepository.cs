@@ -1,4 +1,5 @@
 ﻿using Fait.DAL;
+using Fait.DAL.NotMapped;
 using FaitLogic.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace FaitLogic.Repository
             dbContext.SaveChanges();
         }
 
-        public void AddGroupToDb(Group group)
+        public void AddGroup(Group group)
         {
             dbContext.Groups.Add(group);
             dbContext.SaveChanges();
@@ -56,11 +57,16 @@ namespace FaitLogic.Repository
             return lastGroupNameId;
         }
 
-        public Group FindExistingGroup(int groupNumber, byte? groupNameId)
+        public bool CheckIfGroupExist(int groupNumber, byte? groupNameId)
+        {
+            return dbContext.Groups.Any(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber);
+        }
+
+        public Group FindExistingGroup(int groupId)
         {
             var group = new Group();
 
-            group = dbContext.Groups.Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber).SingleOrDefault();
+            group = dbContext.Groups.Where(x => x.Id == groupId).SingleOrDefault();
 
             return group;
         }
@@ -75,17 +81,13 @@ namespace FaitLogic.Repository
             return groupNameId;
         }
 
-        public ICollection<string> GetAllGroups()
+        public ICollection<GroupNameWithId> GetAllGroups()
         {
-            var groups = new List<string>();
-
-            groups = dbContext.Groups
+            return dbContext.Groups
                 .Include(x => x.GroupName)
                 .Where(x => x.Actual == true)
-                .Select(x => $"{x.GroupName.NameOfGroup}-{x.GroupNumber}")
+                .Select(x => new GroupNameWithId { GroupId = x.Id, GroupName = $"{x.GroupName.NameOfGroup}-{x.GroupNumber}" })
                 .ToList();
-
-            return groups;
         }
 
         public int GetGroupId(int groupNumber, byte? groupNameId)

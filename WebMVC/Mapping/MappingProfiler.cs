@@ -17,6 +17,8 @@ public class MappingProfile : Profile
         CreateMap<CurriculumModel, CurriculumDTO>().ReverseMap();
         CreateMap<SubjectModel, SubjectDTO>().ReverseMap();
 
+        CreateMap<GroupNameWithId, GroupNameWithIdDTO>().ReverseMap();
+
         CreateMap<YearPlan, YearPlanNameWithIdDTO>()
             .ForMember(dest => dest.PlanId, opt => opt.MapFrom(x=>x.Id))
             .ReverseMap();

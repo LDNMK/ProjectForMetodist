@@ -73,15 +73,6 @@
             <h2>Навчальна картка студента</h2>
             <section id="section1">
                 <br>
-
-                Факультет: <select>
-                    <option>
-                        Оберіть Факультет
-                    </option>
-                    <option value="ФАІТ">
-                        ФАІТ
-                    </option>
-                </select>
                 Курс: <select id="course">
                     <option>
                         Оберіть курс
@@ -226,7 +217,7 @@
             e.preventDefault();
             let data = {
                 Course: document.getElementById('course').value,
-                Group: document.getElementById('group').value,
+                GroupId: document.getElementById('group').value,
                 LastName: document.getElementById('surname').value,
                 FirstName: document.getElementById('name').value,
                 Patronymic: document.getElementById('middle_name').value,
@@ -275,9 +266,9 @@
                 this.innerHTML = '';
                 for (var i in groups) {
                     var option = document.createElement("option");
-                    option.setAttribute("value", groups[i]);
+                    option.setAttribute("value", groups[i].groupId);
 
-                    option.text = groups[i];
+                    option.text = groups[i].groupName;
 
                     select.appendChild(option);
                 }

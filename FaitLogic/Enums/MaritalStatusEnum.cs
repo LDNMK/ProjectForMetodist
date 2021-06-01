@@ -7,7 +7,7 @@ namespace FaitLogic.Enums
     public enum MaritalStatusEnum
     {
         NoInformation = 1,
-        Maried = 2,
+        Married = 2,
         Single = 3
     }
 }

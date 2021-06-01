@@ -30,9 +30,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult ActivateExistingGroups([FromBody] string groupsNames)
+        public IActionResult ActivateExistingGroups([FromBody] string groupsIds)
         {
-            groupLogic.ActivateGroups(groupsNames);
+            groupLogic.ActivateGroups(groupsIds);
 
             return Ok();
         }

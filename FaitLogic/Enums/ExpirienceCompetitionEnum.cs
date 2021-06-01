@@ -6,8 +6,8 @@ namespace FaitLogic.Enums
 {
    public enum ExpirienceCompetitionEnum
     {
-        NoInformation=1,//
-        WithExpirience=2,// с опытом
-        NoExpirience=3// без опыта
+        NoInformation = 1,
+        WithExpirience = 2, // с опытом
+        NoExpirience = 3    // без опыта
     }
 }
