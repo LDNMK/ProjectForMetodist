@@ -14,7 +14,7 @@ public class MappingProfile : Profile
         CreateMap<StudentCardDTO, Student>().ReverseMap();
 
         CreateMap<StudentNameWithIdDTO, StudentNameWithId>().ReverseMap();
-        CreateMap<CurriculumModel, CurriculumDTO>().ReverseMap();
+        CreateMap<YearPlanModel, YearPlanDTO>().ReverseMap();
         CreateMap<SubjectModel, SubjectDTO>().ReverseMap();
 
         CreateMap<GroupNameWithId, GroupNameWithIdDTO>().ReverseMap();

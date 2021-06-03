@@ -9,41 +9,29 @@ using System.Text;
 
 namespace FaitLogic.Logic
 {
-    public class TransferStudentLogic
+    public class TransferLogic
     {
-        private readonly TransferStudentRepository transferRepo;
-
-        private readonly GroupRepository groupRepo;
-
-        private readonly StudentCardRepository studentRepo;
-
         private readonly IMapper mapper;
 
-        public TransferStudentLogic(IMapper mapper, TransferStudentRepository curriculumRepository, GroupRepository groupRepository, StudentCardRepository studentRepository)
+        private readonly GroupRepository groupRepo;
+        private readonly StudentCardRepository studentRepo;
+        private readonly ActualGroupRepository actualGroupRepo;
+
+        public TransferLogic(
+            IMapper mapper, 
+            GroupRepository groupRepository, 
+            StudentCardRepository studentRepository, 
+            ActualGroupRepository actualGroupRepository)
         {
             this.mapper = mapper;
-            transferRepo = curriculumRepository;
             groupRepo = groupRepository;
             studentRepo = studentRepository;
-        }
-
-        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int year)
-        {
-            var groups = transferRepo.GetGroups(course, year);
-
-            var groupNames = new List<GroupNameWithIdDTO>();
-            foreach (var groupsOfYearPlan in groups)
-            {
-                var groupsIds = groupsOfYearPlan.Select(x => x.Id);
-                groupNames.AddRange(mapper.Map<ICollection<GroupNameWithIdDTO>>(transferRepo.GetGroupsNames(groupsIds)));
-            }
-
-            return groupNames;
+            actualGroupRepo = actualGroupRepository;
         }
 
         public void TransferStudent(int studentId, int groupId)
         {
-            var nextGroupId = transferRepo.GetNextGroupOfStudent(groupId);
+            var nextGroupId = groupRepo.GetNextGroupOfStudent(groupId);
 
             if(nextGroupId == null)
             {
@@ -56,12 +44,12 @@ namespace FaitLogic.Logic
                 GroupId = nextGroupId.Id
             };
 
-            groupRepo.AddActualGroup(actualGroup);
+            actualGroupRepo.AddActualGroup(actualGroup);
         }
 
         public void TransferGroup(int groupId)
         {
-            var nextGroupId = transferRepo.GetNextGroupOfStudent(groupId);
+            var nextGroupId = groupRepo.GetNextGroupOfStudent(groupId);
             if (nextGroupId == null)
             {
                 throw new Exception();
@@ -82,7 +70,7 @@ namespace FaitLogic.Logic
                     GroupId = nextGroupId.Id
                 });
             }
-            groupRepo.AddActualGroups(actualGroups);
+            actualGroupRepo.AddActualGroups(actualGroups);
 
             var grou = groupRepo.FindExistingGroup(groupId);
             grou.Actual = false;

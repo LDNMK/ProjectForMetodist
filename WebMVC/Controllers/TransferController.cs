@@ -5,21 +5,13 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class TransferStudentController : ControllerBase
+    public class TransferController : ControllerBase
     {
-        private readonly TransferStudentLogic transfLogic;
+        private readonly TransferLogic transfLogic;
 
-        public TransferStudentController(TransferStudentLogic transferLogic)
+        public TransferController(TransferLogic transferLogic)
         {
             this.transfLogic = transferLogic;
-        }
-
-        [HttpGet]
-        public IActionResult GetListOfGroups(int course, int year)
-        {
-            var groups = transfLogic.GetGroupsList(course, year);
-
-            return Ok(groups);
         }
 
         [HttpPatch]

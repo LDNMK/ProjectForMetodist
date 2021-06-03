@@ -12,14 +12,16 @@ namespace FaitLogic.Logic
         private readonly IMapper _mapper;
 
         private readonly StudentCardRepository studentCardRepo;
+        private readonly ActualGroupRepository actualGroupRepo;
 
-        private readonly GroupRepository groupRepo;
-
-        public StudentCardLogic(IMapper mapper, StudentCardRepository studentCardRepository, GroupRepository groupRepository)
+        public StudentCardLogic(
+            IMapper mapper, 
+            StudentCardRepository studentCardRepository, 
+            ActualGroupRepository actualGroupRepository)
         {
             _mapper = mapper;
             studentCardRepo = studentCardRepository;
-            groupRepo = groupRepository;
+            actualGroupRepo = actualGroupRepository;
         }
 
         public void AddStudentCardInfo(StudentCardDTO studentCard)
@@ -40,7 +42,7 @@ namespace FaitLogic.Logic
                 GroupId = studentCard.GroupId
             };
 
-            groupRepo.AddActualGroup(actualGroup);
+            actualGroupRepo.AddActualGroup(actualGroup);
         }
 
         public void UpdateStudentCardInfo(int studentId, StudentCardDTO studentCard)

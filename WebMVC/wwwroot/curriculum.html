@@ -139,7 +139,7 @@
             var yearPlanId = document.getElementById('yearPlan').value;
             var table = document.getElementById('tableBody');
 
-            fetch('api/Curriculum/ShowCurriculum?yearPlanId= ' + yearPlanId, {
+            fetch('api/YearPlan/ShowYearPlan?yearPlanId= ' + yearPlanId, {
                 method: 'GET'
             })
             .then((resp) => resp.json())
@@ -195,7 +195,7 @@
             var selected = this.selectedIndex;
             var course = document.getElementById('course').value;
 
-            var url = 'api/Curriculum/GetListOfYearPlans?course=' + course;
+            var url = 'api/YearPlan/GetListOfYearPlans?course=' + course;
             fetch(url, {
                 method: 'GET'
             })

@@ -5,13 +5,22 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class GroupCreationController : Controller
+    public class GroupController : ControllerBase
     {
         private readonly GroupLogic groupLogic;
-        // Assign the object in the constructor for dependency injection
-        public GroupCreationController(GroupLogic groupLogic)
+
+        public GroupController(GroupLogic groupLogic)
         {
             this.groupLogic = groupLogic;
+        }
+
+
+        [HttpGet]
+        public IActionResult GetListOfGroups(int course, int year)
+        {
+            var groups = groupLogic.GetGroupsList(course, year);
+
+            return Ok(groups);
         }
 
         [HttpPost]

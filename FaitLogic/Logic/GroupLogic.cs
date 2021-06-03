@@ -5,14 +5,15 @@ using FaitLogic.DTO;
 using FaitLogic.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FaitLogic.Logic
 {
     public class GroupLogic
     {
-        private readonly GroupRepository groupRepo;
-
         private readonly IMapper mapper;
+
+        private readonly GroupRepository groupRepo;
 
         public GroupLogic(IMapper mapper, GroupRepository groupRepository)
         {
@@ -50,6 +51,20 @@ namespace FaitLogic.Logic
             groupRepo.AddGroup(newGroup);
 
             return true;
+        }
+
+        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int year)
+        {
+            var groups = groupRepo.GetGroups(course, year);
+
+            var groupNames = new List<GroupNameWithIdDTO>();
+            foreach (var groupsOfYearPlan in groups)
+            {
+                var groupsIds = groupsOfYearPlan.Select(x => x.Id);
+                groupNames.AddRange(mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupsIds)));
+            }
+
+            return groupNames;
         }
 
         public void ActivateGroups(string groupsIds)
