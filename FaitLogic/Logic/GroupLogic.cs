@@ -53,6 +53,20 @@ namespace FaitLogic.Logic
             return true;
         }
 
+        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int year)
+        {
+            var groups = groupRepo.GetGroups(course, year);
+
+            var groupNames = new List<GroupNameWithIdDTO>();
+            foreach (var groupsOfYearPlan in groups)
+            {
+                var groupsIds = groupsOfYearPlan.Select(x => x.Id);
+                groupNames.AddRange(mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupsIds)));
+            }
+
+            return groupNames;
+        }
+
         public void ActivateGroups(string groupsIds)
         {
             var groupsIdsArray = groupsIds.Split(',');
