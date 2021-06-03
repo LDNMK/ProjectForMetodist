@@ -1,6 +1,7 @@
 ﻿using Fait.DAL;
 using Fait.DAL.NotMapped;
 using FaitLogic.Repository.IRepository;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,38 +25,55 @@ namespace FaitLogic.Repository
 
         public byte CreateNewGroupName(GroupName groupName)
         {
-            byte lastGroupNameId;
-
             dbContext.GroupNames.Add(groupName);
             dbContext.SaveChanges();
 
-            lastGroupNameId = dbContext.GroupNames.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+            var lastGroupNameId = dbContext.GroupNames
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault().Id;
 
             return lastGroupNameId;
         }
 
         public bool CheckIfGroupExist(int groupNumber, byte? groupNameId)
         {
-            return dbContext.Groups.Any(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber);
+            return dbContext.Groups
+                .Any(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber);
         }
 
         public Group FindExistingGroup(int groupId)
         {
-            var group = new Group();
+            return dbContext.Groups
+                .Where(x => x.Id == groupId)
+                .SingleOrDefault();
+        }
 
-            group = dbContext.Groups.Where(x => x.Id == groupId).SingleOrDefault();
-
-            return group;
+        public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
+        {
+            return dbContext.Groups
+                .Include(x => x.GroupName)
+                .Where(x => x.PlanId == yearPlanId)
+                .ToList();
         }
 
         public byte? FindGroupName(string groupName)
         {
-            var groupNameId = (byte?)0;
+            return dbContext.GroupNames
+                .SingleOrDefault(x => x.NameOfGroup
+                                        .Contains(groupName))?.Id;
+        }
 
-            groupNameId = dbContext.GroupNames
-                .SingleOrDefault(x => x.NameOfGroup.Contains(groupName))?.Id;
-
-            return groupNameId;
+        public List<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds)
+        {
+            return dbContext.Groups
+                .Where(x => groupIds.Contains(x.Id))
+                .Select(x =>
+                    new GroupNameWithId
+                    {
+                        GroupId = x.Id,
+                        GroupName = $"{x.GroupName.NameOfGroup}-{x.GroupNumber}"
+                    })
+                .ToList();
         }
 
         public ICollection<GroupNameWithId> GetAllGroups()
@@ -67,19 +85,31 @@ namespace FaitLogic.Repository
                 .ToList();
         }
 
+        //Need To Make One option of taking groups!!!
+        public List<ICollection<Group>> GetGroups(int course, int year)
+        {
+            return dbContext.YearPlans
+                .Where(x => x.PlanYear == year && x.Course == course)
+                .Select(x => x.Groups)
+                .ToList();
+        }
+
         public int GetGroupId(int groupNumber, byte? groupNameId)
         {
-            var group = 0;
-
-            group = dbContext.Groups.Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber).SingleOrDefault().Id;
-
-            return group;
+            return dbContext.Groups
+                .Where(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber)
+                .SingleOrDefault().Id;
         }
 
         public void UpdateGroup(Group group)
         {
             dbContext.Groups.Update(group);
             dbContext.SaveChanges();
+        }
+
+        public GroupId GetNextGroupOfStudent(int groupId)
+        {
+            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId)).AsEnumerable().FirstOrDefault();
         }
     }
 }

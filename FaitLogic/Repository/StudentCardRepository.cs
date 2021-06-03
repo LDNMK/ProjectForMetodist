@@ -24,7 +24,9 @@ namespace FaitLogic.Repository
             dbContext.Students.Add(student);
             dbContext.SaveChanges();
 
-            var lastStudentId = dbContext.Students.OrderByDescending(x => x.Id).FirstOrDefault().Id;
+            var lastStudentId = dbContext.Students
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault().Id;
 
             studentsInfo.Id = lastStudentId;
             dbContext.StudentsInfos.Add(studentsInfo);
@@ -53,22 +55,13 @@ namespace FaitLogic.Repository
                 "FROM dbo.return_students_from_group (@group_id)", parameters).ToList();
         }
 
-        //public ICollection<StudentNameWithId> GetAllStudents(int groupId)
-        //{
-        //    var students = dbContext.ActualGroups.GroupBy(x=>x.GroupId).Where(y => y.Key == groupId).LastOrDefault()
-        //    return dbContext.ActualGroups.Where(y => y.GroupId == groupId).OrderBy(x=>x.Id).LastOrDefault()
-        //        .Select(x => new StudentNameWithId 
-        //        { 
-        //            StudentId = x.Id, 
-        //            StudentName =$"{x.LastName} {x.FirstName} {x.Patronymic}"
-        //        }).ToList();
-        //}
-
         public StudentsInfo GetStudentExtendedInfo(int studentId)
         {
             var studentInfo = new StudentsInfo();
 
-            studentInfo = dbContext.StudentsInfos.Where(x => x.Id == studentId).SingleOrDefault();
+            studentInfo = dbContext.StudentsInfos
+                .Where(x => x.Id == studentId)
+                .SingleOrDefault();
 
             return studentInfo;
         }
@@ -77,7 +70,9 @@ namespace FaitLogic.Repository
         {
             var student = new Student();
 
-            student = dbContext.Students.Where(x => x.Id == studentId).SingleOrDefault();
+            student = dbContext.Students
+                .Where(x => x.Id == studentId)
+                .SingleOrDefault();
 
             return student;
         }
