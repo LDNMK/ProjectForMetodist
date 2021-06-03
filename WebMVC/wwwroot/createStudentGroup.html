@@ -138,7 +138,7 @@
             e.preventDefault();
             let groupName = document.getElementById('groupName').value;
 
-            fetch('api/GroupCreation/CreateGroup', {
+            fetch('api/Group/CreateGroup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -157,7 +157,7 @@
             e.preventDefault();
             let groupsNames = document.getElementById('groupsTextarea').text;
 
-            fetch('api/GroupCreation/ActivateExistingGroups', {
+            fetch('api/Group/ActivateExistingGroups', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -169,7 +169,7 @@
         document.getElementById('groups').onclick = function (e) {
             e.preventDefault();
             var selected = this.selectedIndex;
-            fetch('api/GroupCreation/GetGroups', {
+            fetch('api/Group/GetGroups', {
                 method: 'GET'
             })
             .then((resp) => resp.json())

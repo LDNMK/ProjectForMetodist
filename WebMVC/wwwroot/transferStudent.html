@@ -153,7 +153,7 @@
             var course = document.getElementById('course').value;
             var year = document.getElementById('year').value;
 
-            var url = `api/TransferStudent/GetListOfGroups?course=${course}&year=${year}`;
+            var url = `api/Group/GetListOfGroups?course=${course}&year=${year}`;
             fetch(url, {
                 method: 'GET'
             })
@@ -217,13 +217,13 @@
             if (isOneStudent == "") {
                 var studentId = document.getElementById('students').value;
 
-                var url = `api/TransferStudent/TransferStudent?studentId=${studentId}&groupId=${groupId}`;
+                var url = `api/Transfer/TransferStudent?studentId=${studentId}&groupId=${groupId}`;
                 fetch(url, {
                     method: 'PATCH'
                 })
             }
             else {
-                var url = `api/TransferStudent/TransferGroups?groupId=${groupId}`;
+                var url = `api/Transfer/TransferGroups?groupId=${groupId}`;
                 fetch(url, {
                     method: 'PATCH'
                 })
