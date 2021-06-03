@@ -41,12 +41,12 @@ namespace WebMVC
 
             services.AddScoped<StudentCardLogic>();
             services.AddScoped<GroupLogic>();
-            services.AddScoped<CurriculumLogic>();
+            services.AddScoped<YearPlanLogic>();
             services.AddScoped<StudentCardRepository>();
             services.AddScoped<GroupRepository>();
-            services.AddScoped<CurriculumRepository>();
-            services.AddScoped<TransferStudentLogic>();
-            services.AddScoped<TransferStudentRepository>();
+            services.AddScoped<YearPlanRepository>();
+            services.AddScoped<TransferLogic>();
+            services.AddScoped<TransferRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

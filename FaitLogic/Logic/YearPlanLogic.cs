@@ -10,31 +10,36 @@ using System.Text;
 
 namespace FaitLogic.Logic
 {
-    public class CurriculumLogic
+    public class YearPlanLogic
     {
-        private readonly CurriculumRepository curriculumRepo;
-
         private readonly IMapper mapper;
 
-        public CurriculumLogic(IMapper mapper,CurriculumRepository curriculumRepository)
+        private readonly YearPlanRepository yearPlanRepo;
+        private readonly GroupRepository groupRepo;
+
+        public YearPlanLogic(
+            IMapper mapper,
+            YearPlanRepository yearPlanRepository,
+            GroupRepository groupRepository)
         {
             this.mapper = mapper;
-            curriculumRepo = curriculumRepository;
+            yearPlanRepo = yearPlanRepository;
+            groupRepo = groupRepository;
         }
 
-        public CurriculumDTO ShowCurriculum(int yearPlanId)
+        public YearPlanDTO ShowYearPlan(int yearPlanId)
         {
-            var yearPlan = curriculumRepo.FindYearPlan(yearPlanId);
+            var yearPlan = yearPlanRepo.FindYearPlan(yearPlanId);
 
-            var groupsNames = curriculumRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupName.NameOfGroup);
-            var curriculum = new CurriculumDTO
+            var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupName.NameOfGroup);
+            var yearPlanDto = new YearPlanDTO
             {
                 PlanName = yearPlan.PlanName,
                 Course = yearPlan.Course,
                 Groups = string.Join(',', groupsNames)
             };
 
-            var subjects = curriculumRepo.FindSubjectsInfo(yearPlanId);
+            var subjects = yearPlanRepo.FindSubjectsInfo(yearPlanId);
 
             var subjectsDto = new List<SubjectDTO>();
             foreach (var subject in subjects)
@@ -46,7 +51,7 @@ namespace FaitLogic.Logic
                     Faculty = subject.Faculty
                 };
 
-                var sb = curriculumRepo.FindSubjects(subject.Id);
+                var sb = yearPlanRepo.FindSubjects(subject.Id);
 
                 var autumn = sb.Find(x => x.Semester == (int)SemesterEnum.Autumn);
                 if (autumn!= null)
@@ -64,22 +69,22 @@ namespace FaitLogic.Logic
                 subjectsDto.Add(subj);
             }
 
-            curriculum.SubjectInfo = subjectsDto;
+            yearPlanDto.SubjectInfo = subjectsDto;
 
-            return curriculum;
+            return yearPlanDto;
         }
 
-        public int? AddCurriculum(CurriculumDTO curriculumInfo)
+        public int? AddYearPlan(YearPlanDTO yearPlanInfo)
         {
             var yearPlan = new YearPlan
             {
-                PlanName = curriculumInfo.PlanName,
-                Course = (byte)curriculumInfo.Course
+                PlanName = yearPlanInfo.PlanName,
+                Course = (byte)yearPlanInfo.Course
             };
 
-            var yearPlanId = curriculumRepo.AddYearPlan(yearPlan);
+            var yearPlanId = yearPlanRepo.AddYearPlan(yearPlan);
 
-            foreach (var subject in curriculumInfo.SubjectInfo)
+            foreach (var subject in yearPlanInfo.SubjectInfo)
             {
                 AddSubjects(subject, yearPlanId);
             }
@@ -89,8 +94,8 @@ namespace FaitLogic.Logic
 
         public ICollection<YearPlanNameWithIdDTO> GetYearPlans(int course)
         {
-            var list = curriculumRepo.GetListOfYearPlans(course);
-            var yearPlans = mapper.Map<List<YearPlan>, List<YearPlanNameWithIdDTO>>(curriculumRepo.GetListOfYearPlans(course));
+            var list = yearPlanRepo.GetListOfYearPlans(course);
+            var yearPlans = mapper.Map<List<YearPlan>, List<YearPlanNameWithIdDTO>>(yearPlanRepo.GetListOfYearPlans(course));
 
             return yearPlans;
         }
@@ -110,7 +115,7 @@ namespace FaitLogic.Logic
                 Faculty = subjectDto.Faculty
             };
 
-            var subjectInfoId = curriculumRepo.AddSubjectInfo(subjectInfo);
+            var subjectInfoId = yearPlanRepo.AddSubjectInfo(subjectInfo);
 
             if (subjectDto.SpringMonitoring != (int)MonitoringEnum.SemesterNotExist && subjectDto.SpringTask != (int)TaskEnum.SemesterNotExist)
             {
@@ -121,7 +126,7 @@ namespace FaitLogic.Logic
                     Task = subjectDto.SpringTask,
                     Semester = (int)SemesterEnum.Spring
                 };
-                curriculumRepo.AddSubject(springSubject);
+                yearPlanRepo.AddSubject(springSubject);
             }
 
             if (subjectDto.AutumnMonitoring != (int)MonitoringEnum.SemesterNotExist && subjectDto.AutumnTask != (int)TaskEnum.SemesterNotExist)
@@ -133,7 +138,7 @@ namespace FaitLogic.Logic
                     Task = subjectDto.AutumnTask,
                     Semester = (int)SemesterEnum.Autumn
                 };
-                curriculumRepo.AddSubject(autumnSubject);
+                yearPlanRepo.AddSubject(autumnSubject);
             }
         }
     }

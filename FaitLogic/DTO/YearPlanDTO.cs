@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace WebAPI.Models
+namespace FaitLogic.DTO
 {
-    public class CurriculumModel
+    public class YearPlanDTO
     {
         public string PlanName { get; set; }//название
-
-        //Where it is???
         public int PlanYear { get; set; }//год
         public int Course { get; set; }//курс 
         public string Groups { get; set; }//группы 
-        public List<SubjectModel> SubjectInfo { get; set; }//предметы     
+        public List<SubjectDTO> SubjectInfo { get; set; }//
     }
 }

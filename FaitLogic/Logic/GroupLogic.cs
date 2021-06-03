@@ -5,14 +5,15 @@ using FaitLogic.DTO;
 using FaitLogic.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FaitLogic.Logic
 {
     public class GroupLogic
     {
-        private readonly GroupRepository groupRepo;
-
         private readonly IMapper mapper;
+
+        private readonly GroupRepository groupRepo;
 
         public GroupLogic(IMapper mapper, GroupRepository groupRepository)
         {
