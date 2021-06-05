@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FaitLogic.Enums
+﻿namespace FaitLogic.Enums
 {
     public enum SemesterEnum
     {

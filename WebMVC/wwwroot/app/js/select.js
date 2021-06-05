@@ -1,0 +1,1 @@
+const optionDefault = '<option class="form-select-placeholder" value="" disabled selected></option>';
