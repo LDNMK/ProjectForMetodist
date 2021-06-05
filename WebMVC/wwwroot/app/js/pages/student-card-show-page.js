@@ -14,24 +14,7 @@ class StudentCardShowPage extends Page {
                     <h1 class="student-card__show-title">Пошук</h1>
                     <!-- <form class="student-card__find" action="get"> -->
                     <div class="student-card__show-grid">
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="speciality">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="speciality">Спеціальність</label>
-                        </div>
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="specialization">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="specialization">Спеціалізація</label>
-                        </div>
+                        
                         <div class="form-element form-input">
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
@@ -91,6 +74,28 @@ class StudentCardShowPage extends Page {
                             <span class="btn-text">Зберегти</span>
                         </button>
                     </div>
+
+                    <div class="student-card__show-row">
+                        <div class="form-element form-select">
+                            <select class="form-element-field" id="speciality">
+                                <option class="form-select-placeholder" value="" disabled selected></option>
+                                <option value="1">Test 1</option>
+                                <option value="2">Lorem ipsum dolor</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="speciality">Спеціальність</label>
+                        </div>
+                        <div class="form-element form-select">
+                            <select class="form-element-field" id="specialization">
+                                <option class="form-select-placeholder" value="" disabled selected></option>
+                                <option value="1">Test 1</option>
+                                <option value="2">Lorem ipsum dolor</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="specialization">Спеціалізація</label>
+                        </div>
+                    </div>
+
                     <div class="student-card__show-row">
                         <div class="form-element form-input">
                             <input id="surname" class="form-element-field" placeholder="Введіть прізвище"
@@ -248,11 +253,10 @@ class StudentCardShowPage extends Page {
         const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
 
         const groupSelect = document.querySelector('#group');
-        const year = document.querySelector('#year');
         const courseSelect = document.querySelector('#course');
         const studentSelect = document.querySelector('#student');
-
-        const optionDefault = '<option class="form-select-placeholder" value="" disabled selected></option>';
+        
+        const year = document.querySelector('#year');
 
         clearBtn.addEventListener('click', () => {
             let ids = this._idsToClear(); 
@@ -292,45 +296,34 @@ class StudentCardShowPage extends Page {
             fetchStudents(groupSelect.value);
         })
 
-
         async function fetchGroups(year, course) {
-            if (year == "") {
-                return;
-            }
-            if (course == "") {
+            if (year == "" || course == "") {
                 return;
             }
 
-            let response = await fetch('api/Group/GetGroups', {
-                method: 'GET'
-            });
+            const response = await fetch('api/Group/GetGroups');
+            const groups = await response.json();
+            
+            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
+            options.push(optionDefault);
 
-            await response.json()
-                .then(groups => {
-                    let options = groups.map(item => `<option value=${item.groupId}>${item.groupName}</option>`);
-                    options.push(optionDefault);
-                    groupSelect.innerHTML = options.join('');
-                    groupSelect.classList.remove('-hasValue');
-                });
+            groupSelect.innerHTML = options.join('');
+            groupSelect.classList.remove('-hasValue');
         };
 
         async function fetchStudents(groupId) {
-
             if (groupId == "") {
                 return;
             }
 
-            let response = await fetch('api/StudentCard/GetListOfStudents?groupId=' + groupId, {
-                method: 'GET'
-            });
+            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
+            const students = await response.json();
 
-            await response.json()
-                .then(students => {
-                    let options = students.map(item => `<option value=${item.studentId}>${item.studentName}</option>`);
-                    options.push(optionDefault);
-                    studentSelect.innerHTML = options.join('');
-                    studentSelect.classList.remove('-hasValue');
-                });
+            let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
+            options.push(optionDefault);
+            
+            studentSelect.innerHTML = options.join('');
+            studentSelect.classList.remove('-hasValue');
         };
 
         //document.getElementById('show').onclick = function (e) {

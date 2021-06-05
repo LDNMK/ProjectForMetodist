@@ -44,6 +44,7 @@ function styles() {
 const jsFiles = [
 	'app/js/sidebar.js',
 	'app/js/form.js',
+	'app/js/select.js',
 	'app/js/pages/page.js',
 	'app/js/pages/main-page.js',
 	'app/js/pages/student-card-show-page.js',
