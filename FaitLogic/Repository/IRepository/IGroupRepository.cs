@@ -18,7 +18,7 @@ namespace FaitLogic.Repository.IRepository
 
         ICollection<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds);
 
-        GroupId GetNextGroupOfStudent(int groupId);
+        int GetNextGroupOfStudent(int groupId);
 
         void UpdateGroup(Group group);
 

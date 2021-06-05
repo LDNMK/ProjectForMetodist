@@ -30,7 +30,7 @@ namespace FaitLogic.Logic
         {
             var nextGroupId = groupRepo.GetNextGroupOfStudent(groupId);
 
-            if(nextGroupId == null)
+            if(nextGroupId == default)
             {
                 throw new Exception();
             }
@@ -38,7 +38,7 @@ namespace FaitLogic.Logic
             var actualGroup = new ActualGroup
             {
                 StudentId = studentId,
-                GroupId = nextGroupId.Id
+                GroupId = nextGroupId
             };
 
             actualGroupRepo.AddActualGroup(actualGroup);
@@ -47,7 +47,7 @@ namespace FaitLogic.Logic
         public void TransferGroup(int groupId)
         {
             var nextGroupId = groupRepo.GetNextGroupOfStudent(groupId);
-            if (nextGroupId == null)
+            if (nextGroupId == default)
             {
                 throw new Exception();
             }
@@ -64,7 +64,7 @@ namespace FaitLogic.Logic
                 actualGroups.Add(new ActualGroup
                 {
                     StudentId = student.StudentId,
-                    GroupId = nextGroupId.Id
+                    GroupId = nextGroupId
                 });
             }
             actualGroupRepo.AddActualGroups(actualGroups);

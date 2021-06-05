@@ -1,9 +1,12 @@
-﻿using Fait.DAL;
+﻿using Dapper;
+using Fait.DAL;
 using Fait.DAL.NotMapped;
+using System.Configuration;
 using FaitLogic.Repository.IRepository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace FaitLogic.Repository
@@ -73,9 +76,14 @@ namespace FaitLogic.Repository
             dbContext.SaveChanges();
         }
 
-        public GroupId GetNextGroupOfStudent(int groupId)
+
+        //Check!
+        public int GetNextGroupOfStudent(int groupId)
         {
-            return dbContext.GroupIds.FromSqlRaw("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId)).AsEnumerable().FirstOrDefault();
+            using (IDbConnection db = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
+            {
+                return db.Query<int>("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId)).FirstOrDefault();
+            }
         }
 
         public byte CreateNewGroupName(GroupName groupName)

@@ -19,7 +19,6 @@ namespace Fait.DAL
         }
         public virtual DbSet<StudentNameWithId> StudentNameWithIds { get; set; }
         public virtual DbSet<GroupNameWithId> GroupNameWithIds { get; set; }
-        public virtual DbSet<GroupId> GroupIds { get; set; }
         public virtual DbSet<ActualGroup> ActualGroups { get; set; }
         public virtual DbSet<Ammende> Ammendes { get; set; }
         public virtual DbSet<ExpirienceCompetitione> ExpirienceCompetitiones { get; set; }
@@ -56,13 +55,6 @@ namespace Fait.DAL
                 entity.Property(e => e.GroupId).HasColumnName("id");
 
                 entity.Property(e => e.GroupName).HasColumnName("full_name");
-
-                entity.HasNoKey();
-            });
-
-            modelBuilder.Entity<GroupId>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.HasNoKey();
             });
