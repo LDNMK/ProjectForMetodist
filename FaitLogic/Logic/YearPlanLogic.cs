@@ -15,16 +15,19 @@ namespace FaitLogic.Logic
         private readonly IMapper mapper;
 
         private readonly YearPlanRepository yearPlanRepo;
+        private readonly SubjectRepository subjectRepo;
         private readonly GroupRepository groupRepo;
 
         public YearPlanLogic(
             IMapper mapper,
             YearPlanRepository yearPlanRepository,
-            GroupRepository groupRepository)
+            GroupRepository groupRepository,
+            SubjectRepository subjectRepository)
         {
             this.mapper = mapper;
             yearPlanRepo = yearPlanRepository;
             groupRepo = groupRepository;
+            subjectRepo = subjectRepository;
         }
 
         public YearPlanDTO ShowYearPlan(int yearPlanId)
@@ -39,7 +42,7 @@ namespace FaitLogic.Logic
                 Groups = string.Join(',', groupsNames)
             };
 
-            var subjects = yearPlanRepo.FindSubjectsInfo(yearPlanId);
+            var subjects = subjectRepo.FindSubjectsInfo(yearPlanId);
 
             var subjectsDto = new List<SubjectDTO>();
             foreach (var subject in subjects)
@@ -51,7 +54,7 @@ namespace FaitLogic.Logic
                     Faculty = subject.Faculty
                 };
 
-                var sb = yearPlanRepo.FindSubjects(subject.Id);
+                var sb = subjectRepo.FindSubjects(subject.Id);
 
                 var autumn = sb.Find(x => x.Semester == (int)SemesterEnum.Autumn);
                 if (autumn!= null)
@@ -115,7 +118,7 @@ namespace FaitLogic.Logic
                 Faculty = subjectDto.Faculty
             };
 
-            var subjectInfoId = yearPlanRepo.AddSubjectInfo(subjectInfo);
+            var subjectInfoId = subjectRepo.AddSubjectInfo(subjectInfo);
 
             if (subjectDto.SpringMonitoring != (int)MonitoringEnum.SemesterNotExist && subjectDto.SpringTask != (int)TaskEnum.SemesterNotExist)
             {
@@ -126,7 +129,7 @@ namespace FaitLogic.Logic
                     Task = subjectDto.SpringTask,
                     Semester = (int)SemesterEnum.Spring
                 };
-                yearPlanRepo.AddSubject(springSubject);
+                subjectRepo.AddSubject(springSubject);
             }
 
             if (subjectDto.AutumnMonitoring != (int)MonitoringEnum.SemesterNotExist && subjectDto.AutumnTask != (int)TaskEnum.SemesterNotExist)
@@ -138,7 +141,7 @@ namespace FaitLogic.Logic
                     Task = subjectDto.AutumnTask,
                     Semester = (int)SemesterEnum.Autumn
                 };
-                yearPlanRepo.AddSubject(autumnSubject);
+                subjectRepo.AddSubject(autumnSubject);
             }
         }
     }

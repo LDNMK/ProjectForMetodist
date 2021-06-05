@@ -46,7 +46,8 @@ namespace WebMVC
             services.AddScoped<GroupRepository>();
             services.AddScoped<YearPlanRepository>();
             services.AddScoped<TransferLogic>();
-            services.AddScoped<TransferRepository>();
+            services.AddScoped<ActualGroupRepository>();
+            services.AddScoped<SubjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
