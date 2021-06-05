@@ -45,13 +45,5 @@ namespace WebAPI.Controllers
 
             return Ok();
         }
-
-        [HttpGet]
-        public IActionResult GetGroups()
-        {
-            var groups = groupLogic.GetGroupsList();
-
-            return Ok(groups);
-        }
     }
 }

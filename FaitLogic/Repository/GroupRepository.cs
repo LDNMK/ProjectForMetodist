@@ -86,11 +86,13 @@ namespace FaitLogic.Repository
         }
 
         //Need To Make One option of taking groups!!!
-        public List<ICollection<Group>> GetGroups(int course, int year)
+        //NEED TO ADD COLUMN COURSE TO HAVE NORMAL CONDITION!
+        public ICollection<Group> GetGroups(int course, int year)
         {
-            return dbContext.YearPlans
-                .Where(x => x.PlanYear == year && x.Course == course)
-                .Select(x => x.Groups)
+            return dbContext.Groups
+                .Where(x => x.Actual == true 
+                       && x.GroupYear == year 
+                       && x.GroupNumber/10 == course)
                 .ToList();
         }
 

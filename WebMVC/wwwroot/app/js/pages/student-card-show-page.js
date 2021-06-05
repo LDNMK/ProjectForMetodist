@@ -301,7 +301,7 @@ class StudentCardShowPage extends Page {
                 return;
             }
 
-            const response = await fetch('api/Group/GetGroups');
+            const response = await fetch(`api/Group/GetListOfGroups?course=${course}&year=${year}`);
             const groups = await response.json();
             
             let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
