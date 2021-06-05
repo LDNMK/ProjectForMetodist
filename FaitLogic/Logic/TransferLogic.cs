@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using FaitLogic.DTO;
-using FaitLogic.Repository;
+using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FaitLogic.Logic
 {
@@ -13,15 +10,15 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly GroupRepository groupRepo;
-        private readonly StudentCardRepository studentRepo;
-        private readonly ActualGroupRepository actualGroupRepo;
+        private readonly IGroupRepository groupRepo;
+        private readonly IStudentCardRepository studentRepo;
+        private readonly IActualGroupRepository actualGroupRepo;
 
         public TransferLogic(
-            IMapper mapper, 
-            GroupRepository groupRepository, 
-            StudentCardRepository studentRepository, 
-            ActualGroupRepository actualGroupRepository)
+            IMapper mapper,
+            IGroupRepository groupRepository,
+            IStudentCardRepository studentRepository,
+            IActualGroupRepository actualGroupRepository)
         {
             this.mapper = mapper;
             groupRepo = groupRepository;

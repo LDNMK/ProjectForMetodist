@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.NotMapped;
 using FaitLogic.DTO;
-using FaitLogic.Repository;
+using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,9 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly GroupRepository groupRepo;
+        private readonly IGroupRepository groupRepo;
 
-        public GroupLogic(IMapper mapper, GroupRepository groupRepository)
+        public GroupLogic(IMapper mapper, IGroupRepository groupRepository)
         {
             this.mapper = mapper;
             groupRepo = groupRepository;
@@ -57,12 +56,8 @@ namespace FaitLogic.Logic
         {
             var groups = groupRepo.GetGroups(course, year);
 
-            var groupNames = new List<GroupNameWithIdDTO>();
-            foreach (var groupsOfYearPlan in groups)
-            {
-                var groupsIds = groupsOfYearPlan.Select(x => x.Id);
-                groupNames.AddRange(mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupsIds)));
-            }
+            var groupsIds = groups.Select(X => X.Id);
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupsIds));
 
             return groupNames;
         }
@@ -82,11 +77,6 @@ namespace FaitLogic.Logic
 
                 groupRepo.UpdateGroup(findedGroup);
             }
-        }
-
-        public ICollection<GroupNameWithIdDTO> GetGroupsList()
-        {
-            return mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetAllGroups());
         }
 
         public void SetYearPlan(string groupsIds, int yearPlanId)

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Fait.DAL;
 using FaitLogic.DTO;
-using FaitLogic.Repository;
+using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 
@@ -11,13 +11,13 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper _mapper;
 
-        private readonly StudentCardRepository studentCardRepo;
-        private readonly ActualGroupRepository actualGroupRepo;
+        private readonly IStudentCardRepository studentCardRepo;
+        private readonly IActualGroupRepository actualGroupRepo;
 
         public StudentCardLogic(
-            IMapper mapper, 
-            StudentCardRepository studentCardRepository, 
-            ActualGroupRepository actualGroupRepository)
+            IMapper mapper,
+            IStudentCardRepository studentCardRepository,
+            IActualGroupRepository actualGroupRepository)
         {
             _mapper = mapper;
             studentCardRepo = studentCardRepository;

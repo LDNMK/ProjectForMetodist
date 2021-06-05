@@ -2,11 +2,10 @@
 using Fait.DAL;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using FaitLogic.Repository;
+using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FaitLogic.Logic
 {
@@ -14,15 +13,15 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly YearPlanRepository yearPlanRepo;
-        private readonly SubjectRepository subjectRepo;
-        private readonly GroupRepository groupRepo;
+        private readonly IYearPlanRepository yearPlanRepo;
+        private readonly ISubjectRepository subjectRepo;
+        private readonly IGroupRepository groupRepo;
 
         public YearPlanLogic(
             IMapper mapper,
-            YearPlanRepository yearPlanRepository,
-            GroupRepository groupRepository,
-            SubjectRepository subjectRepository)
+            IYearPlanRepository yearPlanRepository,
+            IGroupRepository groupRepository,
+            ISubjectRepository subjectRepository)
         {
             this.mapper = mapper;
             yearPlanRepo = yearPlanRepository;
