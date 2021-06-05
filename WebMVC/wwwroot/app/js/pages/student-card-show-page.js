@@ -1,6 +1,14 @@
-function initSidebar(){let e=document.body.querySelectorAll("a[data-page*='-page'");e.forEach(e=>{e.addEventListener("click",e=>{setPageByAttribute(e.target.getAttribute("data-page"))})})}function subscribeFormElements(){let e=document.body.querySelectorAll(".form-element-field");e.forEach(e=>e.addEventListener("change",e=>{let t=e.target;t.classList[t.value?"add":"remove"]("-hasValue")}))}class Page{constructor(){}static getPage(){return"not implemented"}static subscribe(){console.log("not subscribed")}static is(){return"Page"}static _idsToClear(){return[]}}class MainPage extends Page{constructor(){super()}static getPage(){return`
-            <h1>Main page</h1>
-        `}static subscribe(){super.subscribe()}static is(){return"main--page"}}function initMainPage(){setPageByAttribute(MainPage.is())}class StudentCardShowPage extends Page{constructor(){super()}static is(){return"student-card--show-page"}static getPage(){return`
+class StudentCardShowPage extends Page {
+    constructor() {
+        super();
+    }
+
+    static is() {
+        return 'student-card--show-page';
+    }
+
+    static getPage() {
+        return `
             <div class="student-card__show">
                 <div class="student-card__show-general">
                     <h1 class="student-card__show-title">Пошук</h1>
@@ -224,4 +232,56 @@ function initSidebar(){let e=document.body.querySelectorAll("a[data-page*='-page
                     </div>
                 </div>
             </div>
-        `}static subscribe(){this._studentCardShowSubscribe(),subscribeFormElements()}static _studentCardShowSubscribe(){const e=document.querySelector(".student-card__show-btn-clear"),t=document.querySelector(".student-card__show-btn-find"),l=document.querySelector(".student-card__show-btn-edit"),s=document.querySelector(".student-card__show-btn-save"),a=document.querySelector(".student-card__show-average-score-btn");e.addEventListener("click",()=>{let e=this._idsToClear(),t=document.querySelectorAll(e.join(", "));t.forEach(e=>{e.classList.remove("-hasValue"),e.value=""})}),t.addEventListener("click",()=>{console.log("Find")}),l.addEventListener("click",()=>{console.log("Edit")}),s.addEventListener("click",()=>{console.log("Save")}),a.addEventListener("click",()=>{console.log("Average score")})}static _idsToClear(){return["#speciality","#specialization","#year","#course","#group","#student"]}}let tag=document.body.querySelector(".main__content");tag||console.log("Tag with class'main__content' not found!");const mapper={"main--page":MainPage,"student-card--add-page":()=>"student-card--add-page not implemented","student-card--show-page":StudentCardShowPage,"curriculum--show-page":()=>"curriculum--show-page not implemented","curriculum--add-page":()=>"curriculum--add-page not implemented","transfer--page":()=>"transfer--page not implemented","progress--page":()=>"progress--page not implemented","report--add-page":()=>"report--add-page not implemented","group--add-page":()=>"group--add-page not implemented"};function setPageByAttribute(t){if(t in mapper){let e=mapper[t];tag.innerHTML=e.getPage(),e.subscribe()}else console.log(`Tag with attribute data-page='${t}' not found!`)}function init(){initSidebar(),setPageByAttribute(StudentCardShowPage.is())}init();
+        `;
+    }
+
+    static subscribe() {
+        this._studentCardShowSubscribe();
+        subscribeFormElements();
+    }
+
+    static _studentCardShowSubscribe() {
+        const clearBtn = document.querySelector('.student-card__show-btn-clear');
+        const findBtn = document.querySelector('.student-card__show-btn-find');
+        const editBtn = document.querySelector('.student-card__show-btn-edit');
+        const saveBtn = document.querySelector('.student-card__show-btn-save');
+        const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
+
+        clearBtn.addEventListener('click', () => {
+            let ids = this._idsToClear(); 
+
+            let items = document.querySelectorAll(ids.join(', '));
+            items.forEach(x => {
+                x.classList.remove('-hasValue');
+                x.value = "";
+            });
+        })
+
+        findBtn.addEventListener('click', () => {
+            console.log('Find');
+        })
+
+        editBtn.addEventListener('click', () => {
+            console.log('Edit');
+        })
+
+        saveBtn.addEventListener('click', () => {
+            console.log('Save');
+        })
+
+        averageScoreBtn.addEventListener('click', () => {
+            console.log('Average score');
+        })
+    }
+
+    static _idsToClear() {
+        return [
+            '#speciality',
+            '#specialization',
+            '#year',
+            '#course',
+            '#group',
+            '#student'
+        ];
+    }
+}

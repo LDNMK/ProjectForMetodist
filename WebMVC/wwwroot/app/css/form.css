@@ -35,7 +35,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #a6a6a6;
+  color: #31475a;
   transform: translateY(-50%);
   transform-origin: left center;
   transition: transform 0.28s ease, color 0.28s linear, opacity 0.28s linear;
@@ -60,6 +60,7 @@
 
 .form-element-field.-hasValue, .form-element-field:focus {
   opacity: 1;
+  font-size: 15px;
 }
 
 .form-element-field ~ .form-element-bar::after {

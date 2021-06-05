@@ -8,26 +8,13 @@ const autoprefixer 			= require('gulp-autoprefixer');	// вендорные пр
 const imagemin 				= require('gulp-imagemin'); 	// для сжатия картинок
 const del 					= require('del');				// для удаления папки build перед вызовом функции build
 
-//Порядок подключения css файлов
-const cssFiles = [
-	'app/css/reset.css',
-	'app/css/style.scss.css'
-];
 
-//Порядок подключения scss файлов
+
+// Порядок подключения scss файлов
 const scssFiles = [
 	'app/scss/style.scss',
 	'app/scss/form.scss',
 	'app/scss/student-card-show.scss'
-];
-
-//Порядок подключения js файлов
-const jsFiles = [
-	'app/js/mapper.js',
-	'app/js/sidebar.js',
-	'app/js/form.js',
-	'app/js/student-card-show.js',
-	'app/js/main.js',
 ];
 
 function sassToCss() {
@@ -36,6 +23,12 @@ function sassToCss() {
 		.pipe(concat('style.scss.css'))
 		.pipe(dest('app/css'));
 }
+
+// Порядок подключения css файлов
+const cssFiles = [
+	'app/css/reset.css',
+	'app/css/style.scss.css'
+];
 
 function styles() {
 	return src(cssFiles)
@@ -49,7 +42,17 @@ function styles() {
 		.pipe(dest('app/css'));
 }
 
-//Таск для скриптов JavaScript 
+// Порядок подключения js файлов
+const jsFiles = [
+	'app/js/sidebar.js',
+	'app/js/form.js',
+	'app/js/pages/page.js',
+	'app/js/pages/main-page.js',
+	'app/js/pages/student-card-show-page.js',
+	'app/js/mapper.js',
+	'app/js/main.js',
+];
+
 function scripts() {
 	return src(jsFiles)
 		.pipe(concat('main.min.js'))
@@ -70,7 +73,19 @@ function images() {
 				]
 			})
 		]))
-		.pipe(dest('build/img'));
+		.pipe(dest('img'));
+}
+
+// Файлы/папки на удаление
+const delFiles = [
+	'index.html',
+	'css',
+	'js',
+	'img'
+];
+
+function cleanBuild() {
+	return del(delFiles);
 }
 
 function build() {
@@ -79,12 +94,11 @@ function build() {
 		'app/js/main.min.js',
 		'app/index.html'
 	], { base: 'app' })
-		.pipe(dest('build'));
+		.pipe(dest('./'));
 }
 
-function cleanBuild() {
-	return del('build');
-}
+
+
 
 //Вызов функций
 exports.styles = styles;

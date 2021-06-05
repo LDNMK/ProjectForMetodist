@@ -1,5 +1,5 @@
 function initSidebar() {
-    let pages = document.body.querySelectorAll("a[data-page*='Page'");
+    let pages = document.body.querySelectorAll("a[data-page*='-page'");
     
     pages.forEach(x => {
         x.addEventListener('click', (e) => {

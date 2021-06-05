@@ -1,10 +1,8 @@
 init();
 
 function init() {
-    // initMapper();
     initSidebar();
+    // initMainPage();
+
+    setPageByAttribute(StudentCardShowPage.is());
 }
-
-// delete for Prod !
-// subscribeFormElements();
-
