@@ -23,8 +23,10 @@ class StudentCardShowPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="course">Курс</label>
@@ -32,8 +34,6 @@ class StudentCardShowPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="group">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
@@ -42,7 +42,6 @@ class StudentCardShowPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="student">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Сидорчук Владислав Геннадійович</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="student">Студент</label>
