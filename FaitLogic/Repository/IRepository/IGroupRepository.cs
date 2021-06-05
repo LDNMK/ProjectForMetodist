@@ -4,20 +4,26 @@ using System.Collections.Generic;
 
 namespace FaitLogic.Repository.IRepository
 {
-    interface IGroupRepository
+    public interface IGroupRepository
     {
         void AddGroup(Group group);
+
+        bool CheckIfGroupExist(int groupNumber, byte? groupNameId);
 
         byte? FindGroupName(string groupName);
 
         Group FindExistingGroup(int groupId);
 
-        void UpdateGroup(Group group);
+        ICollection<Group> FindGroupsByYearPlan(int yearPlanId);
 
-        int GetGroupId(int groupNumber, byte? groupNameId);
+        ICollection<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds);
+
+        GroupId GetNextGroupOfStudent(int groupId);
+
+        void UpdateGroup(Group group);
 
         byte CreateNewGroupName(GroupName groupName);
 
-        ICollection<GroupNameWithId> GetAllGroups();
+        ICollection<Group> GetGroups(int course, int year);
     }
 }

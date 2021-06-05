@@ -2,6 +2,7 @@ using AutoMapper;
 using Fait.DAL;
 using FaitLogic.Logic;
 using FaitLogic.Repository;
+using FaitLogic.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -42,12 +43,13 @@ namespace WebMVC
             services.AddScoped<StudentCardLogic>();
             services.AddScoped<GroupLogic>();
             services.AddScoped<YearPlanLogic>();
-            services.AddScoped<StudentCardRepository>();
-            services.AddScoped<GroupRepository>();
-            services.AddScoped<YearPlanRepository>();
             services.AddScoped<TransferLogic>();
-            services.AddScoped<ActualGroupRepository>();
-            services.AddScoped<SubjectRepository>();
+
+            services.AddScoped<IStudentCardRepository, StudentCardRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IYearPlanRepository, YearPlanRepository>();
+            services.AddScoped<IActualGroupRepository, ActualGroupRepository>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.NotMapped;
 using FaitLogic.DTO;
-using FaitLogic.Repository;
+using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +12,9 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly GroupRepository groupRepo;
+        private readonly IGroupRepository groupRepo;
 
-        public GroupLogic(IMapper mapper, GroupRepository groupRepository)
+        public GroupLogic(IMapper mapper, IGroupRepository groupRepository)
         {
             this.mapper = mapper;
             groupRepo = groupRepository;

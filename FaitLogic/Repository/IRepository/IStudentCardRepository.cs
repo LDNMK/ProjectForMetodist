@@ -6,7 +6,7 @@ using System.Text;
 
 namespace FaitLogic.Repository.IRepository
 {
-    interface IStudentCardRepository
+    public interface IStudentCardRepository
     {
         int AddStudentCardToDb(StudentsInfo studentsInfo, Student student);
 
