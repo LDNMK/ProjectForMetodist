@@ -247,6 +247,13 @@ class StudentCardShowPage extends Page {
         const saveBtn = document.querySelector('.student-card__show-btn-save');
         const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
 
+        const groupSelect = document.querySelector('#group');
+        const year = document.querySelector('#year');
+        const courseSelect = document.querySelector('#course');
+        const studentSelect = document.querySelector('#student');
+
+        const optionDefault = '<option class="form-select-placeholder" value="" disabled selected></option>';
+
         clearBtn.addEventListener('click', () => {
             let ids = this._idsToClear(); 
 
@@ -272,6 +279,99 @@ class StudentCardShowPage extends Page {
         averageScoreBtn.addEventListener('click', () => {
             console.log('Average score');
         })
+
+        year.addEventListener('change', () => {
+            fetchGroups(year.value, courseSelect.value);
+        })
+
+        courseSelect.addEventListener('change', () => {
+            fetchGroups(year.value, courseSelect.value);
+        })
+
+        groupSelect.addEventListener('change', () => {
+            fetchStudents(groupSelect.value);
+        })
+
+
+        async function fetchGroups(year, course) {
+            if (year == "") {
+                return;
+            }
+            if (course == "") {
+                return;
+            }
+
+            let response = await fetch('api/Group/GetGroups', {
+                method: 'GET'
+            });
+
+            await response.json()
+                .then(groups => {
+                    let options = groups.map(item => `<option value=${item.groupId}>${item.groupName}</option>`);
+                    options.push(optionDefault);
+                    groupSelect.innerHTML = options.join('');
+                    groupSelect.classList.remove('-hasValue');
+                });
+        };
+
+        async function fetchStudents(groupId) {
+
+            if (groupId == "") {
+                return;
+            }
+
+            let response = await fetch('api/StudentCard/GetListOfStudents?groupId=' + groupId, {
+                method: 'GET'
+            });
+
+            await response.json()
+                .then(students => {
+                    let options = students.map(item => `<option value=${item.studentId}>${item.studentName}</option>`);
+                    options.push(optionDefault);
+                    studentSelect.innerHTML = options.join('');
+                    studentSelect.classList.remove('-hasValue');
+                });
+        };
+
+        //document.getElementById('show').onclick = function (e) {
+        //    e.preventDefault();
+
+        //    var studentId = document.getElementById('student').value;
+
+        //    var url = 'api/StudentCard/ShowStudentInfo?studentId=' + studentId;
+        //    fetch(url, {
+        //        method: 'GET'
+        //    })
+        //        .then((resp) => resp.json())
+        //        .then(function (data) {
+        //            let studentInfo = data;
+
+        //            document.getElementById('surname').value = studentInfo.lastName;
+        //            document.getElementById('name').value = studentInfo.firstName;
+        //            document.getElementById('middle_name').value = studentInfo.patronymic;
+        //            document.getElementById('birthday').value = studentInfo.birthday;
+        //            document.getElementById('birthplace').value = studentInfo.birthPlace;
+        //            document.getElementById('citizenship').value = studentInfo.immenseness;
+        //            document.getElementById('marital_status').value = studentInfo.maritalStatusId;
+        //            document.getElementById('registration_place').value = studentInfo.registration;
+        //            document.getElementById('exemption').value = studentInfo.exemption;
+        //            document.getElementById('date_reckoned').value = studentInfo.orderDate;
+        //            //document.getElementById('competition').value = studentInfo.expirienceCompetitionId;
+        //            //document.getElementById('transfer_order').value = studentInfo.transferFrom;
+        //            //document.getElementById('by_direction').value = studentInfo.transferDirection;
+        //            //document.getElementById('special_conditions_of_competition').value = studentInfo.competitionConditions;
+        //            //document.getElementById('out_of_competition').value = studentInfo.outOfCompetitionInfo;
+        //            //document.getElementById('full_refund').value = studentInfo.ammendsId;
+        //            document.getElementById('number_reckoned').value = studentInfo.orderNumber;
+        //            document.getElementById('employment_history_number').value = studentInfo.employmentNumber;
+        //            document.getElementById('employment_given_date').value = studentInfo.employmentGivenDate;
+        //            document.getElementById('employment_history_by_whom_issued').value = studentInfo.employmentAuthority;
+        //            document.getElementById('registration_or_passport_number').value = studentInfo.registrOrPassportNumber;
+        //            document.getElementById('student_status').value = studentInfo.studentStateId;
+
+        //        })
+        //};
+
     }
 
     static _idsToClear() {
