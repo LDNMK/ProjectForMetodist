@@ -8,8 +8,6 @@ const autoprefixer 			= require('gulp-autoprefixer');	// вендорные пр
 const imagemin 				= require('gulp-imagemin'); 	// для сжатия картинок
 const del 					= require('del');				// для удаления папки build перед вызовом функции build
 
-
-
 // Порядок подключения scss файлов
 const scssFiles = [
 	'app/scss/style.scss',
@@ -96,9 +94,6 @@ function build() {
 	], { base: 'app' })
 		.pipe(dest('./'));
 }
-
-
-
 
 //Вызов функций
 exports.styles = styles;
