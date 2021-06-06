@@ -29,7 +29,7 @@ namespace FaitLogic.Logic
             var groupNameId = groupRepo.FindGroupName(newGroupName);
             if(groupNameId == null)
             {
-                groupNameId = groupRepo.CreateNewGroupName(new GroupName { NameOfGroup = newGroupName });
+                groupNameId = groupRepo.CreateNewGroupName(new GroupPrefix { Name = newGroupName });
             }
 
             var isExisted = groupRepo.CheckIfGroupExist(groupNumber, groupNameId);
@@ -42,7 +42,7 @@ namespace FaitLogic.Logic
             var newGroup = new Group
             {
                 GroupNumber = groupNumber,
-                GroupNameId = groupNameId,
+                GroupdPrefixId = groupNameId,
                 Actual = true,
                 GroupYear = 2021
             };
@@ -56,8 +56,8 @@ namespace FaitLogic.Logic
         {
             var groups = groupRepo.GetGroups(course, year);
 
-            var groupsIds = groups.Select(X => X.Id);
-            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupsIds));
+            var groupIds = groups.Select(X => X.Id);
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));
 
             return groupNames;
         }

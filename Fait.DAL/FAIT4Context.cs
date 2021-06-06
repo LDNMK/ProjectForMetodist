@@ -20,10 +20,10 @@ namespace Fait.DAL
         public virtual DbSet<StudentNameWithId> StudentNameWithIds { get; set; }
         public virtual DbSet<GroupNameWithId> GroupNameWithIds { get; set; }
         public virtual DbSet<ActualGroup> ActualGroups { get; set; }
-        public virtual DbSet<Ammende> Ammendes { get; set; }
+        public virtual DbSet<Amend> Ammendes { get; set; }
         public virtual DbSet<ExpirienceCompetitione> ExpirienceCompetitiones { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
-        public virtual DbSet<GroupName> GroupNames { get; set; }
+        public virtual DbSet<GroupPrefix> GroupNames { get; set; }
         public virtual DbSet<MaritalStatus> MaritalStatuses { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
         public virtual DbSet<Speciality> Specialities { get; set; }
@@ -82,13 +82,13 @@ namespace Fait.DAL
                     .HasConstraintName("FK__actual_gr__stude__45F365D3");
             });
 
-            modelBuilder.Entity<Ammende>(entity =>
+            modelBuilder.Entity<Amend>(entity =>
             {
                 entity.ToTable("ammendes");
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.AmmendType)
+                entity.Property(e => e.Name)
                     .HasMaxLength(40)
                     .HasColumnName("ammend_type");
             });
@@ -112,17 +112,19 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Actual).HasColumnName("actual");
 
-                entity.Property(e => e.GroupNameId).HasColumnName("group_name_id");
+                entity.Property(e => e.GroupdPrefixId).HasColumnName("GroupPrefixId");
 
                 entity.Property(e => e.GroupNumber).HasColumnName("group_number");
 
                 entity.Property(e => e.GroupYear).HasColumnName("group_year");
 
+                entity.Property(e => e.Course).HasColumnName("Course");
+
                 entity.Property(e => e.PlanId).HasColumnName("plan_id");
 
-                entity.HasOne(d => d.GroupName)
+                entity.HasOne(d => d.GroupPrefix)
                     .WithMany(p => p.Groups)
-                    .HasForeignKey(d => d.GroupNameId)
+                    .HasForeignKey(d => d.GroupdPrefixId)
                     .HasConstraintName("FK__groups__group_na__46E78A0C");
 
                 entity.HasOne(d => d.Plan)
@@ -132,17 +134,17 @@ namespace Fait.DAL
                     .HasConstraintName("FK__groups__plan_id__47DBAE45");
             });
 
-            modelBuilder.Entity<GroupName>(entity =>
+            modelBuilder.Entity<GroupPrefix>(entity =>
             {
-                entity.ToTable("group_names");
+                entity.ToTable("GroupPrefix");
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("id");
+                    .HasColumnName("Id");
 
-                entity.Property(e => e.NameOfGroup)
+                entity.Property(e => e.Name)
                     .HasMaxLength(40)
-                    .HasColumnName("name_of_group");
+                    .HasColumnName("Name");
             });
 
             modelBuilder.Entity<MaritalStatus>(entity =>
@@ -258,8 +260,8 @@ namespace Fait.DAL
                     .ValueGeneratedNever()
                     .HasColumnName("id");
 
-                entity.Property(e => e.AmmendsId)
-                    .HasColumnName("ammends_id")
+                entity.Property(e => e.AmendId)
+                    .HasColumnName("AmendId")
                     .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.BirthPlace)
@@ -324,9 +326,9 @@ namespace Fait.DAL
                     .HasMaxLength(30)
                     .HasColumnName("transfer_from");
 
-                entity.HasOne(d => d.Ammends)
+                entity.HasOne(d => d.Amend)
                     .WithMany(p => p.StudentsInfos)
-                    .HasForeignKey(d => d.AmmendsId)
+                    .HasForeignKey(d => d.AmendId)
                     .HasConstraintName("FK__students___ammen__4CA06362");
 
                 entity.HasOne(d => d.ExpirienceCompetition)

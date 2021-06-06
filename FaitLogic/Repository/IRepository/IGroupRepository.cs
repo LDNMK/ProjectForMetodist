@@ -8,9 +8,9 @@ namespace FaitLogic.Repository.IRepository
     {
         void AddGroup(Group group);
 
-        bool CheckIfGroupExist(int groupNumber, byte? groupNameId);
+        bool CheckIfGroupExist(int groupNumber, int? groupNameId);
 
-        byte? FindGroupName(string groupName);
+        int? FindGroupName(string groupName);
 
         Group FindExistingGroup(int groupId);
 
@@ -22,7 +22,7 @@ namespace FaitLogic.Repository.IRepository
 
         void UpdateGroup(Group group);
 
-        byte CreateNewGroupName(GroupName groupName);
+        int CreateNewGroupName(GroupPrefix groupName);
 
         ICollection<Group> GetGroups(int course, int year);
     }

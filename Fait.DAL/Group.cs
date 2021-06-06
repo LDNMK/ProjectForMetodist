@@ -13,13 +13,20 @@ namespace Fait.DAL
         }
 
         public int Id { get; set; }
-        public int? PlanId { get; set; }//учебнвй план
-        public int GroupNumber { get; set; }//номер группы
-        public byte? GroupNameId { get; set; }//код группы
-        public bool Actual { get; set; }//актуальна ли группа
-        public int GroupYear { get; set; }//год
 
-        public virtual GroupName GroupName { get; set; }
+        public int? PlanId { get; set; }            // Учебный план
+
+        public int GroupNumber { get; set; }        // Номер группы
+
+        public int? GroupdPrefixId { get; set; }    // Код группы
+
+        public bool Actual { get; set; }            // Актуальна ли группа
+
+        public int GroupYear { get; set; }          // Год
+
+        public int Course { get; set; }             // Курс
+
+        public virtual GroupPrefix GroupPrefix { get; set; }
         public virtual YearPlan Plan { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
     }

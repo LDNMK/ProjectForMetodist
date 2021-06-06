@@ -33,7 +33,7 @@ namespace FaitLogic.Logic
         {
             var yearPlan = yearPlanRepo.FindYearPlan(yearPlanId);
 
-            var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupName.NameOfGroup);
+            var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupPrefix.Name);
             var yearPlanDto = new YearPlanDTO
             {
                 PlanName = yearPlan.PlanName,
