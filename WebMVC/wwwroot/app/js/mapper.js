@@ -6,14 +6,14 @@ if (!content) {
 
 const mapper = {
     "main--page":               MainPage,
-    "student-card--add-page": () => "student-card--add-page not implemented",
+    "student-card--add-page":   StudentCardAddPage,
     "student-card--show-page":  StudentCardShowPage,
-    "curriculum--show-page": () => "curriculum--show-page not implemented",
-    "curriculum--add-page": () => "curriculum--add-page not implemented",
-    "transfer--page": () => "transfer--page not implemented",
-    "progress--page": () => "progress--page not implemented",
-    "report--add-page": () => "report--add-page not implemented",
-    "group--add-page": () => "group--add-page not implemented"
+    // "curriculum--show-page": () => "curriculum--show-page not implemented",
+    // "curriculum--add-page": () => "curriculum--add-page not implemented",
+    // "transfer--page": () => "transfer--page not implemented",
+    // "progress--page": () => "progress--page not implemented",
+    // "report--add-page": () => "report--add-page not implemented",
+    // "group--add-page": () => "group--add-page not implemented"
 };
 
 function setPageByAttribute(attr) {

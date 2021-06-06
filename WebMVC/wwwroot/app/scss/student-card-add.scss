@@ -1,0 +1,32 @@
+.student-card__add {
+    display: grid;
+    grid-template-columns: minmax(250px, 1fr);
+
+    &-general {
+        margin-bottom: 100px;
+    }
+
+    &-grid {
+        display: grid;
+        gap: 20px 60px;
+        padding: 20px 0;
+        grid-template-columns: minmax(250px, 1fr);
+        align-items: center;
+
+        margin-bottom: 30px;
+    }
+
+    &-buttons {
+        text-align: center;
+    }
+
+    &-info {
+        position: relative;
+        display: grid;
+        row-gap: 20px;
+
+        &-buttons {
+            text-align: center;
+        }
+    }
+}

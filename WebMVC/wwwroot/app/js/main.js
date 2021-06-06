@@ -4,5 +4,6 @@ function init() {
     initSidebar();
     // initMainPage();
 
-    setPageByAttribute(StudentCardShowPage.is());
+    // setPageByAttribute(StudentCardAddPage.is());
+    // subscribeFormElements();
 }

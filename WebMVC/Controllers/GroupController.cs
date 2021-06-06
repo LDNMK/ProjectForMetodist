@@ -14,7 +14,6 @@ namespace WebAPI.Controllers
             this.groupLogic = groupLogic;
         }
 
-
         [HttpGet]
         public IActionResult GetListOfGroups(int course, int year)
         {

@@ -1,4 +1,4 @@
-class StudentCardShowPage extends Page {
+class StudentCardAddPage extends Page {
     constructor() {
         super();
     }
@@ -6,20 +6,16 @@ class StudentCardShowPage extends Page {
     static _dataObjKeyFields = null;
 
     static is() {
-        return 'student-card--show-page';
+        return 'student-card--add-page';
     }
 
     static getPage() {
         return `
-            <div class="student-card__show">
-                <div class="student-card__show-general">
-                    <h1 class="student-card__title">Пошук</h1>
-                    <div class="student-card__show-grid">
-                        <div class="form-element form-input">
-                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="year">Рік</label>
-                        </div>
+            <div class="student-card__add">
+                <div class="student-card__add-info">
+                    <h1 class="student-card__title">Навчальна картка студента</h1>
+
+                    <div class="student-card__col-2">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -38,40 +34,18 @@ class StudentCardShowPage extends Page {
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
                         </div>
-
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="student">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="student">Студент</label>
-                        </div>
                     </div>
 
-                    <div class="student-card__show-buttons">
-                        <button class="btn student-card__show-btn-clear">
-                            <i class="btn-icon fas fa-trash-alt"></i>
-                            <span class="btn-text">Очистити</span>
-                        </button>
-                        <button class="btn student-card__show-btn-find">
-                            <i class="btn-icon fas fa-search"></i>
-                            <span class="btn-text">Знайти студента</span>
-                        </button>
-                    </div>
-                    <!-- </form> -->
-                </div>
-
-                <div class="student-card__show-info">
-                    <h1 class="student-card__title">Навчальна картка студента</h1>
-                    <div class="student-card__buttons">
-                        <button class="btn student-card__show-btn-edit">
-                            <i class="btn-icon fas fa-user-edit"></i>
-                            <span class="btn-text">Редагувати</span>
-                        </button>
-                        <button class="btn student-card__show-btn-save">
-                            <i class="btn-icon fas fa-save"></i>
-                            <span class="btn-text">Зберегти</span>
-                        </button>
+                    <div class="form-element form-select">
+                        <select class="form-element-field" id="degree">
+                            <option class="form-select-placeholder" value="" disabled selected></option>
+                            <option value="1">Бакалавр</option>
+                            <option value="2">Магістр</option>
+                        </select>
+                        <div class="form-element-bar"></div>
+                        <label class="form-element-label" for="degree">Рівень вищої
+                            освіти/освітньо-кваліфікаційний
+                            рівень</label>
                     </div>
 
                     <div class="student-card__col-2">
@@ -97,41 +71,29 @@ class StudentCardShowPage extends Page {
 
                     <div class="student-card__col-3">
                         <div class="form-element form-input">
-                            <input id="surname" data-obj-key="lastName" class="form-element-field" placeholder="Введіть прізвище"
-                                type="text" />
+                            <input id="surname" data-obj-key="lastName" class="form-element-field"
+                                placeholder="Введіть прізвище" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="surname">Прізвище</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="name" data-obj-key="firstName" class="form-element-field" placeholder="Введіть ім'я" type="text" />
+                            <input id="name" data-obj-key="firstName" class="form-element-field"
+                                placeholder="Введіть ім'я" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="name">Ім'я</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="first-name" data-obj-key="patronymic" class="form-element-field" placeholder="Введіть по-батькові"
-                                type="text" />
+                            <input id="first-name" data-obj-key="patronymic" class="form-element-field"
+                                placeholder="Введіть по-батькові" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="first-name">По-батькові</label>
                         </div>
                     </div>
 
-                    <div class="student-card__col-3 student-card__show-average-score">
-                        <div class="form-element form-input">
-                            <input id="average-score" class="form-element-field" placeholder="Введіть середній бал"
-                                type="text" />
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="average-score">Середній бал</label>
-
-                            <button class="btn student-card__show-average-score-btn">
-                                <i class="fas fa-calculator"></i>
-                            </button>
-                        </div>
-                    </div>
-
                     <div class="student-card__col-2">
                         <div class="form-element form-input">
-                            <input id="birthday" data-obj-key="birthday" class="form-element-field" placeholder="Введіть дату народження"
-                                type="date" />
+                            <input id="birthday" data-obj-key="birthday" class="form-element-field"
+                                placeholder="Введіть дату народження" type="date" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="birthday">Дата народження</label>
                         </div>
@@ -161,18 +123,19 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="form-element form-input">
-                        <input id="home" class="form-element-field"
-                            placeholder="Введіть місце проживання/реєстрації" type="text" />
-                        <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="home">Місце проживання/реєстрації</label>
-                    </div>
-
-                    <div class="form-element form-input">
-                        <input id="benefits" class="form-element-field" placeholder="Введіть пільги якщо є"
-                            type="text" />
-                        <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
+                    <div class="student-card__col-2">
+                        <div class="form-element form-input">
+                            <input id="home" class="form-element-field"
+                                placeholder="Введіть місце проживання/реєстрації" type="text" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="home">Місце проживання/реєстрації</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <input id="benefits" class="form-element-field" placeholder="Введіть пільги якщо є"
+                                type="text" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
+                        </div>
                     </div>
 
                     <div class="student-card__col-2">
@@ -187,6 +150,65 @@ class StudentCardShowPage extends Page {
                                 type="number" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="order-number">№</label>
+                        </div>
+                    </div>
+
+                    <div class="student-card__col-2">
+                        <div class="form-element form-select">
+                            <select class="form-element-field" id="experience">
+                                <option class="form-select-placeholder" value="" disabled selected></option>
+                                <option value="1">Із стажем</option>
+                                <option value="2">Без стажу</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="experience">1. За конкурсом</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <!-- Change id and for attributes -->
+                            <input id="change1" class="form-element-field"
+                                placeholder="Введіть порядок переведення з" type="text" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="change1">2. У порядку переведення з</label>
+                        </div>
+                    </div>
+
+                    <div class="student-card__col-2">
+                        <div class="form-element form-input">
+                            <!-- Change id and for attributes -->
+                            <input id="change2" class="form-element-field" placeholder="Введіть направленням"
+                                type="text" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="change2">3. За направленням</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <!-- Change id and for attributes -->
+                            <input id="change3" class="form-element-field" placeholder="Введіть особливі умови"
+                                type="text" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="change3">4. За особливими умовами участі у
+                                конкурсі</label>
+                        </div>
+                    </div>
+
+                    <div class="student-card__col-2">
+                        <div class="form-element form-input">
+                            <!-- Change id and for attributes -->
+                            <input id="change4" class="form-element-field"
+                                placeholder="Введіть поза конкурсом" type="text" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="change4">5. Поза конкурсом</label>
+                        </div>
+                        <div class="form-element form-select">
+                            <!-- Change id and for attributes -->
+                            <select class="form-element-field" id="change5">
+                                <option class="form-select-placeholder" value="" disabled selected></option>
+                                <option value="1">Державний кредит</option>
+                                <option value="2">Фізична особа</option>
+                                <option value="3">Юридичная особа</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="change5">6. На умовах повного
+                                відшкодування</label>
                         </div>
                     </div>
 
@@ -220,7 +242,7 @@ class StudentCardShowPage extends Page {
                             картки платника податків або серія та номер паспорту</label>
                     </div>
 
-                    <div class="student-card__show-row">
+                    <div class="student-card__col-3">
                         <div class="form-element form-select">
                             <select class="form-element-field" data-obj-key="studentStateId" id="student-status">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -234,6 +256,13 @@ class StudentCardShowPage extends Page {
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="student-status">Статус студента</label>
                         </div>
+                    </div>
+
+                    <div class="student-card__buttons">
+                        <button class="btn student-card__show-btn-save">
+                            <i class="btn-icon fas fa-save"></i>
+                            <span class="btn-text">Зберегти</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -251,12 +280,6 @@ class StudentCardShowPage extends Page {
     }
 
     static _studentCardSubscribe() {
-        const clearBtn = document.querySelector('.student-card__show-btn-clear');
-        const findBtn = document.querySelector('.student-card__show-btn-find');
-        const editBtn = document.querySelector('.student-card__show-btn-edit');
-        const saveBtn = document.querySelector('.student-card__show-btn-save');
-        const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
-
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
         const studentSelect = document.querySelector('#student');
@@ -378,6 +401,10 @@ class StudentCardShowPage extends Page {
 
         let event = new Event("change");
         courseSelect.dispatchEvent(event);
+
+
+        // Init selects
+        
     }
 
     static _idsToClear() {
