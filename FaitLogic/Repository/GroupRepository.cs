@@ -26,10 +26,10 @@ namespace FaitLogic.Repository
             dbContext.SaveChanges();
         }
 
-        public bool CheckIfGroupExist(int groupNumber, byte? groupNameId)
+        public bool CheckIfGroupExist(int groupNumber, int? groupNameId)
         {
             return dbContext.Groups
-                .Any(x => x.GroupNameId == groupNameId && x.GroupNumber == groupNumber);
+                .Any(x => x.GroupdPrefixId == groupNameId && x.GroupNumber == groupNumber);
         }
 
         public Group FindExistingGroup(int groupId)
@@ -42,7 +42,7 @@ namespace FaitLogic.Repository
         public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
         {
             return dbContext.Groups
-                .Include(x => x.GroupName)
+                .Include(x => x.GroupPrefix)
                 .Where(x => x.PlanId == yearPlanId)
                 .ToList();
         }
@@ -55,18 +55,20 @@ namespace FaitLogic.Repository
                     new GroupNameWithId
                     {
                         GroupId = x.Id,
-                        GroupName = $"{x.GroupName.NameOfGroup}-{x.GroupNumber}"
+                        GroupName = $"{x.GroupPrefix.Name}-{x.GroupNumber}"
                     })
                 .ToList();
         }
 
-        //NEED TO ADD COLUMN COURSE TO HAVE NORMAL CONDITION!
+        // TODO: NEED TO ADD COLUMN COURSE TO HAVE NORMAL CONDITION!
         public ICollection<Group> GetGroups(int course, int year)
         {
             return dbContext.Groups
+                .AsNoTracking()
                 .Where(x => x.Actual == true 
                        && x.GroupYear == year 
-                       && x.GroupNumber/10 == course)
+                       && x.Course == course)
+                       //&& x.GroupNumber / 10 == course)
                 .ToList();
         }
 
@@ -86,7 +88,7 @@ namespace FaitLogic.Repository
             }
         }
 
-        public byte CreateNewGroupName(GroupName groupName)
+        public int CreateNewGroupName(GroupPrefix groupName)
         {
             dbContext.GroupNames.Add(groupName);
             dbContext.SaveChanges();
@@ -98,10 +100,10 @@ namespace FaitLogic.Repository
             return lastGroupNameId;
         }
 
-        public byte? FindGroupName(string groupName)
+        public int? FindGroupName(string groupName)
         {
             return dbContext.GroupNames
-                .SingleOrDefault(x => x.NameOfGroup == groupName)?.Id;
+                .SingleOrDefault(x => x.Name == groupName)?.Id;
         }
     }
 }

@@ -21,7 +21,7 @@
         public string TransferDirection { get; set; }
         public string CompetitionConditions { get; set; }
         public string OutOfCompetitionInfo { get; set; }
-        public byte? AmmendsId { get; set; }
+        public int? AmendId { get; set; }
         public int OrderNumber { get; set; } //Номер наказу 
         public string OrderDate { get; set; } //Дата наказу
         public int EmploymentNumber { get; set; }// код рабочей кнжики
