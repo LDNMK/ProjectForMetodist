@@ -6,8 +6,8 @@ class Page {
         return 'not implemented';
     }
 
-    static subscribe() {
-        console.log('not subscribed');
+    static init() {
+        console.log('not initialized');
     }
 
     static is() {

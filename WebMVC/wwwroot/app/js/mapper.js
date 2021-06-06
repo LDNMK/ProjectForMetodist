@@ -1,6 +1,6 @@
-let tag = document.body.querySelector('.main__content');
+let content = document.body.querySelector('.main__content');
 
-if (!tag) {
+if (!content) {
     console.log("Tag with class\'main__content\' not found!");
 }
 
@@ -23,6 +23,6 @@ function setPageByAttribute(attr) {
     }
 
     let page = mapper[attr];
-    tag.innerHTML = page.getPage();
-    page.subscribe();
+    content.innerHTML = page.getPage();
+    page.init();
 }

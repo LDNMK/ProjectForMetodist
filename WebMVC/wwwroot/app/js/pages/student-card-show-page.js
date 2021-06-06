@@ -3,6 +3,8 @@ class StudentCardShowPage extends Page {
         super();
     }
 
+    static _dataObjKeyFields = null;
+
     static is() {
         return 'student-card--show-page';
     }
@@ -13,8 +15,8 @@ class StudentCardShowPage extends Page {
                 <div class="student-card__show-general">
                     <h1 class="student-card__show-title">Пошук</h1>
                     <!-- <form class="student-card__find" action="get"> -->
+                    
                     <div class="student-card__show-grid">
-                        
                         <div class="form-element form-input">
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
@@ -97,18 +99,18 @@ class StudentCardShowPage extends Page {
 
                     <div class="student-card__show-row">
                         <div class="form-element form-input">
-                            <input id="surname" class="form-element-field" placeholder="Введіть прізвище"
+                            <input id="surname" data-obj-key="lastName" class="form-element-field" placeholder="Введіть прізвище"
                                 type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="surname">Прізвище</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="name" class="form-element-field" placeholder="Введіть ім'я" type="text" />
+                            <input id="name" data-obj-key="firstName" class="form-element-field" placeholder="Введіть ім'я" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="name">Ім'я</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="first-name" class="form-element-field" placeholder="Введіть по-батькові"
+                            <input id="first-name" data-obj-key="patronymic" class="form-element-field" placeholder="Введіть по-батькові"
                                 type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="first-name">По-батькові</label>
@@ -130,13 +132,13 @@ class StudentCardShowPage extends Page {
 
                     <div class="student-card__show-row">
                         <div class="form-element form-input">
-                            <input id="birthday" class="form-element-field" placeholder="Введіть дату народження"
+                            <input id="birthday" data-obj-key="birthday" class="form-element-field" placeholder="Введіть дату народження"
                                 type="date" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="birthday">Дата народження</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="birthday-place" class="form-element-field"
+                            <input id="birthday-place" data-obj-key="birthPlace" class="form-element-field"
                                 placeholder="Введіть місце народження" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="birthday-place">Місце народження</label>
@@ -222,13 +224,14 @@ class StudentCardShowPage extends Page {
 
                     <div class="student-card__show-row">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="student-status">
+                            <select class="form-element-field" data-obj-key="studentStateId" id="student-status">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Переведений з групою</option>
                                 <option value="2">В академічній відпустці</option>
-                                <option value="3">Не закрив сесію</option>
-                                <option value="4">Виключенний з навчання</option>
-                                <option value="5">Закінчив степінь</option>
+                                <option value="3">Перехід в іншу группу</option>
+                                <option value="4">Не закрив сесію</option>
+                                <option value="5">Відрахований</option>
+                                <option value="6">Здобув степінь</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="student-status">Статус студента</label>
@@ -239,9 +242,14 @@ class StudentCardShowPage extends Page {
         `;
     }
 
-    static subscribe() {
+    static init() {
+        this._initDataObjKeyFields();
         this._studentCardShowSubscribe();
         subscribeFormElements();
+    }
+
+    static _initDataObjKeyFields() {
+        this._dataObjKeyFields = content.querySelectorAll("[data-obj-key]");
     }
 
     static _studentCardShowSubscribe() {
@@ -254,11 +262,11 @@ class StudentCardShowPage extends Page {
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
         const studentSelect = document.querySelector('#student');
-        
+
         const year = document.querySelector('#year');
 
         clearBtn.addEventListener('click', () => {
-            let ids = this._idsToClear(); 
+            let ids = this._idsToClear();
 
             let items = document.querySelectorAll(ids.join(', '));
             items.forEach(x => {
@@ -268,7 +276,7 @@ class StudentCardShowPage extends Page {
         })
 
         findBtn.addEventListener('click', () => {
-            console.log('Find');
+            fetchStudent(studentSelect.value);
         })
 
         editBtn.addEventListener('click', () => {
@@ -276,7 +284,7 @@ class StudentCardShowPage extends Page {
         })
 
         saveBtn.addEventListener('click', () => {
-            console.log('Save');
+            fetchStudentSave(studentSelect.value);
         })
 
         averageScoreBtn.addEventListener('click', () => {
@@ -302,7 +310,9 @@ class StudentCardShowPage extends Page {
 
             const response = await fetch(`api/Group/GetListOfGroups?course=${course}&year=${year}`);
             const groups = await response.json();
-            
+
+            console.log(groups);
+
             let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
             options.push(optionDefault);
 
@@ -320,10 +330,59 @@ class StudentCardShowPage extends Page {
 
             let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
             options.push(optionDefault);
-            
+
             studentSelect.innerHTML = options.join('');
             studentSelect.classList.remove('-hasValue');
         };
+
+        async function fetchStudent(id) {
+            if (id == "") {
+                return;
+            }
+
+            const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
+            const student = await response.json();
+
+            StudentCardShowPage._dataObjKeyFields.forEach(x => {
+                x.value = student[x.getAttribute("data-obj-key")];
+                x.classList.add('-hasValue');
+            });
+
+            console.log(student);
+        }
+
+        async function fetchStudentSave(id) {
+            let student = {};
+            StudentCardShowPage._dataObjKeyFields.forEach(x => {
+                student[x.getAttribute('data-obj-key')] = x.value;
+            });
+
+            console.log(student);
+
+            const response = await fetch(`api/StudentCard/UpdateStudentCardInfo?studentId=${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            });
+
+            // TODO: Check response
+        }
+
+
+        // Delete
+        year.value = 2021;
+        year.classList.add('-hasValue');
+
+        courseSelect.value = "1"
+        courseSelect.classList.add('-hasValue');
+
+        let event = new Event("change");
+        courseSelect.dispatchEvent(event);
+
+        // groupSelect.value = 1;
+        // groupSelect.classList.add('-hasValue');
 
         //document.getElementById('show').onclick = function (e) {
         //    e.preventDefault();
