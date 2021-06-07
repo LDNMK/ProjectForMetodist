@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetListOfGroups(int course, int year)
+        public IActionResult GetListOfGroups(int course, int? year)
         {
             var groups = groupLogic.GetGroupsList(course, year);
 
@@ -25,16 +25,9 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult CreateGroup([FromBody]string groupName)
         {
-            var isSuccessfully = groupLogic.AddGroup(groupName);
+            groupLogic.AddGroup(groupName);
 
-            if(isSuccessfully)
-            {
-                return Ok(new { response = "Group was added" });
-            }
-            else
-            {
-                return BadRequest(new { response = "Group already existed" });
-            }
+            return Ok(new { response = "Group was added" });
         }
 
         [HttpPost]

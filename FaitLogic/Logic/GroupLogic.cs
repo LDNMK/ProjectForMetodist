@@ -20,7 +20,7 @@ namespace FaitLogic.Logic
             groupRepo = groupRepository;
         }
 
-        public bool AddGroup(string groupName)
+        public void AddGroup(string groupName)
         {
             var parts = groupName.Split('-');
             var newGroupName = parts[0];
@@ -36,7 +36,7 @@ namespace FaitLogic.Logic
 
             if(isExisted)
             {
-                return false;
+                throw new Exception();
             }
 
             var newGroup = new Group
@@ -44,17 +44,25 @@ namespace FaitLogic.Logic
                 GroupNumber = groupNumber,
                 GroupdPrefixId = groupNameId,
                 Actual = true,
-                GroupYear = 2021
+                GroupYear = 2021,
+                Course = groupNumber / 10
             };
 
             groupRepo.AddGroup(newGroup);
-
-            return true;
         }
 
-        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int year)
+        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int? year)
         {
-            var groups = groupRepo.GetGroups(course, year);
+            ICollection<Group> groups;
+
+            if (year.HasValue)
+            {
+                groups = groupRepo.GetGroups(course, year.Value);
+            }
+            else
+            {
+                groups = groupRepo.GetGroups(course);
+            }
 
             var groupIds = groups.Select(X => X.Id);
             var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));

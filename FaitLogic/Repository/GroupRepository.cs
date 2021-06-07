@@ -68,7 +68,15 @@ namespace FaitLogic.Repository
                 .Where(x => x.Actual == true 
                        && x.GroupYear == year 
                        && x.Course == course)
-                       //&& x.GroupNumber / 10 == course)
+                .ToList();
+        }
+
+        public ICollection<Group> GetGroups(int course)
+        {
+            return dbContext.Groups
+                .AsNoTracking()
+                .Where(x => x.Actual == true
+                       && x.Course == course)
                 .ToList();
         }
 

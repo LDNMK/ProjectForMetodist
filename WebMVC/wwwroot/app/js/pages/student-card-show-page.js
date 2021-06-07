@@ -282,7 +282,7 @@ class StudentCardShowPage extends Page {
         })
 
         saveBtn.addEventListener('click', () => {
-            fetchStudentSave(studentSelect.value);
+            fetchStudentUpdate(studentSelect.value);
         })
 
         averageScoreBtn.addEventListener('click', () => {
@@ -349,7 +349,7 @@ class StudentCardShowPage extends Page {
             console.log(student);
         }
 
-        async function fetchStudentSave(id) {
+        async function fetchStudentUpdate(id) {
             let student = {};
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
                 student[x.getAttribute('data-obj-key')] = x.value;
