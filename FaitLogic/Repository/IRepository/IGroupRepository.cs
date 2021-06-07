@@ -25,5 +25,7 @@ namespace FaitLogic.Repository.IRepository
         int CreateNewGroupName(GroupPrefix groupName);
 
         ICollection<Group> GetGroups(int course, int year);
+
+        ICollection<Group> GetGroups(int course);
     }
 }
