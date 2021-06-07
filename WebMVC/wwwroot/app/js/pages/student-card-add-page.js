@@ -280,56 +280,58 @@ class StudentCardAddPage extends Page {
     }
 
     static _studentCardSubscribe() {
+        const saveBtn = document.querySelector('.student-card__show-btn-save');
+
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
-        const studentSelect = document.querySelector('#student');
+        //const studentSelect = document.querySelector('#student');
 
-        const year = document.querySelector('#year');
+        //const year = document.querySelector('#year');
 
-        clearBtn.addEventListener('click', () => {
-            let ids = this._idsToClear();
+        //clearBtn.addEventListener('click', () => {
+        //    let ids = this._idsToClear();
 
-            let items = document.querySelectorAll(ids.join(', '));
-            items.forEach(x => {
-                x.classList.remove('-hasValue');
-                x.value = "";
-            });
-        })
+        //    let items = document.querySelectorAll(ids.join(', '));
+        //    items.forEach(x => {
+        //        x.classList.remove('-hasValue');
+        //        x.value = "";
+        //    });
+        //})
 
-        findBtn.addEventListener('click', () => {
-            fetchStudent(studentSelect.value);
-        })
+        //findBtn.addEventListener('click', () => {
+        //    fetchStudent(studentSelect.value);
+        //})
 
-        editBtn.addEventListener('click', () => {
-            console.log('Edit');
-        })
+        //editBtn.addEventListener('click', () => {
+        //    console.log('Edit');
+        //})
 
         saveBtn.addEventListener('click', () => {
-            fetchStudentSave(studentSelect.value);
+            fetchStudentSave();
         })
 
-        averageScoreBtn.addEventListener('click', () => {
-            console.log('Average score');
-        })
+        //averageScoreBtn.addEventListener('click', () => {
+        //    console.log('Average score');
+        //})
 
-        year.addEventListener('change', () => {
-            fetchGroups(year.value, courseSelect.value);
-        })
+        //year.addEventListener('change', () => {
+        //    fetchGroups(year.value, courseSelect.value);
+        //})
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(year.value, courseSelect.value);
+            fetchGroups(courseSelect.value);
         })
 
-        groupSelect.addEventListener('change', () => {
-            fetchStudents(groupSelect.value);
-        })
+        //groupSelect.addEventListener('change', () => {
+        //    fetchStudents(groupSelect.value);
+        //})
 
-        async function fetchGroups(year, course) {
-            if (year == "" || course == "") {
+        async function fetchGroups(course) {
+            if (course == "") {
                 return;
             }
 
-            const response = await fetch(`api/Group/GetListOfGroups?course=${course}&year=${year}`);
+            const response = await fetch(`api/Group/GetListOfGroups?course=${course}`);
             const groups = await response.json();
 
             console.log(groups);
@@ -341,47 +343,47 @@ class StudentCardAddPage extends Page {
             groupSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudents(groupId) {
-            if (groupId == "") {
-                return;
-            }
+        //async function fetchStudents(groupId) {
+        //    if (groupId == "") {
+        //        return;
+        //    }
 
-            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
-            const students = await response.json();
+        //    const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
+        //    const students = await response.json();
 
-            let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
-            options.push(optionDefault);
+        //    let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
+        //    options.push(optionDefault);
 
-            studentSelect.innerHTML = options.join('');
-            studentSelect.classList.remove('-hasValue');
-        };
+        //    studentSelect.innerHTML = options.join('');
+        //    studentSelect.classList.remove('-hasValue');
+        //};
 
-        async function fetchStudent(id) {
-            if (id == "") {
-                return;
-            }
+        //async function fetchStudent(id) {
+        //    if (id == "") {
+        //        return;
+        //    }
 
-            const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
-            const student = await response.json();
+        //    const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
+        //    const student = await response.json();
 
-            StudentCardShowPage._dataObjKeyFields.forEach(x => {
-                x.value = student[x.getAttribute("data-obj-key")];
-                x.classList.add('-hasValue');
-            });
+        //    StudentCardShowPage._dataObjKeyFields.forEach(x => {
+        //        x.value = student[x.getAttribute("data-obj-key")];
+        //        x.classList.add('-hasValue');
+        //    });
 
-            console.log(student);
-        }
+        //    console.log(student);
+        //}
 
-        async function fetchStudentSave(id) {
+        async function fetchStudentSave() {
             let student = {};
-            StudentCardShowPage._dataObjKeyFields.forEach(x => {
+            StudentCardAddPage._dataObjKeyFields.forEach(x => {
                 student[x.getAttribute('data-obj-key')] = x.value;
             });
 
             console.log(student);
 
-            const response = await fetch(`api/StudentCard/UpdateStudentCardInfo?studentId=${id}`, {
-                method: 'PUT',
+            const response = await fetch(`api/StudentCard/SaveStudentCardInfo`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -393,11 +395,11 @@ class StudentCardAddPage extends Page {
 
 
         // Delete
-        year.value = 2021;
-        year.classList.add('-hasValue');
+        //year.value = 2021;
+        //year.classList.add('-hasValue');
 
-        courseSelect.value = "1"
-        courseSelect.classList.add('-hasValue');
+        //courseSelect.value = "1"
+        //courseSelect.classList.add('-hasValue');
 
         let event = new Event("change");
         courseSelect.dispatchEvent(event);
@@ -411,10 +413,10 @@ class StudentCardAddPage extends Page {
         return [
             '#speciality',
             '#specialization',
-            '#year',
+            //'#year',
             '#course',
             '#group',
-            '#student'
+            //'#student'
         ];
     }
 }
