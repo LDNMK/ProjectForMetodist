@@ -22,7 +22,7 @@ function setPageByAttribute(attr) {
         return;
     }
 
-    let page = mapper[attr];
-    content.innerHTML = page.getPage();
-    page.init();
+    let obj = mapper[attr];
+    content.innerHTML = obj.page;
+    obj.init();
 }

@@ -10,7 +10,7 @@ class Page {
         console.log('not initialized');
     }
 
-    static is() {
+    static get is() {
         return 'Page';
     }
 
