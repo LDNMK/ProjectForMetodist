@@ -5,11 +5,11 @@ class StudentCardShowPage extends Page {
 
     static _dataObjKeyFields = null;
 
-    static is() {
+    static get is() {
         return 'student-card--show-page';
     }
 
-    static getPage() {
+    static get page() {
         return `
             <div class="student-card__show">
                 <div class="student-card__show-general">

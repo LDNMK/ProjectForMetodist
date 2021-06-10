@@ -5,11 +5,11 @@ class StudentCardAddPage extends Page {
 
     static _dataObjKeyFields = null;
 
-    static is() {
+    static get is() {
         return 'student-card--add-page';
     }
 
-    static getPage() {
+    static get page() {
         return `
             <div class="student-card__add">
                 <div class="student-card__add-info">
@@ -284,47 +284,14 @@ class StudentCardAddPage extends Page {
 
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
-        //const studentSelect = document.querySelector('#student');
-
-        //const year = document.querySelector('#year');
-
-        //clearBtn.addEventListener('click', () => {
-        //    let ids = this._idsToClear();
-
-        //    let items = document.querySelectorAll(ids.join(', '));
-        //    items.forEach(x => {
-        //        x.classList.remove('-hasValue');
-        //        x.value = "";
-        //    });
-        //})
-
-        //findBtn.addEventListener('click', () => {
-        //    fetchStudent(studentSelect.value);
-        //})
-
-        //editBtn.addEventListener('click', () => {
-        //    console.log('Edit');
-        //})
 
         saveBtn.addEventListener('click', () => {
             fetchStudentSave();
         })
 
-        //averageScoreBtn.addEventListener('click', () => {
-        //    console.log('Average score');
-        //})
-
-        //year.addEventListener('change', () => {
-        //    fetchGroups(year.value, courseSelect.value);
-        //})
-
         courseSelect.addEventListener('change', () => {
             fetchGroups(courseSelect.value);
         })
-
-        //groupSelect.addEventListener('change', () => {
-        //    fetchStudents(groupSelect.value);
-        //})
 
         async function fetchGroups(course) {
             if (course == "") {
@@ -342,37 +309,6 @@ class StudentCardAddPage extends Page {
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
         };
-
-        //async function fetchStudents(groupId) {
-        //    if (groupId == "") {
-        //        return;
-        //    }
-
-        //    const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
-        //    const students = await response.json();
-
-        //    let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
-        //    options.push(optionDefault);
-
-        //    studentSelect.innerHTML = options.join('');
-        //    studentSelect.classList.remove('-hasValue');
-        //};
-
-        //async function fetchStudent(id) {
-        //    if (id == "") {
-        //        return;
-        //    }
-
-        //    const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
-        //    const student = await response.json();
-
-        //    StudentCardShowPage._dataObjKeyFields.forEach(x => {
-        //        x.value = student[x.getAttribute("data-obj-key")];
-        //        x.classList.add('-hasValue');
-        //    });
-
-        //    console.log(student);
-        //}
 
         async function fetchStudentSave() {
             let student = {};
@@ -420,3 +356,5 @@ class StudentCardAddPage extends Page {
         ];
     }
 }
+
+StudentCardAddPage.is = 'test';
