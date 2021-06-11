@@ -12,9 +12,9 @@ const del 					= require('del');				// для удаления папки build 
 const scssFiles = [
 	'app/scss/style.scss',
 	'app/scss/form.scss',
-	'app/scss/student-card.scss',
 	'app/scss/student-card-add.scss',
-	'app/scss/student-card-show.scss'
+	'app/scss/student-card-show.scss',
+	'app/scss/group-add.scss'
 ];
 
 function sassToCss() {
@@ -51,6 +51,7 @@ const jsFiles = [
 	'app/js/pages/main-page.js',
 	'app/js/pages/student-card-add-page.js',
 	'app/js/pages/student-card-show-page.js',
+	'app/js/pages/group-add-page.js',
 	'app/js/mapper.js',
 	'app/js/main.js',
 ];

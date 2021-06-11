@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateGroup([FromBody]string groupName)
+        public IActionResult CreateGroup([FromQuery] string groupName)
         {
             groupLogic.AddGroup(groupName);
 

@@ -13,7 +13,7 @@ const mapper = {
     // "transfer--page": () => "transfer--page not implemented",
     // "progress--page": () => "progress--page not implemented",
     // "report--add-page": () => "report--add-page not implemented",
-    // "group--add-page": () => "group--add-page not implemented"
+    "group--add-page":          GroupAddPage
 };
 
 function setPageByAttribute(attr) {
