@@ -4,6 +4,6 @@ function init() {
     initSidebar();
     // initMainPage();
 
-    setPageByAttribute(GroupAddPage.is);
+    setPageByAttribute(GroupActualizePage.is);
     // subscribeFormElements();
 }

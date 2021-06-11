@@ -10,7 +10,7 @@ class GroupAddPage extends Page {
     static get page() {
         return `
             <h1 class="main__page-title">Створення групи</h1>
-            <div class="create-group">
+            <div class="group__add">
                 <div class="main__col-2">
                     <div class="form-element form-input">
                         <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
@@ -26,7 +26,7 @@ class GroupAddPage extends Page {
 
                 <div class="main__col">
                     <div class="main__buttons">
-                        <button class="btn create-group__btn-save">
+                        <button class="btn group__add__btn-save">
                             <i class="btn-icon fas fa-save"></i>
                             <span class="btn-text">Створити групу</span>
                         </button>
@@ -42,7 +42,7 @@ class GroupAddPage extends Page {
     }
 
     static _groupCardSubscribe() {
-        const saveBtn = document.querySelector('.create-group__btn-save');
+        const saveBtn = document.querySelector('.group__add__btn-save');
 
         const year = document.querySelector('#year');
         const name = document.querySelector('#name');
