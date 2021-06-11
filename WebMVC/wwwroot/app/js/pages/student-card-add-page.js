@@ -15,7 +15,7 @@ class StudentCardAddPage extends Page {
                 <div class="student-card__add-info">
                     <h1 class="student-card__title">Навчальна картка студента</h1>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -48,7 +48,7 @@ class StudentCardAddPage extends Page {
                             рівень</label>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -69,7 +69,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-3">
+                    <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="surname" data-obj-key="lastName" class="form-element-field"
                                 placeholder="Введіть прізвище" type="text" />
@@ -90,7 +90,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="birthday" data-obj-key="birthday" class="form-element-field"
                                 placeholder="Введіть дату народження" type="date" />
@@ -105,7 +105,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="nationality" class="form-element-field" placeholder="Введіть громадянство"
                                 type="text" />
@@ -123,7 +123,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="home" class="form-element-field"
                                 placeholder="Введіть місце проживання/реєстрації" type="text" />
@@ -138,7 +138,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="order-date" class="form-element-field" placeholder="Введіть дату зарахування"
                                 type="date" />
@@ -153,7 +153,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="experience">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -172,7 +172,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <!-- Change id and for attributes -->
                             <input id="change2" class="form-element-field" placeholder="Введіть направленням"
@@ -190,7 +190,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <!-- Change id and for attributes -->
                             <input id="change4" class="form-element-field"
@@ -212,7 +212,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-3">
+                    <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="employment-number" class="form-element-field" placeholder="Введіть №"
                                 type="number" />
@@ -242,7 +242,7 @@ class StudentCardAddPage extends Page {
                             картки платника податків або серія та номер паспорту</label>
                     </div>
 
-                    <div class="student-card__col-3">
+                    <div class="main__col-3">
                         <div class="form-element form-select">
                             <select class="form-element-field" data-obj-key="studentStateId" id="student-status">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -258,7 +258,7 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__buttons">
+                    <div class="main__buttons">
                         <button class="btn student-card__show-btn-save">
                             <i class="btn-icon fas fa-save"></i>
                             <span class="btn-text">Зберегти</span>
@@ -326,7 +326,7 @@ class StudentCardAddPage extends Page {
                 body: JSON.stringify(student)
             });
 
-            // TODO: Check response
+            // TODO: Process response
         }
 
 
@@ -343,17 +343,6 @@ class StudentCardAddPage extends Page {
 
         // Init selects
         
-    }
-
-    static _idsToClear() {
-        return [
-            '#speciality',
-            '#specialization',
-            //'#year',
-            '#course',
-            '#group',
-            //'#student'
-        ];
     }
 }
 

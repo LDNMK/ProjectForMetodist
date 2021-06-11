@@ -48,7 +48,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__show-buttons">
+                    <div class="main__buttons">
                         <button class="btn student-card__show-btn-clear">
                             <i class="btn-icon fas fa-trash-alt"></i>
                             <span class="btn-text">Очистити</span>
@@ -58,12 +58,11 @@ class StudentCardShowPage extends Page {
                             <span class="btn-text">Знайти студента</span>
                         </button>
                     </div>
-                    <!-- </form> -->
                 </div>
 
                 <div class="student-card__show-info">
                     <h1 class="student-card__title">Навчальна картка студента</h1>
-                    <div class="student-card__buttons">
+                    <div class="main__buttons">
                         <button class="btn student-card__show-btn-edit">
                             <i class="btn-icon fas fa-user-edit"></i>
                             <span class="btn-text">Редагувати</span>
@@ -74,7 +73,7 @@ class StudentCardShowPage extends Page {
                         </button>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -95,7 +94,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-3">
+                    <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="surname" data-obj-key="lastName" class="form-element-field" placeholder="Введіть прізвище"
                                 type="text" />
@@ -115,7 +114,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-3 student-card__show-average-score">
+                    <div class="main__col-3 student-card__show-average-score">
                         <div class="form-element form-input">
                             <input id="average-score" class="form-element-field" placeholder="Введіть середній бал"
                                 type="text" />
@@ -128,7 +127,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="birthday" data-obj-key="birthday" class="form-element-field" placeholder="Введіть дату народження"
                                 type="date" />
@@ -143,7 +142,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="nationality" class="form-element-field" placeholder="Введіть громадянство"
                                 type="text" />
@@ -175,7 +174,7 @@ class StudentCardShowPage extends Page {
                         <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
                     </div>
 
-                    <div class="student-card__col-2">
+                    <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="order-date" class="form-element-field" placeholder="Введіть дату зарахування"
                                 type="date" />
@@ -190,7 +189,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="student-card__col-3">
+                    <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="employment-number" class="form-element-field" placeholder="Введіть №"
                                 type="number" />
@@ -220,7 +219,7 @@ class StudentCardShowPage extends Page {
                             картки платника податків або серія та номер паспорту</label>
                     </div>
 
-                    <div class="student-card__show-row">
+                    <div class="main__show-row">
                         <div class="form-element form-select">
                             <select class="form-element-field" data-obj-key="studentStateId" id="student-status">
                                 <option class="form-select-placeholder" value="" disabled selected></option>

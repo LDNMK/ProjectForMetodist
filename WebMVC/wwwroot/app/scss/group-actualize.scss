@@ -1,0 +1,52 @@
+.group__actualize {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+
+    &-filter {
+        display: grid;
+        grid-template-columns: 300px;
+        row-gap: 30px;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+
+            top: 0;
+            bottom: 0;
+            right: -24px;
+            width: 1px;
+            background-color: #337ab7;
+            opacity: .3;
+        }
+    }
+
+    &-list {
+        padding-top: 10px;
+
+        &-title {
+            margin-bottom: 20px;
+        }
+    }
+
+    &-item {
+        i {
+            margin-right: 10px;
+            color: rgb(253, 87, 87);
+            opacity: .7;
+
+            transition: all .3s;
+            cursor: pointer;
+
+            &:hover {
+                color: rgb(255, 27, 27);
+                opacity: 1
+            }
+        }
+
+        & + & {
+            margin-top: 10px;
+        }
+    }
+}
