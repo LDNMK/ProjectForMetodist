@@ -1,8 +1,4 @@
-using AutoMapper;
 using Fait.DAL;
-using FaitLogic.Logic;
-using FaitLogic.Repository;
-using FaitLogic.Repository.IRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +18,6 @@ namespace WebMVC
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -31,28 +26,14 @@ namespace WebMVC
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyWebApp", Version = "v1" });
             });
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
+            services.AddMapper();
+            services.AddDbContext<FAITContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
-            services.AddDbContext<FAIT4Context>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddRepositories();
 
-            services.AddScoped<StudentCardLogic>();
-            services.AddScoped<GroupLogic>();
-            services.AddScoped<YearPlanLogic>();
-            services.AddScoped<TransferLogic>();
-
-            services.AddScoped<IStudentCardRepository, StudentCardRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IYearPlanRepository, YearPlanRepository>();
-            services.AddScoped<IActualGroupRepository, ActualGroupRepository>();
-            services.AddScoped<ISubjectRepository, SubjectRepository>();
+            services.AddCoreLogic();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
@@ -68,7 +49,6 @@ namespace WebMVC
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
