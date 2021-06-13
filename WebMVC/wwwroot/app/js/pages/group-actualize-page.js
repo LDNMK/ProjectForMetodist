@@ -80,16 +80,23 @@ class GroupActualizePage extends Page {
             list.insertAdjacentElement('beforeend', item);
         }
 
-        // async function fetchCreateGroup(year, name) {
-        //     if (year == "" || name == "") {
-        //         return;
-        //     }
 
-        //     const response = await fetch(`api/Group/CreateGroup?groupName=${name}`, {
-        //         method: 'POST'
-        //     });
+        window.onload = async function fetchGetNotActiveGroups() {
 
-        //     // TODO: Process response
-        // }
+             const response = await fetch(`api/Group/GetDeactivatedGroups`, {
+                 method: 'GET'
+             });
+
+             const groups = await response.json();
+
+             console.log(groups);
+
+             let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
+             options.push(optionDefault);
+
+             group.innerHTML = options.join('');
+             group.classList.remove('-hasValue');
+             // TODO: Process response
+        }
     }
 }
