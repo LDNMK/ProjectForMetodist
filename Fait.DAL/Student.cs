@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 #nullable disable
 
@@ -11,7 +10,7 @@ namespace Fait.DAL
         {
             ActualGroups = new HashSet<ActualGroup>();
             Marks = new HashSet<Mark>();
-            TransferOrders = new HashSet<TransferOrder>();
+            StudentTransferOrders = new HashSet<StudentTransferOrder>();
         }
 
         public int Id { get; set; }
@@ -26,6 +25,6 @@ namespace Fait.DAL
         public virtual StudentsInfo StudentsInfo { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }
-        public virtual ICollection<TransferOrder> TransferOrders { get; set; }
+        public virtual ICollection<StudentTransferOrder> StudentTransferOrders { get; set; }
     }
 }

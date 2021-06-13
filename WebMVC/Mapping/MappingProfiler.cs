@@ -8,19 +8,23 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // Add as many of these lines as you need to map your objects
+        // Student mapping
         CreateMap<StudentCardModel, StudentCardDTO>().ReverseMap();
         CreateMap<StudentCardDTO, StudentsInfo>().ReverseMap();
         CreateMap<StudentCardDTO, Student>().ReverseMap();
-
         CreateMap<StudentNameWithIdDTO, StudentNameWithId>().ReverseMap();
-        CreateMap<YearPlanModel, YearPlanDTO>().ReverseMap();
-        CreateMap<SubjectModel, SubjectDTO>().ReverseMap();
 
+        // Year plan mapping
+        CreateMap<YearPlanModel, YearPlanDTO>().ReverseMap();
+
+        // Subject mapping
+        CreateMap<SubjectModel, SubjectDTO>().ReverseMap();
+        CreateMap<YearPlan, YearPlanNameWithIdDTO>()
+            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(x => x.Id))
+            .ReverseMap();
+
+        // Group mapping
         CreateMap<GroupNameWithId, GroupNameWithIdDTO>().ReverseMap();
 
-        CreateMap<YearPlan, YearPlanNameWithIdDTO>()
-            .ForMember(dest => dest.PlanId, opt => opt.MapFrom(x=>x.Id))
-            .ReverseMap();
     }
 }

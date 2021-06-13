@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-#nullable disable
-
 namespace Fait.DAL
 {
     public partial class GroupPrefix
@@ -12,7 +10,6 @@ namespace Fait.DAL
         }
 
         public int Id { get; set; }
-
         public string Name { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }

@@ -7,9 +7,9 @@ namespace FaitLogic.Repository
 {
     public class ActualGroupRepository : IActualGroupRepository
     {
-        private readonly FAIT4Context dbContext;
+        private readonly FAITContext dbContext;
 
-        public ActualGroupRepository(FAIT4Context context)
+        public ActualGroupRepository(FAITContext context)
         {
             dbContext = context;
         }

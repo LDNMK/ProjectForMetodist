@@ -18,11 +18,9 @@ namespace Fait.DAL
 
         public int GroupNumber { get; set; }        // Номер группы
 
-        public int? GroupdPrefixId { get; set; }    // Код группы
+        public int? GroupPrefixId { get; set; }    // Код группы
 
         public bool Actual { get; set; }            // Актуальна ли группа
-
-        public int GroupYear { get; set; }          // Год
 
         public int Course { get; set; }             // Курс
 

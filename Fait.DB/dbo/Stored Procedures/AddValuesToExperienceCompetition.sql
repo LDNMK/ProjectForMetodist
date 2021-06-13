@@ -1,8 +1,8 @@
 ﻿
-CREATE PROCEDURE add_expirience_competitiones
+CREATE PROCEDURE AddValuesToExperienceCompetition
 AS
 BEGIN
-	INSERT INTO expirience_competitiones(id, expirience_name) 
+	INSERT INTO ExperienceCompetitions(Id, [Name]) 
 	VALUES
 		(1, 'Інформація відсутня'),
 		(2, 'Із стажем'),

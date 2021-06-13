@@ -6,37 +6,45 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 
 namespace FaitLogic.Repository
 {
     public class StudentCardRepository : IStudentCardRepository
     {
-        private readonly FAIT4Context dbContext;
+        private readonly FAITContext dbContext;
 
-        public StudentCardRepository(FAIT4Context context)
+        public StudentCardRepository(FAITContext context)
         {
             dbContext = context;
         }
 
-        //Add transaction!!
+        //TODO: Test it
         public int AddStudentCardToDb(StudentsInfo studentsInfo, Student student)
         {
-            dbContext.Students.Add(student);
-            dbContext.SaveChanges();
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+            {
+                try
+                {
+                    dbContext.Students.Add(student);
 
-            var lastStudentId = dbContext.Students
-                .OrderByDescending(x => x.Id)
-                .FirstOrDefault().Id;
+                    dbContext.StudentsInfos.Add(studentsInfo);
+                    dbContext.SaveChanges();
 
-            studentsInfo.Id = lastStudentId;
-            dbContext.StudentsInfos.Add(studentsInfo);
-            dbContext.SaveChanges();
+                    scope.Complete();
+                }
+                catch(Exception e)
+                {
+                    scope.Dispose();
+                }
+            }
 
-            var studentId = lastStudentId;
-
-            return studentId;
+            return dbContext.Students
+                        .OrderByDescending(x => x.Id)
+                        .FirstOrDefault().Id;
         }
 
+        //TODO: Add transaction!!
         public void UpdateStudentCardInDb(StudentsInfo studentsInfo, Student student)
         {
             dbContext.Students.Update(student);

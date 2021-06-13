@@ -1,5 +1,7 @@
 ﻿using Fait.DAL;
+using Fait.DAL.NotMapped;
 using FaitLogic.Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,9 +9,9 @@ namespace FaitLogic.Repository
 {
     public class YearPlanRepository : IYearPlanRepository
     {
-        private readonly FAIT4Context dbContext;
+        private readonly FAITContext dbContext;
 
-        public YearPlanRepository(FAIT4Context context)
+        public YearPlanRepository(FAITContext context)
         {
             dbContext = context;
         }
@@ -27,7 +29,6 @@ namespace FaitLogic.Repository
                 .Where(x => x.Course == course)
                 .ToList();
         }
-
 
         public int? AddYearPlan(YearPlan yearPlan)
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 #nullable disable
 
@@ -14,8 +13,8 @@ namespace Fait.DAL
 
         public int Id { get; set; }
         public int? PlanId { get; set; }
-        public string SubName { get; set; }
-        public int SubHours { get; set; }
+        public string Name { get; set; }
+        public int Hours { get; set; }
         public int Ects { get; set; }
         public string Faculty { get; set; }
 

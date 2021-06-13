@@ -22,6 +22,14 @@ namespace WebAPI.Controllers
             return Ok(groups);
         }
 
+        [HttpGet]
+        public IActionResult GetDeactivatedGroups()
+        {
+            var groups = groupLogic.GetDeactivatedGroups();
+
+            return Ok(groups);
+        }
+
         [HttpPost]
         public IActionResult CreateGroup([FromQuery] string groupName)
         {

@@ -13,9 +13,7 @@ namespace Fait.DAL
         }
 
         public int Id { get; set; }
-        public byte Kode { get; set; }//код
-        public string SpecialityName { get; set; }//специальность
-        public string SpecializationName { get; set; }//специализация
+        public string SpecialityName { get; set; }      // специальность
 
         public virtual ICollection<Student> Students { get; set; }
     }

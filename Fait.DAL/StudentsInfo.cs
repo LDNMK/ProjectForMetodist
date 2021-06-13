@@ -23,7 +23,7 @@ namespace Fait.DAL
         public string RegistrOrPassportNumber { get; set; } // Номер регистрации или код и сероия паспорта
 
         public virtual Amend Amend { get; set; }
-        public virtual ExpirienceCompetitione ExpirienceCompetition { get; set; }
+        public virtual ExperienceCompetition ExpirienceCompetition { get; set; }
         public virtual Student Student { get; set; }
         public virtual MaritalStatus MaritalStatus { get; set; }
     }

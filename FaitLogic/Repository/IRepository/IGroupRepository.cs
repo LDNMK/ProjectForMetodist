@@ -27,5 +27,7 @@ namespace FaitLogic.Repository.IRepository
         ICollection<Group> GetGroups(int course, int year);
 
         ICollection<Group> GetGroups(int course);
+
+        ICollection<Group> GetDeactivatedGroups();
     }
 }

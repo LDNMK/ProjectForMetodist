@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[students_info] (
-    [id]                         INT           NOT NULL,
+    [id]                         INT     IDENTITY (1, 1)    NOT NULL,
     [birthdate]                  DATE          NOT NULL,
     [birth_place]                NVARCHAR (30) NOT NULL,
     [immenseness]                NVARCHAR (30) NOT NULL,
@@ -18,7 +18,7 @@
     [registr_or_passport_number] NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),
     FOREIGN KEY ([AmendId]) REFERENCES [dbo].[Amend] ([Id]),
-    FOREIGN KEY ([expirience_competition_id]) REFERENCES [dbo].[expirience_competitiones] ([id]),
+    FOREIGN KEY ([expirience_competition_id]) REFERENCES [dbo].[ExperienceCompetitions] ([Id]),
     FOREIGN KEY ([id]) REFERENCES [dbo].[students] ([id]),
     FOREIGN KEY ([marital_status_id]) REFERENCES [dbo].[marital_statuses] ([id])
 );

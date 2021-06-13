@@ -13,9 +13,9 @@ namespace FaitLogic.Repository
 {
     public class GroupRepository : IGroupRepository
     {
-        private readonly FAIT4Context dbContext;
+        private readonly FAITContext dbContext;
 
-        public GroupRepository(FAIT4Context context)
+        public GroupRepository(FAITContext context)
         {
             dbContext = context;
         }
@@ -29,7 +29,7 @@ namespace FaitLogic.Repository
         public bool CheckIfGroupExist(int groupNumber, int? groupNameId)
         {
             return dbContext.Groups
-                .Any(x => x.GroupdPrefixId == groupNameId && x.GroupNumber == groupNumber);
+                .Any(x => x.GroupPrefixId == groupNameId && x.GroupNumber == groupNumber);
         }
 
         public Group FindExistingGroup(int groupId)
@@ -61,22 +61,19 @@ namespace FaitLogic.Repository
         }
 
         // TODO: NEED TO ADD COLUMN COURSE TO HAVE NORMAL CONDITION!
-        public ICollection<Group> GetGroups(int course, int year)
-        {
-            return dbContext.Groups
-                .AsNoTracking()
-                .Where(x => x.Actual == true 
-                       && x.GroupYear == year 
-                       && x.Course == course)
-                .ToList();
-        }
-
         public ICollection<Group> GetGroups(int course)
         {
             return dbContext.Groups
                 .AsNoTracking()
-                .Where(x => x.Actual == true
+                .Where(x => x.Actual == true 
                        && x.Course == course)
+                .ToList();
+        }
+
+        public ICollection<Group> GetGroups(int course, int year)
+        {
+            return dbContext.Groups
+                .Where(x => x.Plan.PlanYear == year && x.Course == course)
                 .ToList();
         }
 
@@ -87,7 +84,7 @@ namespace FaitLogic.Repository
         }
 
 
-        //Check!
+        // TODO: Check!
         public int GetNextGroupOfStudent(int groupId)
         {
             using (IDbConnection db = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
@@ -98,10 +95,10 @@ namespace FaitLogic.Repository
 
         public int CreateNewGroupName(GroupPrefix groupName)
         {
-            dbContext.GroupNames.Add(groupName);
+            dbContext.GroupPrefixes.Add(groupName);
             dbContext.SaveChanges();
 
-            var lastGroupNameId = dbContext.GroupNames
+            var lastGroupNameId = dbContext.GroupPrefixes
                 .OrderByDescending(x => x.Id)
                 .FirstOrDefault().Id;
 
@@ -110,8 +107,16 @@ namespace FaitLogic.Repository
 
         public int? FindGroupName(string groupName)
         {
-            return dbContext.GroupNames
+            return dbContext.GroupPrefixes
                 .SingleOrDefault(x => x.Name == groupName)?.Id;
+        }
+
+        public ICollection<Group> GetDeactivatedGroups()
+        {
+            return dbContext.Groups
+                 .AsNoTracking()
+                 .Where(x => x.Actual == false)
+                 .ToList();
         }
     }
 }

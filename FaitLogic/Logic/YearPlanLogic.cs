@@ -48,8 +48,8 @@ namespace FaitLogic.Logic
             {
                 var subj = new SubjectDTO
                 {
-                    SubName = subject.SubName,
-                    SubHoursAndETCS = string.Format($"{subject.SubHours}/{subject.Ects}"),
+                    SubName = subject.Name,
+                    SubHoursAndETCS = string.Format($"{subject.Hours}/{subject.Ects}"),
                     Faculty = subject.Faculty
                 };
 
@@ -111,8 +111,8 @@ namespace FaitLogic.Logic
             var subjectInfo = new SubjectInfo
             {
                 PlanId = yearPlanId,
-                SubName = subjectDto.SubName,
-                SubHours = subHours,
+                Name = subjectDto.SubName,
+                Hours = subHours,
                 Ects = ects,
                 Faculty = subjectDto.Faculty
             };
