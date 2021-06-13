@@ -42,9 +42,8 @@ namespace FaitLogic.Logic
             var newGroup = new Group
             {
                 GroupNumber = groupNumber,
-                GroupdPrefixId = groupNameId,
+                GroupPrefixId = groupNameId,
                 Actual = true,
-                GroupYear = 2021,
                 Course = groupNumber / 10
             };
 
@@ -63,6 +62,16 @@ namespace FaitLogic.Logic
             {
                 groups = groupRepo.GetGroups(course);
             }
+
+            var groupIds = groups.Select(X => X.Id);
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));
+
+            return groupNames;
+        }
+
+        public ICollection<GroupNameWithIdDTO> GetDeactivatedGroups()
+        {
+            var groups = groupRepo.GetDeactivatedGroups();
 
             var groupIds = groups.Select(X => X.Id);
             var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));

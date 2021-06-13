@@ -107,8 +107,16 @@ namespace FaitLogic.Repository
 
         public int? FindGroupName(string groupName)
         {
-            return dbContext.GroupNames
+            return dbContext.GroupPrefixes
                 .SingleOrDefault(x => x.Name == groupName)?.Id;
+        }
+
+        public ICollection<Group> GetDeactivatedGroups()
+        {
+            return dbContext.Groups
+                 .AsNoTracking()
+                 .Where(x => x.Actual == false)
+                 .ToList();
         }
     }
 }
