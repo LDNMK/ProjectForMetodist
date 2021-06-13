@@ -4,7 +4,6 @@
     [group_number]      INT     NOT NULL,
     [GroupPrefixId]     INT     NULL,
     [actual]            BIT     NOT NULL,
-    [group_year]        INT     NOT NULL,
     [Course]            INT     NOT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),
     FOREIGN KEY ([GroupPrefixId]) REFERENCES [dbo].[GroupPrefix] ([Id]),

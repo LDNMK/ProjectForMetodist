@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE add_mariatal_statuses
+CREATE PROCEDURE AddValuesToMaritalStatus
 AS
 BEGIN
 	INSERT INTO marital_statuses(id, marital_status_name) 

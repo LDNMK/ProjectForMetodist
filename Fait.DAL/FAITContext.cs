@@ -1,5 +1,5 @@
-﻿using Fait.DAL.NotMapped;
-using System;
+﻿using System;
+using Fait.DAL.NotMapped;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -7,36 +7,40 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Fait.DAL
 {
-    public partial class FAIT4Context : DbContext
+    public partial class FAITContext : DbContext
     {
-        public FAIT4Context()
+        public FAITContext()
         {
         }
 
-        public FAIT4Context(DbContextOptions<FAIT4Context> options)
+        public FAITContext(DbContextOptions<FAITContext> options)
             : base(options)
         {
         }
+
         public virtual DbSet<StudentNameWithId> StudentNameWithIds { get; set; }
         public virtual DbSet<GroupNameWithId> GroupNameWithIds { get; set; }
         public virtual DbSet<ActualGroup> ActualGroups { get; set; }
-        public virtual DbSet<Amend> Ammendes { get; set; }
-        public virtual DbSet<ExpirienceCompetitione> ExpirienceCompetitiones { get; set; }
+        public virtual DbSet<Amend> Amends { get; set; }
+        public virtual DbSet<ExperienceCompetition> ExperienceCompetitions { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
-        public virtual DbSet<GroupPrefix> GroupNames { get; set; }
+        public virtual DbSet<GroupPrefix> GroupPrefixes { get; set; }
         public virtual DbSet<MaritalStatus> MaritalStatuses { get; set; }
         public virtual DbSet<Mark> Marks { get; set; }
         public virtual DbSet<Speciality> Specialities { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentState> StudentStates { get; set; }
+        public virtual DbSet<StudentTransferOrder> StudentTransferOrders { get; set; }
         public virtual DbSet<StudentsInfo> StudentsInfos { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectInfo> SubjectInfos { get; set; }
-        public virtual DbSet<TransferOrder> TransferOrders { get; set; }
         public virtual DbSet<YearPlan> YearPlans { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -84,24 +88,14 @@ namespace Fait.DAL
 
             modelBuilder.Entity<Amend>(entity =>
             {
-                entity.ToTable("ammendes");
+                entity.ToTable("Amend");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(40)
-                    .HasColumnName("ammend_type");
+                entity.Property(e => e.Name).HasMaxLength(40);
             });
 
-            modelBuilder.Entity<ExpirienceCompetitione>(entity =>
+            modelBuilder.Entity<ExperienceCompetition>(entity =>
             {
-                entity.ToTable("expirience_competitiones");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.ExpirienceName)
-                    .HasMaxLength(40)
-                    .HasColumnName("expirience_name");
+                entity.Property(e => e.Name).HasMaxLength(40);
             });
 
             modelBuilder.Entity<Group>(entity =>
@@ -112,20 +106,14 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Actual).HasColumnName("actual");
 
-                entity.Property(e => e.GroupdPrefixId).HasColumnName("GroupPrefixId");
-
                 entity.Property(e => e.GroupNumber).HasColumnName("group_number");
-
-                entity.Property(e => e.GroupYear).HasColumnName("group_year");
-
-                entity.Property(e => e.Course).HasColumnName("Course");
 
                 entity.Property(e => e.PlanId).HasColumnName("plan_id");
 
                 entity.HasOne(d => d.GroupPrefix)
                     .WithMany(p => p.Groups)
-                    .HasForeignKey(d => d.GroupdPrefixId)
-                    .HasConstraintName("FK__groups__group_na__46E78A0C");
+                    .HasForeignKey(d => d.GroupPrefixId)
+                    .HasConstraintName("FK__groups__GroupPre__46E78A0C");
 
                 entity.HasOne(d => d.Plan)
                     .WithMany(p => p.Groups)
@@ -138,13 +126,7 @@ namespace Fait.DAL
             {
                 entity.ToTable("GroupPrefix");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("Id");
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(40)
-                    .HasColumnName("Name");
+                entity.Property(e => e.Name).HasMaxLength(40);
             });
 
             modelBuilder.Entity<MaritalStatus>(entity =>
@@ -189,17 +171,10 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Kode).HasColumnName("kode");
-
                 entity.Property(e => e.SpecialityName)
                     .IsRequired()
-                    .HasMaxLength(30)
+                    .HasMaxLength(50)
                     .HasColumnName("speciality_name");
-
-                entity.Property(e => e.SpecializationName)
-                    .IsRequired()
-                    .HasMaxLength(30)
-                    .HasColumnName("specialization_name");
             });
 
             modelBuilder.Entity<Student>(entity =>
@@ -226,7 +201,7 @@ namespace Fait.DAL
                 entity.Property(e => e.SpecialityId).HasColumnName("speciality_id");
 
                 entity.Property(e => e.StudentStateId)
-                    .HasColumnName("student_state_Id")
+                    .HasColumnName("student_state_id")
                     .HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Speciality)
@@ -252,17 +227,34 @@ namespace Fait.DAL
                     .HasColumnName("student_state_name");
             });
 
+            modelBuilder.Entity<StudentTransferOrder>(entity =>
+            {
+                entity.ToTable("StudentTransferOrder");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Content)
+                    .IsRequired()
+                    .HasMaxLength(40);
+
+                entity.Property(e => e.OperationDate).HasColumnType("date");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.StudentTransferOrders)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("FK__StudentTr__Stude__5070F446");
+            });
+
             modelBuilder.Entity<StudentsInfo>(entity =>
             {
                 entity.ToTable("students_info");
 
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
-                entity.Property(e => e.AmendId)
-                    .HasColumnName("AmendId")
-                    .HasDefaultValueSql("((1))");
+                entity.Property(e => e.AmendId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.BirthPlace)
                     .IsRequired()
@@ -329,23 +321,23 @@ namespace Fait.DAL
                 entity.HasOne(d => d.Amend)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.AmendId)
-                    .HasConstraintName("FK__students___ammen__4CA06362");
+                    .HasConstraintName("FK__students___Amend__6477ECF3");
 
                 entity.HasOne(d => d.ExpirienceCompetition)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.ExpirienceCompetitionId)
-                    .HasConstraintName("FK__students___expir__4D94879B");
+                    .HasConstraintName("FK__students___expir__656C112C");
 
                 entity.HasOne(d => d.Student)
                     .WithOne(p => p.StudentsInfo)
                     .HasForeignKey<StudentsInfo>(d => d.Id)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__students_inf__id__4E88ABD4");
+                    .HasConstraintName("FK__students_inf__id__68487DD7");
 
                 entity.HasOne(d => d.MaritalStatus)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.MaritalStatusId)
-                    .HasConstraintName("FK__students___marit__4F7CD00D");
+                    .HasConstraintName("FK__students___marit__66603565");
             });
 
             modelBuilder.Entity<Subject>(entity =>
@@ -366,65 +358,23 @@ namespace Fait.DAL
                     .WithMany(p => p.Subjects)
                     .HasForeignKey(d => d.SubjectInfoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__subjects__subjec__5165187F");
+                    .HasConstraintName("FK__subjects__subjec__52593CB8");
             });
 
             modelBuilder.Entity<SubjectInfo>(entity =>
             {
                 entity.ToTable("subject_info");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Faculty).HasMaxLength(100);
 
-                entity.Property(e => e.Ects).HasColumnName("ects");
-
-                entity.Property(e => e.Faculty)
-                    .HasMaxLength(100)
-                    .HasColumnName("faculty");
-
-                entity.Property(e => e.PlanId).HasColumnName("plan_id");
-
-                entity.Property(e => e.SubHours).HasColumnName("sub_hours");
-
-                entity.Property(e => e.SubName)
+                entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnName("sub_name");
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.Plan)
                     .WithMany(p => p.SubjectInfos)
                     .HasForeignKey(d => d.PlanId)
-                    .HasConstraintName("FK__subject_i__plan___5070F446");
-            });
-
-            modelBuilder.Entity<TransferOrder>(entity =>
-            {
-                entity.HasKey(e => e.OrderId)
-                    .HasName("PK__transfer__46596229ADF6C66F");
-
-                entity.ToTable("transfer_orders");
-
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("order_id");
-
-                entity.Property(e => e.Content)
-                    .IsRequired()
-                    .HasMaxLength(40)
-                    .HasColumnName("content");
-
-                entity.Property(e => e.Course).HasColumnName("course");
-
-                entity.Property(e => e.OrderDate)
-                    .HasColumnType("date")
-                    .HasColumnName("order_date");
-
-                entity.Property(e => e.StudentId).HasColumnName("student_id");
-
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.TransferOrders)
-                    .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("FK__transfer___stude__52593CB8");
+                    .HasConstraintName("FK__subject_i__PlanI__5165187F");
             });
 
             modelBuilder.Entity<YearPlan>(entity =>

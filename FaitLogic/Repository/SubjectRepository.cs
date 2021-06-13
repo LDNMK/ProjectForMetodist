@@ -7,9 +7,9 @@ namespace FaitLogic.Repository
 {
     public class SubjectRepository : ISubjectRepository
     {
-        private readonly FAIT4Context dbContext;
+        private readonly FAITContext dbContext;
 
-        public SubjectRepository(FAIT4Context context)
+        public SubjectRepository(FAITContext context)
         {
             dbContext = context;
         }

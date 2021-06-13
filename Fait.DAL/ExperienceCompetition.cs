@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace Fait.DAL
 {
-    public partial class ExpirienceCompetitione
+    public partial class ExperienceCompetition
     {
-        public ExpirienceCompetitione()
+        public ExperienceCompetition()
         {
             StudentsInfos = new HashSet<StudentsInfo>();
         }
 
         public byte Id { get; set; }
-        public string ExpirienceName { get; set; }
+        public string Name { get; set; }
 
         public virtual ICollection<StudentsInfo> StudentsInfos { get; set; }
     }
