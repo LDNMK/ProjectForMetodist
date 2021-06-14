@@ -3,10 +3,15 @@
     grid-template-columns: 300px 1fr;
     gap: 40px;
 
+
+    &-btn-add {
+        margin-top: 25px;
+    }
+
     &-filter {
-        display: grid;
-        grid-template-columns: 300px;
-        row-gap: 30px;
+        // display: grid;
+        // grid-template-columns: 300px;
+        // row-gap: 30px;
         position: relative;
 
         &::after {
@@ -22,15 +27,17 @@
         }
     }
 
-    &-list {
+    &-right {
         padding-top: 10px;
 
         &-title {
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
     }
 
     &-item {
+        margin-left: 15px;
+
         i {
             margin-right: 10px;
             color: rgb(253, 87, 87);
