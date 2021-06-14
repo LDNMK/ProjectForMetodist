@@ -65,12 +65,8 @@
   <ItemGroup>
     <Build Include="dbo\Functions\return_students_from_group.sql" />
     <Build Include="dbo\Stored Procedures\AddValuesToAmend.sql" />
-    <Build Include="dbo\Stored Procedures\add_expirience_competitiones.sql" />
-    <Build Include="dbo\Stored Procedures\add_mariatal_statuses.sql" />
-    <Build Include="dbo\Stored Procedures\add_student_states.sql" />
     <Build Include="dbo\Tables\actual_groups.sql" />
     <Build Include="dbo\Tables\Amend.sql" />
-    <Build Include="dbo\Tables\expirience_competitiones.sql" />
     <Build Include="dbo\Tables\GroupPrefix.sql" />
     <Build Include="dbo\Tables\groups.sql" />
     <Build Include="dbo\Tables\marital_statuses.sql" />
@@ -80,7 +76,6 @@
     <Build Include="dbo\Tables\students.sql" />
     <Build Include="dbo\Tables\students_info.sql" />
     <Build Include="dbo\Tables\subjects.sql" />
-    <Build Include="dbo\Tables\transfer_orders.sql" />
     <Build Include="dbo\Tables\year_plans.sql" />
     <Build Include="dbo\Tables\subject_info.sql" />
     <Build Include="dbo\Stored Procedures\return_next_group_id_for_student.sql" />
@@ -91,6 +86,11 @@
     <Build Include="dbo\Stored Procedures\AddValuesToStudentState.sql" />
     <Build Include="dbo\Stored Procedures\AddValuesToStudentInfo.sql" />
     <Build Include="dbo\Stored Procedures\AddValuesToStudentsGroup.sql" />
+    <Build Include="dbo\Stored Procedures\AddValuesToExperienceCompetition.sql" />
+    <Build Include="dbo\Tables\ExperienceCompetitions.sql" />
+    <Build Include="dbo\Tables\StudentTransferOrder.sql" />
+    <Build Include="dbo\Stored Procedures\AddValuesToMaritalStatus.sql" />
+    <Build Include="dbo\Stored Procedures\AddValuesToSpeciality.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />

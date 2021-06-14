@@ -79,20 +79,14 @@ namespace FaitLogic.Logic
             return groupNames;
         }
 
-        public void ActivateGroups(string groupsIds)
+        public void ActivateGroups(int[] groupsIds)
         {
-            var groupsIdsArray = groupsIds.Split(',');
-            foreach (var groupId in groupsIdsArray)
+            foreach (var groupId in groupsIds)
             {
-                if (groupId.Length < 1)
-                { 
-                    return; 
-                }
+                var group = groupRepo.FindExistingGroup(groupId);
+                group.Actual = true;
 
-                var findedGroup = groupRepo.FindExistingGroup(Convert.ToInt32(groupId));
-                findedGroup.Actual = true;
-
-                groupRepo.UpdateGroup(findedGroup);
+                groupRepo.UpdateGroup(group);
             }
         }
 

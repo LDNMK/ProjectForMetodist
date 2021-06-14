@@ -46,17 +46,42 @@ class GroupActualizePage extends Page {
     static _groupCardSubscribe() {
         let list = document.querySelector('.group__actualize-items');
         let group = document.querySelector('#group');
-        const addBtn = document.querySelector('.group__actualize__btn-add');
 
-        let counter = 0;
+        const addBtn = document.querySelector('.group__actualize-btn-add');
+        const actualizeBtn = document.querySelector('.group__actualize-btn-actualize');
 
         addBtn.addEventListener('click', () => {
             addItem(group.options[group.selectedIndex].text, group.value);
         })
 
-        function addItem(groupName, groupId) {
-            console.log(`id: ${groupId} name: ${groupName}`);
+        actualizeBtn.addEventListener('click', () => {
+            const groupIds = [...list.children]
+                .map(x => +x.getAttribute('data-group-id'))
+                .filter((v, i, a) => a.indexOf(v) === i);
 
+            fetchActualizeGroups(groupIds);
+        });
+
+        async function fetchActualizeGroups(groupIds) {
+            if (groupIds.length <= 0) {
+                return;
+            }
+
+            const response = await fetch(`api/Group/ActivateExistingGroups`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(groupIds)
+            });
+
+            if (response.ok) {
+                list.innerHTML = "";
+                fetchGetNotActiveGroups();
+            }
+        }
+
+        function addItem(groupName, groupId) {
             if (groupId == "" || groupName == "") {
                 return;
             }
@@ -66,7 +91,7 @@ class GroupActualizePage extends Page {
             item.setAttribute('data-group-id', groupId);
 
             let delBtn = document.createElement('i');
-            delBtn.classList.add('fas', 'fa-trash-alt');
+            delBtn.classList.add('fas', 'fa-minus-square');
             delBtn.addEventListener('click', () => {
                 list.removeChild(item);
             });
@@ -80,23 +105,19 @@ class GroupActualizePage extends Page {
             list.insertAdjacentElement('beforeend', item);
         }
 
+        async function fetchGetNotActiveGroups() {
+            const response = await fetch(`api/Group/GetDeactivatedGroups`, {
+                method: 'GET'
+            });
 
-        window.onload = async function fetchGetNotActiveGroups() {
+            const groups = await response.json();
+            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
+            options.push(optionDefault);
 
-             const response = await fetch(`api/Group/GetDeactivatedGroups`, {
-                 method: 'GET'
-             });
-
-             const groups = await response.json();
-
-             console.log(groups);
-
-             let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-             options.push(optionDefault);
-
-             group.innerHTML = options.join('');
-             group.classList.remove('-hasValue');
-             // TODO: Process response
+            group.innerHTML = options.join('');
+            group.classList.remove('-hasValue');
         }
+
+        window.onload = fetchGetNotActiveGroups();
     }
 }
