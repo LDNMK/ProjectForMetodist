@@ -15,21 +15,25 @@ class GroupActualizePage extends Page {
                     <div class="form-element form-select">
                         <select class="form-element-field" id="group">
                             <option class="form-select-placeholder" value="" disabled selected></option>
-                            <option value="1">КН-21 TEST</option>
-                            <option value="2">БІКС-21 TEST</option>
                         </select>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="group">Група</label>
                     </div>
                     <div class="main__buttons">
-                        <button class="btn group__actualize__btn-add">
+                        <button class="btn group__actualize-btn-add">
                             <i class="btn-icon fa fa-plus"></i>
                             <span class="btn-text">Додати</span>
                         </button>
                     </div>
                 </div>
-                <div class="group__actualize-list">
-                    <h1 class="group__actualize-list-title">Список груп</h1>
+                <div class="group__actualize-right">
+                    <div class="main__buttons">
+                        <button class="btn group__actualize-btn-actualize">
+                            <i class="btn-icon fas fa-sync-alt"></i>
+                            <span class="btn-text">Актуалізувати</span>
+                        </button>
+                    </div>
+                    <h1 class="group__actualize-right-title">Список груп</h1>
                     <ul class="group__actualize-items">
 
                     </ul>

@@ -5,6 +5,6 @@ function init() {
     // initMainPage();
 
     // setPageByAttribute(GroupActualizePage.is);
-    GroupActualizePage.init();
+    // GroupActualizePage.init();
     // subscribeFormElements();
 }
