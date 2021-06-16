@@ -91,6 +91,7 @@
     <Build Include="dbo\Tables\StudentTransferOrder.sql" />
     <Build Include="dbo\Stored Procedures\AddValuesToMaritalStatus.sql" />
     <Build Include="dbo\Stored Procedures\AddValuesToSpeciality.sql" />
+    <Build Include="dbo\Stored Procedures\AddValuesToYearPlan.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />

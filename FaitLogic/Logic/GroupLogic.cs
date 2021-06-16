@@ -52,16 +52,18 @@ namespace FaitLogic.Logic
 
         public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int? year)
         {
-            ICollection<Group> groups;
+            //ICollection<Group> groups;
 
-            if (year.HasValue)
-            {
-                groups = groupRepo.GetGroups(course, year.Value);
-            }
-            else
-            {
-                groups = groupRepo.GetGroups(course);
-            }
+            //if (year.HasValue)
+            //{
+            //    groups = groupRepo.GetGroups(course, year.Value);
+            //}
+            //else
+            //{
+            //    groups = groupRepo.GetGroups(course);
+            //}
+
+            var groups = year.HasValue ? groupRepo.GetGroups(course, year.Value) : groupRepo.GetGroups(course);
 
             var groupIds = groups.Select(X => X.Id);
             var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));

@@ -15,7 +15,8 @@ const scssFiles = [
 	'app/scss/student-card-add.scss',
 	'app/scss/student-card-show.scss',
 	'app/scss/group-add.scss',
-	'app/scss/group-actualize.scss'
+	'app/scss/group-actualize.scss',
+	'app/scss/transfer.scss'
 ];
 
 function sassToCss() {
@@ -54,6 +55,7 @@ const jsFiles = [
 	'app/js/pages/student-card-show-page.js',
 	'app/js/pages/group-add-page.js',
 	'app/js/pages/group-actualize-page.js',
+	'app/js/pages/transfer-page.js',
 	'app/js/mapper.js',
 	'app/js/main.js',
 ];

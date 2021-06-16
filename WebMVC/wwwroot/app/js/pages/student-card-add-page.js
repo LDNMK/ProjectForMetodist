@@ -13,7 +13,7 @@ class StudentCardAddPage extends Page {
         return `
             <div class="student-card__add">
                 <div class="student-card__add-info">
-                    <h1 class="student-card__title">Навчальна картка студента</h1>
+                    <h1 class="main__page-title">Навчальна картка студента</h1>
 
                     <div class="main__col-2">
                         <div class="form-element form-select">

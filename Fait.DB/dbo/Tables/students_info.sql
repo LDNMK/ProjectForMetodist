@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[students_info] (
-    [id]                         INT     IDENTITY (1, 1)    NOT NULL,
+    [id]                         INT           NOT NULL,
     [birthdate]                  DATE          NOT NULL,
     [birth_place]                NVARCHAR (30) NOT NULL,
     [immenseness]                NVARCHAR (30) NOT NULL,

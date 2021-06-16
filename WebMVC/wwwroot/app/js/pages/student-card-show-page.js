@@ -13,7 +13,7 @@ class StudentCardShowPage extends Page {
         return `
             <div class="student-card__show">
                 <div class="student-card__show-general">
-                    <h1 class="student-card__title">Пошук</h1>
+                    <h1 class="main__page-title">Пошук</h1>
                     <div class="student-card__show-grid">
                         <div class="form-element form-input">
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
@@ -61,7 +61,7 @@ class StudentCardShowPage extends Page {
                 </div>
 
                 <div class="student-card__show-info">
-                    <h1 class="student-card__title">Навчальна картка студента</h1>
+                    <h1 class="main__page-title">Навчальна картка студента</h1>
                     <div class="main__buttons">
                         <button class="btn student-card__show-btn-edit">
                             <i class="btn-icon fas fa-user-edit"></i>
