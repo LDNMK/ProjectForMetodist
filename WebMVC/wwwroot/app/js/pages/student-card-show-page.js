@@ -15,8 +15,16 @@ class StudentCardShowPage extends Page {
                 <div class="student-card__show-general">
                     <h1 class="main__page-title">Пошук</h1>
                     <div class="student-card__show-grid">
+                        <div class="form-checkbox form-checkbox-inline">
+                            <label class="form-checkbox-label">
+                                <input class="form-checkbox-field" type="checkbox" id="select-year"/>
+                                <i class="form-checkbox-button"></i>
+                                <span>Обрати рік</span>
+                            </label>
+                        </div>
+
                         <div class="form-element form-input">
-                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
+                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" disabled />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="year">Рік</label>
                         </div>
@@ -73,7 +81,7 @@ class StudentCardShowPage extends Page {
                         </button>
                     </div>
 
-                    <div class="main__col-2">
+                    <div class="main__col">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -82,15 +90,6 @@ class StudentCardShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="speciality">Спеціальність</label>
-                        </div>
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="specialization">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="specialization">Спеціалізація</label>
                         </div>
                     </div>
 
@@ -260,7 +259,8 @@ class StudentCardShowPage extends Page {
         const courseSelect = document.querySelector('#course');
         const studentSelect = document.querySelector('#student');
 
-        const year = document.querySelector('#year');
+        const yearCheckbox = document.querySelector('#select-year');
+        const yearInput = document.querySelector('#year');
 
         clearBtn.addEventListener('click', () => {
             let ids = this._idsToClear();
@@ -270,42 +270,65 @@ class StudentCardShowPage extends Page {
                 x.classList.remove('-hasValue');
                 x.value = "";
             });
-        })
+        });
 
         findBtn.addEventListener('click', () => {
             fetchStudent(studentSelect.value);
-        })
+        });
 
         editBtn.addEventListener('click', () => {
             console.log('Edit');
-        })
+        });
 
         saveBtn.addEventListener('click', () => {
             fetchStudentUpdate(studentSelect.value);
-        })
+        });
 
         averageScoreBtn.addEventListener('click', () => {
             console.log('Average score');
-        })
+        });
 
-        year.addEventListener('change', () => {
-            fetchGroups(year.value, courseSelect.value);
-        })
+        yearCheckbox.addEventListener('change', () => {
+            yearInput.disabled = !yearCheckbox.checked;
+            
+            if (!yearCheckbox.checked) {
+                yearInput.value = "";
+                yearInput.classList.remove('-hasValue');
+
+                courseSelect.dispatchEvent(new Event('change'));
+            }
+        });
+
+        yearInput.addEventListener('change', () => {
+            fetchGroups(courseSelect.value, yearInput.value);
+        });
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(year.value, courseSelect.value);
-        })
+            if (yearCheckbox.checked && !yearInput.value) {
+                console.log("Error: year wasn't selected");
+            } else if (yearCheckbox.checked && yearInput.value) {
+                fetchGroups(courseSelect.value, yearInput.value);
+            } else {
+                fetchGroups(courseSelect.value);
+            }
+        });
 
         groupSelect.addEventListener('change', () => {
             fetchStudents(groupSelect.value);
-        })
+        });
 
-        async function fetchGroups(year, course) {
+        async function fetchGroups(course, year = null) {
             if (year == "" || course == "") {
                 return;
             }
 
-            const response = await fetch(`api/Group/GetListOfGroups?course=${course}&year=${year}`);
+            let url = `api/Group/GetListOfGroups?course=${course}`;
+
+            if (year) {
+                url += `&year=${year}`;
+            }
+
+            const response = await fetch(url);
             const groups = await response.json();
 
             console.log(groups);
@@ -315,6 +338,10 @@ class StudentCardShowPage extends Page {
 
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
+
+            studentSelect.value = "";
+            studentSelect.innerHTML = optionDefault;
+            studentSelect.classList.remove('-hasValue');
         };
 
         async function fetchStudents(groupId) {
@@ -366,17 +393,6 @@ class StudentCardShowPage extends Page {
 
             // TODO: Check response
         }
-
-
-        // Delete
-        year.value = 2021;
-        year.classList.add('-hasValue');
-
-        courseSelect.value = "1"
-        courseSelect.classList.add('-hasValue');
-
-        let event = new Event("change");
-        courseSelect.dispatchEvent(event);
     }
 
     static _idsToClear() {

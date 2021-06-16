@@ -4,7 +4,7 @@ function init() {
     initSidebar();
     // initMainPage();
 
-    setPageByAttribute(TransferPage.is);
+    setPageByAttribute(StudentCardShowPage.is);
     // GroupActualizePage.init();
     subscribeFormElements();
 }
