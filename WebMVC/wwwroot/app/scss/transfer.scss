@@ -1,0 +1,29 @@
+.transfer {
+    &__grid {
+        display: grid;
+        grid-template-columns: minmax(320px, 450px) 250px;
+        gap: 80px;
+    }
+
+    &__filter {
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+
+            top: 0;
+            bottom: 0;
+            right: -46px;
+            width: 1px;
+            background-color: #337ab7;
+            opacity: .3;
+        }
+    }
+
+    &__actions {
+        display: grid;
+        gap: 20px;
+        justify-content: center;
+    }
+}
