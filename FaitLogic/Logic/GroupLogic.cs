@@ -27,14 +27,14 @@ namespace FaitLogic.Logic
             var groupNumber = Convert.ToInt32(parts[1]);
 
             var groupNameId = groupRepo.FindGroupName(newGroupName);
-            if(groupNameId == null)
+            if (groupNameId == null)
             {
                 groupNameId = groupRepo.CreateNewGroupName(new GroupPrefix { Name = newGroupName });
             }
 
             var isExisted = groupRepo.CheckIfGroupExist(groupNumber, groupNameId);
 
-            if(isExisted)
+            if (isExisted)
             {
                 throw new Exception();
             }

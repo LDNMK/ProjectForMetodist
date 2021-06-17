@@ -11,16 +11,12 @@ class GroupAddPage extends Page {
         return `
             <h1 class="main__page-title">Створення групи</h1>
             <div class="group__add">
-                <div class="main__col-2">
-                    <div class="form-element form-input">
-                        <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
-                        <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="year">Рік</label>
-                    </div>
+                <div class="main__col">
                     <div class="form-element form-input">
                         <input id="name" class="form-element-field" placeholder="Введіть назву групи" type="text" />
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="name">Назва групи</label>
+                        <small class="form-element-hint">Формат назви групи: [Префікс]-[Номер]</small>
                     </div>
                 </div>
 
@@ -43,16 +39,28 @@ class GroupAddPage extends Page {
 
     static _groupCardSubscribe() {
         const saveBtn = document.querySelector('.group__add__btn-save');
-
-        const year = document.querySelector('#year');
-        const name = document.querySelector('#name');
+        const nameInput = document.querySelector('#name');
 
         saveBtn.addEventListener('click', () => {
-            fetchCreateGroup(year.value, name.value);
+            fetchCreateGroup(nameInput.value);
         })
 
-        async function fetchCreateGroup(year, name) {
-            if (year == "" || name == "") {
+        nameInput.addEventListener('change', (e) => {
+            let name = nameInput.value;
+            let parent = e.target.closest('.form-element');
+
+            parent.classList[name.length > 0 && name.split('-').length != 2 ? 'add' : 'remove']('form-has-error');
+        });
+
+        async function fetchCreateGroup(name) {
+            let errors = document.querySelectorAll('.form-has-error');
+            if (errors.length) {
+                console.log('You should fix errors on the page!');
+                return;
+            }
+
+            if (!nameInput.value) {
+                nameInput.closest('.form-element').classList.add('form-has-error');
                 return;
             }
 
