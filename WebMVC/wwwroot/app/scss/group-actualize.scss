@@ -3,15 +3,11 @@
     grid-template-columns: 300px 1fr;
     gap: 40px;
 
-
     &-btn-add {
         margin-top: 25px;
     }
 
     &-filter {
-        // display: grid;
-        // grid-template-columns: 300px;
-        // row-gap: 30px;
         position: relative;
 
         &::after {

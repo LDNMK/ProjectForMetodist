@@ -86,6 +86,12 @@
             opacity: .3;
             transition: all .3s;
         }
+
+        &-hint {
+            font-size: 12px;
+            padding-left: 5px;
+            opacity: 0;
+        }
     }
 
     &-select {
@@ -221,6 +227,10 @@
             transition-delay: 0.28s;
         }
     }
+
+    &-has-error &-element-hint {
+        opacity: 1;
+    }
 }
 
 select.form-element-field {
@@ -228,4 +238,23 @@ select.form-element-field {
     -moz-appearance: none;
     appearance: none;
     cursor: pointer;
+}
+
+.form-has-error .form-element-label.form-element-label,
+.form-has-error .form-element-hint {
+  color: #d9534f;
+}
+
+.form-has-error .form-element-bar,
+.form-has-error .form-element-bar::after {
+  background: #d9534f;
+}
+
+.form-is-success .form-element-label.form-element-label,
+.form-is-success .form-element-hint {
+  color: #259337;
+}
+
+.form-is-success .form-element-bar::after {
+  background: #259337;
 }
