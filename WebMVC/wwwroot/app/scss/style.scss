@@ -30,7 +30,7 @@ body {
     cursor: pointer;
     border-radius: 12px;
     font-size: 14px;
-    transition: background-color .3s, color, .3s;
+    transition: all .3s;
 
     &:hover:not([disabled]) {
         background-color: #ee75a7;
@@ -177,6 +177,7 @@ body {
     }
 }
 
-.fas {
+.fas,
+.far {
     font-size: 16px;
 }

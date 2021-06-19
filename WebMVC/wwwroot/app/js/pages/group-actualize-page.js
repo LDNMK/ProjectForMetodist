@@ -33,7 +33,7 @@ class GroupActualizePage extends Page {
                             <span class="btn-text">Актуалізувати</span>
                         </button>
                     </div>
-                    <h1 class="group__actualize-right-title">Список груп</h1>
+                    <h1 class="group__actualize-right-title">Список груп на актуалізацію</h1>
                     <ul class="group__actualize-items">
 
                     </ul>
@@ -55,7 +55,10 @@ class GroupActualizePage extends Page {
         const actualizeBtn = document.querySelector('.group__actualize-btn-actualize');
 
         addBtn.addEventListener('click', () => {
-            addItem(group.options[group.selectedIndex].text, group.value);
+            let item = getGroupItemWithDeleteButton(group.options[group.selectedIndex].text, group.value);
+            if (item) {
+                list.insertAdjacentElement('beforeend', item);
+            }
         })
 
         actualizeBtn.addEventListener('click', () => {
@@ -83,30 +86,6 @@ class GroupActualizePage extends Page {
                 list.innerHTML = "";
                 fetchGetNotActiveGroups();
             }
-        }
-
-        function addItem(groupName, groupId) {
-            if (groupId == "" || groupName == "") {
-                return;
-            }
-
-            let item = document.createElement('li');
-            item.classList.add('group__actualize-item');
-            item.setAttribute('data-group-id', groupId);
-
-            let delBtn = document.createElement('i');
-            delBtn.classList.add('fas', 'fa-minus-square');
-            delBtn.addEventListener('click', () => {
-                list.removeChild(item);
-            });
-
-            let span = document.createElement('span');
-            span.innerText = groupName;
-
-            item.insertAdjacentElement('beforeend', delBtn);
-            item.insertAdjacentElement('beforeend', span);
-
-            list.insertAdjacentElement('beforeend', item);
         }
 
         async function fetchGetNotActiveGroups() {
