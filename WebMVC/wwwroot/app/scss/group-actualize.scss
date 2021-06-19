@@ -31,25 +31,25 @@
         }
     }
 
-    &-item {
-        margin-left: 15px;
+    // &-item {
+    //     margin-left: 15px;
 
-        i {
-            margin-right: 10px;
-            color: rgb(253, 87, 87);
-            opacity: .7;
+    //     i {
+    //         margin-right: 10px;
+    //         color: rgb(253, 87, 87);
+    //         opacity: .7;
 
-            transition: all .3s;
-            cursor: pointer;
+    //         transition: all .3s;
+    //         cursor: pointer;
 
-            &:hover {
-                color: rgb(255, 27, 27);
-                opacity: 1
-            }
-        }
+    //         &:hover {
+    //             color: rgb(255, 27, 27);
+    //             opacity: 1
+    //         }
+    //     }
 
-        & + & {
-            margin-top: 10px;
-        }
-    }
+    //     & + & {
+    //         margin-top: 10px;
+    //     }
+    // }
 }

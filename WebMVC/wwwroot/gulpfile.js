@@ -14,6 +14,8 @@ const scssFiles = [
 	'app/scss/form.scss',
 	'app/scss/student-card-add.scss',
 	'app/scss/student-card-show.scss',
+	'app/scss/curriculum-add.scss',
+	'app/scss/group-item.scss',
 	'app/scss/group-add.scss',
 	'app/scss/group-actualize.scss',
 	'app/scss/transfer.scss'
@@ -47,12 +49,14 @@ function styles() {
 // Порядок подключения js файлов
 const jsFiles = [
 	'app/js/sidebar.js',
+	'app/js/utils.js',
 	'app/js/form.js',
 	'app/js/select.js',
 	'app/js/pages/page.js',
 	'app/js/pages/main-page.js',
 	'app/js/pages/student-card-add-page.js',
 	'app/js/pages/student-card-show-page.js',
+	'app/js/pages/curriculum-add-page.js',
 	'app/js/pages/group-add-page.js',
 	'app/js/pages/group-actualize-page.js',
 	'app/js/pages/transfer-page.js',
