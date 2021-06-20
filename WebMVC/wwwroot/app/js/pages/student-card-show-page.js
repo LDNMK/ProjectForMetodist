@@ -19,8 +19,9 @@ class StudentCardShowPage extends Page {
                             <label class="form-checkbox-label">
                                 <input class="form-checkbox-field" type="checkbox" id="select-year"/>
                                 <i class="form-checkbox-button"></i>
-                                <span>Обрати рік</span>
+                                <span>Обрати рік<small>*</small></span>
                             </label>
+                            <span class="form-element-hint form-element-hint--static">* - щоб знайти студента за попередні роки</span>
                         </div>
 
                         <div class="form-element form-input">
@@ -57,10 +58,6 @@ class StudentCardShowPage extends Page {
                     </div>
 
                     <div class="main__buttons">
-                        <button class="btn student-card__show-btn-clear">
-                            <i class="btn-icon fas fa-trash-alt"></i>
-                            <span class="btn-text">Очистити</span>
-                        </button>
                         <button class="btn student-card__show-btn-find">
                             <i class="btn-icon fas fa-search"></i>
                             <span class="btn-text">Знайти студента</span>
@@ -249,7 +246,6 @@ class StudentCardShowPage extends Page {
     }
 
     static _studentCardSubscribe() {
-        const clearBtn = document.querySelector('.student-card__show-btn-clear');
         const findBtn = document.querySelector('.student-card__show-btn-find');
         const editBtn = document.querySelector('.student-card__show-btn-edit');
         const saveBtn = document.querySelector('.student-card__show-btn-save');
@@ -261,16 +257,6 @@ class StudentCardShowPage extends Page {
 
         const yearCheckbox = document.querySelector('#select-year');
         const yearInput = document.querySelector('#year');
-
-        clearBtn.addEventListener('click', () => {
-            let ids = this._idsToClear();
-
-            let items = document.querySelectorAll(ids.join(', '));
-            items.forEach(x => {
-                x.classList.remove('-hasValue');
-                x.value = "";
-            });
-        });
 
         findBtn.addEventListener('click', () => {
             fetchStudent(studentSelect.value);

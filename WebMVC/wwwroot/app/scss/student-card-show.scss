@@ -1,6 +1,6 @@
 .student-card__show {
     display: grid;
-    grid-template-columns: minmax(250px, 1fr) minmax(250px, 2fr);
+    grid-template-columns: 300px minmax(250px, 1fr);
     column-gap: 80px;
 
     &-general {
