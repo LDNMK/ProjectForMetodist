@@ -76,7 +76,7 @@ namespace FaitLogic.Logic
             var yearPlan = new YearPlan
             {
                 Name = yearPlanInfo.Name,
-                Year = (byte)yearPlanInfo.Year
+                Year = yearPlanInfo.Year
             };
 
             var yearPlanId = yearPlanRepo.AddYearPlan(yearPlan);

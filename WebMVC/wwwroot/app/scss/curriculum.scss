@@ -1,0 +1,80 @@
+.curriculum {
+    &__grid {
+        display: grid;
+        row-gap: 50px;
+    }
+
+    &__find {
+        display: grid;
+        min-width: 500px;
+        grid-template-columns: 2fr 1fr;
+        column-gap: 40px;
+        margin: 0 auto;
+
+        &-filter {
+            position: relative;
+
+            &--add {
+                &::after {
+                    content: "";
+                    position: absolute;
+        
+                    top: 0;
+                    bottom: 0;
+                    right: -22px;
+                    width: 1px;
+                    background-color: #337ab7;
+                    opacity: .3;
+                }
+            }
+
+            &--show {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    &-group__btn-add {
+        margin-top: 30px;
+    }
+
+    &-plan {
+        &__btn {
+            &-find {
+                margin-top: 30px;
+            }
+        }
+    }
+
+    &__info {
+        .form-element {
+            &-w250 {
+                min-width: 250px;
+                margin-left: 40px;
+            }
+
+            &-w150 {
+                max-width: 110px;
+                margin-left: 20px;
+                margin-right: auto;
+            }
+        }
+
+        &-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        &-add-btn {
+            margin-right: 10px;
+        }
+
+        &-buttons {
+            &--show {
+                margin-right: 10px;
+            }
+        }
+    }
+}
