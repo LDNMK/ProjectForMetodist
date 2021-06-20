@@ -18,7 +18,8 @@ const scssFiles = [
 	'app/scss/group-item.scss',
 	'app/scss/group-add.scss',
 	'app/scss/group-actualize.scss',
-	'app/scss/transfer.scss'
+	'app/scss/transfer.scss',
+	'app/scss/create-report.scss'
 ];
 
 function sassToCss() {
@@ -60,6 +61,7 @@ const jsFiles = [
 	'app/js/pages/group-add-page.js',
 	'app/js/pages/group-actualize-page.js',
 	'app/js/pages/transfer-page.js',
+	'app/js/pages/create-report-page.js',
 	'app/js/mapper.js',
 	'app/js/main.js',
 ];

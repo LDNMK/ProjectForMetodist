@@ -12,7 +12,7 @@ const mapper = {
     "curriculum--add-page":     CurriculumAddPage,
     "transfer--page":           TransferPage,
     // "progress--page": () => "progress--page not implemented",
-    // "report--add-page": () => "report--add-page not implemented",
+    "create-report--page":      CreateReportPage,
     "group--add-page":          GroupAddPage,
     "group--actualize-page":    GroupActualizePage,
 };
