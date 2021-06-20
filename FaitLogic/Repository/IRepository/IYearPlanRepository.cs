@@ -9,7 +9,7 @@ namespace FaitLogic.Repository.IRepository
     {
         List<YearPlan> GetListOfYearPlans(int course);
 
-        int? AddYearPlan(YearPlan yearPlan);
+        int AddYearPlan(YearPlan yearPlan);
 
         YearPlan FindYearPlan(int yearPlanId);
     }

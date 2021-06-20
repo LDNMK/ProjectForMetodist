@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
 
-            groupLogic.SetYearPlan(yearPlanModel.Groups, yearPlanId.Value);
+            //groupLogic.SetYearPlan(yearPlanModel.GroupIds, yearPlanId.Value);
 
             return Ok();
         }

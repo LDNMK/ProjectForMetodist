@@ -26,18 +26,18 @@ namespace FaitLogic.Repository
         public List<YearPlan> GetListOfYearPlans(int course)
         {
             return dbContext.YearPlans
-                .Where(x => x.Course == course)
+                //.Where(x => x.Course == course)
                 .ToList();
         }
 
-        public int? AddYearPlan(YearPlan yearPlan)
+        public int AddYearPlan(YearPlan yearPlan)
         {
             dbContext.YearPlans.Add(yearPlan);
             dbContext.SaveChanges();
 
             return dbContext.YearPlans
                 .OrderBy(x =>x.Id)
-                .LastOrDefault()?.Id;
+                .LastOrDefault().Id;
         }
     }
 }

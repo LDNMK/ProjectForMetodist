@@ -14,33 +14,33 @@ namespace FaitLogic.Repository
             dbContext = context;
         }
 
-        public List<SubjectInfo> FindSubjectsInfo(int yearPlanId)
+        public List<Subject> FindSubjects(int yearPlanId)
         {
-            return dbContext.SubjectInfos
+            return dbContext.Subjects
                 .Where(x => x.PlanId == yearPlanId)
                 .ToList();
         }
 
-        public List<Subject> FindSubjects(int subjectId)
+        public List<SubjectSemester> FindSubjectSemesters(int subjectId)
         {
-            return dbContext.Subjects
-                .Where(x => x.SubjectInfoId == subjectId)
+            return dbContext.SubjectSemesters
+                .Where(x => x.Id == subjectId)
                 .ToList();
         }
 
-        public int? AddSubjectInfo(SubjectInfo subjectInfo)
+        public int AddSubject(Subject subjectInfo)
         {
-            dbContext.SubjectInfos.Add(subjectInfo);
+            dbContext.Subjects.Add(subjectInfo);
             dbContext.SaveChanges();
 
-            return dbContext.SubjectInfos
+            return dbContext.Subjects
                 .OrderBy(x => x.Id)
-                .LastOrDefault()?.Id;
+                .LastOrDefault().Id;
         }
 
-        public void AddSubject(Subject subject)
+        public void AddSubjectSemester(SubjectSemester subject)
         {
-            dbContext.Subjects.Add(subject);
+            dbContext.SubjectSemesters.Add(subject);
             dbContext.SaveChanges();
         }
     }

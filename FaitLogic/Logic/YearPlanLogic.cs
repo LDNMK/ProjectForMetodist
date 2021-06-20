@@ -36,37 +36,32 @@ namespace FaitLogic.Logic
             var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupPrefix.Name);
             var yearPlanDto = new YearPlanDTO
             {
-                PlanName = yearPlan.PlanName,
-                Course = yearPlan.Course,
-                Groups = string.Join(',', groupsNames)
+                Name = yearPlan.Name,
+                Year = yearPlan.Year,
+                GroupIds = (ICollection<int>)groupsNames
             };
 
-            var subjects = subjectRepo.FindSubjectsInfo(yearPlanId);
+            var subjects = subjectRepo.FindSubjects(yearPlanId);
 
             var subjectsDto = new List<SubjectDTO>();
             foreach (var subject in subjects)
             {
-                var subj = new SubjectDTO
-                {
-                    SubName = subject.Name,
-                    SubHoursAndETCS = string.Format($"{subject.Hours}/{subject.Ects}"),
-                    Faculty = subject.Faculty
-                };
+                var subj = mapper.Map<Subject, SubjectDTO>(subject);
 
-                var sb = subjectRepo.FindSubjects(subject.Id);
+                var sb = subjectRepo.FindSubjectSemesters(subject.Id);
 
                 var autumn = sb.Find(x => x.Semester == (int)SemesterEnum.Autumn);
-                if (autumn!= null)
+                if (autumn != null)
                 {
-                    subj.AutumnMonitoring = autumn.Monitoring;
-                    subj.AutumnTask = autumn.Task;
+                    subj.ControlTypeFall = autumn.ControlType;
+                    subj.IsIndividualTaskExistFall = autumn.IsIndividualTaskExist;
                 }
 
                 var spring = sb.Find(x => x.Semester == (int)SemesterEnum.Spring);
                 if (spring != null)
                 {
-                    subj.SpringMonitoring = spring.Monitoring;
-                    subj.SpringTask = spring.Task;
+                    subj.ControlTypeSpring = spring.ControlType;
+                    subj.IsIndividualTaskExistSpring = spring.IsIndividualTaskExist;
                 }
                 subjectsDto.Add(subj);
             }
@@ -80,8 +75,8 @@ namespace FaitLogic.Logic
         {
             var yearPlan = new YearPlan
             {
-                PlanName = yearPlanInfo.PlanName,
-                Course = (byte)yearPlanInfo.Course
+                Name = yearPlanInfo.Name,
+                Year = (byte)yearPlanInfo.Year
             };
 
             var yearPlanId = yearPlanRepo.AddYearPlan(yearPlan);
@@ -104,43 +99,33 @@ namespace FaitLogic.Logic
 
         private void AddSubjects(SubjectDTO subjectDto, int? yearPlanId)
         {
-            var parts = subjectDto.SubHoursAndETCS.Split(new[] { '\\', '/' });
-            var subHours = Convert.ToInt32(parts[0]);
-            var ects = Convert.ToInt32(parts[1]);
+            var subjectInfo = mapper.Map<SubjectDTO, Subject>(subjectDto);
+            subjectInfo.PlanId = yearPlanId;
 
-            var subjectInfo = new SubjectInfo
+            var subjectInfoId = subjectRepo.AddSubject(subjectInfo);
+
+            if (subjectDto.ControlTypeSpring != (int)MonitoringEnum.SemesterNotExist)
             {
-                PlanId = yearPlanId,
-                Name = subjectDto.SubName,
-                Hours = subHours,
-                Ects = ects,
-                Faculty = subjectDto.Faculty
-            };
-
-            var subjectInfoId = subjectRepo.AddSubjectInfo(subjectInfo);
-
-            if (subjectDto.SpringMonitoring != (int)MonitoringEnum.SemesterNotExist && subjectDto.SpringTask != (int)TaskEnum.SemesterNotExist)
-            {
-                var springSubject = new Subject
+                var springSubject = new SubjectSemester
                 {
-                    SubjectInfoId = subjectInfoId.Value,
-                    Monitoring = subjectDto.SpringMonitoring,
-                    Task = subjectDto.SpringTask,
+                    SubjectId = subjectInfoId,
+                    ControlType = subjectDto.ControlTypeSpring,
+                    IsIndividualTaskExist = subjectDto.IsIndividualTaskExistSpring,
                     Semester = (int)SemesterEnum.Spring
                 };
-                subjectRepo.AddSubject(springSubject);
+                subjectRepo.AddSubjectSemester(springSubject);
             }
 
-            if (subjectDto.AutumnMonitoring != (int)MonitoringEnum.SemesterNotExist && subjectDto.AutumnTask != (int)TaskEnum.SemesterNotExist)
+            if (subjectDto.ControlTypeFall != (int)MonitoringEnum.SemesterNotExist)
             {
-                var autumnSubject = new Subject
+                var autumnSubject = new SubjectSemester
                 {
-                    SubjectInfoId = subjectInfoId.Value,
-                    Monitoring = subjectDto.AutumnMonitoring,
-                    Task = subjectDto.AutumnTask,
+                    SubjectId = subjectInfoId,
+                    ControlType = subjectDto.ControlTypeFall,
+                    IsIndividualTaskExist = subjectDto.IsIndividualTaskExistFall,
                     Semester = (int)SemesterEnum.Autumn
                 };
-                subjectRepo.AddSubject(autumnSubject);
+                subjectRepo.AddSubjectSemester(autumnSubject);
             }
         }
     }
