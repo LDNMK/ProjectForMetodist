@@ -8,7 +8,7 @@ const mapper = {
     "main--page":               MainPage,
     "student-card--add-page":   StudentCardAddPage,
     "student-card--show-page":  StudentCardShowPage,
-    // "curriculum--show-page": () => "curriculum--show-page not implemented",
+    "curriculum--show-page":    CurriculumShowPage,
     "curriculum--add-page":     CurriculumAddPage,
     "transfer--page":           TransferPage,
     // "progress--page": () => "progress--page not implemented",

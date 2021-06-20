@@ -154,18 +154,22 @@ body {
     &__col,
     &__col-2,
     &__col-3,
+    &__col-4,
     &__col-2to1 {
         display: grid;
         column-gap: 20px;
+    }
+    &__col-2 {
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        column-gap: 40px;
     }
 
     &__col-3 {
         grid-template-columns: repeat(3, minmax(100px, 1fr));
     }
 
-    &__col-2 {
-        grid-template-columns: repeat(2, minmax(100px, 1fr));
-        column-gap: 40px;
+     &__col-4 {
+        grid-template-columns: repeat(4, minmax(100px, 1fr));
     }
 
     &__col-2to1 {
