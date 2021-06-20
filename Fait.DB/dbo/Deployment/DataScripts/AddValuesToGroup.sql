@@ -2,7 +2,7 @@
 CREATE PROCEDURE AddValuesToGroup
 AS
 BEGIN
-	INSERT INTO [groups] (plan_id, group_number, GroupPrefixId, actual, Course) 
+	INSERT INTO [Groups] (PlanId, GroupNumber, GroupPrefixId, Actual, Course) 
 	VALUES
 		(1, 11, 1, 1, 1),
 		(2, 12, 1, 1, 2),

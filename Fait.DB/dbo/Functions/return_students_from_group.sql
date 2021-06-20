@@ -1,4 +1,4 @@
-﻿CREATE   FUNCTION return_students_from_group
+﻿CREATE FUNCTION return_students_from_group
 (
 @group_id INT
 )
@@ -14,9 +14,9 @@ RETURN
 		WHERE ac_gr.student_id = stud.id 
 		AND EXISTS (
 			SELECT 1 
-			FROM groups gr
-			WHERE gr.id = ac_gr.group_id 
-			AND gr.id = @group_id
-			AND gr.actual = 1
+			FROM Groups gr
+			WHERE gr.Id = ac_gr.group_id 
+			AND gr.Id = @group_id
+			AND gr.Actual = 1
 			)
 	)
