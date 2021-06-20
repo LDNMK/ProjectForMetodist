@@ -202,8 +202,8 @@ class CurriculumAddPage extends Page {
                                 pattern="[0-9]">
                         </div>
                         <div class="item__subitem">
-                            <label for="credits">Кредитів</label>
-                            <input class="item__data-credits" data-table-key="credits" type="text" value="${item?.ects ?? ""}" id="credits"
+                            <label for="ects">Кредитів</label>
+                            <input class="item__data-credits" data-table-key="ects" type="text" value="${item?.ects ?? ""}" id="ects"
                                 pattern="[0-9]">
                         </div>
                     </div>
