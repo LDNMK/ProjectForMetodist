@@ -61,10 +61,11 @@
     <Folder Include="dbo\Functions" />
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Deployment" />
+    <Folder Include="dbo\Deployment\DataScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Functions\return_students_from_group.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToAmend.sql" />
     <Build Include="dbo\Tables\actual_groups.sql" />
     <Build Include="dbo\Tables\Amend.sql" />
     <Build Include="dbo\Tables\GroupPrefix.sql" />
@@ -80,18 +81,20 @@
     <Build Include="dbo\Tables\subject_info.sql" />
     <Build Include="dbo\Stored Procedures\return_next_group_id_for_student.sql" />
     <Build Include="dbo\Stored Procedures\return_student_group_id.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToGroupPrefix.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToGroup.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToStudent.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToStudentState.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToStudentInfo.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToStudentsGroup.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToExperienceCompetition.sql" />
     <Build Include="dbo\Tables\ExperienceCompetitions.sql" />
     <Build Include="dbo\Tables\StudentTransferOrder.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToMaritalStatus.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToSpeciality.sql" />
-    <Build Include="dbo\Stored Procedures\AddValuesToYearPlan.sql" />
+    <PostDeploy Include="dbo\Deployment\PostDeploymentFAIT.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToAmend.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToExperienceCompetition.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToGroup.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToGroupPrefix.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToMaritalStatus.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToSpeciality.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToStudent.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToStudentInfo.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToStudentsGroup.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToStudentState.sql" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToYearPlan.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />
