@@ -10,15 +10,14 @@ namespace Fait.DAL
         public YearPlan()
         {
             Groups = new HashSet<Group>();
-            SubjectInfos = new HashSet<SubjectInfo>();
+            Subjects = new HashSet<Subject>();
         }
 
         public int Id { get; set; }
-        public string PlanName { get; set; }
-        public int PlanYear { get; set; }
-        public byte Course { get; set; }
+        public string Name { get; set; }
+        public int Year { get; set; }
 
         public virtual ICollection<Group> Groups { get; set; }
-        public virtual ICollection<SubjectInfo> SubjectInfos { get; set; }
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

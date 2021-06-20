@@ -6,10 +6,9 @@ namespace FaitLogic.DTO
 {
     public class YearPlanDTO
     {
-        public string PlanName { get; set; }//название
-        public int PlanYear { get; set; }//год
-        public int Course { get; set; }//курс 
-        public string Groups { get; set; }//группы 
-        public List<SubjectDTO> SubjectInfo { get; set; }//
+        public string Name { get; set; }
+        public int Year { get; set; }
+        public ICollection<int> GroupIds { get; set; }              //группы 
+        public ICollection<SubjectDTO> SubjectInfo { get; set; }  //предметы 
     }
 }

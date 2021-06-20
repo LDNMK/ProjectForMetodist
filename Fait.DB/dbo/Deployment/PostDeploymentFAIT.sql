@@ -10,15 +10,15 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
---:r .\DataScripts\AddValuesToAmend.sql
---:r .\DataScripts\AddValuesToExperienceCompetition.sql
---:r .\DataScripts\AddValuesToYearPlan.sql
---:r .\DataScripts\AddValuesToMaritalStatus.sql
---:r .\DataScripts\AddValuesToSpeciality.sql
---:r .\DataScripts\AddValuesToGroupPrefix.sql
---:r .\DataScripts\AddValuesToStudentState.sql
+:r .\DataScripts\AddValuesToAmend.sql
+:r .\DataScripts\AddValuesToExperienceCompetition.sql
+:r .\DataScripts\AddValuesToMaritalStatus.sql
+:r .\DataScripts\AddValuesToSpeciality.sql
+:r .\DataScripts\AddValuesToStudentState.sql
 
 ---- Adding test data
+--:r .\DataScripts\AddValuesToYearPlan.sql
+--:r .\DataScripts\AddValuesToGroupPrefix.sql
 --:r .\DataScripts\AddValuesToGroup.sql      
 --:r .\DataScripts\AddValuesToStudent.sql      
 --:r .\DataScripts\AddValuesToStudentInfo.sql

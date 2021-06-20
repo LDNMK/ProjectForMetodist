@@ -15,6 +15,6 @@ namespace Fait.DAL
         public byte TaskMark { get; set; }
 
         public virtual Student Student { get; set; }
-        public virtual Subject Subject { get; set; }
+        public virtual SubjectSemester Subject { get; set; }
     }
 }

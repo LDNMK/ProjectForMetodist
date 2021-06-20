@@ -7,12 +7,12 @@ namespace FaitLogic.Repository.IRepository
 {
     public interface ISubjectRepository
     {
-        List<SubjectInfo> FindSubjectsInfo(int yearPlanId);
+        List<Subject> FindSubjects(int yearPlanId);
 
-        List<Subject> FindSubjects(int subjectId);
+        List<SubjectSemester> FindSubjectSemesters(int subjectId);
 
-        int? AddSubjectInfo(SubjectInfo subjectInfo);
+        int AddSubject(Subject subjectInfo);
 
-        void AddSubject(Subject subject);
+        void AddSubjectSemester(SubjectSemester subject);
     }
 }

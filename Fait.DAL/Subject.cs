@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
 
 namespace Fait.DAL
 {
@@ -6,16 +9,17 @@ namespace Fait.DAL
     {
         public Subject()
         {
-            Marks = new HashSet<Mark>();
+            SubjectSemesters = new HashSet<SubjectSemester>();
         }
 
         public int Id { get; set; }
-        public int SubjectInfoId { get; set; }
-        public byte Monitoring { get; set; }
-        public byte Task { get; set; }
-        public byte Semester { get; set; }
+        public int? PlanId { get; set; }
+        public string Name { get; set; }
+        public int Hours { get; set; }
+        public int Ects { get; set; }
+        public string Department { get; set; }
 
-        public virtual SubjectInfo SubjectInfo { get; set; }
-        public virtual ICollection<Mark> Marks { get; set; }
+        public virtual YearPlan Plan { get; set; }
+        public virtual ICollection<SubjectSemester> SubjectSemesters { get; set; }
     }
 }

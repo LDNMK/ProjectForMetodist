@@ -73,7 +73,7 @@ namespace FaitLogic.Repository
         public ICollection<Group> GetGroups(int course, int year)
         {
             return dbContext.Groups
-                .Where(x => x.Plan.PlanYear == year && x.Course == course)
+                .Where(x => x.Plan.Year == year && x.Course == course)
                 .ToList();
         }
 

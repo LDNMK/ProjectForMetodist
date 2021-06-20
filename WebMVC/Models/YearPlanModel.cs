@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
     public class YearPlanModel
     {
-        public string PlanName { get; set; }//название
-
-        //Where it is???
-        public int PlanYear { get; set; }//год
-        public int Course { get; set; }//курс 
-        public string Groups { get; set; }//группы 
-        public List<SubjectModel> SubjectInfo { get; set; }//предметы     
+        public string Name { get; set; }
+        public int Year { get; set; }
+        public ICollection<int> GroupIds { get; set; }              //группы 
+        public ICollection<SubjectModel> SubjectInfo { get; set; }  //предметы     
     }
 }

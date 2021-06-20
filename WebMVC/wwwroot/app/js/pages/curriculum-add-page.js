@@ -120,6 +120,8 @@ class CurriculumAddPage extends Page {
         const addRowBtn = document.querySelector('#add-row-btn');
         
         const yearInput = document.querySelector('#year');
+        const planNameInput = document.querySelector('#plan-name');
+
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
         const groupAddBtn = document.querySelector('.curriculum-group__btn-add');
@@ -141,10 +143,12 @@ class CurriculumAddPage extends Page {
         });
 
         curriculumSaveBtn.addEventListener('click', () => {
+            if (yearInput == '' || planNameInput == '')
+                return alert('bad');
             let curriculum = {};
             let rows = planTable.querySelectorAll('.curriculum__table-row-data');
 
-            curriculum.data = [];
+            curriculum.subjectInfo = [];
             for (let i = 0; i < rows.length; i++) {
                 let data = rows[i].querySelectorAll('[data-table-key]');
 
@@ -153,15 +157,24 @@ class CurriculumAddPage extends Page {
                     rowJson[data[j].getAttribute('data-table-key')] = data[j][data[j].type == "checkbox" ? 'checked' : 'value'];
                 }
 
-                curriculum.data.push(rowJson);
+                curriculum.subjectInfo.push(rowJson);
             }
 
-            curriculum.name = document.querySelector('#plan-name').value;
+            curriculum.name = planNameInput.value;
+            curriculum.year = yearInput.value;
             curriculum.groupIds = [...list.children]
                 .map(x => +x.getAttribute('data-group-id'))
                 .filter((v, i, a) => a.indexOf(v) === i);
 
             console.log(curriculum);
+
+            const response = await fetch(`api/YearPlan/AddYearPlan`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(curriculum)
+            });
         });
 
         async function fetchGroups(course, year) {
@@ -193,7 +206,7 @@ class CurriculumAddPage extends Page {
                         <i class="item__data-btn-remove far fa-minus-square" onclick="removeCurriculumRow(this);"></i>
                     </div>
                     <div class="item">
-                        <input class="item__data-subject" data-table-key="subject" type="text" value="${item?.subject ?? ""}">
+                        <input class="item__data-subject" data-table-key="name" type="text" value="${item?.name ?? ""}">
                     </div>
                     <div class="item item__col-2">
                         <div class="item__subitem">
@@ -208,7 +221,7 @@ class CurriculumAddPage extends Page {
                         </div>
                     </div>
                     <div class="item item__col-2">
-                        <input type="checkbox" data-table-key="isIndividualPlanExistFall" ${item?.fall?.isActive ? 'checked' : ''}>
+                        <input type="checkbox" data-table-key="isIndividualTaskExistFall" ${item?.fall?.isActive ? 'checked' : ''}>
                         <select name="control-form-fall" data-table-key="controlTypeFall" id="control-fall">
                             <option value="0" ${item?.fall?.control == 0 ? 'selected' : ''}></option>
                             <option value="1" ${item?.fall?.control == 1 ? 'selected' : ''}>Кредит</option>
@@ -216,7 +229,7 @@ class CurriculumAddPage extends Page {
                         </select>
                     </div>
                     <div class="item item__col-2">
-                        <input type="checkbox" data-table-key="isIndividualPlanExistSpring" ${item?.spring?.isActive ? 'checked' : ''}>
+                        <input type="checkbox" data-table-key="isIndividualTaskExistSpring" ${item?.spring?.isActive ? 'checked' : ''}>
                         <select name="control-form-spring" data-table-key="controlTypeSpring" id="control-spring">
                             <option value="0" ${item?.spring?.control == 0 ? 'selected' : ''}></option>
                             <option value="1" ${item?.spring?.control == 1 ? 'selected' : ''}>Кредит</option>

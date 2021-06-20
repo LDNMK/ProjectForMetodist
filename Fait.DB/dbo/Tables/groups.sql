@@ -1,12 +1,12 @@
-﻿CREATE TABLE [dbo].[groups] (
-    [id]                INT     IDENTITY (1, 1) NOT NULL,
-    [plan_id]           INT     NULL,
-    [group_number]      INT     NOT NULL,
+﻿CREATE TABLE [dbo].[Groups] (
+    [Id]                INT     IDENTITY (1, 1) NOT NULL,
+    [PlanId]           INT     NULL,
+    [GroupNumber]      INT     NOT NULL,
     [GroupPrefixId]     INT     NULL,
-    [actual]            BIT     NOT NULL,
+    [Actual]            BIT     NOT NULL,
     [Course]            INT     NOT NULL,
-    PRIMARY KEY CLUSTERED ([id] ASC),
+    PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([GroupPrefixId]) REFERENCES [dbo].[GroupPrefix] ([Id]),
-    FOREIGN KEY ([plan_id]) REFERENCES [dbo].[year_plans] ([id]) ON DELETE SET NULL
+    FOREIGN KEY ([PlanId]) REFERENCES [dbo].[YearPlan] ([Id]) ON DELETE SET NULL
 );
 

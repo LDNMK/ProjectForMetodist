@@ -3,7 +3,7 @@
     [group_id]   INT NULL,
     [student_id] INT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),
-    FOREIGN KEY ([group_id]) REFERENCES [dbo].[groups] ([id]) ON DELETE SET DEFAULT,
+    FOREIGN KEY ([group_id]) REFERENCES [dbo].[Groups] ([Id]) ON DELETE SET DEFAULT,
     FOREIGN KEY ([student_id]) REFERENCES [dbo].[students] ([id]) ON DELETE SET DEFAULT
 );
 
