@@ -13,14 +13,9 @@ class CurriculumAddPage extends Page {
         return `
             <div class="curriculum__grid">
                 <div class="curriculum__find">
-                    <div class="curriculum__find-filter">
+                    <div class="curriculum__find-filter curriculum__find-filter--add">
                         <h1 class="main__page-subtitle">Пошук</h1>
-
-                        <div class="form-element form-input">
-                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="year">Рік</label>
-                        </div>
+                        
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -59,11 +54,16 @@ class CurriculumAddPage extends Page {
                     <h1 class="main__page-title">Навчальний план студента</h1>
 
                     <div class="curriculum__info-head">
-                        <div class="form-element form-input">
+                        <div class="form-element form-input form-element-w250">
                             <input id="plan-name" class="form-element-field"
                                 placeholder="Введіть назву навчального плану" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="plan-name">Назва навчального плану</label>
+                        </div>
+                        <div class="form-element form-input form-element-w150">
+                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="year">Рік</label>
                         </div>
 
                         <button class="btn curriculum__info-add-btn">
@@ -128,7 +128,7 @@ class CurriculumAddPage extends Page {
         const curriculumSaveBtn = document.querySelector('.curriculum__info-add-btn');
 
         yearInput.addEventListener('change', () => {
-            fetchGroups(courseSelect.value, yearInput.value);
+            console.log('year');
         });
 
         courseSelect.addEventListener('change', () => {
@@ -143,8 +143,10 @@ class CurriculumAddPage extends Page {
         });
 
         curriculumSaveBtn.addEventListener('click', () => {
-            if (yearInput == '' || planNameInput == '')
+            if (yearInput == '' || planNameInput == '') {
                 return alert('bad');
+            }
+
             let curriculum = {};
             let rows = planTable.querySelectorAll('.curriculum__table-row-data');
 
@@ -168,14 +170,18 @@ class CurriculumAddPage extends Page {
 
             console.log(curriculum);
 
+            fetchYearPlan(curriculum);
+        });
+
+        async function fetchYearPlan(data) {
             const response = await fetch(`api/YearPlan/AddYearPlan`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(curriculum)
+                body: JSON.stringify(data)
             });
-        });
+        }
 
         async function fetchGroups(course, year) {
             if (course == "") {
@@ -196,53 +202,7 @@ class CurriculumAddPage extends Page {
         };
 
         addRowBtn.addEventListener('click', () => {
-            lastRow.insertAdjacentHTML('beforebegin', getRow());
+            lastRow.insertAdjacentHTML('beforebegin', addCurriculumRow());
         });
-
-        function getRow(item) {
-            return `
-                <div class="curriculum__table-row curriculum__table-row-data">
-                    <div class="item item__no-border">
-                        <i class="item__data-btn-remove far fa-minus-square" onclick="removeCurriculumRow(this);"></i>
-                    </div>
-                    <div class="item">
-                        <input class="item__data-subject" data-table-key="name" type="text" value="${item?.name ?? ""}">
-                    </div>
-                    <div class="item item__col-2">
-                        <div class="item__subitem">
-                            <label for="hours">Годин</label>
-                            <input class="item__data-hours" data-table-key="hours" type="text" value="${item?.hours ?? ""}" id="hours"
-                                pattern="[0-9]">
-                        </div>
-                        <div class="item__subitem">
-                            <label for="ects">Кредитів</label>
-                            <input class="item__data-credits" data-table-key="ects" type="text" value="${item?.ects ?? ""}" id="ects"
-                                pattern="[0-9]">
-                        </div>
-                    </div>
-                    <div class="item item__col-2">
-                        <input type="checkbox" data-table-key="isIndividualTaskExistFall" ${item?.fall?.isActive ? 'checked' : ''}>
-                        <select name="control-form-fall" data-table-key="controlTypeFall" id="control-fall">
-                            <option value="0" ${item?.fall?.control == 0 ? 'selected' : ''}></option>
-                            <option value="1" ${item?.fall?.control == 1 ? 'selected' : ''}>Кредит</option>
-                            <option value="2" ${item?.fall?.control == 2 ? 'selected' : ''}>Екзамен</option>
-                        </select>
-                    </div>
-                    <div class="item item__col-2">
-                        <input type="checkbox" data-table-key="isIndividualTaskExistSpring" ${item?.spring?.isActive ? 'checked' : ''}>
-                        <select name="control-form-spring" data-table-key="controlTypeSpring" id="control-spring">
-                            <option value="0" ${item?.spring?.control == 0 ? 'selected' : ''}></option>
-                            <option value="1" ${item?.spring?.control == 1 ? 'selected' : ''}>Кредит</option>
-                            <option value="2" ${item?.spring?.control == 2 ? 'selected' : ''}>Екзамен</option>
-                        </select>
-                    </div>
-                    <div class="item">
-                        <input class="item__data-department" data-table-key="department" type="text" value="${item?.department ?? ""}">
-                    </div>
-                </div>
-            `;
-        }
-
-
     }
 }
