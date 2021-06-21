@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Fait.DAL.Repository;
+using Fait.DAL.Repository.IRepository;
 using FaitLogic.Logic;
-using FaitLogic.Repository;
-using FaitLogic.Repository.IRepository;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

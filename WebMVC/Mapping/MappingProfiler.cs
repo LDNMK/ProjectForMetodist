@@ -24,6 +24,7 @@ public class MappingProfile : Profile
 
         CreateMap<YearPlan, YearPlanNameWithIdDTO>()
             .ForMember(dest => dest.PlanId, opt => opt.MapFrom(x => x.Id))
+            .ForMember(dest => dest.PlanName, opt => opt.MapFrom(x => x.Name))
             .ReverseMap();
 
         // Subject mapping

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Fait.DAL;
+using Fait.DAL.Repository.IRepository;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,12 +33,11 @@ namespace FaitLogic.Logic
         {
             var yearPlan = yearPlanRepo.FindYearPlan(yearPlanId);
 
-            var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupPrefix.Name);
+            //var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupPrefix.Name);
             var yearPlanDto = new YearPlanDTO
             {
                 Name = yearPlan.Name,
-                Year = yearPlan.Year,
-                GroupIds = (ICollection<int>)groupsNames
+                Year = yearPlan.Year
             };
 
             var subjects = subjectRepo.FindSubjects(yearPlanId);
@@ -91,10 +90,16 @@ namespace FaitLogic.Logic
 
         public ICollection<YearPlanNameWithIdDTO> GetYearPlans(int course)
         {
-            var list = yearPlanRepo.GetListOfYearPlans(course);
             var yearPlans = mapper.Map<List<YearPlan>, List<YearPlanNameWithIdDTO>>(yearPlanRepo.GetListOfYearPlans(course));
 
             return yearPlans;
+        }
+
+        public YearPlanNameWithIdDTO GetYearPlanByGroup(int groupId)
+        {
+            var yearPlan = mapper.Map<YearPlan, YearPlanNameWithIdDTO>(yearPlanRepo.GetYearPlanByGroup(groupId));
+
+            return yearPlan;
         }
 
         private void AddSubjects(SubjectDTO subjectDto, int? yearPlanId)

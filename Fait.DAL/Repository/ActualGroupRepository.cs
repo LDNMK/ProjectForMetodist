@@ -1,9 +1,8 @@
-﻿using Fait.DAL;
-using FaitLogic.Repository.IRepository;
+﻿using Fait.DAL.Repository.IRepository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FaitLogic.Repository
+namespace Fait.DAL.Repository
 {
     public class ActualGroupRepository : IActualGroupRepository
     {
@@ -16,6 +15,7 @@ namespace FaitLogic.Repository
 
         public void AddActualGroup(ActualGroup actualGroup)
         {
+            //TODO: some error
             dbContext.ActualGroups.Add(actualGroup);
             dbContext.SaveChanges();
         }

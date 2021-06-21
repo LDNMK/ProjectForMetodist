@@ -42,7 +42,7 @@ class CurriculumShowPage extends Page {
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                             </select>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="group">План</label>
+                            <label class="form-element-label" for="plan">План</label>
                         </div>
                     </div>
                     <div class="main__buttons">
@@ -96,6 +96,7 @@ class CurriculumShowPage extends Page {
         const yearInput = document.querySelector('#year');
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
+        const yearPlanSelect = document.querySelector('#plan');
 
         const curriculumFindBtn = document.querySelector('.curriculum__btn-find');
         const curriculumEditBtn = document.querySelector('.curriculum-info__btn-edit');
@@ -109,42 +110,39 @@ class CurriculumShowPage extends Page {
             fetchGroups(courseSelect.value);
         });
 
+        groupSelect.addEventListener('change', () => {
+            fetchYearPlans(groupSelect.value);
+        });
+
         curriculumFindBtn.addEventListener('click', () => {
-            let response = {
-                planId: 1,
-                name: "Plan 2021",
-                data: [
-                    {
-                        controlTypeFall: "1",
-                        controlTypeSpring: "0",
-                        department: "Department 1",
-                        ects: "2",
-                        hours: "12",
-                        isIndividualPlanExistFall: true,
-                        isIndividualPlanExistSpring: false,
-                        subject: "Subject 1"
-                    },
-                    {
-                        controlTypeFall: "0",
-                        controlTypeSpring: "2",
-                        department: "Department 2",
-                        ects: "2",
-                        hours: "35",
-                        isIndividualPlanExistFall: false,
-                        isIndividualPlanExistSpring: true,
-                        subject: "Subject 2"
-                    }
-                ]
-            };
+            //let response = {
+            //    planId: 1,
+            //    name: "Plan 2021",
+            //    data: [
+            //        {
+            //            controlTypeFall: "1",
+            //            controlTypeSpring: "0",
+            //            department: "Department 1",
+            //            ects: "2",
+            //            hours: "12",
+            //            isIndividualPlanExistFall: true,
+            //            isIndividualPlanExistSpring: false,
+            //            subject: "Subject 1"
+            //        },
+            //        {
+            //            controlTypeFall: "0",
+            //            controlTypeSpring: "2",
+            //            department: "Department 2",
+            //            ects: "2",
+            //            hours: "35",
+            //            isIndividualPlanExistFall: false,
+            //            isIndividualPlanExistSpring: true,
+            //            subject: "Subject 2"
+            //        }
+            //    ]
+            //};
 
-            // get plan
-
-            planNameInput.value = response.name;
-            planNameInput.classList.add('-hasValue');
-
-            response.data.forEach(r => {
-                lastRow.insertAdjacentHTML('beforebegin', addCurriculumRow(r));
-            });
+            fetchYearPlan(yearPlanSelect.value);
         });
 
         curriculumEditBtn.addEventListener('click', () => {
@@ -158,6 +156,24 @@ class CurriculumShowPage extends Page {
         curriculumSaveBtn.addEventListener('click', () => {
             console.log(save);
         });
+
+        async function fetchYearPlan(yearPlanId) {
+            if (yearPlanId == "") {
+                return;
+            }
+
+            let url = `api/YearPlan/ShowYearPlan?yearPlanId=${yearPlanId}`;
+            // get plan
+            const response = await fetch(url);
+            const yearPlan = await response.json();
+
+            planNameInput.value = yearPlan.name;
+            planNameInput.classList.add('-hasValue');
+
+            yearPlan.subjectInfo.forEach(r => {
+                lastRow.insertAdjacentHTML('beforebegin', addCurriculumRow(r));
+            });
+        };
 
         async function fetchGroups(course, year) {
             if (course == "") {
@@ -175,6 +191,23 @@ class CurriculumShowPage extends Page {
 
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
+        };
+
+        async function fetchYearPlans(group) {
+            if (group == "") {
+                return;
+            }
+
+            let url = `api/YearPlan/GetYearPlanByGroup?groupId=${group}`;
+
+            const response = await fetch(url);
+            const yearPlan = await response.json();
+
+            let options = yearPlan.map(x =>`<option value=${yearPlan.planId}>${yearPlan.planName}</option>`);
+            options.push(optionDefault);
+
+            yearPlanSelect.innerHTML = options.join('');
+            yearPlanSelect.classList.remove('-hasValue');
         };
 
         addRowBtn.addEventListener('click', () => {

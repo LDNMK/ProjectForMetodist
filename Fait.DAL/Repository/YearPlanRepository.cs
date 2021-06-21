@@ -1,11 +1,8 @@
-﻿using Fait.DAL;
-using Fait.DAL.NotMapped;
-using FaitLogic.Repository.IRepository;
-using Microsoft.EntityFrameworkCore;
+﻿using Fait.DAL.Repository.IRepository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FaitLogic.Repository
+namespace Fait.DAL.Repository
 {
     public class YearPlanRepository : IYearPlanRepository
     {
@@ -28,6 +25,14 @@ namespace FaitLogic.Repository
             return dbContext.YearPlans
                 //.Where(x => x.Course == course)
                 .ToList();
+        }
+
+        public YearPlan GetYearPlanByGroup(int groupId)
+        {
+            return dbContext.Groups
+                .Where(x => x.Id == groupId)
+                .Select(x => x.Plan)
+                .FirstOrDefault();
         }
 
         public int AddYearPlan(YearPlan yearPlan)

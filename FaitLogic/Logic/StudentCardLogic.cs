@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Fait.DAL;
+using Fait.DAL.Repository.IRepository;
 using FaitLogic.DTO;
-using FaitLogic.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 

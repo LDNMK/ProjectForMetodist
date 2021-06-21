@@ -1,10 +1,7 @@
-﻿using Fait.DAL;
-using Fait.DAL.NotMapped;
-using System;
+﻿using Fait.DAL.NotMapped;
 using System.Collections.Generic;
-using System.Text;
 
-namespace FaitLogic.Repository.IRepository
+namespace Fait.DAL.Repository.IRepository
 {
     public interface IStudentCardRepository
     {

@@ -1,9 +1,6 @@
-﻿using Fait.DAL;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace FaitLogic.Repository.IRepository
+namespace Fait.DAL.Repository.IRepository
 {
     public interface IYearPlanRepository
     {
@@ -12,5 +9,7 @@ namespace FaitLogic.Repository.IRepository
         int AddYearPlan(YearPlan yearPlan);
 
         YearPlan FindYearPlan(int yearPlanId);
+
+        YearPlan GetYearPlanByGroup(int groupId);
     }
 }
