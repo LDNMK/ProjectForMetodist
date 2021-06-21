@@ -1,8 +1,7 @@
-﻿using Fait.DAL;
-using Fait.DAL.NotMapped;
+﻿using Fait.DAL.NotMapped;
 using System.Collections.Generic;
 
-namespace FaitLogic.Repository.IRepository
+namespace Fait.DAL.Repository.IRepository
 {
     public interface IGroupRepository
     {

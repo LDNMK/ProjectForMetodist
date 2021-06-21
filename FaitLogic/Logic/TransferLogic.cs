@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using FaitLogic.Repository.IRepository;
+using Fait.DAL.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 

@@ -1,15 +1,13 @@
 ﻿using Dapper;
-using Fait.DAL;
 using Fait.DAL.NotMapped;
-using System.Configuration;
-using FaitLogic.Repository.IRepository;
+using Fait.DAL.Repository.IRepository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace FaitLogic.Repository
+namespace Fait.DAL.Repository
 {
     public class GroupRepository : IGroupRepository
     {

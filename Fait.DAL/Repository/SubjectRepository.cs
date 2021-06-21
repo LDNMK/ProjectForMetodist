@@ -1,9 +1,8 @@
-﻿using Fait.DAL;
-using FaitLogic.Repository.IRepository;
+﻿using Fait.DAL.Repository.IRepository;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FaitLogic.Repository
+namespace Fait.DAL.Repository
 {
     public class SubjectRepository : ISubjectRepository
     {

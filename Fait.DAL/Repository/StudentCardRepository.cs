@@ -1,6 +1,5 @@
-﻿using Fait.DAL;
-using Fait.DAL.NotMapped;
-using FaitLogic.Repository.IRepository;
+﻿using Fait.DAL.NotMapped;
+using Fait.DAL.Repository.IRepository;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
 
-namespace FaitLogic.Repository
+namespace Fait.DAL.Repository
 {
     public class StudentCardRepository : IStudentCardRepository
     {

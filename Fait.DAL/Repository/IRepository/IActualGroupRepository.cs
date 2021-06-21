@@ -1,7 +1,6 @@
-﻿using Fait.DAL;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace FaitLogic.Repository.IRepository
+namespace Fait.DAL.Repository.IRepository
 {
     public interface IActualGroupRepository
     {
