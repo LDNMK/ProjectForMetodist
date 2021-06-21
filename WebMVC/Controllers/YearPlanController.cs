@@ -2,6 +2,7 @@
 using FaitLogic.DTO;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -59,6 +60,14 @@ namespace WebAPI.Controllers
             var yearPlans = yearPlanLogic.GetYearPlans(course);
 
             return Ok(yearPlans);
+        }
+
+        [HttpGet]
+        public IActionResult GetYearPlanByGroup([FromQuery] int groupId)
+        {
+            var yearPlan = yearPlanLogic.GetYearPlanByGroup(groupId);
+
+            return Ok(yearPlan);
         }
     }
 }

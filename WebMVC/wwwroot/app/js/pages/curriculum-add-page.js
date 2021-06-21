@@ -183,13 +183,12 @@ class CurriculumAddPage extends Page {
             });
         }
 
-        async function fetchGroups(course, year) {
+        async function fetchGroups(course) {
             if (course == "") {
                 return;
             }
 
             let url = `api/Group/GetListOfGroups?course=${course}`;
-            url += year ? `&year=${year}` : "";
 
             const response = await fetch(url);
             const groups = await response.json();
