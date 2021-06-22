@@ -83,7 +83,7 @@
         &-field:disabled ~ &-bar::after,
         &-field:disabled ~ &-bar::before,
         &-field:disabled ~ &-label {
-            opacity: .3;
+            opacity: .5;
             transition: all .3s;
         }
 

@@ -109,3 +109,38 @@ function getCurriculumTable(disable = false) {
         </div>
     `;
 }
+
+function getProgressSubjectCell(subject) {
+    return `
+        <li class="progress__row-cell progress__row-cell-subject"><span data-subject-id="${subject.id}">${subject.name}</span></li>
+    `;
+}
+
+function getProgressStudentRow(student, subjects) {
+    return `
+        <div class="progress__row progress__row-student" data-student-id="${student.id}">
+            <div class="progress__row-cell progress__row-cell-student">
+                <span>${student.name}</span>
+            </div>
+            <ul class="progress__row-cell progress__row-cell-marks">
+                ${
+                    subjects.map(s => {
+                        return `
+                            <li class="progress__row-cell progress__row-cell-mark">
+                                <input class="progress__row-cell-input" type="text" value="${student.subjects.find(x => x.id == s.id)?.mark ?? ''}" pattern="[0-9]" data-subject-id="${s.id}" disabled>
+                            </li>
+                        `;
+                    }).join('')
+                }
+            </ul>
+            <div class="progress__row-cell progress__row-cell-final-mark">
+                <span data-student-final>
+                    ${Math.round(student.subjects
+                        .map(x => x.mark)
+                        .reduce((sum, mark) => sum += mark) / student.subjects.length)
+                    }
+                </span>
+            </div>
+        </div>
+    `;
+}
