@@ -4,15 +4,28 @@
 
         i {
             margin-right: 10px;
-            color: rgb(253, 87, 87);
             opacity: .7;
-
             transition: all .3s;
             cursor: pointer;
 
             &:hover {
-                color: rgb(255, 27, 27);
                 opacity: 1
+            }
+        }
+
+        i.add {
+            color: #2cc734;
+            
+            &:hover {
+                color: #009507;
+            }
+        }
+
+        i.remove {
+            color: rgb(253, 87, 87);
+            
+            &:hover {
+                color: rgb(255, 27, 27);
             }
         }
 

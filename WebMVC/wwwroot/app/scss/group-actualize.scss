@@ -1,55 +1,36 @@
 .group__actualize {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 40px;
+    grid-template-columns: repeat(2, minmax(240px, 300px));
+    justify-items: center;
+    justify-content: center;
+    gap: 20px;
 
     &-btn-add {
         margin-top: 5px;
     }
 
-    &-filter {
-        position: relative;
+    // &-filter {
+    //     position: relative;
 
-        &::after {
-            content: "";
-            position: absolute;
+    //     &::after {
+    //         content: "";
+    //         position: absolute;
 
-            top: 0;
-            bottom: 0;
-            right: -24px;
-            width: 1px;
-            background-color: #337ab7;
-            opacity: .3;
-        }
-    }
-
-    &-right {
-        padding-top: 10px;
-
-        &-title {
-            margin: 20px 0;
-        }
-    }
-
-    // &-item {
-    //     margin-left: 15px;
-
-    //     i {
-    //         margin-right: 10px;
-    //         color: rgb(253, 87, 87);
-    //         opacity: .7;
-
-    //         transition: all .3s;
-    //         cursor: pointer;
-
-    //         &:hover {
-    //             color: rgb(255, 27, 27);
-    //             opacity: 1
-    //         }
-    //     }
-
-    //     & + & {
-    //         margin-top: 10px;
+    //         top: 0;
+    //         bottom: 0;
+    //         right: -24px;
+    //         width: 1px;
+    //         background-color: #337ab7;
+    //         opacity: .3;
     //     }
     // }
+
+    &-title {
+        padding: 10px;
+        border-bottom: 1px solid rgb(114, 114, 114);
+    }
+
+    &-items {
+        padding: 10px;
+    }
 }

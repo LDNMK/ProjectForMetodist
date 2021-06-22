@@ -10,59 +10,43 @@ class GroupActualizePage extends Page {
     static get page() {
         return `
             <h1 class="main__page-title">Актуалізування груп</h1>
+            
             <div class="group__actualize">
                 <div class="group__actualize-filter">
-                    <div class="form-element form-select">
-                        <select class="form-element-field" id="group">
-                            <option class="form-select-placeholder" value="" disabled selected></option>
-                        </select>
-                        <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="group">Група</label>
-                    </div>
-                    <div class="main__buttons">
-                        <button class="btn group__actualize-btn-add">
-                            <i class="btn-icon fa fa-plus"></i>
-                            <span class="btn-text">Додати</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="group__actualize-right">
-                    <div class="main__buttons">
-                        <button class="btn group__actualize-btn-actualize">
-                            <i class="btn-icon fas fa-sync-alt"></i>
-                            <span class="btn-text">Актуалізувати</span>
-                        </button>
-                    </div>
-                    <h1 class="group__actualize-right-title">Список груп на актуалізацію</h1>
-                    <ul class="group__actualize-items">
+                    <h1 class="group__actualize-title group__actualize-title-filter">Список неактивних груп</h1>
+                    <ul class="group__actualize-items group__actualize-items-nonactive">
 
                     </ul>
                 </div>
+                <div class="group__actualize-right">
+                    <h1 class="group__actualize-title group__actualize-title-right">Список груп на актуалізацію</h1>
+                    <ul class="group__actualize-items group__actualize-items-to-actulize">
+
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="main__buttons">
+                <button class="btn group__actualize-btn-actualize">
+                    <i class="btn-icon fas fa-sync-alt"></i>
+                    <span class="btn-text">Актуалізувати</span>
+                </button>
             </div>
         `;
     }
 
     static init() {
         this._groupCardSubscribe();
-        subscribeFormElements();
     }
 
     static _groupCardSubscribe() {
-        let list = document.querySelector('.group__actualize-items');
-        let group = document.querySelector('#group');
-
-        const addBtn = document.querySelector('.group__actualize-btn-add');
+        GroupActualizePage._itemsNonActive = document.querySelector('.group__actualize-items-nonactive');
+        GroupActualizePage._itemsToActulize = document.querySelector('.group__actualize-items-to-actulize');
+        
         const actualizeBtn = document.querySelector('.group__actualize-btn-actualize');
 
-        addBtn.addEventListener('click', () => {
-            let item = getGroupItemWithDeleteButton(group.options[group.selectedIndex].text, group.value);
-            if (item) {
-                list.insertAdjacentElement('beforeend', item);
-            }
-        })
-
         actualizeBtn.addEventListener('click', () => {
-            const groupIds = [...list.children]
+            const groupIds = [...GroupActualizePage._itemsToActulize.children]
                 .map(x => +x.getAttribute('data-group-id'))
                 .filter((v, i, a) => a.indexOf(v) === i);
 
@@ -83,8 +67,7 @@ class GroupActualizePage extends Page {
             });
 
             if (response.ok) {
-                list.innerHTML = "";
-                fetchGetNotActiveGroups();
+                GroupActualizePage._itemsToActulize.innerHTML = "";
             }
         }
 
@@ -94,13 +77,26 @@ class GroupActualizePage extends Page {
             });
 
             const groups = await response.json();
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
 
-            group.innerHTML = options.join('');
-            group.classList.remove('-hasValue');
+            GroupActualizePage._itemsNonActive.insertAdjacentHTML("beforeend", groups.map(x => {
+                return getGroupItemWithButton(x.groupName, x.groupId, "add");
+            }).join(''));
+
+            if (groups.length == 0) {
+                GroupActualizePage._itemsNonActive.insertAdjacentHTML("beforeend", '<span>Немає неактивних груп для актуалізації</span>');
+            }
         }
 
         window.onload = fetchGetNotActiveGroups();
+    }
+
+    static addGroupOnGroupActualizationPage(e, buttonKey) {
+        const parent = e.closest('.group__item');
+        const groupId = parent.getAttribute('data-group-id');
+        const groupName = parent.querySelector('span').innerText;
+        parent.remove();
+
+        GroupActualizePage[buttonKey == "add" ? '_itemsNonActive' : '_itemsToActulize']
+            .insertAdjacentHTML('beforeend', getGroupItemWithButton(groupName, groupId, buttonKey));
     }
 }
