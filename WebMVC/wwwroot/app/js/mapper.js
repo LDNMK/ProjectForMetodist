@@ -11,7 +11,7 @@ const mapper = {
     "curriculum--show-page":    CurriculumShowPage,
     "curriculum--add-page":     CurriculumAddPage,
     "transfer--page":           TransferPage,
-    // "progress--page": () => "progress--page not implemented",
+    "progress--page":           ProgressPage,
     "create-report--page":      CreateReportPage,
     "group--add-page":          GroupAddPage,
     "group--actualize-page":    GroupActualizePage,

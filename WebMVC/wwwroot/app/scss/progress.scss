@@ -1,0 +1,16 @@
+.progress {
+    &__grid {
+        display: grid;
+        row-gap: 50px;
+    }
+
+    &__find {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    &__info {
+        width: fit-content;
+        margin: 0 auto;
+    }
+}
