@@ -1,26 +1,27 @@
-function getGroupItemWithDeleteButton(groupName, groupId) {
-    if (groupId == "" || groupName == "") {
+function getGroupItemWithButton(groupName, groupId, buttonKey) {
+    if (groupId == "" || groupName == "" || buttonKey == undefined) {
         return null;
     }
 
-    let item = document.createElement('li');
-    item.classList.add('group__item');
-    item.setAttribute('data-group-id', groupId);
+    const buttons = {
+        "add":      "<i class='add fas fa-plus-square' onClick='GroupActualizePage.addGroupOnGroupActualizationPage(this, \"remove\")'></i>",
+        "remove":   "<i class='remove fas fa-minus-square' onClick='GroupActualizePage.addGroupOnGroupActualizationPage(this, \"add\")'></i>"
+    };
 
-    let delBtn = document.createElement('i');
-    delBtn.classList.add('fas', 'fa-minus-square');
-    delBtn.addEventListener('click', (e) => {
-        e.target.closest('ul').removeChild(item);
-    });
-
-    let span = document.createElement('span');
-    span.innerText = groupName;
-
-    item.insertAdjacentElement('beforeend', delBtn);
-    item.insertAdjacentElement('beforeend', span);
-
-    return item;
+    return `
+        <li class="group__item" data-group-id=${groupId}>
+            ${buttons[buttonKey]}
+            <span>${groupName}</span>
+        </li>
+    `;
 }
+
+// function addGroupToActualization(e) {
+//     console.log('add');
+//     console.log(e);
+// }
+
+
 
 function removeCurriculumRow(e) {
     if (!e.hasAttribute('disabled')) {
