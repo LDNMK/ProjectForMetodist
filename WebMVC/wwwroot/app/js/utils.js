@@ -27,7 +27,7 @@ function addCurriculumRow(item) {
                 </button>
             </div>
             <div class="item">
-                <input class="item__data-subject" data-table-key="name" type="text" value="${item?.subject ?? ""}" ${item ? 'disabled' : ''} data-is-disabled>
+                <input class="item__data-subject" data-table-key="name" type="text" value="${item?.name ?? ""}" ${item ? 'disabled' : ''} data-is-disabled>
             </div>
             <div class="item item__col-2">
                 <div class="item__subitem">
@@ -42,7 +42,7 @@ function addCurriculumRow(item) {
                 </div>
             </div>
             <div class="item item__col-2">
-                <input type="checkbox" data-table-key="isIndividualTaskExistFall" ${item?.isIndividualPlanExistFall ? 'checked' : ''} ${item ? 'disabled' : ''} data-is-disabled>
+                <input type="checkbox" data-table-key="isIndividualTaskExistFall" ${item?.isIndividualTaskExistFall ? 'checked' : ''} ${item ? 'disabled' : ''} data-is-disabled>
                 <select name="control-form-fall" data-table-key="controlTypeFall" id="control-fall" ${item ? 'disabled' : ''} data-is-disabled>
                     <option value="0" ${item?.controlTypeFall == 0 ? 'selected' : ''}></option>
                     <option value="1" ${item?.controlTypeFall == 1 ? 'selected' : ''}>Кредит</option>
@@ -50,7 +50,7 @@ function addCurriculumRow(item) {
                 </select>
             </div>
             <div class="item item__col-2">
-                <input type="checkbox" data-table-key="isIndividualTaskExistSpring" ${item?.isIndividualPlanExistSpring ? 'checked' : ''} ${item ? 'disabled' : ''} data-is-disabled>
+                <input type="checkbox" data-table-key="isIndividualTaskExistSpring" ${item?.isIndividualTaskExistSpring ? 'checked' : ''} ${item ? 'disabled' : ''} data-is-disabled>
                 <select name="control-form-spring" data-table-key="controlTypeSpring" id="control-spring" ${item ? 'disabled' : ''} data-is-disabled>
                     <option value="0" ${item?.controlTypeSpring == 0 ? 'selected' : ''}></option>
                     <option value="1" ${item?.controlTypeSpring == 1 ? 'selected' : ''}>Кредит</option>

@@ -4,7 +4,8 @@ function init() {
     initSidebar();
     // initMainPage();
 
-    setPageByAttribute(MainPage.is);
+    // setPageByAttribute(MainPage.is);
+    setPageByAttribute(CurriculumAddPage.is);
     // CurriculumAddPage.init();
     // subscribeFormElements();
 }
