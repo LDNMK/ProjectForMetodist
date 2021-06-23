@@ -1,27 +1,15 @@
-function getGroupItemWithButton(groupName, groupId, buttonKey) {
-    if (groupId == "" || groupName == "" || buttonKey == undefined) {
+function getGroupItemWithButton(groupName, groupId, button) {
+    if (groupId == "" || groupName == "" || button == undefined) {
         return null;
     }
 
-    const buttons = {
-        "add":      "<i class='add fas fa-plus-square' onClick='GroupActualizePage.addGroupOnGroupActualizationPage(this, \"remove\")'></i>",
-        "remove":   "<i class='remove fas fa-minus-square' onClick='GroupActualizePage.addGroupOnGroupActualizationPage(this, \"add\")'></i>"
-    };
-
     return `
         <li class="group__item" data-group-id=${groupId}>
-            ${buttons[buttonKey]}
+            ${button}
             <span>${groupName}</span>
         </li>
     `;
 }
-
-// function addGroupToActualization(e) {
-//     console.log('add');
-//     console.log(e);
-// }
-
-
 
 function removeCurriculumRow(e) {
     if (!e.hasAttribute('disabled')) {
