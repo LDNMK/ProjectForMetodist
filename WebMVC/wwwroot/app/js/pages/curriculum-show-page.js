@@ -170,6 +170,8 @@ class CurriculumShowPage extends Page {
             planNameInput.value = yearPlan.name;
             planNameInput.classList.add('-hasValue');
 
+            console.log(yearPlan);
+
             yearPlan.subjectInfo.forEach(r => {
                 lastRow.insertAdjacentHTML('beforebegin', addCurriculumRow(r));
             });
@@ -203,7 +205,9 @@ class CurriculumShowPage extends Page {
             const response = await fetch(url);
             const yearPlan = await response.json();
 
-            let options = yearPlan.map(x =>`<option value=${yearPlan.planId}>${yearPlan.planName}</option>`);
+            console.log(yearPlan);
+
+            let options = yearPlan.map(x =>`<option value=${x.planId}>${x.planName}</option>`);
             options.push(optionDefault);
 
             yearPlanSelect.innerHTML = options.join('');

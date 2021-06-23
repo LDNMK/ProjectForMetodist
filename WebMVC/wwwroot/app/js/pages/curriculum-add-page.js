@@ -190,6 +190,8 @@ class CurriculumAddPage extends Page {
                 },
                 body: JSON.stringify(data)
             });
+
+            console.log(response);
         }
 
         async function fetchGroups(course) {

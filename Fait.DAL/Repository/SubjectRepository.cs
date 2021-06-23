@@ -23,7 +23,7 @@ namespace Fait.DAL.Repository
         public List<SubjectSemester> FindSubjectSemesters(int subjectId)
         {
             return dbContext.SubjectSemesters
-                .Where(x => x.Id == subjectId)
+                .Where(x => x.SubjectId == subjectId)
                 .ToList();
         }
 
