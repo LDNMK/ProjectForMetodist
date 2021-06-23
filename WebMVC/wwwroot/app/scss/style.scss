@@ -61,10 +61,10 @@ body {
 }
 
 .sidebar {
-    min-width: 250px;
-    max-width: 360px;
+    position: fixed;
+    width: 250px;
     min-height: 100vh;
-    padding: 40px 20px;
+    padding: 40px 0px;
     background-color: #003586;
     color: #fff;
 
@@ -90,24 +90,20 @@ body {
     }
 
     &__menu {
-        padding: 0px 20px;
         &-item {
-            font-size: 18px;
+            font-size: 20px;
+            padding: 10px 20px 10px 40px;
+            transition: background-color .2s;
+
+            &.active {
+                background-color: #fff;
+                color: #ff0095;
+            }
         }
 
-        &-item + &-item {
-            margin-top: 20px;
-        }
-
-        &-item {
-            &-submenu > & {
-                margin-top: 20px;
-            }
-
-            &-submenu & {
-                padding-left: 20px;
-                font-size: 16px;
-            }
+        &-subitem {
+            padding-left: 70px;
+            font-size: 17px;
         }
 
         &-link {
@@ -120,9 +116,15 @@ body {
 }
 
 .main {
-    min-height: 100vh;
-    margin: 0 auto;
-    padding: 40px 20px;
+    margin-left: 250px;
+    width: 100%;
+
+    &-wrapper {
+        min-height: 100vh;
+        max-width: fit-content;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
 
     &__header {
         text-align: center;
