@@ -112,6 +112,15 @@ class CurriculumAddPage extends Page {
         subscribeFormElements();
     }
 
+    static buttons = {
+        "remove": "<i class='remove fas fa-minus-square' onClick='CurriculumAddPage.removeGroupFromList(this)'></i>"
+    };
+
+    static removeGroupFromList(e) {
+        const parent = e.closest('.group__item');
+        parent.remove();
+    }
+
     static _groupCardSubscribe() {
         const list = document.querySelector('.curriculum__find-groups');
 
@@ -136,9 +145,9 @@ class CurriculumAddPage extends Page {
         });
 
         groupAddBtn.addEventListener('click', () => {
-            let item = getGroupItemWithDeleteButton(groupSelect.options[group.selectedIndex].text, groupSelect.value);
+            let item = getGroupItemWithButton(groupSelect.options[group.selectedIndex].text, groupSelect.value, CurriculumAddPage.buttons['remove']);
             if (item) {
-                list.insertAdjacentElement('beforeend', item);
+                list.insertAdjacentHTML('beforeend', item);
             }
         });
 

@@ -10,7 +10,12 @@ class GroupActualizePage extends Page {
     static get page() {
         return `
             <h1 class="main__page-title">Актуалізування груп</h1>
-            
+            <div class="main__buttons">
+                <button class="btn group__actualize-btn-actualize">
+                    <i class="btn-icon fas fa-sync-alt"></i>
+                    <span class="btn-text">Актуалізувати</span>
+                </button>
+            </div>
             <div class="group__actualize">
                 <div class="group__actualize-filter">
                     <h1 class="group__actualize-title group__actualize-title-filter">Список неактивних груп</h1>
@@ -25,19 +30,17 @@ class GroupActualizePage extends Page {
                     </ul>
                 </div>
             </div>
-            
-            <div class="main__buttons">
-                <button class="btn group__actualize-btn-actualize">
-                    <i class="btn-icon fas fa-sync-alt"></i>
-                    <span class="btn-text">Актуалізувати</span>
-                </button>
-            </div>
         `;
     }
 
     static init() {
         this._groupCardSubscribe();
     }
+
+    static buttons = {
+        "add": "<i class='add fas fa-plus-square' onClick='GroupActualizePage.addGroupToList(this, \"remove\")'></i>",
+        "remove": "<i class='remove fas fa-minus-square' onClick='GroupActualizePage.addGroupToList(this, \"add\")'></i>"
+    };
 
     static _groupCardSubscribe() {
         GroupActualizePage._itemsNonActive = document.querySelector('.group__actualize-items-nonactive');
@@ -71,6 +74,8 @@ class GroupActualizePage extends Page {
             }
         }
 
+        
+
         async function fetchGetNotActiveGroups() {
             const response = await fetch(`api/Group/GetDeactivatedGroups`, {
                 method: 'GET'
@@ -79,7 +84,7 @@ class GroupActualizePage extends Page {
             const groups = await response.json();
 
             GroupActualizePage._itemsNonActive.insertAdjacentHTML("beforeend", groups.map(x => {
-                return getGroupItemWithButton(x.groupName, x.groupId, "add");
+                return getGroupItemWithButton(x.groupName, x.groupId, GroupActualizePage.buttons["add"]);
             }).join(''));
 
             if (groups.length == 0) {
@@ -90,13 +95,13 @@ class GroupActualizePage extends Page {
         window.onload = fetchGetNotActiveGroups();
     }
 
-    static addGroupOnGroupActualizationPage(e, buttonKey) {
+    static addGroupToList(e, buttonKey) {
         const parent = e.closest('.group__item');
         const groupId = parent.getAttribute('data-group-id');
         const groupName = parent.querySelector('span').innerText;
         parent.remove();
 
         GroupActualizePage[buttonKey == "add" ? '_itemsNonActive' : '_itemsToActulize']
-            .insertAdjacentHTML('beforeend', getGroupItemWithButton(groupName, groupId, buttonKey));
+            .insertAdjacentHTML('beforeend', getGroupItemWithButton(groupName, groupId, GroupActualizePage.buttons[buttonKey]));
     }
 }
