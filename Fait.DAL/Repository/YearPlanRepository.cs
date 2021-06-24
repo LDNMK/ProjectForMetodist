@@ -1,25 +1,31 @@
 ﻿using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Fait.DAL.Repository
 {
-    public class YearPlanRepository : IYearPlanRepository
+    public class YearPlanRepository : Repository<YearPlan>, IYearPlanRepository
     {
-        private readonly FAITContext dbContext;
+        //public YearPlanRepository(FAITContext context, IUnitOfWork unitOfWork)
+        //    : base(context, unitOfWork)
+        //{
+        //}
 
         public YearPlanRepository(FAITContext context)
+            : base(context)
         {
-            dbContext = context;
         }
 
         public YearPlan FindYearPlan(int yearPlanId)
         {
-            return dbContext.YearPlans
-                .Where(x => x.Id == yearPlanId)
-                .Single();
+            return FindById(yearPlanId);
+            //return dbContext.YearPlans
+            //    .Where(x => x.Id == yearPlanId)
+            //    .Single();
         }
 
+        //TODO: Change maybe
         public List<YearPlan> GetListOfYearPlans(int course)
         {
             return dbContext.YearPlans
@@ -35,13 +41,17 @@ namespace Fait.DAL.Repository
                 .FirstOrDefault();
         }
 
-        public int AddYearPlan(YearPlan yearPlan)
+        public void AddYearPlan(YearPlan yearPlan)
         {
-            dbContext.YearPlans.Add(yearPlan);
-            dbContext.SaveChanges();
+            base.Add(yearPlan);
+            //dbContext.YearPlans.Add(yearPlan);
+            //dbContext.SaveChanges();
+        }
 
+        public int GetLastYearPlanId()
+        {
             return dbContext.YearPlans
-                .OrderBy(x =>x.Id)
+                .OrderBy(x => x.Id)
                 .LastOrDefault().Id;
         }
     }

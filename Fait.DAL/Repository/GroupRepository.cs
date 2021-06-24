@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Fait.DAL.NotMapped;
 using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,19 +10,21 @@ using System.Linq;
 
 namespace Fait.DAL.Repository
 {
-    public class GroupRepository : IGroupRepository
+    public class GroupRepository : Repository<Group>, IGroupRepository
     {
-        private readonly FAITContext dbContext;
+        //public GroupRepository(FAITContext context, IUnitOfWork unitOfWork)
+        //    : base (context, unitOfWork)
+        //{
+        //}
 
         public GroupRepository(FAITContext context)
+            : base(context)
         {
-            dbContext = context;
         }
 
         public void AddGroup(Group group)
         {
-            dbContext.Groups.Add(group);
-            dbContext.SaveChanges();
+            base.Add(group);
         }
 
         public bool CheckIfGroupExist(int groupNumber, int? groupNameId)
@@ -32,17 +35,19 @@ namespace Fait.DAL.Repository
 
         public Group FindExistingGroup(int groupId)
         {
-            return dbContext.Groups
-                .Where(x => x.Id == groupId)
-                .SingleOrDefault();
+            return base.FindById(groupId);
+            //return dbContext.Groups
+            //    .Where(x => x.Id == groupId)
+            //    .SingleOrDefault();
         }
 
         public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
         {
-            return dbContext.Groups
-                .Include(x => x.GroupPrefix)
-                .Where(x => x.PlanId == yearPlanId)
-                .ToList();
+            return base.Find(x => x.PlanId == yearPlanId);
+            //return dbContext.Groups
+            //    .Include(x => x.GroupPrefix)
+            //    .Where(x => x.PlanId == yearPlanId)
+            //    .ToList();
         }
 
         public ICollection<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds)
@@ -58,27 +63,30 @@ namespace Fait.DAL.Repository
                 .ToList();
         }
 
-        // TODO: NEED TO ADD COLUMN COURSE TO HAVE NORMAL CONDITION!
         public ICollection<Group> GetGroups(int course)
         {
-            return dbContext.Groups
-                .AsNoTracking()
-                .Where(x => x.Actual == true 
-                       && x.Course == course)
-                .ToList();
+            return Find(x => x.Actual == true
+                       && x.Course == course);
+            //return dbContext.Groups
+            //    .AsNoTracking()
+            //    .Where(x => x.Actual == true 
+            //           && x.Course == course)
+            //    .ToList();
         }
 
         public ICollection<Group> GetGroups(int course, int year)
         {
-            return dbContext.Groups
-                .Where(x => x.Plan.Year == year && x.Course == course)
-                .ToList();
+            return Find(x => x.Plan.Year == year 
+                    && x.Course == course);
+
+            //return dbContext.Groups
+            //    .Where(x => x.Plan.Year == year && x.Course == course)
+            //    .ToList();
         }
 
         public void UpdateGroup(Group group)
         {
-            dbContext.Groups.Update(group);
-            dbContext.SaveChanges();
+            base.Update(group);
         }
 
 
@@ -91,30 +99,13 @@ namespace Fait.DAL.Repository
             }
         }
 
-        public int CreateNewGroupName(GroupPrefix groupName)
-        {
-            dbContext.GroupPrefixes.Add(groupName);
-            dbContext.SaveChanges();
-
-            var lastGroupNameId = dbContext.GroupPrefixes
-                .OrderByDescending(x => x.Id)
-                .FirstOrDefault().Id;
-
-            return lastGroupNameId;
-        }
-
-        public int? FindGroupName(string groupName)
-        {
-            return dbContext.GroupPrefixes
-                .SingleOrDefault(x => x.Name == groupName)?.Id;
-        }
-
         public ICollection<Group> GetDeactivatedGroups()
         {
-            return dbContext.Groups
-                 .AsNoTracking()
-                 .Where(x => x.Actual == false)
-                 .ToList();
+            return base.Find(x => x.Actual == false);
+            //return dbContext.Groups
+            //     .AsNoTracking()
+            //     .Where(x => x.Actual == false)
+            //     .ToList();
         }
     }
 }

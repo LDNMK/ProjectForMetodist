@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,25 +12,19 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly IYearPlanRepository yearPlanRepo;
-        private readonly ISubjectRepository subjectRepo;
-        private readonly IGroupRepository groupRepo;
+        private readonly UnitOfWork unitOfWork;
 
         public YearPlanLogic(
             IMapper mapper,
-            IYearPlanRepository yearPlanRepository,
-            IGroupRepository groupRepository,
-            ISubjectRepository subjectRepository)
+            UnitOfWork unitOfWork)
         {
             this.mapper = mapper;
-            yearPlanRepo = yearPlanRepository;
-            groupRepo = groupRepository;
-            subjectRepo = subjectRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public YearPlanDTO ShowYearPlan(int yearPlanId)
         {
-            var yearPlan = yearPlanRepo.FindYearPlan(yearPlanId);
+            var yearPlan = unitOfWork.YearPlanRepository.FindYearPlan(yearPlanId);
 
             //var groupsNames = groupRepo.FindGroupsByYearPlan(yearPlanId).Select(x =>x.GroupPrefix.Name);
             var yearPlanDto = new YearPlanDTO
@@ -40,14 +33,14 @@ namespace FaitLogic.Logic
                 Year = yearPlan.Year
             };
 
-            var subjects = subjectRepo.FindSubjects(yearPlanId);
+            var subjects = unitOfWork.SubjectRepository.FindSubjects(yearPlanId);
 
             var subjectsDto = new List<SubjectDTO>();
             foreach (var subject in subjects)
             {
                 var subj = mapper.Map<Subject, SubjectDTO>(subject);
 
-                var sb = subjectRepo.FindSubjectSemesters(subject.Id);
+                var sb = unitOfWork.SubjectSemesterRepository.FindSubjectSemesters(subject.Id).ToList();
 
                 var autumn = sb.Find(x => x.Semester == (int)SemesterEnum.Autumn);
                 if (autumn != null)
@@ -78,7 +71,9 @@ namespace FaitLogic.Logic
                 Year = yearPlanInfo.Year
             };
 
-            var yearPlanId = yearPlanRepo.AddYearPlan(yearPlan);
+            unitOfWork.YearPlanRepository.AddYearPlan(yearPlan);
+            unitOfWork.Save();
+            var yearPlanId = unitOfWork.YearPlanRepository.GetLastYearPlanId();
 
             foreach (var subject in yearPlanInfo.SubjectInfo)
             {
@@ -90,14 +85,14 @@ namespace FaitLogic.Logic
 
         public ICollection<YearPlanNameWithIdDTO> GetYearPlans(int course)
         {
-            var yearPlans = mapper.Map<List<YearPlan>, List<YearPlanNameWithIdDTO>>(yearPlanRepo.GetListOfYearPlans(course));
+            var yearPlans = mapper.Map<List<YearPlan>, List<YearPlanNameWithIdDTO>>(unitOfWork.YearPlanRepository.GetListOfYearPlans(course));
 
             return yearPlans;
         }
 
         public YearPlanNameWithIdDTO GetYearPlanByGroup(int groupId)
         {
-            var yearPlan = mapper.Map<YearPlan, YearPlanNameWithIdDTO>(yearPlanRepo.GetYearPlanByGroup(groupId));
+            var yearPlan = mapper.Map<YearPlan, YearPlanNameWithIdDTO>(unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId));
 
             return yearPlan;
         }
@@ -107,7 +102,9 @@ namespace FaitLogic.Logic
             var subjectInfo = mapper.Map<SubjectDTO, Subject>(subjectDto);
             subjectInfo.PlanId = yearPlanId;
 
-            var subjectInfoId = subjectRepo.AddSubject(subjectInfo);
+            unitOfWork.SubjectRepository.AddSubject(subjectInfo);
+            unitOfWork.Save();
+            var subjectInfoId = unitOfWork.SubjectRepository.GetLastSubjectId();
 
             if (subjectDto.ControlTypeSpring != (int)MonitoringEnum.SemesterNotExist)
             {
@@ -118,7 +115,7 @@ namespace FaitLogic.Logic
                     IsIndividualTaskExist = subjectDto.IsIndividualTaskExistSpring,
                     Semester = (int)SemesterEnum.Spring
                 };
-                subjectRepo.AddSubjectSemester(springSubject);
+                unitOfWork.SubjectSemesterRepository.AddSubjectSemester(springSubject);
             }
 
             if (subjectDto.ControlTypeFall != (int)MonitoringEnum.SemesterNotExist)
@@ -130,8 +127,9 @@ namespace FaitLogic.Logic
                     IsIndividualTaskExist = subjectDto.IsIndividualTaskExistFall,
                     Semester = (int)SemesterEnum.Autumn
                 };
-                subjectRepo.AddSubjectSemester(autumnSubject);
+                unitOfWork.SubjectSemesterRepository.AddSubjectSemester(autumnSubject);
             }
+            unitOfWork.Save();
         }
     }
 }

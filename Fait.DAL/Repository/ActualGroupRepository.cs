@@ -1,42 +1,45 @@
 ﻿using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Fait.DAL.Repository
 {
-    public class ActualGroupRepository : IActualGroupRepository
+    public class ActualGroupRepository : Repository<ActualGroup>, IActualGroupRepository
     {
-        private readonly FAITContext dbContext;
+        //public ActualGroupRepository(FAITContext context, IUnitOfWork unitOfWork)
+        //    : base(context, unitOfWork)
+        //{
+        //}
 
         public ActualGroupRepository(FAITContext context)
+            : base(context)
         {
-            dbContext = context;
         }
 
         public void AddActualGroup(ActualGroup actualGroup)
         {
-            //TODO: some error
-            dbContext.ActualGroups.Add(actualGroup);
-            dbContext.SaveChanges();
+            base.Add(actualGroup);
         }
 
         public void AddActualGroups(ICollection<ActualGroup> actualGroups)
         {
-            dbContext.ActualGroups.AddRange(actualGroups);
-            dbContext.SaveChanges();
+            base.AddRange(actualGroups);
         }
 
         public ActualGroup FindStudentActualGroup(int studentId)
         {
-            return dbContext.ActualGroups
-                .Where(x => x.StudentId == studentId && x.Group.Actual == true)
+            return base.Find(x => x.StudentId == studentId 
+                && x.Group.Actual == true)
                 .SingleOrDefault();
+            //return dbContext.ActualGroups
+            //    .Where(x => x.StudentId == studentId && x.Group.Actual == true)
+            //    .SingleOrDefault();
         }
 
         public void UpdateActualGroup(ActualGroup group)
         {
-            dbContext.ActualGroups.Update(group);
-            dbContext.SaveChanges();
+            base.Update(group);
         }
     }
 }

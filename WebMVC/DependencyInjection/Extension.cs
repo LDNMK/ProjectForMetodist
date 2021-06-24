@@ -7,14 +7,14 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class Extension
     {
-        public static void AddRepositories(this IServiceCollection services)
-        {
-            services.AddScoped<IStudentCardRepository, StudentCardRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-            services.AddScoped<IYearPlanRepository, YearPlanRepository>();
-            services.AddScoped<IActualGroupRepository, ActualGroupRepository>();
-            services.AddScoped<ISubjectRepository, SubjectRepository>();
-        }
+        //public static void AddRepositories(this IServiceCollection services)
+        //{
+        //    services.AddScoped<IStudentRepository, StudentRepository>();
+        //    services.AddScoped<IGroupRepository, GroupRepository>();
+        //    services.AddScoped<IYearPlanRepository, YearPlanRepository>();
+        //    services.AddScoped<IActualGroupRepository, ActualGroupRepository>();
+        //    services.AddScoped<ISubjectRepository, SubjectRepository>();
+        //}
 
         public static void AddCoreLogic(this IServiceCollection services)
         {

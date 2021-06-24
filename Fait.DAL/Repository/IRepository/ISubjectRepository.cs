@@ -4,12 +4,10 @@ namespace Fait.DAL.Repository.IRepository
 {
     public interface ISubjectRepository
     {
-        List<Subject> FindSubjects(int yearPlanId);
+        ICollection<Subject> FindSubjects(int yearPlanId);
 
-        List<SubjectSemester> FindSubjectSemesters(int subjectId);
+        void AddSubject(Subject subjectInfo);
 
-        int AddSubject(Subject subjectInfo);
-
-        void AddSubjectSemester(SubjectSemester subject);
+        int GetLastSubjectId();
     }
 }

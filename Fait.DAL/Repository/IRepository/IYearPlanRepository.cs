@@ -6,10 +6,12 @@ namespace Fait.DAL.Repository.IRepository
     {
         List<YearPlan> GetListOfYearPlans(int course);
 
-        int AddYearPlan(YearPlan yearPlan);
+        void AddYearPlan(YearPlan yearPlan);
 
         YearPlan FindYearPlan(int yearPlanId);
 
         YearPlan GetYearPlanByGroup(int groupId);
+
+        int GetLastYearPlanId();
     }
 }
