@@ -161,14 +161,17 @@ namespace Fait.DAL
 
             modelBuilder.Entity<Speciality>(entity =>
             {
-                entity.ToTable("specialities");
+                entity.ToTable("Speciality");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("Id");
 
-                entity.Property(e => e.SpecialityName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250)
-                    .HasColumnName("speciality_name");
+                    .HasColumnName("Name");
+
+                entity.Property(e => e.IsOnlyForMasterDegree)
+                    .HasColumnName("IsOnlyForMasterDegree");
             });
 
             modelBuilder.Entity<Student>(entity =>

@@ -20,7 +20,8 @@ namespace Fait.DAL.Repository.UnitOfWork
             ISubjectRepository subjectRepository,
             IYearPlanRepository yearPlanRepository,
             IStudentInfoRepository studentInfoRepository,
-            ISubjectSemesterRepository subjectSemesterRepository)
+            ISubjectSemesterRepository subjectSemesterRepository,
+            ISpecialityRepository specialityRepository)
         {
             dbContext = context;
             repositories = new Dictionary<string, IRepository.IRepository>();
@@ -33,6 +34,8 @@ namespace Fait.DAL.Repository.UnitOfWork
             YearPlanRepository = yearPlanRepository;
             StudentInfoRepository = studentInfoRepository;
             SubjectSemesterRepository = subjectSemesterRepository;
+            SpecialityRepository = specialityRepository;
+
         }
 
         public IActualGroupRepository ActualGroupRepository { get; set; } 
@@ -43,6 +46,7 @@ namespace Fait.DAL.Repository.UnitOfWork
         public IYearPlanRepository YearPlanRepository { get; set; }
         public IStudentInfoRepository StudentInfoRepository { get; set; }
         public ISubjectSemesterRepository SubjectSemesterRepository { get; set; }
+        public ISpecialityRepository SpecialityRepository { get; set; }
 
         private bool disposed = false;
 

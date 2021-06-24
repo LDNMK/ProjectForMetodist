@@ -82,8 +82,6 @@ class StudentCardShowPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality" data-obj-key="specialityId" disabled>
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="speciality">Спеціальність</label>
@@ -158,8 +156,8 @@ class StudentCardShowPage extends Page {
 
                     <div class="form-element form-input">
                         <input id="home" class="form-element-field"
-                            placeholder="Введіть місце проживання/реєстрації" type="text" disabled/>
-                        <div class="form-element-bar" data-obj-key="registration"></div>
+                            placeholder="Введіть місце проживання/реєстрації" type="text" data-obj-key="registration" disabled/>
+                        <div class="form-element-bar" ></div>
                         <label class="form-element-label" for="home">Місце проживання/реєстрації</label>
                     </div>
 
@@ -254,6 +252,7 @@ class StudentCardShowPage extends Page {
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
         const studentSelect = document.querySelector('#student');
+        const specialitySelect = document.querySelector('#speciality');
 
         const yearCheckbox = document.querySelector('#select-year');
         const yearInput = document.querySelector('#year');
@@ -355,9 +354,14 @@ class StudentCardShowPage extends Page {
             const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
             const student = await response.json();
 
+            console.log(student);
+
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
                 x.value = student[x.getAttribute("data-obj-key")];
-                x.classList.add('-hasValue');
+
+                if (x.value) {
+                    x.classList.add('-hasValue');
+                }
             });
 
             console.log(student);
@@ -381,6 +385,19 @@ class StudentCardShowPage extends Page {
 
             // TODO: Check response
         }
+
+        async function fetchSpeciality() {
+            const response = await fetch(`api/StudentCard/GetSpecialities`);
+            const specialities = await response.json();
+
+            let options = specialities.map(x => `<option value=${x.id}>${x.name}</option>`);
+            options.push(optionDefault);
+
+            specialitySelect.innerHTML = options.join('');
+            specialitySelect.classList.remove('-hasValue');
+        }
+
+        window.onload = fetchSpeciality();
     }
 
     static _idsToClear() {
