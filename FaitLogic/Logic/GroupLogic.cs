@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,12 +12,15 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly IGroupRepository groupRepo;
+        private readonly UnitOfWork unitOfWork;
 
-        public GroupLogic(IMapper mapper, IGroupRepository groupRepository)
+        public GroupLogic
+        (
+            IMapper mapper,
+            UnitOfWork unitOfWork)
         {
             this.mapper = mapper;
-            groupRepo = groupRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public void AddGroup(string groupName)
@@ -26,13 +29,15 @@ namespace FaitLogic.Logic
             var newGroupName = parts[0];
             var groupNumber = Convert.ToInt32(parts[1]);
 
-            var groupNameId = groupRepo.FindGroupName(newGroupName);
+            var groupNameId = unitOfWork.GroupPrefixRepository.FindGroupName(newGroupName);
             if (groupNameId == null)
             {
-                groupNameId = groupRepo.CreateNewGroupName(new GroupPrefix { Name = newGroupName });
+                unitOfWork.GroupPrefixRepository.CreateNewGroupName(new GroupPrefix { Name = newGroupName });
+                unitOfWork.Save();
+                groupNameId = unitOfWork.GroupPrefixRepository.GetLastGroupPrefixId();
             }
 
-            var isExisted = groupRepo.CheckIfGroupExist(groupNumber, groupNameId);
+            var isExisted = unitOfWork.GroupRepository.CheckIfGroupExist(groupNumber, groupNameId);
 
             if (isExisted)
             {
@@ -47,7 +52,8 @@ namespace FaitLogic.Logic
                 Course = groupNumber / 10
             };
 
-            groupRepo.AddGroup(newGroup);
+            unitOfWork.GroupRepository.AddGroup(newGroup);
+            unitOfWork.Save();
         }
 
         public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int? year)
@@ -63,20 +69,20 @@ namespace FaitLogic.Logic
             //    groups = groupRepo.GetGroups(course);
             //}
 
-            var groups = year.HasValue ? groupRepo.GetGroups(course, year.Value) : groupRepo.GetGroups(course);
+            var groups = year.HasValue ? unitOfWork.GroupRepository.GetGroups(course, year.Value) : unitOfWork.GroupRepository.GetGroups(course);
 
             var groupIds = groups.Select(X => X.Id);
-            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupsNames(groupIds));
 
             return groupNames;
         }
 
         public ICollection<GroupNameWithIdDTO> GetDeactivatedGroups()
         {
-            var groups = groupRepo.GetDeactivatedGroups();
+            var groups = unitOfWork.GroupRepository.GetDeactivatedGroups();
 
             var groupIds = groups.Select(X => X.Id);
-            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(groupRepo.GetGroupsNames(groupIds));
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupsNames(groupIds));
 
             return groupNames;
         }
@@ -85,10 +91,11 @@ namespace FaitLogic.Logic
         {
             foreach (var groupId in groupsIds)
             {
-                var group = groupRepo.FindExistingGroup(groupId);
+                var group = unitOfWork.GroupRepository.FindExistingGroup(groupId);
                 group.Actual = true;
 
-                groupRepo.UpdateGroup(group);
+                unitOfWork.GroupRepository.UpdateGroup(group);
+                unitOfWork.Save();
             }
         }
 
@@ -102,10 +109,11 @@ namespace FaitLogic.Logic
                     return;
                 }
 
-                var findedGroup = groupRepo.FindExistingGroup(Convert.ToInt32(groupId));
+                var findedGroup = unitOfWork.GroupRepository.FindExistingGroup(Convert.ToInt32(groupId));
                 findedGroup.PlanId = yearPlanId;
 
-                groupRepo.UpdateGroup(findedGroup);
+                unitOfWork.GroupRepository.UpdateGroup(findedGroup);
+                unitOfWork.Save();
             }
         }
     }

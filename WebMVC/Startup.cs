@@ -1,4 +1,7 @@
 using Fait.DAL;
+using Fait.DAL.Repository;
+using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,11 +30,19 @@ namespace WebMVC
             });
 
             services.AddMapper();
-            services.AddDbContext<FAITContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddDbContext<FAITContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")), ServiceLifetime.Scoped);
 
-            services.AddRepositories();
+            //services.AddRepositories();
 
             services.AddCoreLogic();
+
+            services.AddScoped<UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.Scan(scan => 
+                scan.FromAssembliesOf(typeof(IRepository<>))
+                .AddClasses(x => x.AssignableTo(typeof(IRepository<>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

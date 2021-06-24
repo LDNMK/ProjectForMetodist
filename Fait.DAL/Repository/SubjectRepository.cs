@@ -1,46 +1,40 @@
 ﻿using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Fait.DAL.Repository
 {
-    public class SubjectRepository : ISubjectRepository
+    public class SubjectRepository : Repository<Subject>, ISubjectRepository
     {
-        private readonly FAITContext dbContext;
+        //public SubjectRepository(FAITContext context, IUnitOfWork unitOfWork)
+        //    : base(context, unitOfWork)
+        //{
+        //}
 
         public SubjectRepository(FAITContext context)
+            : base(context)
         {
-            dbContext = context;
         }
 
-        public List<Subject> FindSubjects(int yearPlanId)
+        public ICollection<Subject> FindSubjects(int yearPlanId)
         {
-            return dbContext.Subjects
-                .Where(x => x.PlanId == yearPlanId)
-                .ToList();
+            return base.Find(x => x.PlanId == yearPlanId);
+            //return dbContext.Subjects
+            //    .Where(x => x.PlanId == yearPlanId)
+            //    .ToList();
         }
 
-        public List<SubjectSemester> FindSubjectSemesters(int subjectId)
+        public void AddSubject(Subject subjectInfo)
         {
-            return dbContext.SubjectSemesters
-                .Where(x => x.SubjectId == subjectId)
-                .ToList();
+            base.Add(subjectInfo);
         }
 
-        public int AddSubject(Subject subjectInfo)
+        public int GetLastSubjectId()
         {
-            dbContext.Subjects.Add(subjectInfo);
-            dbContext.SaveChanges();
-
             return dbContext.Subjects
                 .OrderBy(x => x.Id)
                 .LastOrDefault().Id;
-        }
-
-        public void AddSubjectSemester(SubjectSemester subject)
-        {
-            dbContext.SubjectSemesters.Add(subject);
-            dbContext.SaveChanges();
         }
     }
 }

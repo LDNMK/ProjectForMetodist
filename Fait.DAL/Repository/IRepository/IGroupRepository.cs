@@ -9,8 +9,6 @@ namespace Fait.DAL.Repository.IRepository
 
         bool CheckIfGroupExist(int groupNumber, int? groupNameId);
 
-        int? FindGroupName(string groupName);
-
         Group FindExistingGroup(int groupId);
 
         ICollection<Group> FindGroupsByYearPlan(int yearPlanId);
@@ -20,8 +18,6 @@ namespace Fait.DAL.Repository.IRepository
         int GetNextGroupOfStudent(int groupId);
 
         void UpdateGroup(Group group);
-
-        int CreateNewGroupName(GroupPrefix groupName);
 
         ICollection<Group> GetGroups(int course, int year);
 

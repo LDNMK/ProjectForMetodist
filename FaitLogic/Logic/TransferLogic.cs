@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.Repository.IRepository;
+using Fait.DAL.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 
@@ -10,25 +10,19 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly IGroupRepository groupRepo;
-        private readonly IStudentCardRepository studentRepo;
-        private readonly IActualGroupRepository actualGroupRepo;
+        private readonly UnitOfWork unitOfWork;
 
         public TransferLogic(
             IMapper mapper,
-            IGroupRepository groupRepository,
-            IStudentCardRepository studentRepository,
-            IActualGroupRepository actualGroupRepository)
+            UnitOfWork unitOfWork)
         {
             this.mapper = mapper;
-            groupRepo = groupRepository;
-            studentRepo = studentRepository;
-            actualGroupRepo = actualGroupRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public void TransferStudent(int studentId, int groupId)
         {
-            var nextGroupId = groupRepo.GetNextGroupOfStudent(groupId);
+            var nextGroupId = unitOfWork.GroupRepository.GetNextGroupOfStudent(groupId);
 
             if(nextGroupId == default)
             {
@@ -41,18 +35,19 @@ namespace FaitLogic.Logic
                 GroupId = nextGroupId
             };
 
-            actualGroupRepo.AddActualGroup(actualGroup);
+            unitOfWork.ActualGroupRepository.AddActualGroup(actualGroup);
+            unitOfWork.Save();
         }
 
         public void TransferGroup(int groupId)
         {
-            var nextGroupId = groupRepo.GetNextGroupOfStudent(groupId);
+            var nextGroupId = unitOfWork.GroupRepository.GetNextGroupOfStudent(groupId);
             if (nextGroupId == default)
             {
                 throw new Exception();
             }
 
-            var listOfStudents = studentRepo.GetAllStudents(groupId);
+            var listOfStudents = unitOfWork.StudentRepository.GetAllStudents(groupId);
             if (listOfStudents == null)
             {
                 throw new Exception();
@@ -67,11 +62,12 @@ namespace FaitLogic.Logic
                     GroupId = nextGroupId
                 });
             }
-            actualGroupRepo.AddActualGroups(actualGroups);
+            unitOfWork.ActualGroupRepository.AddActualGroups(actualGroups);
 
-            var grou = groupRepo.FindExistingGroup(groupId);
+            var grou = unitOfWork.GroupRepository.FindExistingGroup(groupId);
             grou.Actual = false;
-            groupRepo.UpdateGroup(grou);
+            unitOfWork.GroupRepository.UpdateGroup(grou);
+            unitOfWork.Save();
         }
     }
 }
