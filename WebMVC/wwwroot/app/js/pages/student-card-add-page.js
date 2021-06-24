@@ -17,7 +17,7 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="course">
+                            <select class="form-element-field" id="course" data-obj-key="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -28,7 +28,7 @@ class StudentCardAddPage extends Page {
                             <label class="form-element-label" for="course">Курс</label>
                         </div>
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="group">
+                            <select class="form-element-field" id="group" data-obj-key="groupId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                             </select>
                             <div class="form-element-bar"></div>
@@ -37,7 +37,7 @@ class StudentCardAddPage extends Page {
                     </div>
 
                     <div class="form-element form-select">
-                        <select class="form-element-field" id="degree">
+                        <select class="form-element-field" id="degree" data-obj-key="degreeId">
                             <option class="form-select-placeholder" value="" disabled selected></option>
                             <option value="1">Бакалавр</option>
                             <option value="2">Магістр</option>
@@ -50,7 +50,7 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="speciality">
+                            <select class="form-element-field" id="speciality" data-obj-key="specialityId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Test 1</option>
                                 <option value="2">Lorem ipsum dolor</option>
@@ -58,27 +58,20 @@ class StudentCardAddPage extends Page {
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="speciality">Спеціальність</label>
                         </div>
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="specialization">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="specialization">Спеціалізація</label>
-                        </div>
                     </div>
+
+                    <div class="student-card__add-gap"></div>
 
                     <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="surname" data-obj-key="lastName" class="form-element-field"
-                                placeholder="Введіть прізвище" type="text" />
+                                placeholder="Введіть прізвище" type="text"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="surname">Прізвище</label>
                         </div>
                         <div class="form-element form-input">
                             <input id="name" data-obj-key="firstName" class="form-element-field"
-                                placeholder="Введіть ім'я" type="text" />
+                                placeholder="Введіть ім'я" type="text"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="name">Ім'я</label>
                         </div>
@@ -107,13 +100,13 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-input">
-                            <input id="nationality" class="form-element-field" placeholder="Введіть громадянство"
-                                type="text" />
+                            <input id="citizenship" class="form-element-field" placeholder="Введіть громадянство"
+                                type="text" data-obj-key="citizenship"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="nationality">Громадянство</label>
+                            <label class="form-element-label" for="citizenship">Громадянство</label>
                         </div>
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="marital-status">
+                            <select class="form-element-field" id="marital-status" data-obj-key="maritalStatusId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Одружений/Заміжня</option>
                                 <option value="2">Не одружений/Не заміжня</option>
@@ -126,13 +119,13 @@ class StudentCardAddPage extends Page {
                     <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="home" class="form-element-field"
-                                placeholder="Введіть місце проживання/реєстрації" type="text" />
+                                placeholder="Введіть місце проживання/реєстрації" type="text" data-obj-key="registration"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="home">Місце проживання/реєстрації</label>
                         </div>
                         <div class="form-element form-input">
                             <input id="benefits" class="form-element-field" placeholder="Введіть пільги якщо є"
-                                type="text" />
+                                type="text" data-obj-key="exemption"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
                         </div>
@@ -141,13 +134,13 @@ class StudentCardAddPage extends Page {
                     <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="order-date" class="form-element-field" placeholder="Введіть дату зарахування"
-                                type="date" />
+                                type="date" data-obj-key="orderDate"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="order-date">Зарахований(а) наказом від</label>
                         </div>
                         <div class="form-element form-input">
                             <input id="order-number" class="form-element-field" placeholder="Введіть №"
-                                type="number" />
+                                type="number" data-obj-key="orderNumber"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="order-number">№</label>
                         </div>
@@ -155,7 +148,7 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="experience">
+                            <select class="form-element-field" id="experience" data-obj-key="experienceCompetitionId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Із стажем</option>
                                 <option value="2">Без стажу</option>
@@ -164,50 +157,45 @@ class StudentCardAddPage extends Page {
                             <label class="form-element-label" for="experience">1. За конкурсом</label>
                         </div>
                         <div class="form-element form-input">
-                            <!-- Change id and for attributes -->
-                            <input id="change1" class="form-element-field"
-                                placeholder="Введіть порядок переведення з" type="text" />
+                            <input id="transferFrom" class="form-element-field"
+                                placeholder="Введіть порядок переведення з" type="text" data-obj-key="transferFrom"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="change1">2. У порядку переведення з</label>
+                            <label class="form-element-label" for="transferFrom">2. У порядку переведення з</label>
                         </div>
                     </div>
 
                     <div class="main__col-2">
                         <div class="form-element form-input">
-                            <!-- Change id and for attributes -->
-                            <input id="change2" class="form-element-field" placeholder="Введіть направленням"
-                                type="text" />
+                            <input id="transfer-direction" class="form-element-field" placeholder="Введіть направленням"
+                                type="text" data-obj-key="transferDirection"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="change2">3. За направленням</label>
+                            <label class="form-element-label" for="transfer-direction">3. За направленням</label>
                         </div>
                         <div class="form-element form-input">
-                            <!-- Change id and for attributes -->
-                            <input id="change3" class="form-element-field" placeholder="Введіть особливі умови"
-                                type="text" />
+                            <input id="competition-conditions" class="form-element-field" placeholder="Введіть особливі умови"
+                                type="text" data-obj-key="competitionConditions"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="change3">4. За особливими умовами участі у
+                            <label class="form-element-label" for="competition-conditions">4. За особливими умовами участі у
                                 конкурсі</label>
                         </div>
                     </div>
 
                     <div class="main__col-2">
                         <div class="form-element form-input">
-                            <!-- Change id and for attributes -->
-                            <input id="change4" class="form-element-field"
-                                placeholder="Введіть поза конкурсом" type="text" />
+                            <input id="out-of-competitionInfo" class="form-element-field"
+                                placeholder="Введіть поза конкурсом" type="text" data-obj-key="outOfCompetitionInfo"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="change4">5. Поза конкурсом</label>
+                            <label class="form-element-label" for="out-of-competitionInfo">5. Поза конкурсом</label>
                         </div>
                         <div class="form-element form-select">
-                            <!-- Change id and for attributes -->
-                            <select class="form-element-field" id="change5">
+                            <select class="form-element-field" id="amends" data-obj-key="amendsId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Державний кредит</option>
                                 <option value="2">Фізична особа</option>
                                 <option value="3">Юридичная особа</option>
                             </select>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="change5">6. На умовах повного
+                            <label class="form-element-label" for="amends">6. На умовах повного
                                 відшкодування</label>
                         </div>
                     </div>
@@ -215,30 +203,30 @@ class StudentCardAddPage extends Page {
                     <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="employment-number" class="form-element-field" placeholder="Введіть №"
-                                type="number" />
+                                type="number" data-obj-key="employmentNumber"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="employment-number">Трудова книжка №</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="employment-date" class="form-element-field" placeholder="Введіть дату видачі"
-                                type="date" />
+                            <input id="employment-given-date" class="form-element-field" placeholder="Введіть дату видачі"
+                                type="date" data-obj-key="employmentGivenDate"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="employment-date">Дата видачі</label>
+                            <label class="form-element-label" for="employment-given-date">Дата видачі</label>
                         </div>
                         <div class="form-element form-input">
-                            <input id="employment-issued" class="form-element-field"
-                                placeholder="Введіть ким видано" type="text" />
+                            <input id="employment-authority" class="form-element-field"
+                                placeholder="Введіть ким видано" type="text" data-obj-key="employmentAuthority"/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="employment-issued">Ким видано</label>
+                            <label class="form-element-label" for="employment-authority">Ким видано</label>
                         </div>
                     </div>
 
                     <div class="form-element form-input">
-                        <input id="registration-number" class="form-element-field"
+                        <input id="registr-or-passport-number" class="form-element-field"
                             placeholder="Введіть реєстраційний номер облікової картки платника податків або серію та номер паспорту"
-                            type="text" />
+                            type="text" data-obj-key="registrOrPassportNumber"/>
                         <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="registration-number">Реєстраційний номер облікової
+                        <label class="form-element-label" for="registr-or-passport-number">Реєстраційний номер облікової
                             картки платника податків або серія та номер паспорту</label>
                     </div>
 
@@ -328,21 +316,6 @@ class StudentCardAddPage extends Page {
 
             // TODO: Process response
         }
-
-
-        // Delete
-        //year.value = 2021;
-        //year.classList.add('-hasValue');
-
-        //courseSelect.value = "1"
-        //courseSelect.classList.add('-hasValue');
-
-        let event = new Event("change");
-        courseSelect.dispatchEvent(event);
-
-
-        // Init selects
-        
     }
 }
 
