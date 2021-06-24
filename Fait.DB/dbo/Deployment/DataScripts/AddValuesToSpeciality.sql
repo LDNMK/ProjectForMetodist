@@ -1,20 +1,20 @@
 ﻿
-SET IDENTITY_INSERT [specialities] ON
+SET IDENTITY_INSERT [Speciality] ON
 
-MERGE INTO [specialities] AS o
+MERGE INTO [Speciality] AS o
 USING (SELECT *
 	FROM
 	(
 		VALUES
-			(1, '122 - Комп`ютерні науки'),
-			(2, '126 - Інформаційні системи та технології'),	
-			(3, '121 - Інформаційне програмне забезпечення (магістри)')
+			(1, '122 - Комп`ютерні науки', 0),
+			(2, '126 - Інформаційні системи та технології', 0),	
+			(3, '121 - Інформаційне програмне забезпечення (магістри)', 1)
 	)
-	SOURCE (Id, [speciality_name])) AS n
+	SOURCE (Id, [Name], IsOnlyForMasterDegree)) AS n
 ON o.Id = n.Id
 WHEN NOT MATCHED BY TARGET THEN
-	INSERT (Id, [speciality_name])
-	VALUES (n.Id, n.[speciality_name]);
+	INSERT (Id, [Name], IsOnlyForMasterDegree)
+	VALUES (n.Id, n.[Name], n.IsOnlyForMasterDegree);
 
-SET IDENTITY_INSERT [specialities] OFF
+SET IDENTITY_INSERT [Speciality] OFF
 GO

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
+using FaitLogic.Enums;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -48,6 +50,15 @@ namespace WebAPI.Controllers
         public IActionResult ShowStudentInfo(int studentId)
         {
             var result = _mapper.Map<StudentCardModel>(studentInfoLogic.GetStudentInfo(studentId));
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult GetSpecialities(int degreeId)
+        {
+            var isOnlyForMasterDegree = degreeId == (int)DegreeEnum.Master;
+            var result = _mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(isOnlyForMasterDegree));
 
             return Ok(result);
         }

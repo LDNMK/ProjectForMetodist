@@ -49,5 +49,9 @@ public class MappingProfile : Profile
         // Group mapping
         CreateMap<GroupNameWithId, GroupNameWithIdDTO>().ReverseMap();
 
+        // Speciality mapping
+        CreateMap<SpecialityModel, SpecialityDTO>().ReverseMap();
+        CreateMap<SpecialityDTO, Speciality>().ReverseMap();
+
     }
 }

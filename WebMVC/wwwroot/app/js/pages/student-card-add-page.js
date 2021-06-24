@@ -48,16 +48,12 @@ class StudentCardAddPage extends Page {
                             рівень</label>
                     </div>
 
-                    <div class="main__col-2">
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="speciality" data-obj-key="specialityId">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Test 1</option>
-                                <option value="2">Lorem ipsum dolor</option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="speciality">Спеціальність</label>
-                        </div>
+                    <div class="form-element form-select">
+                        <select class="form-element-field" id="speciality" data-obj-key="specialityId">
+                            <option class="form-select-placeholder" value="" disabled selected></option>
+                        </select>
+                        <div class="form-element-bar"></div>
+                        <label class="form-element-label" for="speciality">Спеціальність</label>
                     </div>
 
                     <div class="student-card__add-gap"></div>
@@ -272,6 +268,8 @@ class StudentCardAddPage extends Page {
 
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
+        const degreeSelect = document.querySelector('#degree');
+        const specialitySelect = document.querySelector('#speciality');
 
         saveBtn.addEventListener('click', () => {
             fetchStudentSave();
@@ -280,6 +278,21 @@ class StudentCardAddPage extends Page {
         courseSelect.addEventListener('change', () => {
             fetchGroups(courseSelect.value);
         })
+
+        degreeSelect.addEventListener('change', () =>{
+            fetchSpecialities(degree.value);
+        });
+
+        async function fetchSpecialities(degreeId) {
+            const response = await fetch(`api/StudentCard/GetSpecialities?degreeId=${degreeId}`);
+            const specialities = await response.json();
+
+            let options = specialities.map(x => `<option value=${x.id}>${x.name}</option>`);
+            options.push(optionDefault);
+
+            specialitySelect.innerHTML = options.join('');
+            specialitySelect.classList.remove('-hasValue');
+        }
 
         async function fetchGroups(course) {
             if (course == "") {

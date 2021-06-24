@@ -72,7 +72,7 @@
     <Build Include="dbo\Tables\Groups.sql" />
     <Build Include="dbo\Tables\marital_statuses.sql" />
     <Build Include="dbo\Tables\marks.sql" />
-    <Build Include="dbo\Tables\specialities.sql" />
+    <Build Include="dbo\Tables\Speciality.sql" />
     <Build Include="dbo\Tables\student_states.sql" />
     <Build Include="dbo\Tables\students.sql" />
     <Build Include="dbo\Tables\students_info.sql" />

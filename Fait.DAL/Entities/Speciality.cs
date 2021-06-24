@@ -13,7 +13,10 @@ namespace Fait.DAL
         }
 
         public int Id { get; set; }
-        public string SpecialityName { get; set; }      // специальность
+
+        public string Name { get; set; }                            // Название специальности
+
+        public bool IsOnlyForMasterDegree { get; set; } = false;    // Фильтр для магистров
 
         public virtual ICollection<Student> Students { get; set; }
     }

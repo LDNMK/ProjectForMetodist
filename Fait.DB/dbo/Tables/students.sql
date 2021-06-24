@@ -6,7 +6,7 @@
     [patronymic]    NVARCHAR (60) NOT NULL,
     [student_state_id] TINYINT       DEFAULT ((1)) NOT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),
-    FOREIGN KEY ([speciality_id]) REFERENCES [dbo].[specialities] ([id]),
+    FOREIGN KEY ([speciality_id]) REFERENCES [dbo].[Speciality] ([Id]),
     FOREIGN KEY ([student_state_id]) REFERENCES [dbo].[student_states] ([id])
 );
 

@@ -86,8 +86,15 @@ namespace FaitLogic.Logic
             studentFullInfo.FirstName = student.FirstName;
             studentFullInfo.Patronymic = student.Patronymic;
             studentFullInfo.StudentStateId = student.StudentStateId;
+            studentFullInfo.SpecialityId = student.SpecialityId;
 
             return studentFullInfo;
+        }
+
+        public ICollection<SpecialityDTO> GetSpecialities(bool isOnlyForMasterDegree)
+        {
+            var specialities = unitOfWork.SpecialityRepository.GetSpecialities(isOnlyForMasterDegree);
+            return _mapper.Map<ICollection<Speciality>, ICollection<SpecialityDTO>>(specialities); ;
         }
     }
 }
