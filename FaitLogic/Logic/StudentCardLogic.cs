@@ -12,11 +12,11 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper _mapper;
 
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public StudentCardLogic(
             IMapper mapper,
-            UnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             this.unitOfWork = unitOfWork;

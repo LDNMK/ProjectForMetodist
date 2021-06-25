@@ -10,43 +10,120 @@ namespace Fait.DAL.Repository.UnitOfWork
     {
         private readonly FAITContext dbContext;
 
-        private readonly Dictionary<string, IRepository.IRepository> repositories;
-        public UnitOfWork(
-            FAITContext context,
-            IActualGroupRepository actualGroupRepository,
-            IGroupRepository groupRepository,
-            IGroupPrefixRepository groupPrefixRepository,
-            IStudentRepository studentRepository,
-            ISubjectRepository subjectRepository,
-            IYearPlanRepository yearPlanRepository,
-            IStudentInfoRepository studentInfoRepository,
-            ISubjectSemesterRepository subjectSemesterRepository,
-            ISpecialityRepository specialityRepository)
+        private IActualGroupRepository actualGroupRepository;
+        private IGroupRepository groupRepository;
+        private IGroupPrefixRepository groupPrefixRepository;
+        private IStudentRepository studentRepository;
+        private ISubjectRepository subjectRepository;
+        private IYearPlanRepository yearPlanRepository;
+        private IStudentInfoRepository studentInfoRepository;
+        private ISubjectSemesterRepository subjectSemesterRepository;
+        private IProgressRepository progressRepository;
+
+        public UnitOfWork(FAITContext context)
         {
             dbContext = context;
-            repositories = new Dictionary<string, IRepository.IRepository>();
-
-            ActualGroupRepository = actualGroupRepository;
-            GroupRepository = groupRepository;
-            GroupPrefixRepository = groupPrefixRepository;
-            StudentRepository = studentRepository;
-            SubjectRepository = subjectRepository;
-            YearPlanRepository = yearPlanRepository;
-            StudentInfoRepository = studentInfoRepository;
-            SubjectSemesterRepository = subjectSemesterRepository;
-            SpecialityRepository = specialityRepository;
-
         }
 
-        public IActualGroupRepository ActualGroupRepository { get; set; } 
-        public IGroupRepository GroupRepository { get; set; }
-        public IGroupPrefixRepository GroupPrefixRepository { get; set; }
-        public IStudentRepository StudentRepository { get; set; }
-        public ISubjectRepository SubjectRepository { get; set; }
-        public IYearPlanRepository YearPlanRepository { get; set; }
-        public IStudentInfoRepository StudentInfoRepository { get; set; }
-        public ISubjectSemesterRepository SubjectSemesterRepository { get; set; }
-        public ISpecialityRepository SpecialityRepository { get; set; }
+        public IActualGroupRepository ActualGroupRepository 
+        {
+            get
+            {
+                if (this.actualGroupRepository == null)
+                {
+                    this.actualGroupRepository = new ActualGroupRepository(dbContext);
+                }
+                return actualGroupRepository;
+            }
+        } 
+        public IGroupRepository GroupRepository 
+        {
+            get
+            {
+                if (this.groupRepository == null)
+                {
+                    this.groupRepository = new GroupRepository(dbContext);
+                }
+                return groupRepository;
+            }
+        }
+        public IGroupPrefixRepository GroupPrefixRepository 
+        {
+            get
+            {
+                if (this.groupPrefixRepository == null)
+                {
+                    this.groupPrefixRepository = new GroupPrefixRepository(dbContext);
+                }
+                return groupPrefixRepository;
+            }
+        }
+        public IStudentRepository StudentRepository 
+        {
+            get
+            {
+                if (this.studentRepository == null)
+                {
+                    this.studentRepository = new StudentRepository(dbContext);
+                }
+                return studentRepository;
+            }
+        }
+        public ISubjectRepository SubjectRepository 
+        {
+            get
+            {
+                if (this.subjectRepository == null)
+                {
+                    this.subjectRepository = new SubjectRepository(dbContext);
+                }
+                return subjectRepository;
+            }
+        }
+        public IYearPlanRepository YearPlanRepository 
+        {
+            get
+            {
+                if (this.yearPlanRepository == null)
+                {
+                    this.yearPlanRepository = new YearPlanRepository(dbContext);
+                }
+                return yearPlanRepository;
+            }
+        }
+        public IStudentInfoRepository StudentInfoRepository 
+        {
+            get
+            {
+                if (this.studentInfoRepository == null)
+                {
+                    this.studentInfoRepository = new StudentInfoRepository(dbContext);
+                }
+                return studentInfoRepository;
+            }
+        }
+        public ISubjectSemesterRepository SubjectSemesterRepository 
+        {
+            get
+            {
+                if (this.subjectSemesterRepository == null)
+                {
+                    this.subjectSemesterRepository = new SubjectSemesterRepository(dbContext);
+                }
+                return subjectSemesterRepository;
+            }
+        }
+        public IProgressRepository  ProgressRepository 
+        {
+            get
+            {
+                if (this.progressRepository == null)
+                {
+                    this.progressRepository = new ProgressRepository(dbContext);
+                }
+                return progressRepository;
+            }
+        }
 
         private bool disposed = false;
 
@@ -71,11 +148,6 @@ namespace Fait.DAL.Repository.UnitOfWork
         public void Save()
         {
             dbContext.SaveChanges();
-        }
-
-        public void Register(IRepository.IRepository repository)
-        {
-            repositories.Add(repository.GetType().Name, repository);
         }
     }
 }

@@ -12,11 +12,11 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper mapper;
 
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public YearPlanLogic(
             IMapper mapper,
-            UnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;

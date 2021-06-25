@@ -12,11 +12,6 @@ namespace Fait.DAL.Repository
 {
     public class GroupRepository : Repository<Group>, IGroupRepository
     {
-        //public GroupRepository(FAITContext context, IUnitOfWork unitOfWork)
-        //    : base (context, unitOfWork)
-        //{
-        //}
-
         public GroupRepository(FAITContext context)
             : base(context)
         {
