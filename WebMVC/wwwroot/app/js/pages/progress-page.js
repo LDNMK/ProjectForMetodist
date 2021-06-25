@@ -119,81 +119,6 @@ class ProgressPage extends Page {
         });
 
         progressFindBtn.addEventListener('click', () => {
-            //let response = {
-            //    'subjects': [
-            //        {
-            //            'name': 'ПрІС',
-            //            'id': 1
-            //        },
-            //        {
-            //            'name': 'Веб програмування',
-            //            'id': 2
-            //        },
-            //        {
-            //            'name': 'ЕлкСх',
-            //            'id': 3
-            //        },
-            //        {
-            //            'name': 'Фізкультура',
-            //            'id': 4
-            //        },
-            //        {
-            //            'name': 'Теорія Алгоритмів',
-            //            'id': 5
-            //        }
-            //    ],
-            //    'students': [
-            //        {
-            //            'id': 1,
-            //            'name': 'Гуржій Анастасія Олександрівна',
-            //            'subjects': [
-            //                {
-            //                    'id': 5,
-            //                    'mark': 2
-            //                },
-            //                {
-            //                    'id': 2,
-            //                    'mark': 60
-            //                },
-            //                {
-            //                    'id': 3,
-            //                    'mark': 88
-            //                },
-            //                {
-            //                    'id': 4,
-            //                    'mark': 95
-            //                },
-            //                {
-            //                    'id': 1,
-            //                    'mark': 78
-            //                }
-            //            ]
-            //        },
-            //        {
-            //            'id': 2,
-            //            'name': 'Сидорчук Владислав Геннадійович',
-            //            'subjects': [
-            //                {
-            //                    'id': 1,
-            //                    'mark': 100
-            //                },
-            //                {
-            //                    'id': 3,
-            //                    'mark': 80
-            //                },
-            //                {
-            //                    'id': 4,
-            //                    'mark': 90
-            //                },
-            //                {
-            //                    'id': 5,
-            //                    'mark': 43
-            //                }
-            //            ]
-            //        }
-            //    ]
-            //};
-
             // get plan
             fetchPlan(yearInput.value, groupSelect.value, semestrSelect.value);
         });
@@ -265,6 +190,19 @@ class ProgressPage extends Page {
 
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
+        };
+
+        async function updateProgress() {
+
+            let progress
+
+            const response = await fetch(`api/Progress/UpdateProgress`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(progress)
+            });
         };
     }
 }

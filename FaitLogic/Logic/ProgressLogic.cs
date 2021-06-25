@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Fait.DAL;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using System;
@@ -84,7 +85,31 @@ namespace FaitLogic.Logic
 
         public void UpdateProgress(ProgressDTO progress)
         {
+            foreach (var studentWithMark in progress.Students)
+            {
 
+                foreach (var studentSubject in studentWithMark.Subjects)
+                {
+                    var mark = unitOfWork.ProgressRepository.FindMark(studentSubject.Id, studentWithMark.Id);
+                    if(mark == null)
+                    {
+                        var studentMark = new Mark
+                        {
+                            StudentId = studentWithMark.Id,
+                            SubjectId = studentSubject.Id,
+                            SubjectMark = (byte)studentSubject.Mark
+                        };
+
+                        unitOfWork.ProgressRepository.AddMark(studentMark);
+                    }
+                    else
+                    {
+                        mark.SubjectMark = (byte)studentSubject.Mark;
+                        unitOfWork.ProgressRepository.UpdateMark(mark);
+                    }
+                    unitOfWork.Save();
+                }
+            }
         }
     }
 }
