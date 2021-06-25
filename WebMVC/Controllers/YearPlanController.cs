@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class YearPlanController : ControllerBase
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper mapper;
 
         private readonly YearPlanLogic yearPlanLogic;
         private readonly GroupLogic groupLogic;
@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
             YearPlanLogic yearPlanLogic, 
             GroupLogic groupLogic)
         {
-            _mapper = mapper;
+            this.mapper = mapper;
             this.yearPlanLogic = yearPlanLogic;
             this.groupLogic = groupLogic;
         }
@@ -29,14 +29,22 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult AddYearPlan([FromBody] YearPlanModel yearPlanModel)
         {
-            var yearPlanId = yearPlanLogic.AddYearPlan(_mapper.Map<YearPlanDTO>(yearPlanModel));
+            var yearPlanId = yearPlanLogic.AddYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel));
 
             if (yearPlanId == null)
             {
                 return BadRequest();
             }
 
-            //groupLogic.SetYearPlan(yearPlanModel.GroupIds, yearPlanId.Value);
+            groupLogic.SetYearPlan(yearPlanModel.GroupIds, yearPlanId.Value);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult UpdateYearPlan([FromBody] YearPlanModel yearPlanModel, [FromQuery]int yearPlanId)
+        {
+            yearPlanLogic.UpdateYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel), yearPlanId);
 
             return Ok();
         }
@@ -44,7 +52,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult ShowYearPlan(int yearPlanId)
         {
-            var yearPlan = _mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId));
+            var yearPlan = mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId));
 
             if (yearPlan == null)
             {

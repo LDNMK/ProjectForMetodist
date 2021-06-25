@@ -23,5 +23,10 @@ namespace Fait.DAL.Repository
         {
             base.Add(subject);
         }
+
+        public void DeleteSubjectSemester(SubjectSemester subject)
+        {
+            base.Delete(subject);
+        }
     }
 }

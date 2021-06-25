@@ -9,5 +9,7 @@ namespace Fait.DAL.Repository.IRepository
         ICollection<SubjectSemester> FindSubjectSemesters(int subjectId);
 
         void AddSubjectSemester(SubjectSemester subject);
+
+        void DeleteSubjectSemester(SubjectSemester subject);
     }
 }

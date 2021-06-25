@@ -154,8 +154,26 @@ class CurriculumShowPage extends Page {
         });
 
         curriculumSaveBtn.addEventListener('click', () => {
-            console.log(save);
+            updateYearPlan(yearPlanSelect.value);
         });
+
+        async function updateYearPlan(yearPlanId) {
+            if (yearPlanId == "") {
+                return;
+            }
+
+            console.log(yearPlan);
+
+            let yearPlan //
+
+            const response = await fetch(`api/YearPlan/UpdateYearPlan?yearPlanId=${yearPlanId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(yearPlan)
+            });
+        };
 
         async function fetchYearPlan(yearPlanId) {
             if (yearPlanId == "") {
