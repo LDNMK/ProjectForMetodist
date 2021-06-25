@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
         public IActionResult GetSpecialities(int degreeId)
         {
             var isOnlyForMasterDegree = degreeId == (int)DegreeEnum.Master;
-            var result = _mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(isOnlyForMasterDegree));
+            var result = mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(isOnlyForMasterDegree));
 
             return Ok(result);
         }

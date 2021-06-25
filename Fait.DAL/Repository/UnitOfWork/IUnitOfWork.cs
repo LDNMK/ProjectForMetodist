@@ -6,15 +6,16 @@ namespace Fait.DAL.Repository.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        public IActualGroupRepository ActualGroupRepository { get; }
-        public IGroupRepository GroupRepository { get; }
-        public IGroupPrefixRepository GroupPrefixRepository { get; }
-        public IStudentRepository StudentRepository { get; }
-        public ISubjectRepository SubjectRepository { get; }
-        public IYearPlanRepository YearPlanRepository { get; }
-        public IStudentInfoRepository StudentInfoRepository { get; }
-        public ISubjectSemesterRepository SubjectSemesterRepository { get; }
-        public IProgressRepository ProgressRepository { get; }
+        IActualGroupRepository ActualGroupRepository { get; }
+        IGroupRepository GroupRepository { get; }
+        IGroupPrefixRepository GroupPrefixRepository { get; }
+        IStudentRepository StudentRepository { get; }
+        ISubjectRepository SubjectRepository { get; }
+        IYearPlanRepository YearPlanRepository { get; }
+        IStudentInfoRepository StudentInfoRepository { get; }
+        ISubjectSemesterRepository SubjectSemesterRepository { get; }
+        IProgressRepository ProgressRepository { get; }
+        ISpecialityRepository SpecialityRepository { get; }
 
         void Save();
     }

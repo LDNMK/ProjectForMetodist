@@ -94,7 +94,7 @@ namespace FaitLogic.Logic
         public ICollection<SpecialityDTO> GetSpecialities(bool isOnlyForMasterDegree)
         {
             var specialities = unitOfWork.SpecialityRepository.GetSpecialities(isOnlyForMasterDegree);
-            return _mapper.Map<ICollection<Speciality>, ICollection<SpecialityDTO>>(specialities); ;
+            return _mapper.Map<ICollection<Speciality>, ICollection<SpecialityDTO>>(specialities);
         }
     }
 }
