@@ -1,10 +1,22 @@
-﻿using System;
+﻿using Fait.DAL.Repository.IRepository;
+using System;
 using System.Collections.Generic;
 
 namespace Fait.DAL.Repository.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        void Register(IRepository.IRepository repository);
+        IActualGroupRepository ActualGroupRepository { get; }
+        IGroupRepository GroupRepository { get; }
+        IGroupPrefixRepository GroupPrefixRepository { get; }
+        IStudentRepository StudentRepository { get; }
+        ISubjectRepository SubjectRepository { get; }
+        IYearPlanRepository YearPlanRepository { get; }
+        IStudentInfoRepository StudentInfoRepository { get; }
+        ISubjectSemesterRepository SubjectSemesterRepository { get; }
+        IProgressRepository ProgressRepository { get; }
+        ISpecialityRepository SpecialityRepository { get; }
+
+        void Save();
     }
 }

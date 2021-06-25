@@ -119,91 +119,83 @@ class ProgressPage extends Page {
         });
 
         progressFindBtn.addEventListener('click', () => {
-            let response = {
-                'subjects': [
-                    {
-                        'name': 'ПрІС',
-                        'id': 1
-                    },
-                    {
-                        'name': 'Веб програмування',
-                        'id': 2
-                    },
-                    {
-                        'name': 'ЕлкСх',
-                        'id': 3
-                    },
-                    {
-                        'name': 'Фізкультура',
-                        'id': 4
-                    },
-                    {
-                        'name': 'Теорія Алгоритмів',
-                        'id': 5
-                    }
-                ],
-                'students': [
-                    {
-                        'id': 1,
-                        'name': 'Гуржій Анастасія Олександрівна',
-                        'subjects': [
-                            {
-                                'id': 5,
-                                'mark': 2
-                            },
-                            {
-                                'id': 2,
-                                'mark': 60
-                            },
-                            {
-                                'id': 3,
-                                'mark': 88
-                            },
-                            {
-                                'id': 4,
-                                'mark': 95
-                            },
-                            {
-                                'id': 1,
-                                'mark': 78
-                            }
-                        ]
-                    },
-                    {
-                        'id': 2,
-                        'name': 'Сидорчук Владислав Геннадійович',
-                        'subjects': [
-                            {
-                                'id': 1,
-                                'mark': 100
-                            },
-                            {
-                                'id': 3,
-                                'mark': 80
-                            },
-                            {
-                                'id': 4,
-                                'mark': 90
-                            },
-                            {
-                                'id': 5,
-                                'mark': 43
-                            }
-                        ]
-                    }
-                ]
-            };
+            //let response = {
+            //    'subjects': [
+            //        {
+            //            'name': 'ПрІС',
+            //            'id': 1
+            //        },
+            //        {
+            //            'name': 'Веб програмування',
+            //            'id': 2
+            //        },
+            //        {
+            //            'name': 'ЕлкСх',
+            //            'id': 3
+            //        },
+            //        {
+            //            'name': 'Фізкультура',
+            //            'id': 4
+            //        },
+            //        {
+            //            'name': 'Теорія Алгоритмів',
+            //            'id': 5
+            //        }
+            //    ],
+            //    'students': [
+            //        {
+            //            'id': 1,
+            //            'name': 'Гуржій Анастасія Олександрівна',
+            //            'subjects': [
+            //                {
+            //                    'id': 5,
+            //                    'mark': 2
+            //                },
+            //                {
+            //                    'id': 2,
+            //                    'mark': 60
+            //                },
+            //                {
+            //                    'id': 3,
+            //                    'mark': 88
+            //                },
+            //                {
+            //                    'id': 4,
+            //                    'mark': 95
+            //                },
+            //                {
+            //                    'id': 1,
+            //                    'mark': 78
+            //                }
+            //            ]
+            //        },
+            //        {
+            //            'id': 2,
+            //            'name': 'Сидорчук Владислав Геннадійович',
+            //            'subjects': [
+            //                {
+            //                    'id': 1,
+            //                    'mark': 100
+            //                },
+            //                {
+            //                    'id': 3,
+            //                    'mark': 80
+            //                },
+            //                {
+            //                    'id': 4,
+            //                    'mark': 90
+            //                },
+            //                {
+            //                    'id': 5,
+            //                    'mark': 43
+            //                }
+            //            ]
+            //        }
+            //    ]
+            //};
 
             // get plan
-            response.subjects.forEach(s => {
-                subjectsList.insertAdjacentHTML('beforeend', getProgressSubjectCell(s));
-            });
-
-            response.students.forEach(s => {
-                progressTable.insertAdjacentHTML('beforeend', getProgressStudentRow(s, response.subjects));
-            });
-
-            fetchPlan();
+            fetchPlan(yearInput.value, groupSelect.value, semestrSelect.value);
         });
 
         progressEditBtn.addEventListener('click', () => {
@@ -238,8 +230,23 @@ class ProgressPage extends Page {
             console.log(progressObj);
         });
 
-        async function fetchPlan() {
-            // TODO
+        async function fetchPlan(year, groupId, semesterId) {
+            if (year == "" || groupId == "" || semesterId == "") {
+                return;
+            }
+
+            let url = `api/Progress/GetProgress?year=${year}&groupId=${groupId}&semesterId=${semesterId}`;
+
+            const response = await fetch(url);
+            const progress = await response.json();
+
+            progress.subjects.forEach(s => {
+                subjectsList.insertAdjacentHTML('beforeend', getProgressSubjectCell(s));
+            });
+
+            progress.students.forEach(s => {
+                progressTable.insertAdjacentHTML('beforeend', getProgressStudentRow(s, progress.subjects));
+            });
         }
 
         async function fetchGroups(course, year) {

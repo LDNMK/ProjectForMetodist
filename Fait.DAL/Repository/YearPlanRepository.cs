@@ -7,11 +7,6 @@ namespace Fait.DAL.Repository
 {
     public class YearPlanRepository : Repository<YearPlan>, IYearPlanRepository
     {
-        //public YearPlanRepository(FAITContext context, IUnitOfWork unitOfWork)
-        //    : base(context, unitOfWork)
-        //{
-        //}
-
         public YearPlanRepository(FAITContext context)
             : base(context)
         {

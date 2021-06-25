@@ -15,13 +15,6 @@ namespace Fait.DAL.Repository
         protected readonly FAITContext dbContext;
         private readonly DbSet<TEntity> dbSet;
 
-        //public Repository(FAITContext context, IUnitOfWork unitOfWork)
-        //{
-        //    dbContext = context;
-        //    dbSet = context.Set<TEntity>();
-        //    unitOfWork.Register(this);
-        //}
-
         public Repository(FAITContext context)
         {
             dbContext = context;

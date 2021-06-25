@@ -12,20 +12,20 @@ namespace WebAPI.Controllers
     [ApiController]
     public class StudentCardController : ControllerBase
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper mapper;
 
         private readonly StudentCardLogic studentInfoLogic;
 
         public StudentCardController(IMapper mapper, StudentCardLogic studentInfoLogic)
         {
-            _mapper = mapper;
+            this.mapper = mapper;
             this.studentInfoLogic = studentInfoLogic;
         }
 
         [HttpPost]
         public IActionResult SaveStudentCardInfo([FromBody]StudentCardModel model)
         {
-            studentInfoLogic.AddStudentCardInfo(_mapper.Map<StudentCardDTO>(model));
+            studentInfoLogic.AddStudentCardInfo(mapper.Map<StudentCardDTO>(model));
 
             return Ok();
         }
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
         [HttpPut]
         public IActionResult UpdateStudentCardInfo([FromQuery]int studentId, [FromBody] StudentCardModel model)
         {
-            studentInfoLogic.UpdateStudentCardInfo(studentId, _mapper.Map<StudentCardDTO>(model));
+            studentInfoLogic.UpdateStudentCardInfo(studentId, mapper.Map<StudentCardDTO>(model));
 
             return Ok();
         }
@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult ShowStudentInfo(int studentId)
         {
-            var result = _mapper.Map<StudentCardModel>(studentInfoLogic.GetStudentInfo(studentId));
+            var result = mapper.Map<StudentCardModel>(studentInfoLogic.GetStudentInfo(studentId));
 
             return Ok(result);
         }
@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
         public IActionResult GetSpecialities(int degreeId)
         {
             var isOnlyForMasterDegree = degreeId == (int)DegreeEnum.Master;
-            var result = _mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(isOnlyForMasterDegree));
+            var result = mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(isOnlyForMasterDegree));
 
             return Ok(result);
         }

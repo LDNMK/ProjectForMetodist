@@ -9,11 +9,6 @@ namespace Fait.DAL.Repository
 {
     public class GroupPrefixRepository : Repository<GroupPrefix>,  IGroupPrefixRepository
     {
-        //public GroupPrefixRepository(FAITContext context, IUnitOfWork unitOfWork)
-        //    : base(context, unitOfWork)
-        //{
-        //}
-
         public GroupPrefixRepository(FAITContext context)
             : base(context)
         {

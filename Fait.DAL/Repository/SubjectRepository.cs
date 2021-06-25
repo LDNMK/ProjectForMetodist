@@ -7,11 +7,6 @@ namespace Fait.DAL.Repository
 {
     public class SubjectRepository : Repository<Subject>, ISubjectRepository
     {
-        //public SubjectRepository(FAITContext context, IUnitOfWork unitOfWork)
-        //    : base(context, unitOfWork)
-        //{
-        //}
-
         public SubjectRepository(FAITContext context)
             : base(context)
         {

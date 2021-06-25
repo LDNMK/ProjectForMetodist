@@ -7,11 +7,6 @@ namespace Fait.DAL.Repository
 {
     public class ActualGroupRepository : Repository<ActualGroup>, IActualGroupRepository
     {
-        //public ActualGroupRepository(FAITContext context, IUnitOfWork unitOfWork)
-        //    : base(context, unitOfWork)
-        //{
-        //}
-
         public ActualGroupRepository(FAITContext context)
             : base(context)
         {

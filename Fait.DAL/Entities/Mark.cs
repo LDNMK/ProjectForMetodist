@@ -9,8 +9,8 @@ namespace Fait.DAL
     {
 
         public int Id { get; set; }
-        public int? StudentId { get; set; }
-        public int? SubjectId { get; set; }
+        public int StudentId { get; set; }
+        public int SubjectId { get; set; }
         public byte SubjectMark { get; set; }
         public byte TaskMark { get; set; }
 

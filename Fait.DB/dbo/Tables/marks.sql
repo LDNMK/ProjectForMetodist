@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[marks] (
     [id]           INT     IDENTITY (1, 1) NOT NULL,
-    [student_id]   INT     NULL,
-    [subject_id]   INT     NULL,
+    [student_id]   INT     NOT NULL,
+    [subject_id]   INT     NOT NULL,
     [subject_mark] TINYINT NOT NULL,
     [task_mark]    TINYINT NOT NULL,
     PRIMARY KEY CLUSTERED ([id] ASC),

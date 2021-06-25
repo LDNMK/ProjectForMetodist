@@ -8,11 +8,6 @@ namespace Fait.DAL.Repository
 {
     public class StudentInfoRepository: Repository<StudentsInfo>, IStudentInfoRepository
     {
-        //public StudentInfoRepository(FAITContext context, IUnitOfWork unitOfWork)
-        //    : base(context, unitOfWork)
-        //{
-        //}
-
         public StudentInfoRepository(FAITContext context)
         : base(context)
         {

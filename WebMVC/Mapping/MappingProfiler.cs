@@ -53,5 +53,9 @@ public class MappingProfile : Profile
         CreateMap<SpecialityModel, SpecialityDTO>().ReverseMap();
         CreateMap<SpecialityDTO, Speciality>().ReverseMap();
 
+        //Progress mapping
+        CreateMap<ProgressModel, ProgressDTO>().ReverseMap();
+        CreateMap<ProgressStudentModel, ProgressStudentDTO>().ReverseMap();
+        CreateMap<ProgressSubjectModel, ProgressSubjectDTO>().ReverseMap();
     }
 }

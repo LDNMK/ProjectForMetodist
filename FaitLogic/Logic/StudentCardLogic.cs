@@ -12,11 +12,11 @@ namespace FaitLogic.Logic
     {
         private readonly IMapper _mapper;
 
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
         public StudentCardLogic(
             IMapper mapper,
-            UnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             this.unitOfWork = unitOfWork;
@@ -94,7 +94,7 @@ namespace FaitLogic.Logic
         public ICollection<SpecialityDTO> GetSpecialities(bool isOnlyForMasterDegree)
         {
             var specialities = unitOfWork.SpecialityRepository.GetSpecialities(isOnlyForMasterDegree);
-            return _mapper.Map<ICollection<Speciality>, ICollection<SpecialityDTO>>(specialities); ;
+            return _mapper.Map<ICollection<Speciality>, ICollection<SpecialityDTO>>(specialities);
         }
     }
 }
