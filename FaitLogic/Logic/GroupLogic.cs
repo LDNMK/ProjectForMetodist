@@ -95,26 +95,20 @@ namespace FaitLogic.Logic
                 group.Actual = true;
 
                 unitOfWork.GroupRepository.UpdateGroup(group);
-                unitOfWork.Save();
             }
+            unitOfWork.Save();
         }
 
-        public void SetYearPlan(string groupsIds, int yearPlanId)
+        public void SetYearPlan(ICollection<int> groupsIds, int yearPlanId)
         {
-            var groupsIdsArray = groupsIds.Split(',');
-            foreach (var groupId in groupsIdsArray)
+            foreach (var groupId in groupsIds)
             {
-                if (groupId.Length < 1)
-                {
-                    return;
-                }
-
-                var findedGroup = unitOfWork.GroupRepository.FindExistingGroup(Convert.ToInt32(groupId));
+                var findedGroup = unitOfWork.GroupRepository.FindExistingGroup(groupId);
                 findedGroup.PlanId = yearPlanId;
 
                 unitOfWork.GroupRepository.UpdateGroup(findedGroup);
-                unitOfWork.Save();
             }
+            unitOfWork.Save();
         }
     }
 }

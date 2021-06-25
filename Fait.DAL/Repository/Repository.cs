@@ -31,6 +31,11 @@ namespace Fait.DAL.Repository
             dbSet.AddRange(items);
         }
 
+        public void Delete(TEntity item)
+        {
+            dbSet.Remove(item);
+        }
+
         public void Update(TEntity item)
         {
             dbSet.Update(item);
