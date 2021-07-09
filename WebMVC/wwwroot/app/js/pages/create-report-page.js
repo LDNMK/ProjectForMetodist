@@ -100,7 +100,7 @@ class CreateReportPage extends Page {
 
 
         createBtn.addEventListener('click', () => {
-            console.log('Create report');
+            createReport(studentSelect.value)
         })
 
         async function fetchGroups(course, year = null) {
@@ -143,6 +143,15 @@ class CreateReportPage extends Page {
 
             studentSelect.innerHTML = options.join('');
             studentSelect.classList.remove('-hasValue');
+        };
+
+        async function createReport(studentId) {
+            if (studentId == "") {
+                return;
+            }
+
+            const response = await fetch(`api/Report/CreateReport?studentId=${studentId}`);
+            const report = await response.json();
         };
     }
 }

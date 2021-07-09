@@ -15,9 +15,6 @@ namespace Fait.DAL.Repository
         public ICollection<Subject> FindSubjects(int yearPlanId)
         {
             return base.Find(x => x.PlanId == yearPlanId);
-            //return dbContext.Subjects
-            //    .Where(x => x.PlanId == yearPlanId)
-            //    .ToList();
         }
 
         public void AddSubject(Subject subjectInfo)

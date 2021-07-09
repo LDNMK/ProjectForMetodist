@@ -6,6 +6,7 @@ namespace FaitLogic.DTO
 {
     public class SubjectDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Hours { get; set; }
         public int Ects { get; set; }

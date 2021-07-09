@@ -164,8 +164,6 @@ class CurriculumShowPage extends Page {
 
             console.log(yearPlan);
 
-            let yearPlan //
-
             const response = await fetch(`api/YearPlan/UpdateYearPlan?yearPlanId=${yearPlanId}`, {
                 method: 'PUT',
                 headers: {
