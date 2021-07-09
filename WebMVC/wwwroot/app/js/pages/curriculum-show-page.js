@@ -13,7 +13,7 @@ class CurriculumShowPage extends Page {
                 <div class="curriculum__find-filter curriculum__find-filter--show">
                     <h1 class="main__page-subtitle">Пошук</h1>
 
-                    <div class="main__col-4">
+                    <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
@@ -37,24 +37,23 @@ class CurriculumShowPage extends Page {
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
                         </div>
-                        <div class="form-element form-select">
-                            <select class="form-element-field" id="plan">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                            </select>
+                        <div class="form-element form-input display-none">
+                            <input id="plan-id" class="form-element-field"
+                                placeholder="Введіть id навчального плану" type="text" data-is-disabled disabled/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="plan">План</label>
+                            <label class="form-element-label" for="plan-name">Id навчального плану</label>
                         </div>
                     </div>
                     <div class="main__buttons">
                         <button class="btn curriculum__btn-find">
                             <i class="btn-icon fas fa-search"></i>
-                            <span class="btn-text">Знайти</span>
+                            <span class="btn-text">Знайти навчальний план</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="curriculum__info">
-                    <h1 class="main__page-title">Навчальний план студента</h1>
+                    <h1 class="main__page-title">Навчальний план групи</h1>
 
                     <div class="curriculum__info-head">
                         <div class="form-element form-input form-element-w250">
@@ -92,11 +91,11 @@ class CurriculumShowPage extends Page {
         const lastRow = document.querySelector('.curriculum__table-row-last');
         const addRowBtn = document.querySelector('#add-row-btn');
 
+        const planIdInput = document.querySelector('#plan-id');
         const planNameInput = document.querySelector('#plan-name');
         const yearInput = document.querySelector('#year');
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
-        const yearPlanSelect = document.querySelector('#plan');
 
         const curriculumFindBtn = document.querySelector('.curriculum__btn-find');
         const curriculumEditBtn = document.querySelector('.curriculum-info__btn-edit');
@@ -104,19 +103,14 @@ class CurriculumShowPage extends Page {
 
         yearInput.addEventListener('change', () => {
             fetchGroups(courseSelect.value, yearInput.value);
-            fetchYearPlans(groupSelect.value, yearInput.value);
         });
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value);
-        });
-
-        groupSelect.addEventListener('change', () => {
-            fetchYearPlans(groupSelect.value, yearInput.value);
+            fetchGroups(courseSelect.value, yearInput.value);
         });
 
         curriculumFindBtn.addEventListener('click', () => {
-            fetchYearPlan(yearPlanSelect.value);
+            fetchYearPlan(groupSelect.value, yearInput.value);
         });
 
         curriculumEditBtn.addEventListener('click', () => {
@@ -128,7 +122,7 @@ class CurriculumShowPage extends Page {
         });
 
         curriculumSaveBtn.addEventListener('click', () => {
-            updateYearPlan(yearPlanSelect.value);
+            updateYearPlan(planIdInput.value);
         });
 
         async function updateYearPlan(yearPlanId) {
@@ -136,31 +130,58 @@ class CurriculumShowPage extends Page {
                 return;
             }
 
-            console.log(yearPlan);
+            let curriculum = {
+                id: yearPlanId,
+                name: planNameInput.value,
+                year: yearInput.value,
+                groupdIds: [ groupSelect.value ],
+                subjectInfo: []
+            };
+
+            let rows = planTable.querySelectorAll('.curriculum__table-row-data');
+            for (let i = 0; i < rows.length; i++) {
+                let data = rows[i].querySelectorAll('[data-table-key]');
+
+                let rowJson = {};
+                for (let j = 0; j < data.length; j++) {
+                    rowJson[data[j].getAttribute('data-table-key')] = data[j][data[j].type == "checkbox" ? 'checked' : 'value'];
+                }
+
+                curriculum.subjectInfo.push(rowJson);
+            }
+
+            console.log(curriculum);
 
             const response = await fetch(`api/YearPlan/UpdateYearPlan?yearPlanId=${yearPlanId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(yearPlan)
+                body: JSON.stringify(curriculum)
             });
         };
 
-        async function fetchYearPlan(yearPlanId) {
-            if (yearPlanId == "") {
+        async function fetchYearPlan(groupId, year) {
+            if (groupId == "") {
                 return;
             }
 
-            let url = `api/YearPlan/ShowYearPlan?yearPlanId=${yearPlanId}`;
-            // get plan
-            const response = await fetch(url);
-            const yearPlan = await response.json();
+            const response = await fetch(`api/YearPlan/GetYearPlanByGroup?groupId=${groupId}&year=${year}`);
+            console.log(response);
 
+            if (!response.ok) {
+                console.log('Year plan not found');
+                return;
+            }
+
+            const yearPlan = await response.json();
+            console.log(yearPlan);
+
+            planIdInput.value = yearPlan.id;
+            planIdInput.classList.add('-hasValue');
             planNameInput.value = yearPlan.name;
             planNameInput.classList.add('-hasValue');
 
-            console.log(yearPlan);
 
             yearPlan.subjectInfo.forEach(r => {
                 lastRow.insertAdjacentHTML('beforebegin', addCurriculumRow(r));
@@ -183,25 +204,6 @@ class CurriculumShowPage extends Page {
 
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
-        };
-
-        async function fetchYearPlans(group, year) {
-            if (group == "" || year == "") {
-                return;
-            }
-
-            let url = `api/YearPlan/GetYearPlanByGroup?groupId=${group}&year=${year}`;
-
-            const response = await fetch(url);
-            const yearPlan = await response.json();
-
-            console.log(yearPlan);
-
-            let options = `<option value=${yearPlan.planId}>${yearPlan.planName}</option>`;
-            options.push(optionDefault); //
-
-            yearPlanSelect.innerHTML = options.join('');
-            yearPlanSelect.classList.remove('-hasValue');
         };
 
         addRowBtn.addEventListener('click', () => {

@@ -101,4 +101,7 @@
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="Fait.DB.refactorlog" />
+  </ItemGroup>
 </Project>

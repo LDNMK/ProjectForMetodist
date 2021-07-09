@@ -66,7 +66,18 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetYearPlanByGroup([FromQuery] int groupId, int year)
         {
-            var yearPlan = yearPlanLogic.GetYearPlanByGroup(groupId, year);
+            var yearPlanId = yearPlanLogic.GetYearPlanIdByGroup(groupId, year);
+            if (!yearPlanId.HasValue)
+            {
+                return NotFound();
+            }
+
+            var yearPlan = mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId.Value));
+
+            if (yearPlan == null)
+            {
+                return BadRequest();
+            }
 
             return Ok(yearPlan);
         }

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="e9b34ce7-ee12-4319-9937-ad6b39b58587" ChangeDateTime="06/25/2021 14:57:31">
+    <Property Name="ElementName" Value="[dbo].[students_info].[immenseness]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[students_info]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Citizenship" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a07579f9-eaaf-4398-9faf-799a1cb16c50" ChangeDateTime="07/10/2021 13:43:03">
+    <Property Name="ElementName" Value="[dbo].[SubjectSemester].[IsIndividualTaskExist]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SubjectSemester]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IndividualTaskType" />
+  </Operation>
+</Operations>

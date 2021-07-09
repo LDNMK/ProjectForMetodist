@@ -3,7 +3,7 @@
     [birthdate]                  DATE          NOT NULL,
     [birth_place]                NVARCHAR (30) NOT NULL,
     [DegreeId]                   INT           NOT NULL,
-    [immenseness]                NVARCHAR (30) NOT NULL,
+    [Citizenship]                NVARCHAR (30) NOT NULL,
     [marital_status_id]          TINYINT       DEFAULT ((1)) NULL,
     [registration]               NVARCHAR (30) NOT NULL,
     [exemption]                  NVARCHAR (30) NOT NULL,

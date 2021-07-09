@@ -36,6 +36,18 @@ namespace Fait.DAL.Repository
                 .Single();
         }
 
+        public int? GetYearPlanIdByGroup(int groupId, int year)
+        {
+            int? planId = dbContext.YearPlanGroups
+                .Where(x =>
+                    x.GroupId == groupId &&
+                    x.YearPlan.Year == year)
+                .Select(x => x.YearPlanId)
+                .FirstOrDefault();
+
+            return planId == 0 ? null : planId;
+        }
+
         public void AddYearPlan(YearPlan yearPlan)
         {
             base.Add(yearPlan);

@@ -11,7 +11,7 @@ namespace Fait.DAL
         public DateTime Birthdate { get; set; }
         public string BirthPlace { get; set; }
         public int DegreeId { get; set; }
-        public string Immenseness { get; set; }
+        public string Citizenship { get; set; }
         public byte? MaritalStatusId { get; set; }
         public string Registration { get; set; }
         public string Exemption { get; set; }

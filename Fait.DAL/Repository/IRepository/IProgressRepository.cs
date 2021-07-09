@@ -10,6 +10,8 @@ namespace Fait.DAL.Repository.IRepository
 
         void UpdateMark(Mark mark);
 
+        void DeleteMark(Mark mark);
+
         ICollection<Mark> FindMarksBySubject(ICollection<int> subjectIds);
 
         Mark FindMark(int subjectId, int studentId);
