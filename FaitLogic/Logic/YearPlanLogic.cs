@@ -95,7 +95,7 @@ namespace FaitLogic.Logic
 
             foreach (var newSubject in yearPlanInfo.SubjectInfo)
             {
-                var oldSubject = oldSubjects.Where(x => x.Name == newSubject.Name).FirstOrDefault();
+                var oldSubject = oldSubjects.FirstOrDefault(x => x.Id == newSubject.Id);
                 if (oldSubject != null)
                 {
                     UpdateSubjects(newSubject, oldSubject);
