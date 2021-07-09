@@ -38,24 +38,24 @@ namespace FaitLogic.Logic
             var subjectsDto = new List<SubjectDTO>();
             foreach (var subject in subjects)
             {
-                var subj = mapper.Map<Subject, SubjectDTO>(subject);
+                var subjectDto = mapper.Map<Subject, SubjectDTO>(subject);
 
-                var sb = unitOfWork.SubjectSemesterRepository.FindSubjectSemesters(subject.Id).ToList();
+                var subjectSemesters = unitOfWork.SubjectSemesterRepository.FindSubjectSemesters(subject.Id).ToList();
 
-                var autumn = sb.Find(x => x.Semester == (int)SemesterEnum.Autumn);
+                var autumn = subjectSemesters.Find(x => x.Semester == (int)SemesterEnum.Autumn);
                 if (autumn != null)
                 {
-                    subj.ControlTypeFall = autumn.ControlType;
-                    subj.IsIndividualTaskExistFall = autumn.IsIndividualTaskExist;
+                    subjectDto.ControlTypeFall = autumn.ControlType;
+                    subjectDto.IsIndividualTaskExistFall = autumn.IsIndividualTaskExist;
                 }
 
-                var spring = sb.Find(x => x.Semester == (int)SemesterEnum.Spring);
+                var spring = subjectSemesters.Find(x => x.Semester == (int)SemesterEnum.Spring);
                 if (spring != null)
                 {
-                    subj.ControlTypeSpring = spring.ControlType;
-                    subj.IsIndividualTaskExistSpring = spring.IsIndividualTaskExist;
+                    subjectDto.ControlTypeSpring = spring.ControlType;
+                    subjectDto.IsIndividualTaskExistSpring = spring.IsIndividualTaskExist;
                 }
-                subjectsDto.Add(subj);
+                subjectsDto.Add(subjectDto);
             }
 
             yearPlanDto.SubjectInfo = subjectsDto;
@@ -105,8 +105,7 @@ namespace FaitLogic.Logic
                     AddSubjects(newSubject, yearPlanId);
                 }
             }
-
-
+            unitOfWork.Save();
         }
 
         public ICollection<YearPlanNameWithIdDTO> GetYearPlans(int course)
@@ -155,7 +154,6 @@ namespace FaitLogic.Logic
                 };
                 unitOfWork.SubjectSemesterRepository.AddSubjectSemester(autumnSubject);
             }
-            unitOfWork.Save();
         }
 
         private void UpdateSubjects(SubjectDTO newSubject, Subject oldSubject)
