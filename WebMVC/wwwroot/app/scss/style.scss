@@ -24,6 +24,10 @@ body {
     display: flex;
 }
 
+.display-none {
+    display: none !important;
+}
+
 .btn {
     border: none;
     padding: 14px 28px;

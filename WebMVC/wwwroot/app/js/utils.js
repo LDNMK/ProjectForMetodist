@@ -26,6 +26,9 @@ function addCurriculumRow(item) {
                     <i class="btn-icon far fa-minus-square"></i>
                 </button>
             </div>
+            <div class="item display-none">
+                <input class="item__data-subject-id" data-table-key="id" type="text" value="${item?.id ?? 0}" ${item ? 'disabled' : ''} data-is-disabled>
+            </div>
             <div class="item">
                 <input class="item__data-subject" data-table-key="name" type="text" value="${item?.name ?? ""}" ${item ? 'disabled' : ''} data-is-disabled>
             </div>
@@ -42,19 +45,29 @@ function addCurriculumRow(item) {
                 </div>
             </div>
             <div class="item item__col-2">
-                <input type="checkbox" data-table-key="isIndividualTaskExistFall" ${item?.isIndividualTaskExistFall ? 'checked' : ''} ${item ? 'disabled' : ''} data-is-disabled>
-                <select name="control-form-fall" data-table-key="controlTypeFall" id="control-fall" ${item ? 'disabled' : ''} data-is-disabled>
-                    <option value="0" ${item?.controlTypeFall == 0 ? 'selected' : ''}></option>
-                    <option value="1" ${item?.controlTypeFall == 1 ? 'selected' : ''}>Кредит</option>
-                    <option value="2" ${item?.controlTypeFall == 2 ? 'selected' : ''}>Екзамен</option>
+                <select name="control-form-fall" data-table-key="individualTaskFallType" id="individual-task-fall" ${item ? 'disabled' : ''} data-is-disabled>
+                    <option value="" ${item?.individualTaskFallType == 0 ? 'selected' : ''}></option>
+                    <option value="1" ${item?.individualTaskFallType == 1 ? 'selected' : ''}>1</option>
+                    <option value="2" ${item?.individualTaskFallType == 2 ? 'selected' : ''}>2</option>
+                    <option value="3" ${item?.individualTaskFallType == 3 ? 'selected' : ''}>КР</option>
+                </select>
+                <select name="control-form-fall" data-table-key="controlFallType" id="control-fall" ${item ? 'disabled' : ''} data-is-disabled>
+                    <option value="0" ${item?.controlFallType == 0 ? 'selected' : ''}></option>
+                    <option value="1" ${item?.controlFallType == 1 ? 'selected' : ''}>Залік</option>
+                    <option value="2" ${item?.controlFallType == 2 ? 'selected' : ''}>Екзамен</option>
                 </select>
             </div>
             <div class="item item__col-2">
-                <input type="checkbox" data-table-key="isIndividualTaskExistSpring" ${item?.isIndividualTaskExistSpring ? 'checked' : ''} ${item ? 'disabled' : ''} data-is-disabled>
-                <select name="control-form-spring" data-table-key="controlTypeSpring" id="control-spring" ${item ? 'disabled' : ''} data-is-disabled>
-                    <option value="0" ${item?.controlTypeSpring == 0 ? 'selected' : ''}></option>
-                    <option value="1" ${item?.controlTypeSpring == 1 ? 'selected' : ''}>Кредит</option>
-                    <option value="2" ${item?.controlTypeSpring == 2 ? 'selected' : ''}>Екзамен</option>
+                <select name="control-form-fall" data-table-key="individualTaskSpringType" id="individual-task-spring" ${item ? 'disabled' : ''} data-is-disabled>
+                    <option value="" ${item?.individualTaskSpringType == 0 ? 'selected' : ''}></option>
+                    <option value="1" ${item?.individualTaskSpringType == 1 ? 'selected' : ''}>1</option>
+                    <option value="2" ${item?.individualTaskSpringType == 2 ? 'selected' : ''}>2</option>
+                    <option value="3" ${item?.individualTaskSpringType == 3 ? 'selected' : ''}>КР</option>
+                </select>
+                <select name="control-form-spring" data-table-key="controlSpringType" id="control-spring" ${item ? 'disabled' : ''} data-is-disabled>
+                    <option value="0" ${item?.controlSpringType == 0 ? 'selected' : ''}></option>
+                    <option value="1" ${item?.controlSpringType == 1 ? 'selected' : ''}>Залік</option>
+                    <option value="2" ${item?.controlSpringType == 2 ? 'selected' : ''}>Екзамен</option>
                 </select>
             </div>
             <div class="item">
@@ -124,10 +137,13 @@ function getProgressStudentRow(student, subjects) {
             </ul>
             <div class="progress__row-cell progress__row-cell-final-mark">
                 <span data-student-final>
-                    ${Math.round(student.subjects
-                        .map(x => x.mark)
-                        .reduce((sum, mark) => sum += mark) / student.subjects.length)
+                    ${
+                        Math.round(student.subjects
+                            .map(x => x.mark)
+                            ?.reduce((sum, mark) => sum += mark, 0) / student.subjects.length)
                     }
+                         
+                    
                 </span>
             </div>
         </div>

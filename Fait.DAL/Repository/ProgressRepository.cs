@@ -23,6 +23,11 @@ namespace Fait.DAL.Repository
             base.Update(mark);
         }
 
+        public void DeleteMark(Mark mark)
+        {
+            base.Delete(mark);
+        }
+
         public ICollection<Mark> FindMarksBySubject(ICollection<int> subjectIds)
         {
             return base.Find(x => subjectIds.Contains(x.SubjectId));

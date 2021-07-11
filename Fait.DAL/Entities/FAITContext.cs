@@ -154,8 +154,7 @@ namespace Fait.DAL
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.Marks)
                     .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__marks__student_i__4BAC3F29");
+                    .HasConstraintName("FK__marks__student_i__44CFD27E");
 
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Marks)
@@ -286,10 +285,10 @@ namespace Fait.DAL
                     .HasColumnName("expirience_competition_id")
                     .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.Immenseness)
+                entity.Property(e => e.Citizenship)
                     .IsRequired()
                     .HasMaxLength(30)
-                    .HasColumnName("immenseness");
+                    .HasColumnName("Citizenship");
 
                 entity.Property(e => e.MaritalStatusId)
                     .HasColumnName("marital_status_id")

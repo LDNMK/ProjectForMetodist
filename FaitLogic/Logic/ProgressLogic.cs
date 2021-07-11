@@ -66,8 +66,8 @@ namespace FaitLogic.Logic
                 {
                     studentMarks.Add(new SubjectStudentMarkDTO
                     {
-                        Id = mark.Id,
-                        Mark = (mark.SubjectMark + mark.TaskMark) / 2
+                        Id = mark.SubjectId,
+                        Mark = mark.SubjectMark //(mark.SubjectMark + mark.TaskMark) / 2
                     });
                 }
                 studentWithMarks.Subjects = studentMarks;
@@ -84,30 +84,36 @@ namespace FaitLogic.Logic
             return progressDto;
         }
 
-        public void UpdateProgress(ProgressDTO progress)
+        public void UpdateProgress(ICollection<ProgressStudentDTO> students)
         {
-            foreach (var studentWithMark in progress.Students)
+            foreach (var student in students)
             {
-
-                foreach (var studentSubject in studentWithMark.Subjects)
+                foreach (var subject in student.Subjects)
                 {
-                    var mark = unitOfWork.ProgressRepository.FindMark(studentSubject.Id, studentWithMark.Id);
-                    if(mark == null)
-                    {
-                        var studentMark = new Mark
-                        {
-                            StudentId = studentWithMark.Id,
-                            SubjectId = studentSubject.Id,
-                            SubjectMark = (byte)studentSubject.Mark
-                        };
+                    var mark = unitOfWork.ProgressRepository.FindMark(subject.Id, student.Id);
 
-                        unitOfWork.ProgressRepository.AddMark(studentMark);
-                    }
-                    else
+                    if (mark != null && subject.Mark != null)
                     {
-                        mark.SubjectMark = (byte)studentSubject.Mark;
+                        mark.SubjectMark = (byte)subject.Mark.Value;
                         unitOfWork.ProgressRepository.UpdateMark(mark);
                     }
+                    else if (mark != null && subject.Mark == null)
+                    {
+                        // TODO: Change db column to nullable and int
+                        unitOfWork.ProgressRepository.DeleteMark(mark);
+                    }
+                    else if (mark == null && subject.Mark != null)
+                    {
+                        mark = new Mark
+                        {
+                            StudentId = student.Id,
+                            SubjectId = subject.Id,
+                            SubjectMark = (byte)subject.Mark.Value
+                        };
+
+                        unitOfWork.ProgressRepository.AddMark(mark);
+                    }
+
                     unitOfWork.Save();
                 }
             }

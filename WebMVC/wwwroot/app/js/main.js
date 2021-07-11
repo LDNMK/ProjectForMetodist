@@ -5,7 +5,7 @@ function init() {
     // initMainPage();
 
     // setPageByAttribute(MainPage.is);
-    setPageByAttribute(StudentCardAddPage.is);
+    setPageByAttribute(CurriculumAddPage.is);
     // CurriculumAddPage.init();
     // subscribeFormElements();
 }

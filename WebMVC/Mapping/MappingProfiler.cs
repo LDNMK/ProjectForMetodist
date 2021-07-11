@@ -31,12 +31,12 @@ public class MappingProfile : Profile
         CreateMap<SubjectModel, SubjectDTO>()
             .ForMember(dest => dest.Hours, opt => opt.MapFrom(x => x.Hours))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(x => x.Name))
-            .ForMember(dest => dest.IsIndividualTaskExistFall, opt => opt.MapFrom(x => x.IsIndividualTaskExistFall))
-            .ForMember(dest => dest.IsIndividualTaskExistSpring, opt => opt.MapFrom(x => x.IsIndividualTaskExistSpring))
+            .ForMember(dest => dest.IndividualTaskFallType, opt => opt.MapFrom(x => x.IndividualTaskFallType))
+            .ForMember(dest => dest.IndividualTaskSpringType, opt => opt.MapFrom(x => x.IndividualTaskSpringType))
             .ForMember(dest => dest.Ects, opt => opt.MapFrom(x => x.Ects))
             .ForMember(dest => dest.Department, opt => opt.MapFrom(x => x.Department))
-            .ForMember(dest => dest.ControlTypeSpring, opt => opt.MapFrom(x => x.ControlTypeSpring))
-            .ForMember(dest => dest.ControlTypeFall, opt => opt.MapFrom(x => x.ControlTypeFall))
+            .ForMember(dest => dest.ControlSpringType, opt => opt.MapFrom(x => x.ControlSpringType))
+            .ForMember(dest => dest.ControlFallType, opt => opt.MapFrom(x => x.ControlFallType))
             .ReverseMap();
 
         CreateMap<SubjectDTO, Subject>()
@@ -53,9 +53,10 @@ public class MappingProfile : Profile
         CreateMap<SpecialityModel, SpecialityDTO>().ReverseMap();
         CreateMap<SpecialityDTO, Speciality>().ReverseMap();
 
-        //Progress mapping
+        // Progress mapping
         CreateMap<ProgressModel, ProgressDTO>().ReverseMap();
         CreateMap<ProgressStudentModel, ProgressStudentDTO>().ReverseMap();
         CreateMap<ProgressSubjectModel, ProgressSubjectDTO>().ReverseMap();
+        CreateMap<SubjectStudentMarkModel, SubjectStudentMarkDTO>().ReverseMap();
     }
 }

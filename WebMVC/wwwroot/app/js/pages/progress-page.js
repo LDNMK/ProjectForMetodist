@@ -40,8 +40,8 @@ class ProgressPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="semestr">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                                <option value="1">Осінній</option>
+                                <option value="2">Весняний</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="semestr">Семестр</label>
@@ -145,14 +145,14 @@ class ProgressPage extends Page {
                     .map(x => {
                         return {
                             id: +x.getAttribute('data-subject-id'),
-                            mark: x.value
+                            mark: x.value == "" ? null : x.value
                         }
                     });
 
                 progressObj.push(student);
             });
 
-            console.log(progressObj);
+            fetchUpdateProgress(progressObj);
         });
 
         async function fetchPlan(year, groupId, semesterId) {
@@ -160,7 +160,10 @@ class ProgressPage extends Page {
                 return;
             }
 
+            clearProgressTable();
+
             let url = `api/Progress/GetProgress?year=${year}&groupId=${groupId}&semesterId=${semesterId}`;
+            console.log(url);
 
             const response = await fetch(url);
             const progress = await response.json();
@@ -172,6 +175,20 @@ class ProgressPage extends Page {
             progress.students.forEach(s => {
                 progressTable.insertAdjacentHTML('beforeend', getProgressStudentRow(s, progress.subjects));
             });
+
+            console.log(progress);
+        }
+
+        function clearProgressTable() {
+            let subjectRows =  progressTable.querySelectorAll('.progress__row-cell-subject');
+            for (let i = 0, l = subjectRows.length; i < l; i++) {
+                subjectRows[i].remove();
+            }
+
+            let studentRows = progressTable.querySelectorAll('.progress__row-student');
+            for (let i = 0, l = studentRows.length; i < l; i++) {
+                studentRows[i].remove();
+            }
         }
 
         async function fetchGroups(course, year) {
@@ -192,17 +209,19 @@ class ProgressPage extends Page {
             groupSelect.classList.remove('-hasValue');
         };
 
-        async function updateProgress() {
-
-            let progress
+        async function fetchUpdateProgress(progressObj) {
+            console.log(progressObj);
+            console.log(JSON.stringify(progressObj));
 
             const response = await fetch(`api/Progress/UpdateProgress`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(progress)
+                body: JSON.stringify(progressObj)
             });
+
+            console.log(response);
         };
     }
 }

@@ -13,12 +13,17 @@ namespace Fait.DAL
         }
 
         public int Id { get; set; }
+        
         public int SubjectId { get; set; }
+        
         public byte ControlType { get; set; }
-        public bool IsIndividualTaskExist { get; set; }
+        
+        public int IndividualTaskType { get; set; }
+        
         public byte Semester { get; set; }
 
         public virtual Subject Subject { get; set; }
+        
         public virtual ICollection<Mark> Marks { get; set; }
     }
 }

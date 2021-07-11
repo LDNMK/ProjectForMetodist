@@ -2,7 +2,7 @@
 {
     public enum SemesterEnum
     {
-          Autumn = 0,
-          Spring = 1
+          Autumn = 1,
+          Spring = 2
     }
 }

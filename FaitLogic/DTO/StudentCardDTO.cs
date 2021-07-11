@@ -13,7 +13,7 @@
         public string Patronymic { get; set; }
         public string Birthday { get; set; }
         public string BirthPlace { get; set; }              // Місце народження
-        public string Immenseness { get; set; }             // Громадянство 
+        public string Citizenship { get; set; }             // Громадянство 
         public byte? MaritalStatusId { get; set; }          // Сімейний стан
         public string Registration { get; set; }            // Місце проживання\регістрації
         public string Exemption { get; set; }               // Наявність пільг при втсупі

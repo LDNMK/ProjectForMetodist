@@ -12,6 +12,8 @@ namespace Fait.DAL.Repository.IRepository
 
         YearPlan GetYearPlanByGroup(int groupId, int year);
 
+        int? GetYearPlanIdByGroup(int groupId, int year);
+
         int GetLastYearPlanId();
     }
 }

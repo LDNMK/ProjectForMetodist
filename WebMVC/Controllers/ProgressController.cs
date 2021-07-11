@@ -2,12 +2,13 @@
 using FaitLogic.DTO;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
     public class ProgressController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -28,12 +29,12 @@ namespace WebAPI.Controllers
             return Ok(progress);
         }
 
-        [HttpPut]
-        public IActionResult UpdateProgress([FromBody] ProgressModel progressModel)
+        [HttpPost]
+        public IActionResult UpdateProgress([FromBody] ICollection<ProgressStudentModel> students)
         {
-            var progressDto = mapper.Map<ProgressModel, ProgressDTO>(progressModel);
+            var progressStudentsDto = mapper.Map<ICollection<ProgressStudentModel>, ICollection<ProgressStudentDTO>>(students);
 
-            progressLogic.UpdateProgress(progressDto);
+            progressLogic.UpdateProgress(progressStudentsDto);
 
             return Ok();
         }
