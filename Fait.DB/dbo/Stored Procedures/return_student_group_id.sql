@@ -7,7 +7,7 @@ BEGIN
 	FROM Groups g
 	WHERE EXISTS (
 		SELECT 1 
-		FROM ActualGroups ag
+		FROM GroupStudents ag
 		WHERE g.Id = ag.GroupId
 			AND ag.StudentId = @student_id 
 	)

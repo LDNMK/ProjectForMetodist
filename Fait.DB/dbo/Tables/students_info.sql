@@ -2,6 +2,7 @@
     [id]                         INT           NOT NULL,
     [birthdate]                  DATE          NOT NULL,
     [birth_place]                NVARCHAR (30) NOT NULL,
+    [DegreeId]                   INT           NOT NULL,
     [immenseness]                NVARCHAR (30) NOT NULL,
     [marital_status_id]          TINYINT       DEFAULT ((1)) NULL,
     [registration]               NVARCHAR (30) NOT NULL,
@@ -20,6 +21,7 @@
     FOREIGN KEY ([AmendId]) REFERENCES [dbo].[Amend] ([Id]),
     FOREIGN KEY ([expirience_competition_id]) REFERENCES [dbo].[ExperienceCompetitions] ([Id]),
     FOREIGN KEY ([id]) REFERENCES [dbo].[students] ([id]),
-    FOREIGN KEY ([marital_status_id]) REFERENCES [dbo].[marital_statuses] ([id])
+    FOREIGN KEY ([marital_status_id]) REFERENCES [dbo].[marital_statuses] ([id]),
+    FOREIGN KEY ([DegreeId]) REFERENCES [dbo].[Degree] (Id)
 );
 

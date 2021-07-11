@@ -49,7 +49,8 @@ namespace FaitLogic.Logic
             var subjectIds = subjectsDto.Select(x => x.Id).ToList();
             var subjectMarks = unitOfWork.ProgressRepository.FindMarksBySubject(subjectIds);
 
-            var students = unitOfWork.StudentRepository.GetAllStudents(groupId);
+            // Not sure
+            var students = unitOfWork.StudentRepository.GetAllStudents(groupId, year);
 
             var studentDto = new List<ProgressStudentDTO>();
             foreach (var student in students)

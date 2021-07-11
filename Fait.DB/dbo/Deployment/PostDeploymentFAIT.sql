@@ -15,6 +15,7 @@ Post-Deployment Script Template
 :r .\DataScripts\AddValuesToMaritalStatus.sql
 :r .\DataScripts\AddValuesToSpeciality.sql
 :r .\DataScripts\AddValuesToStudentState.sql
+:r .\DataScripts\AddValuesToDegree.sql
 
 ---- Adding test data
 --:r .\DataScripts\AddValuesToYearPlan.sql

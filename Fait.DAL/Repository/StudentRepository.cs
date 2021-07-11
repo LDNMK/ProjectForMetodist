@@ -27,15 +27,16 @@ namespace Fait.DAL.Repository
             base.Update(student);
         }
 
-        public ICollection<StudentNameWithId> GetAllStudents(int groupId)
+        public ICollection<StudentNameWithId> GetAllStudents(int groupId, int year)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@group_id", groupId)
+                new SqlParameter("@group_id", groupId),
+                new SqlParameter("@year", year)
             };
 
             return dbContext.StudentNameWithIds.FromSqlRaw("SELECT id, full_name " +
-                "FROM dbo.return_students_from_group (@group_id)", parameters).ToList();
+                "FROM dbo.return_students_from_group (@group_id, @year)", parameters).ToList();
         }
 
         public Student GetStudentMainInfo(int studentId)

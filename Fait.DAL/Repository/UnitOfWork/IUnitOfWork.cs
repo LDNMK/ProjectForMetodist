@@ -6,7 +6,7 @@ namespace Fait.DAL.Repository.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IActualGroupRepository ActualGroupRepository { get; }
+        IGroupStudentRepository GroupStudentRepository { get; }
         IGroupRepository GroupRepository { get; }
         IGroupPrefixRepository GroupPrefixRepository { get; }
         IStudentRepository StudentRepository { get; }
