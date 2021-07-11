@@ -38,7 +38,7 @@ namespace Fait.DAL.Repository
 
         public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
         {
-            return base.Find(x => x.PlanId == yearPlanId);
+            return base.Find(x => x.YearPlanGroups.Select(x=> x.YearPlanId).Contains(yearPlanId));
             //return dbContext.Groups
             //    .Include(x => x.GroupPrefix)
             //    .Where(x => x.PlanId == yearPlanId)
@@ -71,8 +71,8 @@ namespace Fait.DAL.Repository
 
         public ICollection<Group> GetGroups(int course, int year)
         {
-            return Find(x => x.Plan.Year == year 
-                    && x.Course == course);
+            return Find(x => x.Course == course &&
+                x.YearPlanGroups.Select(x => x.YearPlan.Year).Contains(year));
 
             //return dbContext.Groups
             //    .Where(x => x.Plan.Year == year && x.Course == course)
