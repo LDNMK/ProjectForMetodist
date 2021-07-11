@@ -29,14 +29,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult AddYearPlan([FromBody] YearPlanModel yearPlanModel)
         {
-            var yearPlanId = yearPlanLogic.AddYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel));
-
-            if (yearPlanId == null)
-            {
-                return BadRequest();
-            }
-
-            groupLogic.SetYearPlan(yearPlanModel.GroupIds, yearPlanId.Value);
+            yearPlanLogic.AddYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel));
 
             return Ok();
         }
@@ -71,9 +64,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetYearPlanByGroup([FromQuery] int groupId)
+        public IActionResult GetYearPlanByGroup([FromQuery] int groupId, int year)
         {
-            var yearPlan = yearPlanLogic.GetYearPlanByGroup(groupId);
+            var yearPlan = yearPlanLogic.GetYearPlanByGroup(groupId, year);
 
             return Ok(yearPlan);
         }

@@ -16,6 +16,7 @@ namespace Fait.DAL.Repository.UnitOfWork
         ISubjectSemesterRepository SubjectSemesterRepository { get; }
         IProgressRepository ProgressRepository { get; }
         ISpecialityRepository SpecialityRepository { get; }
+        IYearPlanGroupsRepository YearPlanGroupsRepository { get; }
 
         void Save();
     }

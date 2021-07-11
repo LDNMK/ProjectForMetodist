@@ -63,7 +63,7 @@ namespace FaitLogic.Logic
             return yearPlanDto;
         }
 
-        public int? AddYearPlan(YearPlanDTO yearPlanInfo)
+        public void AddYearPlan(YearPlanDTO yearPlanInfo)
         {
             var yearPlan = new YearPlan
             {
@@ -75,12 +75,16 @@ namespace FaitLogic.Logic
             unitOfWork.Save();
             var yearPlanId = unitOfWork.YearPlanRepository.GetLastYearPlanId();
 
+            foreach (var groupId in yearPlanInfo.GroupIds)
+            {
+                unitOfWork.YearPlanGroupsRepository.AddYearPlanGroups(new YearPlanGroup { YearPlanId = yearPlanId , GroupId = groupId });
+            }
+
             foreach (var subject in yearPlanInfo.SubjectInfo)
             {
                 AddSubjects(subject, yearPlanId);
             }
-
-            return yearPlanId;
+            unitOfWork.Save();
         }
 
         public void UpdateYearPlan(YearPlanDTO yearPlanInfo, int yearPlanId)
@@ -115,9 +119,9 @@ namespace FaitLogic.Logic
             return yearPlans;
         }
 
-        public YearPlanNameWithIdDTO GetYearPlanByGroup(int groupId)
+        public YearPlanNameWithIdDTO GetYearPlanByGroup(int groupId, int year)
         {
-            var yearPlan = mapper.Map<YearPlan, YearPlanNameWithIdDTO>(unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId));
+            var yearPlan = mapper.Map<YearPlan, YearPlanNameWithIdDTO>(unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId, year));
 
             return yearPlan;
         }

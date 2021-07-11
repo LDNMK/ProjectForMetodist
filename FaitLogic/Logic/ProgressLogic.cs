@@ -25,7 +25,7 @@ namespace FaitLogic.Logic
 
         public ProgressDTO GetProgress(int year, int groupId, int semesterId)
         {
-            var yearPlan = unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId);
+            var yearPlan = unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId, year);
 
             var subjects = unitOfWork.SubjectRepository.FindSubjects(yearPlan.Id);
 

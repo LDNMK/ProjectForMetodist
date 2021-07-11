@@ -10,22 +10,17 @@ namespace Fait.DAL
         public Group()
         {
             ActualGroups = new HashSet<ActualGroup>();
+            YearPlanGroups = new HashSet<YearPlanGroup>();
         }
 
         public int Id { get; set; }
-
-        public int? PlanId { get; set; }            // Учебный план
-
-        public int GroupNumber { get; set; }        // Номер группы
-
-        public int? GroupPrefixId { get; set; }    // Код группы
-
-        public bool Actual { get; set; }            // Актуальна ли группа
-
-        public int Course { get; set; }             // Курс
+        public int GroupNumber { get; set; }
+        public int? GroupPrefixId { get; set; }
+        public bool Actual { get; set; }
+        public int Course { get; set; }
 
         public virtual GroupPrefix GroupPrefix { get; set; }
-        public virtual YearPlan Plan { get; set; }
         public virtual ICollection<ActualGroup> ActualGroups { get; set; }
+        public virtual ICollection<YearPlanGroup> YearPlanGroups { get; set; }
     }
 }

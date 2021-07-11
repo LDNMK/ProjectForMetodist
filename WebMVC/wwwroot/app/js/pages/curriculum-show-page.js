@@ -104,6 +104,7 @@ class CurriculumShowPage extends Page {
 
         yearInput.addEventListener('change', () => {
             fetchGroups(courseSelect.value, yearInput.value);
+            fetchYearPlans(groupSelect.value, yearInput.value);
         });
 
         courseSelect.addEventListener('change', () => {
@@ -111,37 +112,10 @@ class CurriculumShowPage extends Page {
         });
 
         groupSelect.addEventListener('change', () => {
-            fetchYearPlans(groupSelect.value);
+            fetchYearPlans(groupSelect.value, yearInput.value);
         });
 
         curriculumFindBtn.addEventListener('click', () => {
-            //let response = {
-            //    planId: 1,
-            //    name: "Plan 2021",
-            //    data: [
-            //        {
-            //            controlTypeFall: "1",
-            //            controlTypeSpring: "0",
-            //            department: "Department 1",
-            //            ects: "2",
-            //            hours: "12",
-            //            isIndividualPlanExistFall: true,
-            //            isIndividualPlanExistSpring: false,
-            //            subject: "Subject 1"
-            //        },
-            //        {
-            //            controlTypeFall: "0",
-            //            controlTypeSpring: "2",
-            //            department: "Department 2",
-            //            ects: "2",
-            //            hours: "35",
-            //            isIndividualPlanExistFall: false,
-            //            isIndividualPlanExistSpring: true,
-            //            subject: "Subject 2"
-            //        }
-            //    ]
-            //};
-
             fetchYearPlan(yearPlanSelect.value);
         });
 
@@ -211,20 +185,20 @@ class CurriculumShowPage extends Page {
             groupSelect.classList.remove('-hasValue');
         };
 
-        async function fetchYearPlans(group) {
-            if (group == "") {
+        async function fetchYearPlans(group, year) {
+            if (group == "" || year == "") {
                 return;
             }
 
-            let url = `api/YearPlan/GetYearPlanByGroup?groupId=${group}`;
+            let url = `api/YearPlan/GetYearPlanByGroup?groupId=${group}&year=${year}`;
 
             const response = await fetch(url);
             const yearPlan = await response.json();
 
             console.log(yearPlan);
 
-            let options = yearPlan.map(x =>`<option value=${x.planId}>${x.planName}</option>`);
-            options.push(optionDefault);
+            let options = `<option value=${yearPlan.planId}>${yearPlan.planName}</option>`;
+            options.push(optionDefault); //
 
             yearPlanSelect.innerHTML = options.join('');
             yearPlanSelect.classList.remove('-hasValue');

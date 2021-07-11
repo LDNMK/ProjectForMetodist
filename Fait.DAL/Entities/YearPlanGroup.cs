@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Fait.DAL
 {
-    public partial class ActualGroup
+    public partial class YearPlanGroup
     {
+        public int YearPlanId { get; set; }
         public int GroupId { get; set; }
-        public int StudentId { get; set; }
 
         public virtual Group Group { get; set; }
-        public virtual Student Student { get; set; }
+        public virtual YearPlan YearPlan { get; set; }
     }
 }
