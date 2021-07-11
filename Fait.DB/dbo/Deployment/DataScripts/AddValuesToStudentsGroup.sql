@@ -2,7 +2,7 @@
 CREATE PROCEDURE AddValuesToStudentsGroup
 AS
 BEGIN
-	INSERT INTO actual_groups (group_id, student_id )
+	INSERT INTO ActualGroups (GroupId, StudentId )
 	VALUES
 		(1, 1),
 		(1, 2)

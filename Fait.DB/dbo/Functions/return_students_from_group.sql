@@ -10,12 +10,12 @@ RETURN
 	FROM students stud
 	WHERE EXISTS (
 		SELECT 1 
-		FROM actual_groups ac_gr
-		WHERE ac_gr.student_id = stud.id 
+		FROM ActualGroups ac_gr
+		WHERE ac_gr.StudentId = stud.id 
 		AND EXISTS (
 			SELECT 1 
 			FROM Groups gr
-			WHERE gr.Id = ac_gr.group_id 
+			WHERE gr.Id = ac_gr.GroupId 
 			AND gr.Id = @group_id
 			AND gr.Actual = 1
 			)

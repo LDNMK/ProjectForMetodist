@@ -7,8 +7,8 @@ BEGIN
 	FROM Groups g
 	WHERE EXISTS (
 		SELECT 1 
-		FROM actual_groups ag
-		WHERE g.Id = ag.group_id
-			AND ag.student_id = @student_id 
+		FROM ActualGroups ag
+		WHERE g.Id = ag.GroupId
+			AND ag.StudentId = @student_id 
 	)
 END

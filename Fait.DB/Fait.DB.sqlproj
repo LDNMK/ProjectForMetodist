@@ -95,6 +95,7 @@
     <Build Include="dbo\Deployment\DataScripts\AddValuesToStudentsGroup.sql" />
     <None Include="dbo\Deployment\DataScripts\AddValuesToStudentState.sql" />
     <Build Include="dbo\Deployment\DataScripts\AddValuesToYearPlan.sql" />
+    <Build Include="dbo\Tables\YearPlanGroups.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />
