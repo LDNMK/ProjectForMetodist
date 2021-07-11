@@ -28,12 +28,12 @@ namespace Fait.DAL.Repository
                 .ToList();
         }
 
-        public YearPlan GetYearPlanByGroup(int groupId)
+        public YearPlan GetYearPlanByGroup(int groupId, int year)
         {
-            return dbContext.Groups
-                .Where(x => x.Id == groupId)
-                .Select(x => x.Plan)
-                .FirstOrDefault();
+            return dbContext.YearPlanGroups
+                .Where(x => x.GroupId == groupId && x.YearPlan.Year == year)
+                .Select(x => x.YearPlan)
+                .Single();
         }
 
         public void AddYearPlan(YearPlan yearPlan)

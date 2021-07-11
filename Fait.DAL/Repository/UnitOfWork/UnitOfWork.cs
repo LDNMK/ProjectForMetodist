@@ -20,6 +20,7 @@ namespace Fait.DAL.Repository.UnitOfWork
         private ISubjectSemesterRepository subjectSemesterRepository;
         private IProgressRepository progressRepository;
         private ISpecialityRepository specialityRepository;
+        private IYearPlanGroupsRepository yearPlanGroupsRepository;
 
         public UnitOfWork(FAITContext context)
         {
@@ -134,6 +135,17 @@ namespace Fait.DAL.Repository.UnitOfWork
                     this.specialityRepository = new SpecialityRepository(dbContext);
                 }
                 return specialityRepository;
+            }
+        }
+        public IYearPlanGroupsRepository YearPlanGroupsRepository
+        {
+            get
+            {
+                if (this.yearPlanGroupsRepository == null)
+                {
+                    this.yearPlanGroupsRepository = new YearPlanGroupsRepository(dbContext);
+                }
+                return yearPlanGroupsRepository;
             }
         }
 

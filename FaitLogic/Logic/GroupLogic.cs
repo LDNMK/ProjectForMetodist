@@ -98,17 +98,5 @@ namespace FaitLogic.Logic
             }
             unitOfWork.Save();
         }
-
-        public void SetYearPlan(ICollection<int> groupsIds, int yearPlanId)
-        {
-            foreach (var groupId in groupsIds)
-            {
-                var findedGroup = unitOfWork.GroupRepository.FindExistingGroup(groupId);
-                findedGroup.PlanId = yearPlanId;
-
-                unitOfWork.GroupRepository.UpdateGroup(findedGroup);
-            }
-            unitOfWork.Save();
-        }
     }
 }
