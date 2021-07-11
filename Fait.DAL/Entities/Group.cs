@@ -9,7 +9,7 @@ namespace Fait.DAL
     {
         public Group()
         {
-            ActualGroups = new HashSet<ActualGroup>();
+            GroupStudents = new HashSet<GroupStudent>();
             YearPlanGroups = new HashSet<YearPlanGroup>();
         }
 
@@ -20,7 +20,7 @@ namespace Fait.DAL
         public int Course { get; set; }
 
         public virtual GroupPrefix GroupPrefix { get; set; }
-        public virtual ICollection<ActualGroup> ActualGroups { get; set; }
+        public virtual ICollection<GroupStudent> GroupStudents { get; set; }
         public virtual ICollection<YearPlanGroup> YearPlanGroups { get; set; }
     }
 }

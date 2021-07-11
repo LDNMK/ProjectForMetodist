@@ -29,7 +29,6 @@ namespace FaitLogic.Logic
             studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
             studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
 
-            //SpecialityId = studentCard.!!!!
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
 
             unitOfWork.StudentRepository.AddStudent(student);
@@ -38,13 +37,14 @@ namespace FaitLogic.Logic
 
             var studentId = unitOfWork.StudentRepository.GetLastStudentId();
 
-            var actualGroup = new ActualGroup
+            var actualGroup = new GroupStudent
             {
                 StudentId = studentId,
-                GroupId = studentCard.GroupId
+                GroupId = studentCard.GroupId,
+                GroupYear = studentCard.GroupYear
             };
 
-            unitOfWork.ActualGroupRepository.AddActualGroup(actualGroup);
+            unitOfWork.GroupStudentRepository.AddGroupStudent(actualGroup);
             unitOfWork.Save();
         }
 
@@ -56,7 +56,6 @@ namespace FaitLogic.Logic
             studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
             studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
 
-            //SpecialityId = studentCard.!!!!
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
             student.Id = studentId;
 
@@ -65,9 +64,9 @@ namespace FaitLogic.Logic
             unitOfWork.Save();
         }
 
-        public ICollection<StudentNameWithIdDTO> GetListOfStudents(int groupId)
+        public ICollection<StudentNameWithIdDTO> GetListOfStudents(int groupId, int year)
         {
-            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(unitOfWork.StudentRepository.GetAllStudents(groupId));
+            var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(unitOfWork.StudentRepository.GetAllStudents(groupId, year));
 
             return listOfStudents;
         }

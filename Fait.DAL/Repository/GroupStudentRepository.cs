@@ -5,24 +5,24 @@ using System.Linq;
 
 namespace Fait.DAL.Repository
 {
-    public class ActualGroupRepository : Repository<ActualGroup>, IActualGroupRepository
+    public class GroupStudentRepository : Repository<GroupStudent>, IGroupStudentRepository
     {
-        public ActualGroupRepository(FAITContext context)
+        public GroupStudentRepository(FAITContext context)
             : base(context)
         {
         }
 
-        public void AddActualGroup(ActualGroup actualGroup)
+        public void AddGroupStudent(GroupStudent groupStudent)
         {
-            base.Add(actualGroup);
+            base.Add(groupStudent);
         }
 
-        public void AddActualGroups(ICollection<ActualGroup> actualGroups)
+        public void AddGroupStudents(ICollection<GroupStudent> groupStudents)
         {
-            base.AddRange(actualGroups);
+            base.AddRange(groupStudents);
         }
 
-        public ActualGroup FindStudentActualGroup(int studentId)
+        public GroupStudent FindStudentActualGroup(int studentId)
         {
             return base.Find(x => x.StudentId == studentId 
                 && x.Group.Actual == true)
@@ -32,7 +32,7 @@ namespace Fait.DAL.Repository
             //    .SingleOrDefault();
         }
 
-        public void UpdateActualGroup(ActualGroup group)
+        public void UpdateActualGroup(GroupStudent group)
         {
             base.Update(group);
         }

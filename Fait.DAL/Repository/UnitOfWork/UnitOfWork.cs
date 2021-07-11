@@ -10,7 +10,7 @@ namespace Fait.DAL.Repository.UnitOfWork
     {
         private readonly FAITContext dbContext;
 
-        private IActualGroupRepository actualGroupRepository;
+        private IGroupStudentRepository groupStudentRepository;
         private IGroupRepository groupRepository;
         private IGroupPrefixRepository groupPrefixRepository;
         private IStudentRepository studentRepository;
@@ -27,15 +27,15 @@ namespace Fait.DAL.Repository.UnitOfWork
             dbContext = context;
         }
 
-        public IActualGroupRepository ActualGroupRepository 
+        public IGroupStudentRepository GroupStudentRepository
         {
             get
             {
-                if (this.actualGroupRepository == null)
+                if (this.groupStudentRepository == null)
                 {
-                    this.actualGroupRepository = new ActualGroupRepository(dbContext);
+                    this.groupStudentRepository = new GroupStudentRepository(dbContext);
                 }
-                return actualGroupRepository;
+                return groupStudentRepository;
             }
         } 
         public IGroupRepository GroupRepository 

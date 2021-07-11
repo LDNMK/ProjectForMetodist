@@ -9,7 +9,7 @@ namespace Fait.DAL.Repository.IRepository
 
         void UpdateStudent(Student student);
 
-        ICollection<StudentNameWithId> GetAllStudents(int groupId);
+        ICollection<StudentNameWithId> GetAllStudents(int groupId, int year);
 
         Student GetStudentMainInfo(int studentId);
 

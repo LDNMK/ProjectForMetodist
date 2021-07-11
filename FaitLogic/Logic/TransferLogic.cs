@@ -29,13 +29,13 @@ namespace FaitLogic.Logic
                 throw new Exception();
             }
 
-            var actualGroup = new ActualGroup
+            var actualGroup = new GroupStudent
             {
                 StudentId = studentId,
                 GroupId = nextGroupId
             };
 
-            unitOfWork.ActualGroupRepository.AddActualGroup(actualGroup);
+            unitOfWork.GroupStudentRepository.AddGroupStudent(actualGroup);
             unitOfWork.Save();
         }
 
@@ -47,27 +47,29 @@ namespace FaitLogic.Logic
                 throw new Exception();
             }
 
-            var listOfStudents = unitOfWork.StudentRepository.GetAllStudents(groupId);
-            if (listOfStudents == null)
-            {
-                throw new Exception();
-            }
+            // REDO!
 
-            var actualGroups = new List<ActualGroup>();
-            foreach (var student in listOfStudents)
-            {
-                actualGroups.Add(new ActualGroup
-                {
-                    StudentId = student.StudentId,
-                    GroupId = nextGroupId
-                });
-            }
-            unitOfWork.ActualGroupRepository.AddActualGroups(actualGroups);
+            //var listOfStudents = unitOfWork.StudentRepository.GetAllStudents(groupId, year);
+            //if (listOfStudents == null)
+            //{
+            //    throw new Exception();
+            //}
 
-            var grou = unitOfWork.GroupRepository.FindExistingGroup(groupId);
-            grou.Actual = false;
-            unitOfWork.GroupRepository.UpdateGroup(grou);
-            unitOfWork.Save();
+            //var actualGroups = new List<ActualGroup>();
+            //foreach (var student in listOfStudents)
+            //{
+            //    actualGroups.Add(new ActualGroup
+            //    {
+            //        StudentId = student.StudentId,
+            //        GroupId = nextGroupId
+            //    });
+            //}
+            //unitOfWork.ActualGroupRepository.AddActualGroups(actualGroups);
+
+            //var grou = unitOfWork.GroupRepository.FindExistingGroup(groupId);
+            //grou.Actual = false;
+            //unitOfWork.GroupRepository.UpdateGroup(grou);
+            //unitOfWork.Save();
         }
     }
 }

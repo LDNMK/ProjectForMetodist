@@ -2,8 +2,8 @@
 CREATE PROCEDURE AddValuesToStudentsGroup
 AS
 BEGIN
-	INSERT INTO ActualGroups (GroupId, StudentId )
+	INSERT INTO GroupStudents (GroupId, StudentId, GroupYear)
 	VALUES
-		(1, 1),
-		(1, 2)
+		(1, 1, 2020),
+		(1, 2, 2021)
 END

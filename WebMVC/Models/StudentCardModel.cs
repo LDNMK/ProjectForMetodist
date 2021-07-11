@@ -4,6 +4,7 @@ namespace WebAPI.Models
     {
         public int Course { get; set; }
         public int GroupId { get; set; }
+        public int GroupYear { get; set; }
         public int DegreeId { get; set; }
         public int? SpecialityId { get; set; }
         public string LastName { get; set; }
