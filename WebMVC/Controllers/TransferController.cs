@@ -1,17 +1,24 @@
-﻿using FaitLogic.Logic;
+﻿using AutoMapper;
+using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
     public class TransferController : ControllerBase
     {
+        private readonly IMapper _mapper;
+
         private readonly TransferLogic transfLogic;
 
-        public TransferController(TransferLogic transferLogic)
+        public TransferController(TransferLogic transferLogic, IMapper mapper)
         {
             this.transfLogic = transferLogic;
+            this._mapper = mapper;
         }
 
         [HttpPatch]
@@ -28,6 +35,14 @@ namespace WebAPI.Controllers
             transfLogic.TransferStudent(studentId, groupId);
 
             return Ok();
+        }
+
+        [HttpGet]
+        async public Task<IActionResult> GetStudentsForTransfer([FromQuery] int groupId, [FromQuery] int year)
+        {
+            var students = _mapper.Map<ICollection<TransferStudentModel>>(await transfLogic.GetStudents(groupId, year));
+
+            return Ok(students);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Fait.DAL.Entities.NotMapped;
 using Fait.DAL.NotMapped;
 using Fait.DAL.Repository.IRepository;
 using Fait.DAL.Repository.UnitOfWork;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fait.DAL.Repository
 {
@@ -45,7 +47,7 @@ namespace Fait.DAL.Repository
             //    .ToList();
         }
 
-        public ICollection<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds)
+        public ICollection<GroupNameWithId> GetGroupNames(IEnumerable<int> groupIds)
         {
             return dbContext.Groups
                 .Where(x => groupIds.Contains(x.Id))
@@ -62,21 +64,17 @@ namespace Fait.DAL.Repository
         {
             return Find(x => x.Actual == true
                        && x.Course == course);
-            //return dbContext.Groups
-            //    .AsNoTracking()
-            //    .Where(x => x.Actual == true 
-            //           && x.Course == course)
-            //    .ToList();
         }
 
         public ICollection<Group> GetGroups(int course, int year)
         {
             return Find(x => x.Course == course &&
                 x.YearPlanGroups.Select(x => x.YearPlan.Year).Contains(year));
+        }
 
-            //return dbContext.Groups
-            //    .Where(x => x.Plan.Year == year && x.Course == course)
-            //    .ToList();
+        public ICollection<int> GetGroupIds(int course, int? year)
+        {
+            return (year.HasValue ? GetGroups(course, year.Value) : GetGroups(course)).Select(x => x.Id).ToList();
         }
 
         public void UpdateGroup(Group group)
@@ -101,6 +99,23 @@ namespace Fait.DAL.Repository
             //     .AsNoTracking()
             //     .Where(x => x.Actual == false)
             //     .ToList();
+        }
+
+        async public Task<ICollection<TransferStudent>> GetStudents(int groupId, int year)
+        {
+            return await dbContext.GroupStudents
+                .Where(x =>
+                    x.GroupId == groupId &&
+                    x.GroupYear == year)
+                .Select(x => new TransferStudent()
+                {
+                    Id = x.StudentId,
+                    FirstName = x.Student.FirstName,
+                    LastName = x.Student.LastName,
+                    Patronymic = x.Student.Patronymic,
+                    StateId = x.Student.StudentStateId
+                })
+                .ToListAsync();
         }
     }
 }

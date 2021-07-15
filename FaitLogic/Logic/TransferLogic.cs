@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using Fait.DAL;
+using Fait.DAL.Entities.NotMapped;
 using Fait.DAL.Repository.UnitOfWork;
+using FaitLogic.DTO;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FaitLogic.Logic
 {
     public class TransferLogic
     {
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
 
         private readonly IUnitOfWork unitOfWork;
 
@@ -16,7 +19,7 @@ namespace FaitLogic.Logic
             IMapper mapper,
             IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
+            this._mapper = mapper;
             this.unitOfWork = unitOfWork;
         }
 
@@ -70,6 +73,15 @@ namespace FaitLogic.Logic
             //grou.Actual = false;
             //unitOfWork.GroupRepository.UpdateGroup(grou);
             //unitOfWork.Save();
+        }
+
+        async public Task<ICollection<TransferStudentDTO>> GetStudents(int groupId, int year)
+        {
+            var students = await unitOfWork.GroupRepository.GetStudents(groupId, year);
+
+            var r =  _mapper.Map<ICollection<TransferStudent>, ICollection<TransferStudentDTO>>(students);
+
+            return r;
         }
     }
 }

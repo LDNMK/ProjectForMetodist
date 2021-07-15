@@ -1,7 +1,7 @@
 .transfer {
     &__grid {
         display: grid;
-        grid-template-columns: minmax(320px, 450px) 250px;
+        grid-template-columns: 240px 640px;
         gap: 80px;
     }
 
@@ -21,9 +21,32 @@
         }
     }
 
-    &__actions {
-        display: grid;
-        gap: 20px;
-        justify-content: center;
+    &__student {
+        &-head,
+        &-row {
+            display: grid;
+            grid-template-columns: 300px 160px 160px;
+            align-items: center;
+            column-gap: 10px;
+        }
+
+        &-head {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        &-row {
+            & + & {
+                margin-top: 10px;
+            }
+
+            select {
+                padding: 5px 5px 3px;
+                border: none;
+                border-bottom: 1px solid #337ab7;
+            }
+        }
     }
 }

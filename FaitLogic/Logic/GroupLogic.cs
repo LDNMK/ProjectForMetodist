@@ -56,23 +56,10 @@ namespace FaitLogic.Logic
             unitOfWork.Save();
         }
 
-        public ICollection<GroupNameWithIdDTO> GetGroupsList(int course, int? year)
+        public ICollection<GroupNameWithIdDTO> GetGroups(int course, int? year)
         {
-            //ICollection<Group> groups;
-
-            //if (year.HasValue)
-            //{
-            //    groups = groupRepo.GetGroups(course, year.Value);
-            //}
-            //else
-            //{
-            //    groups = groupRepo.GetGroups(course);
-            //}
-
-            var groups = year.HasValue ? unitOfWork.GroupRepository.GetGroups(course, year.Value) : unitOfWork.GroupRepository.GetGroups(course);
-
-            var groupIds = groups.Select(X => X.Id);
-            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupsNames(groupIds));
+            var groupIds = unitOfWork.GroupRepository.GetGroupIds(course, year);
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupNames(groupIds));
 
             return groupNames;
         }
@@ -82,7 +69,7 @@ namespace FaitLogic.Logic
             var groups = unitOfWork.GroupRepository.GetDeactivatedGroups();
 
             var groupIds = groups.Select(X => X.Id);
-            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupsNames(groupIds));
+            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupNames(groupIds));
 
             return groupNames;
         }
