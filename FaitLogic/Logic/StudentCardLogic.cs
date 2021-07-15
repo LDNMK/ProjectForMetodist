@@ -5,6 +5,7 @@ using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FaitLogic.Logic
 {

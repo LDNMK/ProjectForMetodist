@@ -15,9 +15,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetListOfGroups(int course, int? year)
+        public IActionResult GetGroups(int course, int? year)
         {
-            var groups = groupLogic.GetGroupsList(course, year);
+            var groups = groupLogic.GetGroups(course, year);
 
             return Ok(groups);
         }

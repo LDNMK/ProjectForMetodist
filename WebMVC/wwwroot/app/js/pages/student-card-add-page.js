@@ -15,7 +15,7 @@ class StudentCardAddPage extends Page {
                 <div class="student-card__add-info">
                     <h1 class="main__page-title">Навчальна картка студента</h1>
 
-                    <div class="main__col-2">
+                    <div class="main__col-3">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course" data-obj-key="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -33,6 +33,11 @@ class StudentCardAddPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <input id="year" class="form-element-field" data-obj-key="year" placeholder="Введіть рік" type="number" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="year">Рік</label>
                         </div>
                     </div>
 

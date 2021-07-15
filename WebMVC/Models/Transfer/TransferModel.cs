@@ -7,10 +7,13 @@ namespace WebAPI.Models
 {
     public class TransferModel
     {
-        public int Year { get; set; }
         public short Course { get; set; }
-        public string Speciality { get; set; }
+
         public string Group { get; set; }
-        public int? ChooseStudent { get; set; }
+
+        public int Year { get; set; }
+
+        public ICollection<TransferStudentModel> Students { get; set; }
+
     }
 }

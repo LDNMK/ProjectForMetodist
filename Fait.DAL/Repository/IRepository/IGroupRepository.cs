@@ -1,5 +1,7 @@
-﻿using Fait.DAL.NotMapped;
+﻿using Fait.DAL.Entities.NotMapped;
+using Fait.DAL.NotMapped;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fait.DAL.Repository.IRepository
 {
@@ -13,7 +15,7 @@ namespace Fait.DAL.Repository.IRepository
 
         ICollection<Group> FindGroupsByYearPlan(int yearPlanId);
 
-        ICollection<GroupNameWithId> GetGroupsNames(IEnumerable<int> groupIds);
+        ICollection<GroupNameWithId> GetGroupNames(IEnumerable<int> groupIds);
 
         int GetNextGroupOfStudent(int groupId);
 
@@ -23,6 +25,10 @@ namespace Fait.DAL.Repository.IRepository
 
         ICollection<Group> GetGroups(int course);
 
+        ICollection<int> GetGroupIds(int course, int? year);
+
         ICollection<Group> GetDeactivatedGroups();
+
+        Task<ICollection<TransferStudent>> GetStudents(int groupId, int year);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Fait.DAL;
+using Fait.DAL.Entities.NotMapped;
 using Fait.DAL.NotMapped;
 using FaitLogic.DTO;
 using WebAPI.Models;
@@ -58,5 +59,9 @@ public class MappingProfile : Profile
         CreateMap<ProgressStudentModel, ProgressStudentDTO>().ReverseMap();
         CreateMap<ProgressSubjectModel, ProgressSubjectDTO>().ReverseMap();
         CreateMap<SubjectStudentMarkModel, SubjectStudentMarkDTO>().ReverseMap();
+
+        // Transfer
+        CreateMap<TransferStudent, TransferStudentDTO>().ReverseMap();
+        CreateMap<TransferStudentModel, TransferStudentDTO>().ReverseMap();
     }
 }
