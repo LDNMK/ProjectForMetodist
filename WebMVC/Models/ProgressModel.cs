@@ -33,5 +33,7 @@ namespace WebAPI.Models
         public int Id { get; set; }
 
         public int? Mark { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
     }
 }

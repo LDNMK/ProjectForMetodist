@@ -66,11 +66,14 @@
 
             &-subject,
             &-mark {
-                width: 70px;
+                width: 71px;
 
                 & + & {
                     border-left: 1px solid black;
                 }
+
+                display: flex;
+
             }
 
             &-marks {
@@ -81,7 +84,6 @@
             &-subject,
             &-mark,
             &-final-mark {
-                
                 height: 100%;
                 overflow-wrap: anywhere;
                 padding: 5px;
@@ -95,13 +97,31 @@
                 border-left: 1px solid black;
             }
 
-            &-input {
-                width: 50px;
-                text-align: center;
-                line-height: 22px;
-                font-size: 15px;
-                border: none;
-                border-bottom: 1px solid rgb(148, 148, 148);
+            &-mark {
+                &-value,
+                &-date {
+                    width: 65px;
+                    text-align: center;
+                    border: none;
+                    border-bottom: 1px solid rgb(148, 148, 148);
+                }
+
+                &-value {
+                    line-height: 22px;
+                    font-size: 15px;
+                }
+
+                &-date {
+                    line-height: 10px;
+                    font-size: 10px;
+                    margin-top: 10px;
+
+                    &::-webkit-inner-spin-button,
+                    &::-webkit-calendar-picker-indicator {
+                        display: none;
+                        -webkit-appearance: none;
+                    }
+                }
             }
         }
     }

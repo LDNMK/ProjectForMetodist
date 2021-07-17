@@ -141,19 +141,28 @@ class ProgressPage extends Page {
                     name: sr.querySelector('.progress__row-cell-student span')?.innerText
                 };
 
-                student.subjects = [...sr.querySelectorAll('.progress__row-cell-input')]
+                student.subjects = [...sr.querySelectorAll('.progress__row-cell-mark')]
                     .map(x => {
+                        let mark = x.querySelector('.progress__row-cell-mark-value');
+                        let date = x.querySelector('.progress__row-cell-mark-date');
                         return {
-                            id: +x.getAttribute('data-subject-id'),
-                            mark: x.value == "" ? null : x.value
+                            id: +mark.getAttribute('data-subject-id'),
+                            mark: mark.value == "" ? null : mark.value,
+                            modifiedOn: date.value == "" ? null : date.value,
                         }
                     });
 
                 progressObj.push(student);
             });
 
+            // console.log(progressObj);
+
+            // return;
+
             fetchUpdateProgress(progressObj);
         });
+
+        
 
         async function fetchPlan(year, groupId, semesterId) {
             if (year == "" || groupId == "" || semesterId == "") {
@@ -196,7 +205,7 @@ class ProgressPage extends Page {
                 return;
             }
 
-            let url = `api/Group/GetListOfGroups?course=${course}`;
+            let url = `api/Group/GetGroups?course=${course}`;
             url += year ? `&year=${year}` : "";
 
             const response = await fetch(url);
@@ -211,7 +220,7 @@ class ProgressPage extends Page {
 
         async function fetchUpdateProgress(progressObj) {
             console.log(progressObj);
-            console.log(JSON.stringify(progressObj));
+            // console.log(JSON.stringify(progressObj));
 
             const response = await fetch(`api/Progress/UpdateProgress`, {
                 method: 'POST',

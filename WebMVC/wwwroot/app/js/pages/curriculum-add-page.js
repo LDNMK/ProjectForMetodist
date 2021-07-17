@@ -199,7 +199,7 @@ class CurriculumAddPage extends Page {
                 return;
             }
 
-            let url = `api/Group/GetListOfGroups?course=${course}`;
+            let url = `api/Group/GetGroups?course=${course}`;
 
             const response = await fetch(url);
             const groups = await response.json();

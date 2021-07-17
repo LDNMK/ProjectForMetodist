@@ -67,7 +67,8 @@ namespace FaitLogic.Logic
                     studentMarks.Add(new SubjectStudentMarkDTO
                     {
                         Id = mark.SubjectId,
-                        Mark = mark.SubjectMark //(mark.SubjectMark + mark.TaskMark) / 2
+                        Mark = mark.SubjectMark, //(mark.SubjectMark + mark.TaskMark) / 2
+                        ModifiedOn = mark.ModifiedOn
                     });
                 }
                 studentWithMarks.Subjects = studentMarks;
@@ -95,6 +96,7 @@ namespace FaitLogic.Logic
                     if (mark != null && subject.Mark != null)
                     {
                         mark.SubjectMark = (byte)subject.Mark.Value;
+                        mark.ModifiedOn = subject.ModifiedOn;
                         unitOfWork.ProgressRepository.UpdateMark(mark);
                     }
                     else if (mark != null && subject.Mark == null)
@@ -108,7 +110,8 @@ namespace FaitLogic.Logic
                         {
                             StudentId = student.Id,
                             SubjectId = subject.Id,
-                            SubjectMark = (byte)subject.Mark.Value
+                            SubjectMark = (byte)subject.Mark.Value,
+                            ModifiedOn = subject.ModifiedOn
                         };
 
                         unitOfWork.ProgressRepository.AddMark(mark);
