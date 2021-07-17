@@ -5,7 +5,7 @@ function init() {
     // initMainPage();
 
     // setPageByAttribute(MainPage.is);
-    setPageByAttribute(TransferPage.is);
+    setPageByAttribute(ProgressPage.is);
     // CurriculumAddPage.init();
     // subscribeFormElements();
 }

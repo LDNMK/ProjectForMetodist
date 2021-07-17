@@ -127,9 +127,15 @@ function getProgressStudentRow(student, subjects) {
             <ul class="progress__row-cell progress__row-cell-marks">
                 ${
                     subjects.map(s => {
+                        let subject = student.subjects.find(x => x.id == s.id);
+                        let mark = subject?.mark ?? '';
+                        let date = subject?.modifiedOn ? subject.modifiedOn.split('T')[0] : '';
+
+                        console.log(date);
                         return `
-                            <li class="progress__row-cell progress__row-cell-mark">
-                                <input class="progress__row-cell-input" type="text" value="${student.subjects.find(x => x.id == s.id)?.mark ?? ''}" pattern="[0-9]" data-subject-id="${s.id}" disabled>
+                            <li class="progress__row-cell progress__row-cell-mark" style="display: flex; flex-direction: column;">
+                                <input class="progress__row-cell-mark-value" type="text" value="${mark}" pattern="[0-9]" data-subject-id="${s.id}" disabled>
+                                <input class="progress__row-cell-mark-date" type="date" value="${date}" disabled/>
                             </li>
                         `;
                     }).join('')
@@ -142,8 +148,6 @@ function getProgressStudentRow(student, subjects) {
                             .map(x => x.mark)
                             ?.reduce((sum, mark) => sum += mark, 0) / student.subjects.length)
                     }
-                         
-                    
                 </span>
             </div>
         </div>

@@ -304,7 +304,7 @@ class StudentCardAddPage extends Page {
                 return;
             }
 
-            const response = await fetch(`api/Group/GetListOfGroups?course=${course}`);
+            const response = await fetch(`api/Group/GetGroups?course=${course}`);
             const groups = await response.json();
 
             console.log(groups);

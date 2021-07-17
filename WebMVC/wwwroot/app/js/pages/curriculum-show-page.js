@@ -193,7 +193,7 @@ class CurriculumShowPage extends Page {
                 return;
             }
 
-            let url = `api/Group/GetListOfGroups?course=${course}`;
+            let url = `api/Group/GetGroups?course=${course}`;
             url += year ? `&year=${year}` : "";
 
             const response = await fetch(url);

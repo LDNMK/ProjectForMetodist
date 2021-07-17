@@ -309,7 +309,7 @@ class StudentCardShowPage extends Page {
                 return;
             }
 
-            let url = `api/Group/GetListOfGroups?course=${course}`;
+            let url = `api/Group/GetGroups?course=${course}`;
 
             if (year) {
                 url += `&year=${year}`;
