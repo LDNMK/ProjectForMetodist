@@ -13,9 +13,7 @@ namespace FaitLogic.Resolver
             {
                 StudentStateEnum.DefaultTransfer => StudentActionEnum.DefaultTransfer,
                 StudentStateEnum.AcademicLeave => StudentActionEnum.AcademicLeave,
-                //StudentStateEnum.TransferInAnotherGroup => StudentActionEnum.,
-                StudentStateEnum.NotClosedSession => StudentActionEnum.LeaveForSecondYear,
-                StudentStateEnum.StudentExpelled => StudentActionEnum.Recover,
+                StudentStateEnum.Expelled => StudentActionEnum.Recover,
                 _ => default
             };
         }

@@ -18,6 +18,6 @@ namespace Fait.DAL.Entities.NotMapped
 
         public int StateId { get; set; }
 
-        public int ActionId { get; set; }
+        public int? GroupId { get; set; }
     }
 }

@@ -73,7 +73,7 @@
     <Build Include="dbo\Tables\marital_statuses.sql" />
     <Build Include="dbo\Tables\marks.sql" />
     <Build Include="dbo\Tables\Speciality.sql" />
-    <Build Include="dbo\Tables\student_states.sql" />
+    <Build Include="dbo\Tables\StudentState.sql" />
     <Build Include="dbo\Tables\students.sql" />
     <Build Include="dbo\Tables\students_info.sql" />
     <Build Include="dbo\Tables\SubjectSemester.sql" />
@@ -82,7 +82,7 @@
     <Build Include="dbo\Stored Procedures\return_next_group_id_for_student.sql" />
     <Build Include="dbo\Stored Procedures\return_student_group_id.sql" />
     <Build Include="dbo\Tables\ExperienceCompetitions.sql" />
-    <Build Include="dbo\Tables\StudentTransferOrder.sql" />
+    <Build Include="dbo\Tables\StudentTransferHistory.sql" />
     <PostDeploy Include="dbo\Deployment\PostDeploymentFAIT.sql" />
     <None Include="dbo\Deployment\DataScripts\AddValuesToAmend.sql" />
     <None Include="dbo\Deployment\DataScripts\AddValuesToExperienceCompetition.sql" />
@@ -97,6 +97,8 @@
     <Build Include="dbo\Deployment\DataScripts\AddValuesToYearPlan.sql" />
     <Build Include="dbo\Tables\YearPlanGroups.sql" />
     <Build Include="dbo\Tables\Degree.sql" />
+    <Build Include="dbo\Stored Procedures\GetNextGroupId.sql" />
+    <Build Include="dbo\Functions\GetGroupId.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />

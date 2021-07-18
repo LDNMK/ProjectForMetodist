@@ -92,6 +92,14 @@ namespace Fait.DAL.Repository
             }
         }
 
+        public int GetNextGroupId(int groupId)
+        {
+            using (IDbConnection db = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
+            {
+                return db.Query<int>($"EXEC GetNextGroupId {groupId}").FirstOrDefault();
+            }
+        }
+
         public ICollection<Group> GetDeactivatedGroups()
         {
             return base.Find(x => x.Actual == false);
