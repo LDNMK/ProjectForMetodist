@@ -1,23 +1,21 @@
 ﻿
-SET IDENTITY_INSERT [student_states] ON
+SET IDENTITY_INSERT [StudentState] ON
 
-MERGE INTO [student_states] AS o
+MERGE INTO [StudentState] AS o
 USING (SELECT *
 	FROM
 	(
 		VALUES
-			(1, 'Перехід з групою'),
-			(2, 'Академічна відпустка'),
-			(3, 'Перехід в іншу группу'),
-			(4, 'Не закрита сесія'),
-			(5, 'Студент відрахований'),
-			(6, 'Студент отримав ступінь')
+			(1, 'Перехід з курсу на курс'),
+			(2, 'Перерва в академічному навчанні'),
+			(3, 'Студент відрахований'),
+			(4, 'Студент отримав ступінь')
 	)
-	SOURCE (Id, [student_state_name])) AS n
+	SOURCE (Id, [Name])) AS n
 ON o.Id = n.Id
 WHEN NOT MATCHED BY TARGET THEN
-	INSERT (Id, [student_state_name])
-	VALUES (n.Id, n.[student_state_name]);
+	INSERT (Id, [Name])
+	VALUES (n.Id, n.[Name]);
 
-SET IDENTITY_INSERT [student_states] OFF
+SET IDENTITY_INSERT [StudentState] OFF
 GO

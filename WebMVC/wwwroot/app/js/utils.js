@@ -163,9 +163,6 @@ function getTransferStudentHead() {
             <span>
                 Статус
             </span>
-            <span>
-                Що зробити
-            </span>
         </li>
     `;
 }
@@ -180,20 +177,10 @@ function getTransferStudentRow(student) {
                 <span data-transfer-key="patronymic">${student.patronymic}</span>
             </span>
             <select name="status" data-transfer-key="stateId">
-                <option value="1" ${student.stateId == 1 ? "selected" : ""}>Перевести з групою</option>
-                <option value="2" ${student.stateId == 2 ? "selected" : ""}>Академ. відпустка</option>
-                <option value="3" ${student.stateId == 3 ? "selected" : ""}>Перехід в іншу групу</option>
-                <option value="4" ${student.stateId == 4 ? "selected" : ""}>Не закрив сесію</option>
-                <option value="5" ${student.stateId == 5 ? "selected" : ""}>Відрахований</option>
-                <option value="6" ${student.stateId == 6 ? "selected" : ""}>Здобув степінь</option>
-            </select>
-            <select name="action" data-transfer-key="actionId">
-                <option value=""></option>
-                <option value="1">Перевести з групою</option>
-                <option value="2">Академ. відпустка</option>
-                <option value="3">Залиш. на наст. рік</option>
-                <option value="4">Відрахувати</option>
-                <option value="5">Відновити</option>
+                <option value="1" ${student.stateId == 1 ? "selected" : ""}>Перехід з курсу на курс</option>
+                <option value="2" ${student.stateId == 2 ? "selected" : ""}>Перерва в академічному навчанні</option>
+                <option value="3" ${student.stateId == 3 ? "selected" : ""}>Відрахований</option>
+                <option value="4" ${student.stateId == 4 ? "selected" : ""}>Здобув степінь</option>
             </select>
         </li>
     `;

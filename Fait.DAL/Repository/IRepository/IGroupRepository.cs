@@ -30,5 +30,7 @@ namespace Fait.DAL.Repository.IRepository
         ICollection<Group> GetDeactivatedGroups();
 
         Task<ICollection<TransferStudent>> GetStudents(int groupId, int year);
+
+        int GetNextGroupId(int groupId);
     }
 }

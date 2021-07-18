@@ -16,6 +16,6 @@ namespace FaitLogic.DTO
 
         public int StateId { get; set; }
 
-        public int ActionId { get; set; }
+        public int? GroupId { get; set; }
     }
 }

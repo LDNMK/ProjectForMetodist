@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FaitLogic.DTO;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -43,6 +44,14 @@ namespace WebAPI.Controllers
             var students = _mapper.Map<ICollection<TransferStudentModel>>(await transfLogic.GetStudents(groupId, year));
 
             return Ok(students);
+        }
+
+        [HttpPost]
+        async public Task<IActionResult> TransferStudents([FromBody]ICollection<TransferStudentModel> students)
+        {
+            await transfLogic.TransferStudents(_mapper.Map<ICollection<TransferStudentDTO>>(students));
+
+            return Ok();
         }
     }
 }

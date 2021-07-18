@@ -21,6 +21,7 @@ namespace Fait.DAL.Repository.UnitOfWork
         private IProgressRepository progressRepository;
         private ISpecialityRepository specialityRepository;
         private IYearPlanGroupsRepository yearPlanGroupsRepository;
+        private ITransferHistoryRepository transferHistoryRepository;
 
         public UnitOfWork(FAITContext context)
         {
@@ -146,6 +147,18 @@ namespace Fait.DAL.Repository.UnitOfWork
                     this.yearPlanGroupsRepository = new YearPlanGroupsRepository(dbContext);
                 }
                 return yearPlanGroupsRepository;
+            }
+        }
+
+        public ITransferHistoryRepository TransferHistoryRepository
+        {
+            get
+            {
+                if (this.transferHistoryRepository == null)
+                {
+                    this.transferHistoryRepository = new TransferHistoryRepository(dbContext);
+                }
+                return transferHistoryRepository;
             }
         }
 

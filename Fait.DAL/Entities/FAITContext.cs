@@ -31,7 +31,7 @@ namespace Fait.DAL
         public virtual DbSet<Speciality> Specialities { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentState> StudentStates { get; set; }
-        public virtual DbSet<StudentTransferOrder> StudentTransferOrders { get; set; }
+        public virtual DbSet<StudentTransferHistory> StudentTransferOrders { get; set; }
         public virtual DbSet<StudentsInfo> StudentsInfos { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectSemester> SubjectSemesters { get; set; }
@@ -213,22 +213,22 @@ namespace Fait.DAL
 
             modelBuilder.Entity<StudentState>(entity =>
             {
-                entity.ToTable("student_states");
+                entity.ToTable("StudentState");
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("id");
+                    .HasColumnName("Id");
 
                 entity.Property(e => e.StudentStateName)
-                    .HasMaxLength(30)
-                    .HasColumnName("student_state_name");
+                    .HasMaxLength(50)
+                    .HasColumnName("Name");
             });
 
-            modelBuilder.Entity<StudentTransferOrder>(entity =>
+            modelBuilder.Entity<StudentTransferHistory>(entity =>
             {
-                entity.ToTable("StudentTransferOrder");
+                entity.ToTable("StudentTransferHistory");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                //entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Content)
                     .IsRequired()

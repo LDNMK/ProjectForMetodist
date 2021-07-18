@@ -130,7 +130,10 @@ class TransferPage extends Page {
             data.forEach(x => {
                 const studentData = x.querySelectorAll('[data-transfer-key]');
                 
-                let student = {};
+                let student = {
+                    groupId: groupSelect.value
+                };
+
                 studentData.forEach(s => {
                     student[s.getAttribute('data-transfer-key')] = s.tagName == "SPAN" ? s.innerText : s.value;
                 });
@@ -140,13 +143,13 @@ class TransferPage extends Page {
 
             console.log(students);
 
-            // const response = await fetch(`api/Transfer/TransferStudents`, {
-            //     method: 'PUT',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(students)
-            // });
+            const response = await fetch(`api/Transfer/TransferStudents`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(students)
+            });
         }
     }
 }
