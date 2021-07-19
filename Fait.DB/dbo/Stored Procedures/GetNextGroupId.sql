@@ -23,7 +23,7 @@ BEGIN
 			SET @NextGroupId = (SELECT dbo.GetGroupId(@Course + 1, @GroupPrefixId))
 
 			-- If groupId not found - we have to create a new group
-			IF (ISNULL(@NextGroupId, 0) = 0)
+			IF (@NextGroupId IS NULL)
 			BEGIN
 				INSERT INTO Groups (GroupNumber, GroupPrefixId, Actual, Course)
 				VALUES (@GroupNumber + 10, @GroupPrefixId, 1, @Course + 1);
