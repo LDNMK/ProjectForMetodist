@@ -65,7 +65,7 @@ namespace FaitLogic.Logic
             unitOfWork.Save();
         }
 
-        public ICollection<StudentNameWithIdDTO> GetListOfStudents(int groupId, int year)
+        public ICollection<StudentNameWithIdDTO> GetStudents(int groupId, int? year)
         {
             var listOfStudents = _mapper.Map<ICollection<StudentNameWithIdDTO>>(unitOfWork.StudentRepository.GetAllStudents(groupId, year));
 

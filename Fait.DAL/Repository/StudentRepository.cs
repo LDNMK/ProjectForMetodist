@@ -1,12 +1,10 @@
-﻿using Fait.DAL.NotMapped;
+﻿using Dapper;
+using Fait.DAL.NotMapped;
 using Fait.DAL.Repository.IRepository;
-using Fait.DAL.Repository.UnitOfWork;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 
 namespace Fait.DAL.Repository
 {
@@ -27,16 +25,30 @@ namespace Fait.DAL.Repository
             base.Update(student);
         }
 
-        public ICollection<StudentNameWithId> GetAllStudents(int groupId, int year)
+        public ICollection<StudentNameWithId> GetAllStudents(int groupId, int? year)
         {
-            var parameters = new SqlParameter[]
+            if (year.HasValue)
             {
-                new SqlParameter("@group_id", groupId),
-                new SqlParameter("@year", year)
-            };
+                return dbContext.GroupStudents
+                    .AsNoTracking()
+                    .Where(x => x.GroupId == groupId && x.GroupYear == year.Value)
+                    .Select(x => new StudentNameWithId()
+                    {
+                        StudentId = x.StudentId,
+                        StudentName = string.Format("{0} {1} {2}", x.Student.LastName, x.Student.FirstName, x.Student.Patronymic)
+                    })
+                    .ToList();
+            }
 
-            return dbContext.StudentNameWithIds.FromSqlRaw("SELECT id, full_name " +
-                "FROM dbo.return_students_from_group (@group_id, @year)", parameters).ToList();
+            return dbContext.GroupStudents
+                .AsNoTracking()
+                .Where(x => x.GroupId == groupId)
+                .Select(x => new StudentNameWithId()
+                {
+                    StudentId = x.StudentId,
+                    StudentName = string.Format("{0} {1} {2}", x.Student.LastName, x.Student.FirstName, x.Student.Patronymic)
+                })
+                .ToList();
         }
 
         public Student GetStudentMainInfo(int studentId)

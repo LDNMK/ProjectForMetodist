@@ -135,7 +135,7 @@ class CreateReportPage extends Page {
                 return;
             }
 
-            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
+            const response = await fetch(`api/StudentCard/GetStudents?groupId=${groupId}`);
             const students = await response.json();
 
             let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
