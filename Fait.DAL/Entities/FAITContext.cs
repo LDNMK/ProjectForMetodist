@@ -31,7 +31,7 @@ namespace Fait.DAL
         public virtual DbSet<Speciality> Specialities { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentState> StudentStates { get; set; }
-        public virtual DbSet<StudentTransferHistory> StudentTransferOrders { get; set; }
+        public virtual DbSet<StudentTransferHistory> StudentTransferHistory { get; set; }
         public virtual DbSet<StudentsInfo> StudentsInfos { get; set; }
         public virtual DbSet<Subject> Subjects { get; set; }
         public virtual DbSet<SubjectSemester> SubjectSemesters { get; set; }
@@ -230,14 +230,19 @@ namespace Fait.DAL
 
                 //entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Content)
-                    .IsRequired()
-                    .HasMaxLength(40);
+                //entity.Property(e => e.Content)
+                //    .IsRequired()
+                //    .HasMaxLength(40);
+
+                //entity.Property(e => e.Id).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+                //entity.Property(e => e.StudentId).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+                //entity.Property(e => e.StateId).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+                //entity.Property(e => e.Id).Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
 
                 entity.Property(e => e.OperationDate).HasColumnType("date");
 
                 entity.HasOne(d => d.Student)
-                    .WithMany(p => p.StudentTransferOrders)
+                    .WithMany(p => p.StudentTransferHistory)
                     .HasForeignKey(d => d.StudentId)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK__StudentTr__Stude__5441852A");

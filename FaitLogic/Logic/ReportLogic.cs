@@ -28,9 +28,9 @@ namespace FaitLogic.Logic
         // TO DO: make enum for speciality
         public void CreateReport(StudentCardDTO studentInfoDto, ICollection<StudentProgressDTO> studentProgresses)
         {
-            var orderDate = studentInfoDto.OrderDate;
+            var orderDate = studentInfoDto.OrderDate.Value;
             var studentInfo = new Dictionary<string, string>();
-            studentInfo.Add("Degree", DictionaryWithValues.Degrees[studentInfoDto.DegreeId]);
+            studentInfo.Add("Degree", DictionaryWithValues.Degrees[studentInfoDto.DegreeId.Value]);
             //studentInfo.Add("SpecialityId", studentInfo.SpecialityName);
             studentInfo.Add("Specialization", studentInfoDto.Specialization);
             studentInfo.Add("Name", string.Format("{0} {1} {2}", studentInfoDto.LastName, studentInfoDto.FirstName, studentInfoDto.Patronymic));

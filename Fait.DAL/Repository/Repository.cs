@@ -41,6 +41,11 @@ namespace Fait.DAL.Repository
             dbSet.Update(item);
         }
 
+        public void UpdateRange(ICollection<TEntity> items)
+        {
+            dbSet.UpdateRange(items);
+        }
+
         public virtual TEntity FindById(int id)
         {
             return dbSet.Find(id);
