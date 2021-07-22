@@ -99,9 +99,11 @@
     <Build Include="dbo\Tables\Degree.sql" />
     <Build Include="dbo\Stored Procedures\GetNextGroupId.sql" />
     <Build Include="dbo\Functions\GetGroupId.sql" />
+    <None Include="dbo\Deployment\DataScripts\AddValuesToDegree.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />
+    <Build Include="dbo\Deployment\DataScripts\AddValuesToYearPlanGroup.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Fait.DB.refactorlog" />

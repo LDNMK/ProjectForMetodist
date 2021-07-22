@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Fait.DAL.Entities.NotMapped;
+using System.Collections.Generic;
 
 namespace Fait.DAL.Repository.IRepository
 {
@@ -11,5 +12,7 @@ namespace Fait.DAL.Repository.IRepository
         void AddGroupStudent(GroupStudent groupStudent);
 
         void AddGroupStudents(ICollection<GroupStudent> groupStudents);
+
+        IEnumerable<GroupWithYear> GetStudentGroups(int studentId);
     }
 }

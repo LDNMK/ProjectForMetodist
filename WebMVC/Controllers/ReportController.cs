@@ -8,21 +8,29 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ReportController : ControllerBase
     {
         private readonly ReportLogic reportLogic;
+        private readonly StudentCardLogic studentLogic;
+        private readonly ProgressLogic progressLogic;
 
-        public ReportController(ReportLogic reportLogic)
+        public ReportController(ReportLogic reportLogic, StudentCardLogic studentLogic, ProgressLogic progressLogic)
         {
             this.reportLogic = reportLogic;
+            this.studentLogic = studentLogic;
+            this.progressLogic = progressLogic;
         }
 
         [HttpGet]
         public IActionResult CreateReport(int studentId)
         {
-            reportLogic.CreateReport(studentId);
+            var studentInfo = studentLogic.GetStudentInfo(studentId);
+
+            var studentProgress = progressLogic.GetStudentProgress(studentId);
+
+            reportLogic.CreateReport(studentInfo, studentProgress);
 
             return Ok();
         }

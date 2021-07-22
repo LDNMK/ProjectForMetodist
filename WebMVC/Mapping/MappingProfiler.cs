@@ -47,6 +47,8 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Department, opt => opt.MapFrom(x => x.Department))
             .ReverseMap();
 
+        CreateMap<Subject, StudentSubjectDTO>();
+
         // Group mapping
         CreateMap<GroupNameWithId, GroupNameWithIdDTO>().ReverseMap();
 
