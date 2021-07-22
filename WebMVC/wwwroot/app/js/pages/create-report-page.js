@@ -78,24 +78,15 @@ class CreateReportPage extends Page {
         const createBtn = document.querySelector('.create-report__create-btn');
         
         courseSelect.addEventListener('change', () => {
-            console.log('course');
-            if (yearInput.value) {
-                fetchGroups(courseSelect.value, yearInput.value);
-            } else {
-                fetchGroups(courseSelect.value);
-            }
+            fetchGroups(courseSelect.value, yearInput.value);
         });
 
         yearInput.addEventListener('change', () => {
-            if (yearInput.value) {
-                fetchGroups(courseSelect.value, yearInput.value);
-            } else {
-                fetchGroups(courseSelect.value);
-            }
+            fetchGroups(courseSelect.value, yearInput.value);
         });
 
         groupSelect.addEventListener('change', () => {
-            fetchStudents(groupSelect.value);
+            fetchStudents(groupSelect.value, yearInput.value);
         });
 
 
@@ -103,16 +94,12 @@ class CreateReportPage extends Page {
             createReport(studentSelect.value)
         })
 
-        async function fetchGroups(course, year = null) {
-            if (course == "") {
+        async function fetchGroups(course, year) {
+            if (course == "" || year =="") {
                 return;
             }
 
-            let url = `api/Group/GetGroups?course=${course}`;
-
-            if (year) {
-                url += `&year=${year}`;
-            }
+            let url = `api/Group/GetGroups?course=${course}&year=${year}`;
 
             const response = await fetch(url);
             const groups = await response.json();
@@ -130,12 +117,14 @@ class CreateReportPage extends Page {
             studentSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudents(groupId) {
+        async function fetchStudents(groupId, year) {
             if (groupId == "") {
                 return;
             }
-
-            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
+            if (year == "") {
+                alert("write year");
+            }
+            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}&year=${year}`);
             const students = await response.json();
 
             let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);

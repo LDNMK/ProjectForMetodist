@@ -121,5 +121,46 @@ namespace FaitLogic.Logic
                 }
             }
         }
+
+        public ICollection<StudentProgressDTO> GetStudentProgress(int studentId)
+        {
+            var studentGroups = unitOfWork.GroupStudentRepository.GetStudentGroups(studentId);
+            var studentProgresses = new List<StudentProgressDTO>();
+            foreach (var studentGroup in studentGroups)
+            {
+                var studentProgress = new StudentProgressDTO();
+                studentProgress.Course = studentGroup.Course;
+                var yearPlan = unitOfWork.YearPlanRepository.GetYearPlanByGroup(studentGroup.GroupId, studentGroup.Year);
+                var subjects = unitOfWork.SubjectRepository.FindSubjects(yearPlan.Id);
+
+                var subjectsDto = new List<StudentSubjectDTO>();
+                foreach (var subject in subjects)
+                {
+                    var studentSubject = _mapper.Map<StudentSubjectDTO>(subject);
+
+                    var subjectSemesters = unitOfWork.SubjectSemesterRepository
+                        .FindSubjectSemesters(subject.Id);
+
+                    foreach (var subjectSemester in subjectSemesters)
+                    {
+                        var semester = subjectSemester.Semester;
+                        var subjectMark = unitOfWork.ProgressRepository.FindMark(subjectSemester.Id, studentId);
+                        studentSubject.SubjectSemesters.Add(
+                            new StudentSubjectSemesterDTO() 
+                            { 
+                                Semester = semester, 
+                                Marks = (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark) / 2 
+                            });
+                    }
+
+                    subjectsDto.Add(studentSubject);
+                }
+
+                studentProgress.Subjects = subjectsDto;
+                studentProgresses.Add(studentProgress);
+            }
+
+            return studentProgresses;
+        }
     }
 }

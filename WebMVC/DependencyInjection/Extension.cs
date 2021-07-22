@@ -23,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<YearPlanLogic>();
             services.AddScoped<TransferLogic>();
             services.AddScoped<ProgressLogic>();
+            services.AddScoped<ReportLogic>();
         }
 
         public static void AddMapper(this IServiceCollection services)

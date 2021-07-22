@@ -80,7 +80,7 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(20)
+                    .HasMaxLength(10)
                     .IsFixedLength(true);
             });
 

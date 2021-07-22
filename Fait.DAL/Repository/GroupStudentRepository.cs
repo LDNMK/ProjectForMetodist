@@ -1,4 +1,5 @@
-﻿using Fait.DAL.Repository.IRepository;
+﻿using Fait.DAL.Entities.NotMapped;
+using Fait.DAL.Repository.IRepository;
 using Fait.DAL.Repository.UnitOfWork;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,18 @@ namespace Fait.DAL.Repository
             //return dbContext.ActualGroups
             //    .Where(x => x.StudentId == studentId && x.Group.Actual == true)
             //    .SingleOrDefault();
+        }
+
+        public IEnumerable<GroupWithYear> GetStudentGroups(int studentId)
+        {
+            return Find(x => x.StudentId == studentId)
+                .Select(
+                    x => new GroupWithYear
+                    {
+                        GroupId = x.GroupId,
+                        Year = x.GroupYear,
+                        Course = x.Group.Course
+                    });
         }
 
         public void UpdateActualGroup(GroupStudent group)
