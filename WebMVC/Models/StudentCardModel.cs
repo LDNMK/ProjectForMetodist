@@ -1,3 +1,5 @@
+using System;
+
 namespace WebAPI.Models
 {
     public class StudentCardModel
@@ -23,7 +25,7 @@ namespace WebAPI.Models
         public string OutOfCompetitionInfo { get; set; }
         public int? AmendsId { get; set; }
         public int OrderNumber { get; set; }                // Номер наказу 
-        public string OrderDate { get; set; }               // Дата наказу
+        public DateTime OrderDate { get; set; }               // Дата наказу
         public int EmploymentNumber { get; set; }           // Код рабочей книжки
         public string EmploymentAuthority { get; set; }     // Кто выдал рабочую книжку
         public string EmploymentGivenDate { get; set; }     // Дата ее выдачи

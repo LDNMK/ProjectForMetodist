@@ -1,4 +1,6 @@
-﻿namespace FaitLogic.DTO
+﻿using System;
+
+namespace FaitLogic.DTO
 {
     public class StudentCardDTO
     {
@@ -24,7 +26,7 @@
         public string OutOfCompetitionInfo { get; set; }
         public int? AmendId { get; set; }
         public int OrderNumber { get; set; }                // Номер наказу 
-        public string OrderDate { get; set; }               // Дата наказу
+        public DateTime OrderDate { get; set; }               // Дата наказу
         public int EmploymentNumber { get; set; }           // Код рабочей кнжики
         public string EmploymentAuthority { get; set; }     // Кто выдал рабочую книжку
         public string EmploymentGivenDate { get; set; }     // Дата ее выдачи
