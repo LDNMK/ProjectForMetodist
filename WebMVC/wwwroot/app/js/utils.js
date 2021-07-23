@@ -185,3 +185,18 @@ function getTransferStudentRow(student) {
         </li>
     `;
 }
+
+function getStudentTransferHistoryRows(transferHistory) {
+    return `
+        ${transferHistory.map(x => {
+            return `
+                <div class="main__col-3 student-card__show-transfer-history-row">
+                    <input class="display-none" type="number" data-history-key="id" value="${x.id}" disabled/>
+                    <input type="number" data-history-key="toCourse" value="${x.toCourse}" disabled/>
+                    <input type="text" data-history-key="orderNumber" value="${x.orderNumber ?? ""}" disabled/>
+                    <input type="date" data-history-key="orderDate" value="${x.orderDate != null ? x.orderDate.split('T')[0] : null}" disabled/>
+                </div>
+            `;
+        }).join('')}
+    `;
+}

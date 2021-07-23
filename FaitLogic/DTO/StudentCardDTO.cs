@@ -1,13 +1,14 @@
 ﻿using System;
+﻿using System.Collections.Generic;
 
 namespace FaitLogic.DTO
 {
     public class StudentCardDTO
     {
-        public int Course { get; set; }
-        public int GroupId { get; set; }
-        public int GroupYear { get; set; }
-        public int DegreeId { get; set; }
+        public int? Course { get; set; }
+        public int? GroupId { get; set; }
+        public int? GroupYear { get; set; }
+        public int? DegreeId { get; set; }
         public int? SpecialityId { get; set; }
         public string Specialization { get; set; }
         public string LastName { get; set; }
@@ -25,12 +26,14 @@ namespace FaitLogic.DTO
         public string CompetitionConditions { get; set; }
         public string OutOfCompetitionInfo { get; set; }
         public int? AmendId { get; set; }
-        public int OrderNumber { get; set; }                // Номер наказу 
-        public DateTime OrderDate { get; set; }               // Дата наказу
-        public int EmploymentNumber { get; set; }           // Код рабочей кнжики
+        public int? OrderNumber { get; set; }                // Номер наказу 
+        public DateTime? OrderDate { get; set; }               // Дата наказу
+        public int? EmploymentNumber { get; set; }           // Код рабочей кнжики
         public string EmploymentAuthority { get; set; }     // Кто выдал рабочую книжку
         public string EmploymentGivenDate { get; set; }     // Дата ее выдачи
         public string RegistrOrPassportNumber { get; set; } // Код регистарции или серия и номер паспорта
-        public byte StudentStateId { get; set; }            // Состояние студента
+        public int? StudentStateId { get; set; }             // Состояние студента
+
+        public ICollection<StudentTransferHistoryDTO> TransferHistory { get; set; }
     }
 }

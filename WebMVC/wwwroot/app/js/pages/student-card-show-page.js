@@ -88,6 +88,20 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
+                    <div class="main__col">
+                        <div class="form-element form-select">
+                            <select class="form-element-field" id="degree" data-obj-key="degreeId" disabled>
+                                <option class="form-select-placeholder" value="" disabled selected></option>
+                                <option value="1">Бакалавр</option>
+                                <option value="2">Магістр</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="degree">Рівень вищої
+                                освіти/освітньо-кваліфікаційний
+                                рівень</label>
+                        </div>
+                    </div>
+
                     <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="surname" data-obj-key="lastName" class="form-element-field" placeholder="Введіть прізвище"
@@ -228,6 +242,17 @@ class StudentCardShowPage extends Page {
                             <label class="form-element-label" for="student-status">Статус студента</label>
                         </div>
                     </div>
+
+                    <div class="main__col student-card__show-transfer-history">
+                        <div class="main__col-3 student-card__show-transfer-history-header">
+                            <span>Курс</span>
+                            <span>Номер наказу</span>
+                            <span>Дата наказу</span>
+                        </div>
+                        <div class="student-card__show-transfer-history-container">
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -248,6 +273,8 @@ class StudentCardShowPage extends Page {
         const editBtn = document.querySelector('.student-card__show-btn-edit');
         const saveBtn = document.querySelector('.student-card__show-btn-save');
         const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
+        const transferHistoryContainer = document.querySelector('.student-card__show-transfer-history-container');
+        
 
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
@@ -264,6 +291,12 @@ class StudentCardShowPage extends Page {
         editBtn.addEventListener('click', () => {
             this._dataObjKeyFields.forEach(item => {
                 item.disabled = !item.disabled;
+            });
+
+            let transferHistory = transferHistoryContainer.querySelectorAll('[data-history-key]');
+            console.log(transferHistory);
+            transferHistory.forEach(x => {
+                x.disabled = !x.disabled;
             });
         });
 
@@ -282,40 +315,34 @@ class StudentCardShowPage extends Page {
                 yearInput.value = "";
                 yearInput.classList.remove('-hasValue');
 
-                courseSelect.dispatchEvent(new Event('change'));
+                groupSelect.dispatchEvent(new Event('change'));
             }
         });
 
         yearInput.addEventListener('change', () => {
-            fetchGroups(courseSelect.value, yearInput.value);
+            fetchStudents(groupSelect.value, yearInput.value);
         });
 
         courseSelect.addEventListener('change', () => {
-            if (yearCheckbox.checked && !yearInput.value) {
-                console.log("Error: year wasn't selected");
-            } else if (yearCheckbox.checked && yearInput.value) {
-                fetchGroups(courseSelect.value, yearInput.value);
-            } else {
-                fetchGroups(courseSelect.value);
-            }
+            fetchGroups(courseSelect.value);
         });
 
         groupSelect.addEventListener('change', () => {
-            fetchStudents(groupSelect.value);
+            if (yearCheckbox.checked && !yearInput.value) {
+                console.log("Error: year wasn't selected");
+            } else if (yearCheckbox.checked && yearInput.value) {
+                fetchStudents(groupSelect.value, yearInput.value);
+            } else {
+                fetchStudents(groupSelect.value);
+            }
         });
 
-        async function fetchGroups(course, year = null) {
-            if (year == "" || course == "") {
+        async function fetchGroups(course) {
+            if (course == "") {
                 return;
             }
 
-            let url = `api/Group/GetGroups?course=${course}`;
-
-            if (year) {
-                url += `&year=${year}`;
-            }
-
-            const response = await fetch(url);
+            const response = await fetch(`api/Group/GetGroups?course=${course}`);
             const groups = await response.json();
 
             console.log(groups);
@@ -331,13 +358,20 @@ class StudentCardShowPage extends Page {
             studentSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudents(groupId) {
-            if (groupId == "") {
+        async function fetchStudents(groupId, year = null) {
+            if (groupId == "" || year == "") {
                 return;
             }
 
-            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}`);
+            let url = `api/StudentCard/GetStudents?groupId=${groupId}`;
+            if (year) {
+                url += `&year=${year}`
+            }
+            
+            const response = await fetch(url);
             const students = await response.json();
+
+            console.log(students);
 
             let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
             options.push(optionDefault);
@@ -354,8 +388,6 @@ class StudentCardShowPage extends Page {
             const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
             const student = await response.json();
 
-            console.log(student);
-
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
                 x.value = student[x.getAttribute("data-obj-key")];
 
@@ -364,14 +396,30 @@ class StudentCardShowPage extends Page {
                 }
             });
 
+            let transferHistoryContainer = document.querySelector('.student-card__show-transfer-history-container');
+            transferHistoryContainer.innerHTML = getStudentTransferHistoryRows(student.transferHistory);
+
             console.log(student);
         }
 
         async function fetchStudentUpdate(id) {
             let student = {};
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
-                student[x.getAttribute('data-obj-key')] = x.value;
+                student[x.getAttribute('data-obj-key')] = x.value != "" ? x.value : undefined;
             });
+
+            const transferHistoryRows = transferHistoryContainer.querySelectorAll('.student-card__show-transfer-history-row');
+            student.transferHistory = [...transferHistoryRows]
+                .map(row => {
+                    let items = row.querySelectorAll('[data-history-key]');
+
+                    let history = {};
+                    items.forEach(x => {
+                        history[x.getAttribute('data-history-key')] = x.value != "" ? x.value : undefined;
+                    });
+
+                    return history;
+                });
 
             console.log(student);
 

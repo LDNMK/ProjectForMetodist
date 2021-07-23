@@ -124,7 +124,7 @@ class CreateReportPage extends Page {
             if (year == "") {
                 alert("write year");
             }
-            const response = await fetch(`api/StudentCard/GetListOfStudents?groupId=${groupId}&year=${year}`);
+            const response = await fetch(`api/StudentCard/GetStudents?groupId=${groupId}&year=${year}`);
             const students = await response.json();
 
             let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);

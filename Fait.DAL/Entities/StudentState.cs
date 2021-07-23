@@ -12,7 +12,7 @@ namespace Fait.DAL
             Students = new HashSet<Student>();
         }
 
-        public byte Id { get; set; }
+        public int Id { get; set; }
 
         public string StudentStateName { get; set; }
             /*  на условиях полной компенсации:

@@ -19,7 +19,9 @@ namespace Fait.DAL
 
         public DateTime OperationDate { get; set; }
 
-        public string Content { get; set; }
+        public string OrderNumber { get; set; }
+
+        public DateTime? OrderDate { get; set; }
 
         public virtual Student Student { get; set; }
     }

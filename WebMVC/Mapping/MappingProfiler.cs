@@ -4,6 +4,7 @@ using Fait.DAL.Entities.NotMapped;
 using Fait.DAL.NotMapped;
 using FaitLogic.DTO;
 using WebAPI.Models;
+using WebAPI.Models.Transfer;
 
 public class MappingProfile : Profile
 {
@@ -65,5 +66,9 @@ public class MappingProfile : Profile
         // Transfer
         CreateMap<TransferStudent, TransferStudentDTO>().ReverseMap();
         CreateMap<TransferStudentModel, TransferStudentDTO>().ReverseMap();
+
+        // StudentTransferHistory
+        CreateMap<StudentTransferHistory, StudentTransferHistoryDTO>().ReverseMap();
+        CreateMap<StudentTransferHistoryModel, StudentTransferHistoryDTO>().ReverseMap();
     }
 }

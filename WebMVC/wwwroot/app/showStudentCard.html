@@ -330,7 +330,7 @@
             var selected = this.selectedIndex;
             var groupId = document.getElementById('group').value;
 
-            var url = 'api/StudentCard/GetListOfStudents?groupId=' + groupId;
+            var url = 'api/StudentCard/GetStudents?groupId=' + groupId;
             fetch(url, {
                 method: 'GET'
             })

@@ -5,7 +5,8 @@
     [FromCourse]        TINYINT       NOT NULL,
     [ToCourse]          TINYINT       NOT NULL,
     [OperationDate]     DATE          NOT NULL,
-    [Content]           NVARCHAR (40) NULL,
+    [OrderNumber] NVARCHAR(50) NULL, 
+    [OrderDate] DATE NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([StudentId]) REFERENCES [dbo].[students] ([id]),
     FOREIGN KEY ([StateId]) REFERENCES [dbo].[StudentState] ([Id])

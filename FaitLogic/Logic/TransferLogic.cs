@@ -113,7 +113,7 @@ namespace FaitLogic.Logic
                     studentTransferHistory.ToCourse = (byte)(group.Course + 1);
                 }
 
-                unitOfWork.TransferHistoryRepository.AddTransferHistory(studentTransferHistory);
+                unitOfWork.StudentTransferHistoryRepository.AddTransferHistory(studentTransferHistory);
             }
 
             unitOfWork.Save();

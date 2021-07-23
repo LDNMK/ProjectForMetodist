@@ -21,7 +21,7 @@ namespace Fait.DAL.Repository.UnitOfWork
         private IProgressRepository progressRepository;
         private ISpecialityRepository specialityRepository;
         private IYearPlanGroupsRepository yearPlanGroupsRepository;
-        private ITransferHistoryRepository transferHistoryRepository;
+        private IStudentTransferHistoryRepository studentTransferHistoryRepository;
 
         public UnitOfWork(FAITContext context)
         {
@@ -150,15 +150,15 @@ namespace Fait.DAL.Repository.UnitOfWork
             }
         }
 
-        public ITransferHistoryRepository TransferHistoryRepository
+        public IStudentTransferHistoryRepository StudentTransferHistoryRepository
         {
             get
             {
-                if (this.transferHistoryRepository == null)
+                if (this.studentTransferHistoryRepository == null)
                 {
-                    this.transferHistoryRepository = new TransferHistoryRepository(dbContext);
+                    this.studentTransferHistoryRepository = new StudentTransferHistoryRepository(dbContext);
                 }
-                return transferHistoryRepository;
+                return studentTransferHistoryRepository;
             }
         }
 
