@@ -78,17 +78,6 @@ class StudentCardShowPage extends Page {
                         </button>
                     </div>
 
-                    <div class="main__col student-card__show-transfer-history">
-                        <div class="main__col-3 student-card__show-transfer-history-header">
-                            <span>Курс</span>
-                            <span>Номер наказу</span>
-                            <span>Дата наказу</span>
-                        </div>
-                        <div class="student-card__show-transfer-history-container">
-                            
-                        </div>
-                    </div>
-
                     <div class="main__col">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality" data-obj-key="specialityId" disabled>
@@ -254,7 +243,16 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    
+                    <div class="main__col student-card__show-transfer-history">
+                        <div class="main__col-3 student-card__show-transfer-history-header">
+                            <span>Курс</span>
+                            <span>Номер наказу</span>
+                            <span>Дата наказу</span>
+                        </div>
+                        <div class="student-card__show-transfer-history-container">
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
