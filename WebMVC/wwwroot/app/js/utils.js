@@ -52,7 +52,7 @@ function addCurriculumRow(item) {
                     <option value="3" ${item?.individualTaskFallType == 3 ? 'selected' : ''}>КР</option>
                 </select>
                 <select name="control-form-fall" data-table-key="controlFallType" id="control-fall" ${item ? 'disabled' : ''} data-is-disabled>
-                    <option value="0" ${item?.controlFallType == 0 ? 'selected' : ''}></option>
+                    <option value="" ${item?.controlFallType == 0 ? 'selected' : ''}></option>
                     <option value="1" ${item?.controlFallType == 1 ? 'selected' : ''}>Залік</option>
                     <option value="2" ${item?.controlFallType == 2 ? 'selected' : ''}>Екзамен</option>
                 </select>
@@ -65,7 +65,7 @@ function addCurriculumRow(item) {
                     <option value="3" ${item?.individualTaskSpringType == 3 ? 'selected' : ''}>КР</option>
                 </select>
                 <select name="control-form-spring" data-table-key="controlSpringType" id="control-spring" ${item ? 'disabled' : ''} data-is-disabled>
-                    <option value="0" ${item?.controlSpringType == 0 ? 'selected' : ''}></option>
+                    <option value="" ${item?.controlSpringType == 0 ? 'selected' : ''}></option>
                     <option value="1" ${item?.controlSpringType == 1 ? 'selected' : ''}>Залік</option>
                     <option value="2" ${item?.controlSpringType == 2 ? 'selected' : ''}>Екзамен</option>
                 </select>
