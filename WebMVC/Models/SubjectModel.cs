@@ -15,13 +15,13 @@ namespace WebAPI.Models
         
         public int Ects { get; set; }
         
-        public int IndividualTaskFallType { get; set; }     // 0 - отсутствует в этом семестре, 1 - задания нет, 2 - задания есть
+        public int? IndividualTaskFallType { get; set; }     // 0 - отсутствует в этом семестре, 1 - задания нет, 2 - задания есть
         
-        public int IndividualTaskSpringType { get; set; }
+        public int? IndividualTaskSpringType { get; set; }
         
-        public byte ControlFallType { get; set; }
+        public byte? ControlFallType { get; set; }
         
-        public byte ControlSpringType { get; set; }
+        public byte? ControlSpringType { get; set; }
         
         public string Department { get; set; }
     }

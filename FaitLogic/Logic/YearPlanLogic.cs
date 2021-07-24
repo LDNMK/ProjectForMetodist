@@ -90,7 +90,6 @@ namespace FaitLogic.Logic
 
         public void UpdateYearPlan(YearPlanDTO yearPlanInfo, int yearPlanId)
         {
-
             var yearPlan = unitOfWork.YearPlanRepository.FindYearPlan(yearPlanId);
 
             yearPlan.Name = yearPlanInfo.Name;
