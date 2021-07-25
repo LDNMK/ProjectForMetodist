@@ -157,19 +157,7 @@ class CurriculumAddPage extends Page {
             }
 
             let curriculum = {};
-            // let rows = planTable.querySelectorAll('.curriculum__table-row-data');
-
             curriculum.subjectInfo = [];
-            // for (let i = 0; i < rows.length; i++) {
-            //     let data = rows[i].querySelectorAll('[data-table-key]');
-
-            //     let rowJson = {};
-            //     for (let j = 0; j < data.length; j++) {
-            //         rowJson[data[j].getAttribute('data-table-key')] = data[j][data[j].type == "checkbox" ? 'checked' : 'value'];
-            //     }
-
-            //     curriculum.subjectInfo.push(rowJson);
-            // }
 
             let rows = planTable.querySelectorAll('.curriculum__table-row-data');
             for (let i = 0; i < rows.length; i++) {
