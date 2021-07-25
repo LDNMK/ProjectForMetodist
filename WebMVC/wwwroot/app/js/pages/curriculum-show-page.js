@@ -144,13 +144,11 @@ class CurriculumShowPage extends Page {
 
                 let rowJson = {};
                 for (let j = 0; j < data.length; j++) {
-
                     if ((data[j].tagName == "SELECT" || data[j].tagName == "INPUT") && data[j].value == "") {
                         rowJson[data[j].getAttribute('data-table-key')] = null;
                         continue;
                     }
                     
-                    // rowJson[data[j].getAttribute('data-table-key')] = data[j][data[j].type == "checkbox" ? 'checked' : 'value'];
                     rowJson[data[j].getAttribute('data-table-key')] = data[j].value;
                 }
 
