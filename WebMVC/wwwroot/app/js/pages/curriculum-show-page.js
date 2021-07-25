@@ -164,6 +164,9 @@ class CurriculumShowPage extends Page {
                 },
                 body: JSON.stringify(curriculum)
             });
+
+            console.log(response);
+            addNotification("". notificationMessages.curriculumEditSaveError);
         };
 
         async function fetchYearPlan(groupId, year) {

@@ -1,5 +1,3 @@
-let content = document.body.querySelector('.main__content');
-
 if (!content) {
     console.log("Tag with class\'main__content\' not found!");
 }

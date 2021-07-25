@@ -52,6 +52,7 @@ function styles() {
 
 // Порядок подключения js файлов
 const jsFiles = [
+	'app/js/global.js',
 	'app/js/sidebar.js',
 	'app/js/utils.js',
 	'app/js/form.js',
