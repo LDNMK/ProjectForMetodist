@@ -20,5 +20,12 @@ namespace Fait.DAL.Repository.UnitOfWork
         IStudentTransferHistoryRepository StudentTransferHistoryRepository { get; }
 
         void Save();
+
+        void BeginTransaction();
+
+        void CommitTransaction();
+
+        void RevertTransaction();
+
     }
 }
