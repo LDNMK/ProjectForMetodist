@@ -11,6 +11,8 @@ namespace FaitLogic.DictionariesWithValues
         public static Dictionary<int, string> Degrees { get; set; } = new Dictionary<int, string>();
         public static Dictionary<int, string> Ammends { get; set; } = new Dictionary<int, string>();
 
+        public static Dictionary<int, string> Specialities { get; set; } = new Dictionary<int, string>();
+
         public static Dictionary<int, string> ExperienceCompetition { get; set; } = new Dictionary<int, string>();
 
         static DictionaryWithValues()
@@ -30,6 +32,10 @@ namespace FaitLogic.DictionariesWithValues
             ExperienceCompetition.Add(1, "Інформація відсутня");
             ExperienceCompetition.Add(2, "Із стажем");
             ExperienceCompetition.Add(3, "Без стажу");
+
+            Specialities.Add(1, "122 - Комп`ютерні науки");
+            Specialities.Add(2, "126 - Інформаційні системи та технології");
+            Specialities.Add(3, "121 - Інформаційне програмне забезпечення (магістри)");
         }
     }
 
@@ -37,7 +43,7 @@ namespace FaitLogic.DictionariesWithValues
     {
         public static string ToMonthName(this DateTime dateTime)
         {
-            var curtureInfo = new CultureInfo("ru-RU");
+            var curtureInfo = new CultureInfo("uk-UA");
             return curtureInfo.DateTimeFormat.GetMonthName(dateTime.Month);
         }
     }

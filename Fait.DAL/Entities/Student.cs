@@ -11,7 +11,7 @@ namespace Fait.DAL
         {
             GroupStudents = new HashSet<GroupStudent>();
             Marks = new HashSet<Mark>();
-            StudentTransferHistory = new HashSet<StudentTransferHistory>();
+            StudentTransferHistories = new HashSet<StudentTransferHistory>();
         }
 
         public int Id { get; set; }
@@ -26,6 +26,6 @@ namespace Fait.DAL
         public virtual StudentsInfo StudentsInfo { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }
-        public virtual ICollection<StudentTransferHistory> StudentTransferHistory { get; set; }
+        public virtual ICollection<StudentTransferHistory> StudentTransferHistories { get; set; }
     }
 }

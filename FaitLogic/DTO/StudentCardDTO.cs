@@ -14,7 +14,7 @@ namespace FaitLogic.DTO
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Patronymic { get; set; }
-        public string Birthday { get; set; }
+        public DateTime Birthdate { get; set; }
         public string BirthPlace { get; set; }              // Місце народження
         public string Citizenship { get; set; }             // Громадянство 
         public byte? MaritalStatusId { get; set; }          // Сімейний стан
@@ -30,7 +30,7 @@ namespace FaitLogic.DTO
         public DateTime? OrderDate { get; set; }               // Дата наказу
         public int? EmploymentNumber { get; set; }           // Код рабочей кнжики
         public string EmploymentAuthority { get; set; }     // Кто выдал рабочую книжку
-        public string EmploymentGivenDate { get; set; }     // Дата ее выдачи
+        public DateTime? EmploymentGivenDate { get; set; }     // Дата ее выдачи
         public string RegistrOrPassportNumber { get; set; } // Код регистарции или серия и номер паспорта
         public int? StudentStateId { get; set; }             // Состояние студента
 

@@ -9,12 +9,12 @@ namespace Fait.DAL
     {
         public StudentState()
         {
+            StudentTransferHistories = new HashSet<StudentTransferHistory>();
             Students = new HashSet<Student>();
         }
 
         public int Id { get; set; }
-
-        public string StudentStateName { get; set; }
+        public string Name { get; set; }
             /*  на условиях полной компенсации:
                 -- 1 Перехід з курсу на курс
                 -- 2 Перерва в академічному навчанні
@@ -22,6 +22,7 @@ namespace Fait.DAL
                 -- 4 Студент отримав ступінь
             */
 
+        public virtual ICollection<StudentTransferHistory> StudentTransferHistories { get; set; }
         public virtual ICollection<Student> Students { get; set; }
     }
 }

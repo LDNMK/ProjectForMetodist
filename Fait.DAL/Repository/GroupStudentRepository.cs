@@ -37,14 +37,15 @@ namespace Fait.DAL.Repository
 
         public IEnumerable<GroupWithYear> GetStudentGroups(int studentId)
         {
-            return Find(x => x.StudentId == studentId)
+            return dbContext.GroupStudents.Where(x => x.StudentId == studentId)
                 .Select(
                     x => new GroupWithYear
                     {
                         GroupId = x.GroupId,
                         Year = x.GroupYear,
                         Course = x.Group.Course
-                    });
+                    })
+                .ToList();
         }
 
         public void UpdateActualGroup(GroupStudent group)

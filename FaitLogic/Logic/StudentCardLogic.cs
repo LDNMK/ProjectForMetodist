@@ -27,10 +27,6 @@ namespace FaitLogic.Logic
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
             var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
-
-            studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
-            studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
-
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
 
             unitOfWork.StudentRepository.AddStudent(student);
@@ -55,7 +51,7 @@ namespace FaitLogic.Logic
             var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
 
             studentInfo.Id = studentId;
-            studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthday);
+            studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthdate);
             studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
 
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
@@ -88,9 +84,6 @@ namespace FaitLogic.Logic
         {
             var studentInfo = unitOfWork.StudentInfoRepository.GetStudentInfo(studentId);
             var studentFullInfo = _mapper.Map<StudentsInfo, StudentCardDTO>(studentInfo);
-
-            studentFullInfo.Birthday = studentInfo.Birthdate.ToString("yyyy-MM-dd");
-            studentFullInfo.EmploymentGivenDate = studentInfo.EmploymentGivenDate.Value.ToString("yyyy-MM-dd");
 
             var student = unitOfWork.StudentRepository.GetStudentMainInfo(studentId);
 

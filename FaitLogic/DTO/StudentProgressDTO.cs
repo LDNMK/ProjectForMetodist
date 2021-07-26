@@ -25,6 +25,8 @@ namespace FaitLogic.DTO
     {
         public byte Semester { get; set; }
 
-        public int Marks { get; set; }
+        public int Mark { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
     }
 }
