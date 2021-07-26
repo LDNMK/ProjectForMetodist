@@ -3,6 +3,8 @@ using Fait.DAL;
 using Fait.DAL.Repository.IRepository;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
+using FaitLogic.Enums;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +31,19 @@ namespace FaitLogic.Logic
             var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
 
-            unitOfWork.StudentRepository.AddStudent(student);
-            unitOfWork.StudentInfoRepository.AddStudentInfo(studentInfo);
-            unitOfWork.Save();
+            unitOfWork.BeginTransaction();
+            try
+            {
+                unitOfWork.StudentRepository.AddStudent(student);
+                unitOfWork.StudentInfoRepository.AddStudentInfo(studentInfo);
+                unitOfWork.Save();
+            }
+            catch(DbUpdateException e)
+            {
+                unitOfWork.RevertTransaction();
+                throw;
+            }
+            unitOfWork.CommitTransaction();
 
             var studentId = unitOfWork.StudentRepository.GetLastStudentId();
 
@@ -51,8 +63,6 @@ namespace FaitLogic.Logic
             var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
 
             studentInfo.Id = studentId;
-            studentInfo.Birthdate = Convert.ToDateTime(studentCard.Birthdate);
-            studentInfo.EmploymentGivenDate = Convert.ToDateTime(studentCard.EmploymentGivenDate);
 
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
             student.Id = studentId;
@@ -67,10 +77,20 @@ namespace FaitLogic.Logic
                 thDb.OrderNumber = transferHistoryCurrent.OrderNumber;
             }
 
-            unitOfWork.StudentRepository.UpdateStudent(student);
-            unitOfWork.StudentInfoRepository.UpdateStudentInfo(studentInfo);
-            unitOfWork.StudentTransferHistoryRepository.UpdateStudentTransferHistories(transferHistoriesDb);
-            unitOfWork.Save();
+            unitOfWork.BeginTransaction();
+            try
+            {
+                unitOfWork.StudentRepository.UpdateStudent(student);
+                unitOfWork.StudentInfoRepository.UpdateStudentInfo(studentInfo);
+                unitOfWork.StudentTransferHistoryRepository.UpdateStudentTransferHistories(transferHistoriesDb);
+                unitOfWork.Save();
+            }
+            catch (DbUpdateException e)
+            {
+                unitOfWork.RevertTransaction();
+                throw;
+            }
+            unitOfWork.CommitTransaction();
         }
 
         public ICollection<StudentNameWithIdDTO> GetStudents(int groupId, int? year)
@@ -98,8 +118,9 @@ namespace FaitLogic.Logic
             return studentFullInfo;
         }
 
-        public ICollection<SpecialityDTO> GetSpecialities(bool isOnlyForMasterDegree)
+        public ICollection<SpecialityDTO> GetSpecialities(int degreeId)
         {
+            var isOnlyForMasterDegree = degreeId == (int)DegreeEnum.Master;
             var specialities = unitOfWork.SpecialityRepository.GetSpecialities(isOnlyForMasterDegree);
             return _mapper.Map<ICollection<Speciality>, ICollection<SpecialityDTO>>(specialities);
         }

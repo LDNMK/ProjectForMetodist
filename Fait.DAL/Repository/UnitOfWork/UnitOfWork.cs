@@ -186,5 +186,20 @@ namespace Fait.DAL.Repository.UnitOfWork
         {
             dbContext.SaveChanges();
         }
+
+        public void BeginTransaction()
+        {
+            dbContext.Database.BeginTransaction();
+        }
+
+        public void CommitTransaction()
+        {
+            dbContext.Database.CommitTransaction();
+        }
+
+        public void RevertTransaction()
+        {
+            dbContext.Database.RollbackTransaction();
+        }
     }
 }

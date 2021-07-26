@@ -31,7 +31,6 @@ namespace Fait.DAL
         public virtual Amend Amend { get; set; }
         public virtual Degree Degree { get; set; }
         public virtual ExperienceCompetition ExpirienceCompetition { get; set; }
-        public virtual Student Student { get; set; }
         public virtual MaritalStatus MaritalStatus { get; set; }
     }
 }

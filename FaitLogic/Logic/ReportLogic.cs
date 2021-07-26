@@ -108,7 +108,7 @@ namespace FaitLogic.Logic
             {
                 var courseSemesters = rows[studentProgress.Course];
 
-                FillYear(studentProgress, table, courseSemesters[0], courseSemesters[1]); // 0 - Autumn, 1 - Spring
+                FillTable(studentProgress, table, courseSemesters[0], courseSemesters[1]); // 0 - Autumn, 1 - Spring
             }
 
             application.Visible = true;
@@ -116,7 +116,7 @@ namespace FaitLogic.Logic
             application.Quit(ref missingObj, ref missingObj, ref missingObj);
         }
 
-        private static string ChooseRow(int column, int semester, StudentSubjectDTO subject)
+        private static string GetInfoForRow(int column, int semester, StudentSubjectDTO subject)
         {
             return column switch
             {
@@ -129,7 +129,7 @@ namespace FaitLogic.Logic
             };
         }
 
-        private static void FillYear(StudentProgressDTO studentProgress, Table table, int rowAutumn, int rowSpring)
+        private static void FillTable(StudentProgressDTO studentProgress, Table table, int rowAutumn, int rowSpring)
         {
             foreach (var subject in studentProgress.Subjects)
             {
@@ -146,11 +146,11 @@ namespace FaitLogic.Logic
                 for (int column = 3; column < 7; column++)
                 {
                     cellRange = table.Cell(row, column).Range;
-                    cellRange.Text = ChooseRow(column, semester, subject);
+                    cellRange.Text = GetInfoForRow(column, semester, subject);
                 }
 
                 cellRange = table.Cell(row, 9).Range;
-                cellRange.Text = ChooseRow(9, semester, subject);
+                cellRange.Text = GetInfoForRow(9, semester, subject);
 
                 row++;
             }

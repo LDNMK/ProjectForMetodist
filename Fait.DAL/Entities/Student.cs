@@ -23,7 +23,6 @@ namespace Fait.DAL
 
         public virtual Speciality Speciality { get; set; }
         public virtual StudentState StudentState { get; set; }
-        public virtual StudentsInfo StudentsInfo { get; set; }
         public virtual ICollection<GroupStudent> GroupStudents { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }
         public virtual ICollection<StudentTransferHistory> StudentTransferHistories { get; set; }

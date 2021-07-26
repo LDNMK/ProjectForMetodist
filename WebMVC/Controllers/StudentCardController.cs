@@ -4,7 +4,7 @@ using FaitLogic.Enums;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using WebAPI.Helper;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -26,7 +26,14 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult SaveStudentCardInfo([FromBody]StudentCardModel model)
         {
-            studentInfoLogic.AddStudentCardInfo(mapper.Map<StudentCardDTO>(model));
+            try
+            {
+                studentInfoLogic.AddStudentCardInfo(mapper.Map<StudentCardDTO>(model));
+            }
+            catch
+            {
+                return BadRequest(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed));
+            }
 
             return Ok();
         }
@@ -34,7 +41,14 @@ namespace WebAPI.Controllers
         [HttpPut]
         public IActionResult UpdateStudentCardInfo([FromQuery]int studentId, [FromBody] StudentCardModel model)
         {
-            studentInfoLogic.UpdateStudentCardInfo(studentId, mapper.Map<StudentCardDTO>(model));
+            try
+            {
+                studentInfoLogic.UpdateStudentCardInfo(studentId, mapper.Map<StudentCardDTO>(model));
+            }
+            catch
+            {
+                return BadRequest(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed));
+            }
 
             return Ok();
         }
@@ -58,8 +72,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetSpecialities(int degreeId)
         {
-            var isOnlyForMasterDegree = degreeId == (int)DegreeEnum.Master;
-            var result = mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(isOnlyForMasterDegree));
+            var result = mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(degreeId));
 
             return Ok(result);
         }
