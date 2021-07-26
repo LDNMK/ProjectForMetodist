@@ -26,10 +26,6 @@ namespace Fait.DAL.Repository
         public StudentsInfo GetStudentInfo(int studentId)
         {
             return base.FindById(studentId);
-
-            //return dbContext.StudentsInfos
-            //    .Where(x => x.Id == studentId)
-            //    .SingleOrDefault();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Fait.DAL
 
         public DateTime? OrderDate { get; set; }
 
+        public virtual StudentState State { get; set; }
         public virtual Student Student { get; set; }
     }
 }

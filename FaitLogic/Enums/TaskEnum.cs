@@ -6,8 +6,8 @@ namespace FaitLogic.Enums
 {
     public enum TaskEnum
     {
-        SemesterNotExist = 0,
-        NotExsist = 1,
-        Exsist = 2
+        OneIndividualTask = 1,
+        TwoIndividualTasks = 2,
+        CourseWork = 3
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Fait.DAL.Repository.IRepository;
 using Fait.DAL.Repository.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -2,6 +2,7 @@
 using Fait.DAL;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
+using FaitLogic.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,7 @@ namespace FaitLogic.Logic
                     {
                         Id = mark.SubjectId,
                         Mark = mark.SubjectMark, //(mark.SubjectMark + mark.TaskMark) / 2
+                        TaskMark = mark.TaskMark,
                         ModifiedOn = mark.ModifiedOn
                     });
                 }
@@ -111,6 +113,7 @@ namespace FaitLogic.Logic
                             StudentId = student.Id,
                             SubjectId = subject.Id,
                             SubjectMark = (byte)subject.Mark.Value,
+                            TaskMark = (byte)subject.TaskMark,
                             ModifiedOn = subject.ModifiedOn
                         };
 
@@ -145,11 +148,16 @@ namespace FaitLogic.Logic
                     {
                         var semester = subjectSemester.Semester;
                         var subjectMark = unitOfWork.ProgressRepository.FindMark(subjectSemester.Id, studentId);
+
+                        var taskExist = subjectSemester.IndividualTaskType == (int)TaskEnum.CourseWork;
                         studentSubject.SubjectSemesters.Add(
                             new StudentSubjectSemesterDTO() 
                             { 
                                 Semester = semester, 
-                                Marks = (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark) / 2 
+                                Mark = taskExist ? 
+                                    (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark) / 2 
+                                    : subjectMark.SubjectMark.GetValueOrDefault(),
+                                ModifiedOn = subjectMark.ModifiedOn.GetValueOrDefault()
                             });
                     }
 
