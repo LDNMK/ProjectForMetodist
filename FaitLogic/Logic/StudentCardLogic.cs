@@ -38,7 +38,7 @@ namespace FaitLogic.Logic
                 unitOfWork.StudentInfoRepository.AddStudentInfo(studentInfo);
                 unitOfWork.Save();
             }
-            catch(DbUpdateException e)
+            catch (DbUpdateException e)
             {
                 unitOfWork.RevertTransaction();
                 throw;
