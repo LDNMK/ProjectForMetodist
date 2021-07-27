@@ -11,7 +11,7 @@ namespace Fait.DAL
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
         public byte? SubjectMark { get; set; }
-        public byte TaskMark { get; set; }
+        public byte? TaskMark { get; set; }
         public DateTime? ModifiedOn { get; set; }
 
         public virtual Student Student { get; set; }

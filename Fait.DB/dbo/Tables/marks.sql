@@ -3,7 +3,7 @@
     [student_id]   INT     NOT NULL,
     [subject_id]   INT     NOT NULL,
     [subject_mark] TINYINT NULL,
-    [task_mark]    TINYINT NOT NULL,
+    [task_mark]    TINYINT NULL,
     [ModifiedOn] DATE NULL, 
     PRIMARY KEY CLUSTERED ([id] ASC),
     FOREIGN KEY ([student_id]) REFERENCES [dbo].[students] ([id]),

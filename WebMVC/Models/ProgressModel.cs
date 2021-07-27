@@ -34,7 +34,7 @@ namespace WebAPI.Models
 
         public int? Mark { get; set; }
 
-        public int TaskMark { get; set; }
+        public int? TaskMark { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
     }
