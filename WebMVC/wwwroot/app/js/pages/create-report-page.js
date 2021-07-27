@@ -11,7 +11,7 @@ class CreateReportPage extends Page {
         return `
             <h1 class="main__page-title">Створення звіту</h1>
             <div class="create-report">
-                <div class="main__col-2">
+                <div class="main__col-3">
                     <div class="form-element form-select">
                         <select class="form-element-field" id="course">
                             <option class="form-select-placeholder" value="" disabled selected></option>
@@ -23,21 +23,11 @@ class CreateReportPage extends Page {
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="course">Курс</label>
                     </div>
+
                     <div class="form-element form-input">
                         <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="year">Рік</label>
-                    </div>
-                </div>
-                <div class="main__col-2">
-                    <div class="form-element form-select">
-                        <select class="form-element-field" id="speciality">
-                            <option class="form-select-placeholder" value="" disabled selected></option>
-                            <option value="1">Test 1</option>
-                            <option value="2">Lorem ipsum dolor</option>
-                        </select>
-                        <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="speciality">Спеціальність</label>
                     </div>
 
                     <div class="form-element form-select">
@@ -88,7 +78,6 @@ class CreateReportPage extends Page {
         groupSelect.addEventListener('change', () => {
             fetchStudents(groupSelect.value, yearInput.value);
         });
-
 
         createBtn.addEventListener('click', () => {
             createReport(studentSelect.value)
