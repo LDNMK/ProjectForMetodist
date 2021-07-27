@@ -7,7 +7,13 @@ namespace FaitLogic.Enums
 {
     public enum ErrorEnum
     {
-        [Description("Такі дані про студента вже використовуються")]
+        [Description("Дані про студента вказані некоректно або вони вже використовуються")]
         StudentDbUpdateFailed,
+
+        [Description("Такого навчального плану немає")]
+        YearPlanNotExist,
+
+        [Description("Така група вже існує")]
+        GroupAlreadyExist,
     }
 }

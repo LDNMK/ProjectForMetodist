@@ -68,7 +68,12 @@ class GroupAddPage extends Page {
                 method: 'POST'
             });
 
-            // TODO: Process response
+            if (!response.ok) {
+                var error = await response.json();
+
+                console.log(error);
+                return;
+            }
         }
     }
 }

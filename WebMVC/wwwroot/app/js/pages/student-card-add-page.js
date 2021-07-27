@@ -332,7 +332,12 @@ class StudentCardAddPage extends Page {
                 body: JSON.stringify(student)
             });
 
-            // TODO: Process response
+            if (!response.ok) {
+                var error = await response.json();
+
+                console.log(error);
+                return;
+            }           
         }
     }
 }
