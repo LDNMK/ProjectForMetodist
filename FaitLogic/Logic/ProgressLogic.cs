@@ -27,7 +27,6 @@ namespace FaitLogic.Logic
         public ProgressDTO GetProgress(int year, int groupId, int semesterId)
         {
             var yearPlan = unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId, year);
-
             var subjects = unitOfWork.SubjectRepository.FindSubjects(yearPlan.Id);
 
             var subjectsDto = new List<ProgressSubjectDTO>();
@@ -42,7 +41,8 @@ namespace FaitLogic.Logic
                     subjectsDto.Add(new ProgressSubjectDTO
                     {
                          Id = subjectSemester.Id,
-                         Name = subject.Name
+                         Name = subject.Name,
+                         IsCourseWorkExist = subjectSemester.IndividualTaskType == (int)TaskEnum.CourseWork 
                     });
                 }
             }
@@ -69,7 +69,7 @@ namespace FaitLogic.Logic
                     {
                         Id = mark.SubjectId,
                         Mark = mark.SubjectMark, //(mark.SubjectMark + mark.TaskMark) / 2
-                        TaskMark = mark.TaskMark,
+                        TaskMark = mark.TaskMark.GetValueOrDefault(),
                         ModifiedOn = mark.ModifiedOn
                     });
                 }
@@ -99,6 +99,7 @@ namespace FaitLogic.Logic
                     {
                         mark.SubjectMark = (byte)subject.Mark.Value;
                         mark.ModifiedOn = subject.ModifiedOn;
+                        mark.TaskMark = (byte?)subject.TaskMark.GetValueOrDefault();
                         unitOfWork.ProgressRepository.UpdateMark(mark);
                     }
                     else if (mark != null && subject.Mark == null)
@@ -112,8 +113,8 @@ namespace FaitLogic.Logic
                         {
                             StudentId = student.Id,
                             SubjectId = subject.Id,
-                            SubjectMark = (byte)subject.Mark.Value,
-                            TaskMark = (byte)subject.TaskMark,
+                            SubjectMark = (byte?)subject.Mark.GetValueOrDefault(),
+                            TaskMark = (byte?)subject.TaskMark.GetValueOrDefault(),
                             ModifiedOn = subject.ModifiedOn
                         };
 
@@ -155,7 +156,7 @@ namespace FaitLogic.Logic
                             { 
                                 Semester = semester, 
                                 Mark = taskExist ? 
-                                    (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark) / 2 
+                                    (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark.GetValueOrDefault()) / 2 
                                     : subjectMark.SubjectMark.GetValueOrDefault(),
                                 ModifiedOn = subjectMark.ModifiedOn.GetValueOrDefault()
                             });

@@ -16,6 +16,8 @@ namespace FaitLogic.DTO
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public bool IsCourseWorkExist { get; set; }
     }
 
     public class ProgressStudentDTO
@@ -33,7 +35,7 @@ namespace FaitLogic.DTO
 
         public int? Mark { get; set; }
 
-        public int TaskMark { get; set; }
+        public int? TaskMark { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
     }

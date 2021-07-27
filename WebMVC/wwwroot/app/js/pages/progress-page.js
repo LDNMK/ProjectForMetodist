@@ -95,6 +95,8 @@ class ProgressPage extends Page {
     static init() {
         this._subscribePageElements();
         subscribeFormElements();
+
+        
     }
 
     static _subscribePageElements() {
@@ -141,23 +143,29 @@ class ProgressPage extends Page {
                     name: sr.querySelector('.progress__row-cell-student span')?.innerText
                 };
 
-                student.subjects = [...sr.querySelectorAll('.progress__row-cell-mark')]
+                student.subjects = [...sr.querySelectorAll('.progress__row-cell-mark, .progress__row-cell-mark-with-cw')]
                     .map(x => {
                         let mark = x.querySelector('.progress__row-cell-mark-value');
                         let date = x.querySelector('.progress__row-cell-mark-date');
-                        return {
+                        let cwMark = x.querySelector('.progress__row-cell-cw-value');
+
+                        let studentSubject = {
                             id: +mark.getAttribute('data-subject-id'),
                             mark: mark.value == "" ? null : mark.value,
                             modifiedOn: date.value == "" ? null : date.value,
+                        };
+
+                        if (cwMark) {
+                            studentSubject.taskMark = cwMark.value == "" ? null : cwMark.value;
                         }
+
+                        return studentSubject;
                     });
 
                 progressObj.push(student);
             });
 
-            // console.log(progressObj);
-
-            // return;
+            console.log(progressObj);
 
             fetchUpdateProgress(progressObj);
         });
@@ -177,6 +185,54 @@ class ProgressPage extends Page {
             const response = await fetch(url);
             const progress = await response.json();
 
+            // const progress = {
+            //     subjects: [
+            //         {id: 1, name: "Subject Subject 1", isCourseWorkExist: true},
+            //         {id: 4, name: "Subject 2"},
+            //         {id: 6, name: "Subject 3"},
+            //         {id: 8, name: "Subject 4"},
+            //         {id: 11, name: "s5"}
+            //     ],
+            //     students: [
+            //         {
+            //             id: 2,
+            //             name: "Сидорчук Владислав Геннадійович",
+            //             subjects: [
+            //                 {
+            //                     "id": 1,
+            //                     "mark": 50,
+            //                     "taskMark": 40,
+            //                     "modifiedOn": "2020-02-12T00:00:00"
+            //                 },
+            //                 {
+            //                     "id": 4,
+            //                     "mark": 50,
+            //                     "taskMark": null,
+            //                     "modifiedOn": "2020-02-12T00:00:00"
+            //                 },
+            //                 {
+            //                     "id": 6,
+            //                     "mark": 60,
+            //                     "taskMark": null,
+            //                     "modifiedOn": "2020-02-12T00:00:00"
+            //                 },
+            //                 {
+            //                     "id": 8,
+            //                     "mark": 88,
+            //                     "taskMark": null,
+            //                     "modifiedOn": "2020-02-12T00:00:00"
+            //                 },
+            //                 {
+            //                     "id": 11,
+            //                     "mark": 100,
+            //                     "taskMark": null,
+            //                     "modifiedOn": "2020-02-12T00:00:00"
+            //                 }
+            //             ]
+            //         }
+            //     ]
+            // };
+
             progress.subjects.forEach(s => {
                 subjectsList.insertAdjacentHTML('beforeend', getProgressSubjectCell(s));
             });
@@ -189,7 +245,7 @@ class ProgressPage extends Page {
         }
 
         function clearProgressTable() {
-            let subjectRows =  progressTable.querySelectorAll('.progress__row-cell-subject');
+            let subjectRows =  progressTable.querySelectorAll('.progress__row-cell-subject, .progress__row-cell-subject-with-cw');
             for (let i = 0, l = subjectRows.length; i < l; i++) {
                 subjectRows[i].remove();
             }

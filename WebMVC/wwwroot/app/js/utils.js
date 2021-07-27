@@ -113,8 +113,19 @@ function getCurriculumTable(disable = false) {
 }
 
 function getProgressSubjectCell(subject) {
+    const cw = subject?.isCourseWorkExist;
+
     return `
-        <li class="progress__row-cell progress__row-cell-subject"><span data-subject-id="${subject.id}">${subject.name}</span></li>
+        <li class="progress__row-cell progress__row-cell-subject${cw ? '-with-cw' : ''}" data-subject-id="${subject.id}">
+            <span style="${cw ? 'width: 65px' : ''}">${subject.name}</span>
+            ${
+                cw 
+                ? `
+                    <span style="width: 30px">КР</span>
+                ` 
+                : ``
+            }
+        </li>
     `;
 }
 
@@ -130,12 +141,22 @@ function getProgressStudentRow(student, subjects) {
                         let subject = student.subjects.find(x => x.id == s.id);
                         let mark = subject?.mark ?? '';
                         let date = subject?.modifiedOn ? subject.modifiedOn.split('T')[0] : '';
+                        let courseWorkMark = subject?.taskMark ?? '';
 
                         console.log(date);
                         return `
-                            <li class="progress__row-cell progress__row-cell-mark" style="display: flex; flex-direction: column;">
-                                <input class="progress__row-cell-mark-value" type="text" value="${mark}" pattern="[0-9]" data-subject-id="${s.id}" disabled>
-                                <input class="progress__row-cell-mark-date" type="date" value="${date}" disabled/>
+                            <li class="progress__row-cell progress__row-cell-mark${s.isCourseWorkExist ? '-with-cw' : ''}" >
+                                <div style="display: flex; flex-direction: column;" subject-mark>
+                                    <input class="progress__row-cell-mark-value" type="text" value="${mark}" pattern="[0-9]" data-subject-id="${s.id}" disabled>
+                                    <input class="progress__row-cell-mark-date" type="date" value="${date}" disabled/>
+                                </div>
+                                <div subject-cw>
+                                    ${
+                                        s.isCourseWorkExist
+                                        ? `<input class="progress__row-cell-cw-value" type="text" value="${courseWorkMark}" pattern="[0-9]" data-subject-id="${s.id}" disabled>`
+                                        : ''
+                                    }
+                                </div>
                             </li>
                         `;
                     }).join('')
