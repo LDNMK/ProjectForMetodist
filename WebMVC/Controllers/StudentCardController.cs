@@ -4,6 +4,7 @@ using FaitLogic.Enums;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 using WebAPI.Helper;
 using WebAPI.Models;
 
@@ -32,7 +33,10 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return BadRequest(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed));
+                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed))
+                {
+                    StatusCode = 400
+                };
             }
 
             return Ok();
@@ -47,7 +51,10 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return BadRequest(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed));
+                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed))
+                {
+                    StatusCode = 400
+                };
             }
 
             return Ok();

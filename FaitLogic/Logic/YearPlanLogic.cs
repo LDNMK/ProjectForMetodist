@@ -119,13 +119,6 @@ namespace FaitLogic.Logic
             return yearPlans;
         }
 
-        //public YearPlanNameWithIdDTO GetYearPlanByGroup(int groupId, int year)
-        //{
-        //    var yearPlan = mapper.Map<YearPlan, YearPlanNameWithIdDTO>(unitOfWork.YearPlanRepository.GetYearPlanByGroup(groupId, year));
-
-        //    return yearPlan;
-        //}
-
         public int? GetYearPlanIdByGroup(int groupId, int year)
         {
             return unitOfWork.YearPlanRepository.GetYearPlanIdByGroup(groupId, year);

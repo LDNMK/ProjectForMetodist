@@ -1,5 +1,7 @@
-﻿using FaitLogic.Logic;
+﻿using FaitLogic.Enums;
+using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
+using WebAPI.Helper;
 
 namespace WebAPI.Controllers
 {
@@ -33,7 +35,17 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult CreateGroup([FromQuery] string groupName)
         {
-            groupLogic.AddGroup(groupName);
+            try
+            {
+                groupLogic.AddGroup(groupName);
+            }
+            catch
+            {
+                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.GroupAlreadyExist))
+                {
+                    StatusCode = 400
+                };
+            }
 
             return Ok(new { response = "Group was added" });
         }

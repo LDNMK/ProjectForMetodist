@@ -178,7 +178,9 @@ class CurriculumShowPage extends Page {
             console.log(response);
 
             if (!response.ok) {
-                console.log('Year plan not found');
+                var error = await response.json();
+
+                console.log(error);
                 return;
             }
 

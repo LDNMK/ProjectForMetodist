@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
+using FaitLogic.Enums;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using WebAPI.Helper;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -14,16 +16,13 @@ namespace WebAPI.Controllers
         private readonly IMapper mapper;
 
         private readonly YearPlanLogic yearPlanLogic;
-        private readonly GroupLogic groupLogic;
 
         public YearPlanController(
             IMapper mapper, 
-            YearPlanLogic yearPlanLogic, 
-            GroupLogic groupLogic)
+            YearPlanLogic yearPlanLogic)
         {
             this.mapper = mapper;
             this.yearPlanLogic = yearPlanLogic;
-            this.groupLogic = groupLogic;
         }
 
         [HttpPost]
@@ -69,7 +68,10 @@ namespace WebAPI.Controllers
             var yearPlanId = yearPlanLogic.GetYearPlanIdByGroup(groupId, year);
             if (!yearPlanId.HasValue)
             {
-                return NotFound();
+                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.YearPlanNotExist))
+                {
+                    StatusCode = 400
+                };
             }
 
             var yearPlan = mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId.Value));
