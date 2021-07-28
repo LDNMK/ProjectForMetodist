@@ -14,12 +14,6 @@ class TransferPage extends Page {
                 <div class="transfer__filter">
                     <h1 class="main__page-subtitle">Пошук</h1>
 
-                    <div class="form-element form-input">
-                        <input id="year" class="form-element-field" data-obj-key="year" placeholder="Введіть рік" type="number" />
-                        <div class="form-element-bar"></div>
-                        <label class="form-element-label" for="year">Рік</label>
-                    </div>
-
                     <div class="form-element form-select">
                         <select class="form-element-field" id="course">
                             <option class="form-select-placeholder" value="" disabled selected></option>
@@ -38,6 +32,12 @@ class TransferPage extends Page {
                         </select>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="group">Група</label>
+                    </div>
+
+                    <div class="form-element form-input">
+                        <input id="year" class="form-element-field" data-obj-key="year" placeholder="Введіть рік" type="number" />
+                        <div class="form-element-bar"></div>
+                        <label class="form-element-label" for="year">Рік</label>
                     </div>
 
                     <div class="main__buttons">
@@ -80,7 +80,7 @@ class TransferPage extends Page {
         const transferBtn = document.querySelector('#btn-transfer');
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value);
+            findGroups(courseSelect.value);
         });
 
         findBtn.addEventListener('click', () => {
@@ -91,18 +91,13 @@ class TransferPage extends Page {
             fetchTransferStudent();
         });
         
-        async function fetchGroups(course) {
+        async function findGroups(course) {
             if (course == "") {
                 console.log('Course is empty');
                 return;
             }
 
-            const response = await fetch(`api/Group/GetGroups?course=${course}`);
-            const groups = await response.json();
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
         };

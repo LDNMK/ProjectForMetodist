@@ -42,7 +42,7 @@ class GroupAddPage extends Page {
         const nameInput = document.querySelector('#name');
 
         saveBtn.addEventListener('click', () => {
-            fetchCreateGroup(nameInput.value);
+            createGroup(nameInput.value);
         })
 
         nameInput.addEventListener('change', (e) => {
@@ -52,7 +52,7 @@ class GroupAddPage extends Page {
             parent.classList[name.length > 0 && name.split('-').length != 2 ? 'add' : 'remove']('form-has-error');
         });
 
-        async function fetchCreateGroup(name) {
+        async function createGroup(name) {
             let errors = document.querySelectorAll('.form-has-error');
             if (errors.length) {
                 console.log('You should fix errors on the page!');
@@ -64,16 +64,7 @@ class GroupAddPage extends Page {
                 return;
             }
 
-            const response = await fetch(`api/Group/CreateGroup?groupName=${name}`, {
-                method: 'POST'
-            });
-
-            if (!response.ok) {
-                var error = await response.json();
-
-                console.log(error);
-                return;
-            }
+            apiHelper.fetchCreateGroup(name);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed))
+                return new JsonResult(ValidationHelper.GetEnumDescription(ErrorEnum.StudentDbUpdateFailed))
                 {
                     StatusCode = 400
                 };
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.StudentDbUpdateFailed))
+                return new JsonResult(ValidationHelper.GetEnumDescription(ErrorEnum.StudentDbUpdateFailed))
                 {
                     StatusCode = 400
                 };
@@ -64,6 +64,13 @@ namespace WebAPI.Controllers
         public IActionResult GetStudents([FromQuery]int groupId, int? year)
         {
             var result = studentInfoLogic.GetStudents(groupId, year);
+            if(result.Count == 0)
+            {
+                return NotFound(new WarningResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.StudentsNotFound)
+                });
+            }
 
             return Ok(result);
         }

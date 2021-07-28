@@ -113,11 +113,11 @@ class ProgressPage extends Page {
         const progressSaveBtn = document.querySelector('.progress__btn-save');
 
         yearInput.addEventListener('change', () => {
-            // fetchGroups(courseSelect.value, yearInput.value);
+            findGroups(courseSelect.value, yearInput.value);
         });
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value);
+            findGroups(courseSelect.value);
         });
 
         progressFindBtn.addEventListener('click', () => {
@@ -185,54 +185,6 @@ class ProgressPage extends Page {
             const response = await fetch(url);
             const progress = await response.json();
 
-            // const progress = {
-            //     subjects: [
-            //         {id: 1, name: "Subject Subject 1", isCourseWorkExist: true},
-            //         {id: 4, name: "Subject 2"},
-            //         {id: 6, name: "Subject 3"},
-            //         {id: 8, name: "Subject 4"},
-            //         {id: 11, name: "s5"}
-            //     ],
-            //     students: [
-            //         {
-            //             id: 2,
-            //             name: "Сидорчук Владислав Геннадійович",
-            //             subjects: [
-            //                 {
-            //                     "id": 1,
-            //                     "mark": 50,
-            //                     "taskMark": 40,
-            //                     "modifiedOn": "2020-02-12T00:00:00"
-            //                 },
-            //                 {
-            //                     "id": 4,
-            //                     "mark": 50,
-            //                     "taskMark": null,
-            //                     "modifiedOn": "2020-02-12T00:00:00"
-            //                 },
-            //                 {
-            //                     "id": 6,
-            //                     "mark": 60,
-            //                     "taskMark": null,
-            //                     "modifiedOn": "2020-02-12T00:00:00"
-            //                 },
-            //                 {
-            //                     "id": 8,
-            //                     "mark": 88,
-            //                     "taskMark": null,
-            //                     "modifiedOn": "2020-02-12T00:00:00"
-            //                 },
-            //                 {
-            //                     "id": 11,
-            //                     "mark": 100,
-            //                     "taskMark": null,
-            //                     "modifiedOn": "2020-02-12T00:00:00"
-            //                 }
-            //             ]
-            //         }
-            //     ]
-            // };
-
             progress.subjects.forEach(s => {
                 subjectsList.insertAdjacentHTML('beforeend', getProgressSubjectCell(s));
             });
@@ -256,20 +208,12 @@ class ProgressPage extends Page {
             }
         }
 
-        async function fetchGroups(course, year) {
+        async function findGroups(course, year) {
             if (course == "") {
                 return;
             }
 
-            let url = `api/Group/GetGroups?course=${course}`;
-            url += year ? `&year=${year}` : "";
-
-            const response = await fetch(url);
-            const groups = await response.json();
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course, year);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
         };

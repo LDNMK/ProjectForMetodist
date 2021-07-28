@@ -21,16 +21,24 @@ namespace WebAPI.Controllers
         {
             var groups = groupLogic.GetGroups(course, year);
 
+            if (groups.Count == 0)
+            {
+                return NotFound(new WarningResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.GroupsNotFound)
+                });
+            }
+
             return Ok(groups);
         }
 
-        [HttpGet]
-        public IActionResult GetDeactivatedGroups()
-        {
-            var groups = groupLogic.GetDeactivatedGroups();
+        //[HttpGet]
+        //public IActionResult GetDeactivatedGroups()
+        //{
+        //    var groups = groupLogic.GetDeactivatedGroups();
 
-            return Ok(groups);
-        }
+        //    return Ok(groups);
+        //}
 
         [HttpPost]
         public IActionResult CreateGroup([FromQuery] string groupName)
@@ -41,21 +49,24 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.GroupAlreadyExist))
+                return NotFound(new ErrorResponseModel()
                 {
-                    StatusCode = 400
-                };
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.GroupAlreadyExist)
+                });
             }
 
-            return Ok(new { response = "Group was added" });
+            return Ok(new SuccessResponseModel()
+            {
+                NotificationText = string.Format(ValidationHelper.GetEnumDescription(SuccessEnum.GroupCreated), groupName)
+            });
         }
 
-        [HttpPost]
-        public IActionResult ActivateExistingGroups([FromBody] int[] groupsIds)
-        {
-            groupLogic.ActivateGroups(groupsIds);
+        //[HttpPost]
+        //public IActionResult ActivateExistingGroups([FromBody] int[] groupsIds)
+        //{
+        //    groupLogic.ActivateGroups(groupsIds);
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

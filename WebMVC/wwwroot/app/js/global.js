@@ -5,17 +5,18 @@ const content = document.body.querySelector('.main__content');
 // Notifications
 const notificationTimeout = {
     success: 5000,
+    warning: 6000,
     error: 6000
 };
 
 const notificationTitle = {
     success: "Успішно",
+    warning: "Попередження",
     error: "Помилка"
 };
 
-const notificationMessages = {
-    "curriculumSave": "Навчальний план був збережений",
-    "curriculumSaveError": "Виникла помилка при збереженнні навчального плану",
-    "curriculumEditSaveError": "Виникла помилка при збереженнні навчального плану після редагування",
-    "curriculumFindError": "Виникла помилка при пошуку навчального плану",
+const notificationIcons = {
+    success: `<i class="success-icon fas fa-check-circle"></i>`,
+    warning: `<i class="warning-icon fas fa-exclamation-circle"></i>`,
+    error:   `<i class="error-icon fas fa-times-circle"></i>`
 };

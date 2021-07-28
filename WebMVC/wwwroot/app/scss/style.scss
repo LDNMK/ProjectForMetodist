@@ -235,12 +235,17 @@ body {
 
             &.success {
                 color: rgb(8, 173, 49);
-                background-color: rgba(220, 255, 168, 0.9);
+                background-color: rgb(220, 255, 168);
+            }
+
+            &.warning {
+                color: rgb(173, 148, 8);
+                background-color: rgb(255, 242, 168);
             }
 
             &.error {
                 color: rgb(192, 11, 11);
-                background-color: rgba(255, 167, 167, 0.9);
+                background-color: rgb(255, 167, 167);
             }
 
             & + & {
@@ -248,6 +253,7 @@ body {
             }
 
             .success-icon,
+            .warning-icon,
             .error-icon {
                 margin-right: 10px;
                 font-size: 18px;
