@@ -28,17 +28,45 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IActionResult AddYearPlan([FromBody] YearPlanModel yearPlanModel)
         {
-            yearPlanLogic.AddYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel));
+            try
+            {
+                yearPlanLogic.AddYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel));
+            }
+            catch
+            {
+                return BadRequest(new ErrorResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.CreateYearPlanFailed)
+                });
+            }
 
-            return Ok();
+
+            return Ok(new SuccessResponseModel()
+            {
+                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.YearPlanCreated)
+            });
         }
 
         [HttpPut]
         public IActionResult UpdateYearPlan([FromBody] YearPlanModel yearPlanModel, [FromQuery]int yearPlanId)
         {
-            yearPlanLogic.UpdateYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel), yearPlanId);
+            try
+            {
+                yearPlanLogic.UpdateYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel), yearPlanId);
+            }
+            catch
+            {
+                return BadRequest(new ErrorResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.UpdateYearPlanFailed)
+                });
 
-            return Ok();
+            }
+
+            return Ok(new SuccessResponseModel()
+            {
+                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.YearPlanUpdated)
+            });
         }
 
         [HttpGet]
@@ -48,19 +76,22 @@ namespace WebAPI.Controllers
 
             if (yearPlan == null)
             {
-                return BadRequest();
+                return NotFound(new WarningResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.YearPlanNotFound)
+                });
             }
 
             return Ok(yearPlan);
         }
 
-        [HttpGet]
-        public IActionResult GetListOfYearPlans([FromQuery] int course)
-        {
-            var yearPlans = yearPlanLogic.GetYearPlans(course);
+        //[HttpGet]
+        //public IActionResult GetListOfYearPlans([FromQuery] int course)
+        //{
+        //    var yearPlans = yearPlanLogic.GetYearPlans(course);
 
-            return Ok(yearPlans);
-        }
+        //    return Ok(yearPlans);
+        //}
 
         [HttpGet]
         public IActionResult GetYearPlanByGroup([FromQuery] int groupId, int year)
@@ -68,17 +99,19 @@ namespace WebAPI.Controllers
             var yearPlanId = yearPlanLogic.GetYearPlanIdByGroup(groupId, year);
             if (!yearPlanId.HasValue)
             {
-                return new JsonResult(ValidationHelper.GetErrorDescription(ErrorEnum.YearPlanNotExist))
+                return NotFound(new WarningResponseModel()
                 {
-                    StatusCode = 400
-                };
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.YearPlanNotFound)
+                });
             }
 
             var yearPlan = mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId.Value));
-
             if (yearPlan == null)
             {
-                return BadRequest();
+                return NotFound(new WarningResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.YearPlanNotFound)
+                });
             }
 
             return Ok(yearPlan);

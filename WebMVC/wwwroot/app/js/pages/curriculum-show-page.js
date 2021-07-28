@@ -102,15 +102,15 @@ class CurriculumShowPage extends Page {
         const curriculumSaveBtn = document.querySelector('.curriculum-info__btn-save');
 
         yearInput.addEventListener('change', () => {
-            fetchGroups(courseSelect.value, yearInput.value);
+            findGroups(courseSelect.value, yearInput.value);
         });
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value, yearInput.value);
+            findGroups(courseSelect.value, yearInput.value);
         });
 
         curriculumFindBtn.addEventListener('click', () => {
-            fetchYearPlan(groupSelect.value, yearInput.value);
+            getYearPlan(groupSelect.value, yearInput.value);
         });
 
         curriculumEditBtn.addEventListener('click', () => {
@@ -155,36 +155,16 @@ class CurriculumShowPage extends Page {
                 curriculum.subjectInfo.push(rowJson);
             }
 
-            console.log(curriculum);
-
-            const response = await fetch(`api/YearPlan/UpdateYearPlan?yearPlanId=${yearPlanId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(curriculum)
-            });
-
-            console.log(response);
-            addNotification("". notificationMessages.curriculumEditSaveError);
+            apiHelper.fetchUpdateYearPlan(yearPlanId, curriculum);
         };
 
-        async function fetchYearPlan(groupId, year) {
-            if (groupId == "") {
+        async function getYearPlan(groupId, year) {
+            if (groupId == "" || year == "") {
                 return;
             }
 
-            const response = await fetch(`api/YearPlan/GetYearPlanByGroup?groupId=${groupId}&year=${year}`);
-            console.log(response);
-
-            if (!response.ok) {
-                var error = await response.json();
-
-                console.log(error);
-                return;
-            }
-
-            const yearPlan = await response.json();
+            const yearPlan = await apiHelper.fetchGetYearPlan(groupId, year);
+            console.log('in curriculum page');
             console.log(yearPlan);
 
             planIdInput.value = yearPlan.id;
@@ -192,26 +172,17 @@ class CurriculumShowPage extends Page {
             planNameInput.value = yearPlan.name;
             planNameInput.classList.add('-hasValue');
 
-
             yearPlan.subjectInfo.forEach(r => {
                 lastRow.insertAdjacentHTML('beforebegin', addCurriculumRow(r));
             });
         };
 
-        async function fetchGroups(course, year) {
-            if (course == "") {
+        async function findGroups(course, year) {
+            if (course == "" || year == "") {
                 return;
             }
 
-            let url = `api/Group/GetGroups?course=${course}`;
-            url += year ? `&year=${year}` : "";
-
-            const response = await fetch(url);
-            const groups = await response.json();
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course, year);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
         };

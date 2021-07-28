@@ -7,8 +7,6 @@ class CurriculumAddPage extends Page {
         return 'curriculum--add-page';
     }
 
-    static _counter = 1;
-
     static get page() {
         return `
             <div class="curriculum__grid">
@@ -141,7 +139,7 @@ class CurriculumAddPage extends Page {
         });
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value);
+            findGroups(courseSelect.value);
         });
 
         groupAddBtn.addEventListener('click', () => {
@@ -182,36 +180,19 @@ class CurriculumAddPage extends Page {
                 .map(x => +x.getAttribute('data-group-id'))
                 .filter((v, i, a) => a.indexOf(v) === i);
 
-            console.log(curriculum);
-
-            fetchYearPlan(curriculum);
+            createYearPlan(curriculum);
         });
 
-        async function fetchYearPlan(data) {
-            const response = await fetch(`api/YearPlan/AddYearPlan`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            console.log(response);
+        async function createYearPlan(data) {
+            apiHelper.fetchCreateYearPlan(data);
         }
 
-        async function fetchGroups(course) {
+        async function findGroups(course) {
             if (course == "") {
                 return;
             }
 
-            let url = `api/Group/GetGroups?course=${course}`;
-
-            const response = await fetch(url);
-            const groups = await response.json();
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
         };

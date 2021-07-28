@@ -68,36 +68,27 @@ class CreateReportPage extends Page {
         const createBtn = document.querySelector('.create-report__create-btn');
         
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value, yearInput.value);
+            findGroups(courseSelect.value, yearInput.value);
         });
 
         yearInput.addEventListener('change', () => {
-            fetchGroups(courseSelect.value, yearInput.value);
+            findGroups(courseSelect.value, yearInput.value);
         });
 
         groupSelect.addEventListener('change', () => {
-            fetchStudents(groupSelect.value, yearInput.value);
+            findStudents(groupSelect.value, yearInput.value);
         });
 
         createBtn.addEventListener('click', () => {
             createReport(studentSelect.value)
         })
 
-        async function fetchGroups(course, year) {
+        async function findGroups(course, year) {
             if (course == "" || year =="") {
                 return;
             }
 
-            let url = `api/Group/GetGroups?course=${course}&year=${year}`;
-
-            const response = await fetch(url);
-            const groups = await response.json();
-
-            console.log(groups);
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course, year);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
 
@@ -106,19 +97,12 @@ class CreateReportPage extends Page {
             studentSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudents(groupId, year) {
-            if (groupId == "") {
+        async function findStudents(groupId, year) {
+            if (groupId == "" || year == "") {
                 return;
             }
-            if (year == "") {
-                alert("write year");
-            }
-            const response = await fetch(`api/StudentCard/GetStudents?groupId=${groupId}&year=${year}`);
-            const students = await response.json();
 
-            let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getStudentsAsOptions(groupId, year);
             studentSelect.innerHTML = options.join('');
             studentSelect.classList.remove('-hasValue');
         };
@@ -128,8 +112,7 @@ class CreateReportPage extends Page {
                 return;
             }
 
-            const response = await fetch(`api/Report/CreateReport?studentId=${studentId}`);
-            const report = await response.json();
+            await apiHelper.fetchCreateReport(studentId);
         };
     }
 }

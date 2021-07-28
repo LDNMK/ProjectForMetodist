@@ -1,10 +1,12 @@
-﻿using FaitLogic.Logic;
+﻿using FaitLogic.Enums;
+using FaitLogic.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Helper;
 
 namespace WebAPI.Controllers
 {
@@ -26,13 +28,25 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult CreateReport(int studentId)
         {
-            var studentInfo = studentLogic.GetStudentInfo(studentId);
+            try
+            {
+                var studentInfo = studentLogic.GetStudentInfo(studentId);
+                var studentProgress = progressLogic.GetStudentProgress(studentId);
+                reportLogic.CreateReport(studentInfo, studentProgress);
+            }
+            catch
+            {
+                return BadRequest(new ErrorResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.CreateReportFailed)
+                });
+            }
 
-            var studentProgress = progressLogic.GetStudentProgress(studentId);
 
-            reportLogic.CreateReport(studentInfo, studentProgress);
-
-            return Ok();
+            return Ok(new SuccessResponseModel()
+            {
+                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.ReportCreated)
+            });
         }
     }
 }
