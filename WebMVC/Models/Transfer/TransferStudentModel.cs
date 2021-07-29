@@ -18,5 +18,7 @@ namespace WebAPI.Models
         public int StateId { get; set; }
 
         public int? GroupId { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

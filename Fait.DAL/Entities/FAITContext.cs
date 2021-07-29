@@ -250,7 +250,7 @@ namespace Fait.DAL
             {
                 entity.ToTable("students_info");
 
-                entity.HasIndex(e => e.RegistrOrPassportNumber, "UQ__tmp_ms_x__C8F12B698D721840")
+                entity.HasIndex(e => e.RegistrOrPassportNumber, "UQ__tmp_ms_x__C8F12B6998978A7B")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -259,7 +259,7 @@ namespace Fait.DAL
 
                 entity.Property(e => e.BirthPlace)
                     .IsRequired()
-                    .HasMaxLength(30)
+                    .HasMaxLength(50)
                     .HasColumnName("birth_place");
 
                 entity.Property(e => e.Birthdate)
@@ -293,6 +293,10 @@ namespace Fait.DAL
                     .HasColumnName("expirience_competition_id")
                     .HasDefaultValueSql("((1))");
 
+                entity.Property(e => e.GraduatedSchoolName).HasMaxLength(200);
+
+                entity.Property(e => e.GraduatedYear);
+
                 entity.Property(e => e.MaritalStatusId)
                     .HasColumnName("marital_status_id")
                     .HasDefaultValueSql("((1))");
@@ -313,33 +317,33 @@ namespace Fait.DAL
                     .HasColumnName("registration");
 
                 entity.Property(e => e.TransferDirection)
-                    .HasMaxLength(30)
+                    .HasMaxLength(200)
                     .HasColumnName("transfer_direction");
 
                 entity.Property(e => e.TransferFrom)
-                    .HasMaxLength(30)
+                    .HasMaxLength(200)
                     .HasColumnName("transfer_from");
 
                 entity.HasOne(d => d.Amend)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.AmendId)
-                    .HasConstraintName("FK__students___Amend__6D0D32F4");
+                    .HasConstraintName("FK__students___Amend__7A672E12");
 
                 entity.HasOne(d => d.Degree)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.DegreeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__students___Degre__70DDC3D8");
+                    .HasConstraintName("FK__students___Degre__7D439ABD");
 
                 entity.HasOne(d => d.ExpirienceCompetition)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.ExpirienceCompetitionId)
-                    .HasConstraintName("FK__students___expir__6E01572D");
+                    .HasConstraintName("FK__students___expir__7B5B524B");
 
                 entity.HasOne(d => d.MaritalStatus)
                     .WithMany(p => p.StudentsInfos)
                     .HasForeignKey(d => d.MaritalStatusId)
-                    .HasConstraintName("FK__students___marit__6FE99F9F");
+                    .HasConstraintName("FK__students___marit__7C4F7684");
             });
 
             modelBuilder.Entity<Subject>(entity =>

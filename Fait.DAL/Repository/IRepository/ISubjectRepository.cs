@@ -8,6 +8,8 @@ namespace Fait.DAL.Repository.IRepository
 
         void AddSubject(Subject subjectInfo);
 
+        void DeleteSubject(Subject subjectInfo);
+
         int GetLastSubjectId();
     }
 }

@@ -12,6 +12,8 @@ namespace Fait.DAL
         public string BirthPlace { get; set; }
         public int DegreeId { get; set; }
         public string Citizenship { get; set; }
+        public string GraduatedSchoolName { get; set; }
+        public int? GraduatedYear { get; set; }
         public byte? MaritalStatusId { get; set; }
         public string Registration { get; set; }
         public string Exemption { get; set; }

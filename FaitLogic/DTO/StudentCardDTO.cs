@@ -17,6 +17,8 @@ namespace FaitLogic.DTO
         public DateTime Birthdate { get; set; }
         public string BirthPlace { get; set; }              // Місце народження
         public string Citizenship { get; set; }             // Громадянство 
+        public string GraduatedSchoolName { get; set; }
+        public int? GraduatedYear { get; set; }
         public byte? MaritalStatusId { get; set; }          // Сімейний стан
         public string Registration { get; set; }            // Місце проживання\регістрації
         public string Exemption { get; set; }               // Наявність пільг при втсупі

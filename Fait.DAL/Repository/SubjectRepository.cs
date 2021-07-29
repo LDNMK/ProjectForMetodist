@@ -23,6 +23,11 @@ namespace Fait.DAL.Repository
             base.Add(subjectInfo);
         }
 
+        public void DeleteSubject(Subject subjectInfo)
+        {
+            base.Delete(subjectInfo);
+        }
+
         public int GetLastSubjectId()
         {
             return dbContext.Subjects

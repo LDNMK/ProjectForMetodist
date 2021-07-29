@@ -96,7 +96,7 @@ namespace FaitLogic.Logic
             yearPlan.Year = yearPlanInfo.Year;
 
             var oldSubjects = unitOfWork.SubjectRepository.FindSubjects(yearPlanId);
-
+           
             foreach (var newSubject in yearPlanInfo.SubjectInfo)
             {
                 var oldSubject = oldSubjects.FirstOrDefault(x => x.Id == newSubject.Id);
@@ -109,6 +109,20 @@ namespace FaitLogic.Logic
                     AddSubjects(newSubject, yearPlanId);
                 }
             }
+
+            if (oldSubjects.Count > yearPlanInfo.SubjectInfo.Count)
+            {
+                var newSubjectsIds = yearPlanInfo.SubjectInfo.Select(x => x.Id);
+                foreach (var oldSubject in oldSubjects)
+                {
+                    if (!newSubjectsIds.Contains(oldSubject.Id))
+                    {
+                        DeleteSubject(oldSubject);
+                    }
+                }
+
+            }
+
             unitOfWork.Save();
         }
 
@@ -212,6 +226,17 @@ namespace FaitLogic.Logic
 
                 unitOfWork.SubjectSemesterRepository.AddSubjectSemester(autumnSubject);
             }
+        }
+
+        private void DeleteSubject(Subject oldSubject)
+        {
+            var subjectSemesters = unitOfWork.SubjectSemesterRepository.FindSubjectSemesters(oldSubject.Id);
+
+            foreach (var subjectSemester in subjectSemesters)
+            {
+                unitOfWork.SubjectSemesterRepository.DeleteSubjectSemester(subjectSemester);
+            }
+            unitOfWork.SubjectRepository.DeleteSubject(oldSubject);
         }
     }
 }

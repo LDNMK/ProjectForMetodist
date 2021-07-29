@@ -76,14 +76,14 @@ namespace FaitLogic.Logic
             //unitOfWork.Save();
         }
 
-        async public Task<ICollection<TransferStudentDTO>> GetStudents(int groupId, int year)
+        public async Task<ICollection<TransferStudentDTO>> GetStudents(int groupId, int year)
         {
             var students = await unitOfWork.GroupRepository.GetStudents(groupId, year);
             return _mapper.Map<ICollection<TransferStudent>, ICollection<TransferStudentDTO>>(students);
         }
 
         // TODO: check do we need async/await here?
-        async public Task TransferStudents(ICollection<TransferStudentDTO> students)
+        public async Task TransferStudents(ICollection<TransferStudentDTO> students)
         {
             foreach (var student in students)
             {
@@ -96,8 +96,8 @@ namespace FaitLogic.Logic
 
                 if (student.StateId == (int)StudentStateEnum.DefaultTransfer)
                 {
-                    var nextGroupId = unitOfWork.GroupRepository.GetNextGroupId(student.GroupId.Value);
                     var currentGroup = unitOfWork.GroupStudentRepository.FindStudentActualGroup(student.Id);
+                    var nextGroupId = unitOfWork.GroupRepository.GetNextGroupId(student.GroupId.Value);
                     var group = unitOfWork.GroupRepository.FindExistingGroup(student.GroupId.Value);
 
                     var groupStudent = new GroupStudent()
@@ -106,8 +106,8 @@ namespace FaitLogic.Logic
                         StudentId = student.Id,
                         GroupYear = currentGroup.GroupYear + 1
                     };
-
                     unitOfWork.GroupStudentRepository.AddGroupStudent(groupStudent);
+                    currentGroup.IsActive = false;
 
                     studentTransferHistory.FromCourse = (byte)group.Course;
                     studentTransferHistory.ToCourse = (byte)(group.Course + 1);

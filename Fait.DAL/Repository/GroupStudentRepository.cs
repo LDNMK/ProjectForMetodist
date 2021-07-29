@@ -27,12 +27,9 @@ namespace Fait.DAL.Repository
         {
             return base.Find(x => 
                 x.StudentId == studentId 
-                && x.Group.Actual == true)
+                && x.IsActive == true)
                 .OrderByDescending(x => x.GroupYear)
                 .FirstOrDefault();
-            //return dbContext.ActualGroups
-            //    .Where(x => x.StudentId == studentId && x.Group.Actual == true)
-            //    .SingleOrDefault();
         }
 
         public IEnumerable<GroupWithYear> GetStudentGroups(int studentId)

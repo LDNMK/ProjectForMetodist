@@ -119,6 +119,21 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-input">
+                            <input id="graduated-school-name" class="form-element-field" placeholder="Введіть назву навчального закладу"
+                                type="text" data-obj-key="graduatedSchoolName"/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="graduated-school-name">Закінчив(ла)</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <input id="graduated-year" class="form-element-field" placeholder="Введіть рік закінчення"
+                                type="number" data-obj-key="graduatedYear"/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="graduated-year">Рік закінчення</label>
+                        </div>
+                    </div>
+
+                    <div class="main__col-2">
+                        <div class="form-element form-input">
                             <input id="home" class="form-element-field"
                                 placeholder="Введіть місце проживання/реєстрації" type="text" data-obj-key="registration"/>
                             <div class="form-element-bar"></div>
@@ -229,22 +244,6 @@ class StudentCardAddPage extends Page {
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="registr-or-passport-number">Реєстраційний номер облікової
                             картки платника податків або серія та номер паспорту</label>
-                    </div>
-
-                    <div class="main__col-3">
-                        <div class="form-element form-select">
-                            <select class="form-element-field" data-obj-key="studentStateId" id="student-status">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Переведений з групою</option>
-                                <option value="2">В академічній відпустці</option>
-                                <option value="3">Перехід в іншу группу</option>
-                                <option value="4">Не закрив сесію</option>
-                                <option value="5">Відрахований</option>
-                                <option value="6">Здобув степінь</option>
-                            </select>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="student-status">Статус студента</label>
-                        </div>
                     </div>
 
                     <div class="main__buttons">
