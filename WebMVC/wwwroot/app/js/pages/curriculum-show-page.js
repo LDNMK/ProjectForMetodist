@@ -110,7 +110,7 @@ class CurriculumShowPage extends Page {
         });
 
         curriculumFindBtn.addEventListener('click', () => {
-            getYearPlan(groupSelect.value, yearInput.value);
+            findYearPlan(groupSelect.value, yearInput.value);
         });
 
         curriculumEditBtn.addEventListener('click', () => {
@@ -158,13 +158,21 @@ class CurriculumShowPage extends Page {
             apiHelper.fetchUpdateYearPlan(yearPlanId, curriculum);
         };
 
-        async function getYearPlan(groupId, year) {
+        function clearSubjectsInYearPlan() {
+            let subjects = planTable.querySelectorAll('.curriculum__table-row-data');
+            for (var subject of subjects) {
+                subject.remove();
+            }
+        }
+
+        async function findYearPlan(groupId, year) {
             if (groupId == "" || year == "") {
                 return;
             }
 
+            clearSubjectsInYearPlan();
+
             const yearPlan = await apiHelper.fetchGetYearPlan(groupId, year);
-            console.log('in curriculum page');
             console.log(yearPlan);
 
             planIdInput.value = yearPlan.id;

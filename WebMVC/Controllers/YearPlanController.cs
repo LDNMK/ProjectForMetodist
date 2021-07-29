@@ -3,8 +3,8 @@ using FaitLogic.DTO;
 using FaitLogic.Enums;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using WebAPI.Helper;
+using WebAPI.Helper.ResponseModel;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(new ErrorResponseModel()
                 {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.UpdateYearPlanFailed)
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.YearPlanUpdateFailed)
                 });
 
             }

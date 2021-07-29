@@ -4,8 +4,8 @@ using FaitLogic.Enums;
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Net;
 using WebAPI.Helper;
+using WebAPI.Helper.ResponseModel;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -33,13 +33,16 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return new JsonResult(ValidationHelper.GetEnumDescription(ErrorEnum.StudentDbUpdateFailed))
+                return BadRequest(new ErrorResponseModel()
                 {
-                    StatusCode = 400
-                };
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.StudentCardSaveFailed)
+                });
             }
 
-            return Ok();
+            return Ok(new SuccessResponseModel()
+            {
+                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.StudentCardUpdated)
+            });
         }
 
         [HttpPut]
@@ -51,13 +54,16 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return new JsonResult(ValidationHelper.GetEnumDescription(ErrorEnum.StudentDbUpdateFailed))
+                return BadRequest(new ErrorResponseModel()
                 {
-                    StatusCode = 400
-                };
+                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.StudentCardUpdateFailed)
+                });
             }
 
-            return Ok();
+            return Ok(new SuccessResponseModel()
+            {
+                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.StudentCardUpdated)
+            });
         }
 
         [HttpGet]
@@ -79,6 +85,13 @@ namespace WebAPI.Controllers
         public IActionResult ShowStudentInfo(int studentId)
         {
             var result = mapper.Map<StudentCardModel>(studentInfoLogic.GetStudentInfo(studentId));
+            if (result == null)
+            {
+                return NotFound(new WarningResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.StudentNotFound)
+                });
+            }
 
             return Ok(result);
         }
@@ -87,6 +100,14 @@ namespace WebAPI.Controllers
         public IActionResult GetSpecialities(int degreeId)
         {
             var result = mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(degreeId));
+
+            if (result.Count == 0)
+            {
+                return NotFound(new WarningResponseModel()
+                {
+                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.SpecialitiesNotFound)
+                });
+            }
 
             return Ok(result);
         }

@@ -25,36 +25,31 @@ namespace WebAPI.Helper
         }
     }
 
-    public abstract class ResponseModel
-    {
-        public string NotificationType { get; set; }
+    //public abstract class ResponseModel
+    //{
+    //    public string NotificationType { get; set; }
 
-        public string NotificationText { get; set; }
-    }
+    //    public string NotificationText { get; set; }
+    //}
 
-    public class ErrorResponseModel : ResponseModel
-    {
-        public ErrorResponseModel()
-        {
-            NotificationType = "error";
-        }
-    }
+    //public class ErrorResponseModel : ResponseModel
+    //{
+    //    public ErrorResponseModel()
+    //    {
+    //        NotificationType = "error";
+    //    }
+    //}
 
-    public class WarningResponseModel : ResponseModel
-    {
-        public WarningResponseModel()
-        {
-            NotificationType = "warning";
-        }
-    }
+    //public class WarningResponseModel : ResponseModel
+    //{
+    //    public WarningResponseModel()
+    //    {
+    //        NotificationType = "warning";
+    //    }
+    //}
 
-    public class SuccessResponseModel : ResponseModel
-    {
-        public object Data { get; set; }
-
-        public SuccessResponseModel()
-        {
-            NotificationType = "success";
-        }
-    }
+    //public class SuccessResponseModel : ResponseModel
+    //{
+        
+    //}
 }

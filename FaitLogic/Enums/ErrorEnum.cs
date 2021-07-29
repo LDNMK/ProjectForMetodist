@@ -6,7 +6,10 @@ namespace FaitLogic.Enums
     {
         // Students
         [Description("Дані про студента вказані некоректно або вони вже використовуються")]
-        StudentDbUpdateFailed,
+        StudentCardUpdateFailed,
+
+        [Description("Виникла помилка під час збереження інформації про студента")]
+        StudentCardSaveFailed,
 
         // Year plans
         [Description("Такого навчального плану немає")]
@@ -25,6 +28,17 @@ namespace FaitLogic.Enums
         CreateYearPlanFailed,
 
         [Description("Виникла помилка під час оновлення навчального плану")]
-        UpdateYearPlanFailed
+        YearPlanUpdateFailed,
+
+        // Progress
+        [Description("Виникла помилка під час оновлення успішності")]
+        ProgressUpdateFailed,
+
+        [Description("Виникла помилка під час завантаження успішності")]
+        ProgressLoadFailed,
+
+        [Description("Виникла помилка під час зміни статусу студентам")]
+        TransferStudentsUpdateFailed
+
     }
 }

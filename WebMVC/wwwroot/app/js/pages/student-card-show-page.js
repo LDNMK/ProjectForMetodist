@@ -275,7 +275,6 @@ class StudentCardShowPage extends Page {
         const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
         const transferHistoryContainer = document.querySelector('.student-card__show-transfer-history-container');
         
-
         const groupSelect = document.querySelector('#group');
         const courseSelect = document.querySelector('#course');
         const studentSelect = document.querySelector('#student');
@@ -285,7 +284,7 @@ class StudentCardShowPage extends Page {
         const yearInput = document.querySelector('#year');
 
         findBtn.addEventListener('click', () => {
-            fetchStudent(studentSelect.value);
+            findStudent(studentSelect.value);
         });
 
         editBtn.addEventListener('click', () => {
@@ -301,7 +300,7 @@ class StudentCardShowPage extends Page {
         });
 
         saveBtn.addEventListener('click', () => {
-            fetchStudentUpdate(studentSelect.value);
+            studentUpdate(studentSelect.value);
         });
 
         averageScoreBtn.addEventListener('click', () => {
@@ -320,36 +319,29 @@ class StudentCardShowPage extends Page {
         });
 
         yearInput.addEventListener('change', () => {
-            fetchStudents(groupSelect.value, yearInput.value);
+            findStudents(groupSelect.value, yearInput.value);
         });
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value);
+            findGroups(courseSelect.value);
         });
 
         groupSelect.addEventListener('change', () => {
             if (yearCheckbox.checked && !yearInput.value) {
                 console.log("Error: year wasn't selected");
             } else if (yearCheckbox.checked && yearInput.value) {
-                fetchStudents(groupSelect.value, yearInput.value);
+                findStudents(groupSelect.value, yearInput.value);
             } else {
-                fetchStudents(groupSelect.value);
+                findStudents(groupSelect.value);
             }
         });
 
-        async function fetchGroups(course) {
+        async function findGroups(course) {
             if (course == "") {
                 return;
             }
 
-            const response = await fetch(`api/Group/GetGroups?course=${course}`);
-            const groups = await response.json();
-
-            console.log(groups);
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
 
@@ -358,36 +350,22 @@ class StudentCardShowPage extends Page {
             studentSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudents(groupId, year = null) {
+        async function findStudents(groupId, year = null) {
             if (groupId == "" || year == "") {
                 return;
             }
 
-            let url = `api/StudentCard/GetStudents?groupId=${groupId}`;
-            if (year) {
-                url += `&year=${year}`
-            }
-            
-            const response = await fetch(url);
-            const students = await response.json();
-
-            console.log(students);
-
-            let options = students.map(x => `<option value=${x.studentId}>${x.studentName}</option>`);
-            options.push(optionDefault);
-
+            let options = await getStudentsAsOptions(groupId, year);
             studentSelect.innerHTML = options.join('');
             studentSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudent(id) {
+        async function findStudent(id) {
             if (id == "") {
                 return;
             }
 
-            const response = await fetch(`api/StudentCard/ShowStudentInfo?studentId=${id}`);
-            const student = await response.json();
-
+            const student = await apiHelper.fetchGetStudent(id);
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
                 x.value = student[x.getAttribute("data-obj-key")];
 
@@ -398,11 +376,9 @@ class StudentCardShowPage extends Page {
 
             let transferHistoryContainer = document.querySelector('.student-card__show-transfer-history-container');
             transferHistoryContainer.innerHTML = getStudentTransferHistoryRows(student.transferHistory);
-
-            console.log(student);
         }
 
-        async function fetchStudentUpdate(id) {
+        async function studentUpdate(id) {
             let student = {};
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
                 student[x.getAttribute('data-obj-key')] = x.value != "" ? x.value : undefined;
@@ -421,41 +397,15 @@ class StudentCardShowPage extends Page {
                     return history;
                 });
 
-            console.log(student);
-
-            const response = await fetch(`api/StudentCard/UpdateStudentCardInfo?studentId=${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(student)
-            });
-
-            // TODO: Check response
+            apiHelper.fetchUpdateStudentCard(id, student);
         }
 
-        async function fetchSpeciality() {
-            const response = await fetch(`api/StudentCard/GetSpecialities`);
-            const specialities = await response.json();
-
-            let options = specialities.map(x => `<option value=${x.id}>${x.name}</option>`);
-            options.push(optionDefault);
-
+        async function findSpeciality() {
+            let options = await getSpecialitiesAsOptions(0);
             specialitySelect.innerHTML = options.join('');
             specialitySelect.classList.remove('-hasValue');
         }
 
-        window.onload = fetchSpeciality();
-    }
-
-    static _idsToClear() {
-        return [
-            '#speciality',
-            '#specialization',
-            '#year',
-            '#course',
-            '#group',
-            '#student'
-        ];
+        window.onload = findSpeciality();
     }
 }
