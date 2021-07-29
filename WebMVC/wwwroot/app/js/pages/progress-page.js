@@ -95,8 +95,6 @@ class ProgressPage extends Page {
     static init() {
         this._subscribePageElements();
         subscribeFormElements();
-
-        
     }
 
     static _subscribePageElements() {
@@ -117,12 +115,11 @@ class ProgressPage extends Page {
         });
 
         courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value);
+            findGroups(courseSelect.value, yearInput.value);
         });
 
         progressFindBtn.addEventListener('click', () => {
-            // get plan
-            fetchPlan(yearInput.value, groupSelect.value, semestrSelect.value);
+            findProgress(yearInput.value, groupSelect.value, semestrSelect.value);
         });
 
         progressEditBtn.addEventListener('click', () => {
@@ -165,25 +162,17 @@ class ProgressPage extends Page {
                 progressObj.push(student);
             });
 
-            console.log(progressObj);
-
-            fetchUpdateProgress(progressObj);
+            updateProgress(progressObj);
         });
 
-        
-
-        async function fetchPlan(year, groupId, semesterId) {
+        async function findProgress(year, groupId, semesterId) {
             if (year == "" || groupId == "" || semesterId == "") {
                 return;
             }
 
             clearProgressTable();
 
-            let url = `api/Progress/GetProgress?year=${year}&groupId=${groupId}&semesterId=${semesterId}`;
-            console.log(url);
-
-            const response = await fetch(url);
-            const progress = await response.json();
+            const progress = await apiHelper.fetchGetProgress(year, groupId, semesterId);
 
             progress.subjects.forEach(s => {
                 subjectsList.insertAdjacentHTML('beforeend', getProgressSubjectCell(s));
@@ -192,8 +181,6 @@ class ProgressPage extends Page {
             progress.students.forEach(s => {
                 progressTable.insertAdjacentHTML('beforeend', getProgressStudentRow(s, progress.subjects));
             });
-
-            console.log(progress);
         }
 
         function clearProgressTable() {
@@ -209,7 +196,7 @@ class ProgressPage extends Page {
         }
 
         async function findGroups(course, year) {
-            if (course == "") {
+            if (course == "" || year == "") {
                 return;
             }
 
@@ -218,19 +205,8 @@ class ProgressPage extends Page {
             groupSelect.classList.remove('-hasValue');
         };
 
-        async function fetchUpdateProgress(progressObj) {
-            console.log(progressObj);
-            // console.log(JSON.stringify(progressObj));
-
-            const response = await fetch(`api/Progress/UpdateProgress`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(progressObj)
-            });
-
-            console.log(response);
+        async function updateProgress(progressObj) {
+            apiHelper.fetchUpdateProgress(progressObj);
         };
     }
 }

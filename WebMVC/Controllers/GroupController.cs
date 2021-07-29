@@ -2,6 +2,7 @@
 using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helper;
+using WebAPI.Helper.ResponseModel;
 
 namespace WebAPI.Controllers
 {

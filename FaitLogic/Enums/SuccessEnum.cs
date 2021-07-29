@@ -4,16 +4,25 @@ namespace FaitLogic.Enums
 {
     public enum SuccessEnum
     {
-        [Description("Група {0} успішно створена")]
+        [Description("Група {0} створена")]
         GroupCreated,
 
-        [Description("Звіт про студента успішно створений")]
+        [Description("Звіт про студента створений")]
         ReportCreated,
 
-        [Description("Навчальний план успішно створений")]
+        [Description("Навчальний план створений")]
         YearPlanCreated,
 
-        [Description("Навчальний план успішно оновлений")]
-        YearPlanUpdated
+        [Description("Навчальний план оновлений")]
+        YearPlanUpdated,
+
+        [Description("Успішність оновлена")]
+        ProgressUpdated,
+
+        [Description("Карта студента оновлена")]
+        StudentCardUpdated,
+
+        [Description("Статус студентів змінений")]
+        TransferStudentsUpdated
     }
 }

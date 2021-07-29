@@ -84,16 +84,15 @@ class TransferPage extends Page {
         });
 
         findBtn.addEventListener('click', () => {
-            fetchStudents(groupSelect.value, yearInput.value);
+            findStudents(groupSelect.value, yearInput.value);
         });
 
         transferBtn.addEventListener('click', () => {
-            fetchTransferStudent();
+            saveTransferStudent();
         });
         
         async function findGroups(course) {
             if (course == "") {
-                console.log('Course is empty');
                 return;
             }
 
@@ -102,23 +101,21 @@ class TransferPage extends Page {
             groupSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudents(groupId, year) {
+        async function findStudents(groupId, year) {
             if (groupId == "" || year == "") {
-                studentsList.innerHTML = "";
                 return;
             }
 
-            const response = await fetch(`api/Transfer/GetStudentsForTransfer?groupId=${groupId}&year=${year}`);
-            const students = await response.json();
-
             studentsList.innerHTML = "";
+
+            const students = await apiHelper.fetchGetStudentsForTransfer(groupId, year);
             studentsList.insertAdjacentHTML('beforeend', getTransferStudentHead());
             students.forEach(x => {
                 studentsList.insertAdjacentHTML('beforeend', getTransferStudentRow(x));
             });
         };
 
-        async function fetchTransferStudent() {
+        async function saveTransferStudent() {
             let students = [];
 
             const data = [...studentsList.querySelectorAll('.transfer__student-row')];
@@ -136,15 +133,7 @@ class TransferPage extends Page {
                 students.push(student);
             });
 
-            console.log(students);
-
-            const response = await fetch(`api/Transfer/TransferStudents`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(students)
-            });
+            apiHelper.fetchUpdateTransferStudents(students);
         }
     }
 }

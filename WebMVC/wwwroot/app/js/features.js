@@ -23,3 +23,15 @@ async function getStudentsAsOptions(groupId, year) {
 
     return options;
 }
+
+async function getSpecialitiesAsOptions(degreeId) {
+    let options = [];
+
+    const specialities = await apiHelper.fetchGetSpecialities(degreeId);
+    if (specialities) {
+        options = specialities.map(x => `<option value=${x.id}>${x.name}</option>`);
+        options.push(optionDefault);
+    }
+
+    return options;
+}

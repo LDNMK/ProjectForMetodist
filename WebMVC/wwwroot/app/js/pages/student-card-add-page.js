@@ -276,67 +276,41 @@ class StudentCardAddPage extends Page {
         const specialitySelect = document.querySelector('#speciality');
 
         saveBtn.addEventListener('click', () => {
-            fetchStudentSave();
+            studentSave();
         })
 
         courseSelect.addEventListener('change', () => {
-            fetchGroups(courseSelect.value);
+            findGroups(courseSelect.value);
         })
 
         degreeSelect.addEventListener('change', () =>{
-            fetchSpecialities(degree.value);
+            findSpecialities(degree.value);
         });
 
-        async function fetchSpecialities(degreeId) {
-            const response = await fetch(`api/StudentCard/GetSpecialities?degreeId=${degreeId}`);
-            const specialities = await response.json();
-
-            let options = specialities.map(x => `<option value=${x.id}>${x.name}</option>`);
-            options.push(optionDefault);
-
+        async function findSpecialities(degreeId) {
+            let options = await getSpecialitiesAsOptions(degreeId);
             specialitySelect.innerHTML = options.join('');
             specialitySelect.classList.remove('-hasValue');
         }
 
-        async function fetchGroups(course) {
+        async function findGroups(course) {
             if (course == "") {
                 return;
             }
 
-            const response = await fetch(`api/Group/GetGroups?course=${course}`);
-            const groups = await response.json();
-
-            console.log(groups);
-
-            let options = groups.map(x => `<option value=${x.groupId}>${x.groupName}</option>`);
-            options.push(optionDefault);
-
+            const options = await getGroupsAsOptions(course);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
         };
 
-        async function fetchStudentSave() {
+        async function studentSave() {
             let student = {};
+
             StudentCardAddPage._dataObjKeyFields.forEach(x => {
                 student[x.getAttribute('data-obj-key')] = x.value;
             });
 
-            console.log(student);
-
-            const response = await fetch(`api/StudentCard/SaveStudentCardInfo`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(student)
-            });
-
-            if (!response.ok) {
-                var error = await response.json();
-
-                console.log(error);
-                return;
-            }           
+            apiHelper.fetchStudentCardSave(student);           
         }
     }
 }
