@@ -33,9 +33,6 @@ namespace Fait.DAL.Repository
         public Group FindExistingGroup(int groupId)
         {
             return base.FindById(groupId);
-            //return dbContext.Groups
-            //    .Where(x => x.Id == groupId)
-            //    .SingleOrDefault();
         }
 
         public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
@@ -121,8 +118,10 @@ namespace Fait.DAL.Repository
                     FirstName = x.Student.FirstName,
                     LastName = x.Student.LastName,
                     Patronymic = x.Student.Patronymic,
-                    StateId = x.Student.StudentStateId
+                    StateId = x.Student.StudentStateId,
+                    IsActive = x.IsActive                   
                 })
+                .OrderByDescending(x => x.IsActive)
                 .ToListAsync();
         }
     }

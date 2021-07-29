@@ -39,6 +39,8 @@ namespace FaitLogic.Logic
             studentInfo.Add("BirthPlace", studentInfoDto.BirthPlace);
             studentInfo.Add("Citizenship", studentInfoDto.Citizenship);
             studentInfo.Add("MaritalStatus", DictionaryWithValues.MaritalStatus[studentInfoDto.MaritalStatusId.Value]);
+            studentInfo.Add("GraduatedSchoolName", studentInfoDto.GraduatedSchoolName); 
+            studentInfo.Add("GraduatedYear", studentInfoDto.GraduatedYear.ToString());
             studentInfo.Add("Registration", studentInfoDto.Registration);
             studentInfo.Add("Exemption", studentInfoDto.Exemption);
             studentInfo.Add("ExpirienceCompetition", DictionaryWithValues.ExperienceCompetition[studentInfoDto.ExpirienceCompetitionId.Value]);
@@ -88,6 +90,7 @@ namespace FaitLogic.Logic
                 Microsoft.Office.Interop.Word.Range bookmarkRange = bookmark.Range;
 
                 bookmarkRange.Text = studentInfo[bookmark.Name];
+                bookmarkRange.Font.Bold = 0;
                 bookmarkRange.Underline = WdUnderline.wdUnderlineSingle;
             }
 
@@ -95,7 +98,7 @@ namespace FaitLogic.Logic
 
             var rows = new Dictionary<int, int[]>()
             {
-                //key - course, value - {Autumn, Spring}
+                //key - course, value - {AutumnRow, SpringRow}
                 { 1, new int[] {4, 20 } },
                 { 2, new int[] {37, 59 } },
                 { 3, new int[] {78, 95 } },
@@ -118,13 +121,17 @@ namespace FaitLogic.Logic
 
         private static string GetInfoForRow(int column, int semester, StudentSubjectDTO subject)
         {
+            var subjectSemester = subject.SubjectSemesters.Single(x => x.Semester == semester);
+            var ectsMark = GetECTSMark(subjectSemester.Mark);
             return column switch
             {
                 3 => subject.Name,
                 4 => subject.Hours.ToString(),
                 5 => subject.Ects.ToString(),
-                6 => subject.SubjectSemesters.Single(x => x.Semester == semester).Mark.ToString(),
-                9 => subject.SubjectSemesters.Single(x => x.Semester == semester).ModifiedOn.ToString("dd.MM.yyyy"),
+                6 => DictionaryWithValues.Mark[ectsMark],
+                7 => subjectSemester.Mark.ToString(),
+                8 => ectsMark,
+                9 => subjectSemester.ModifiedOn.ToString("dd.MM.yyyy"),
                 _ => throw new ArgumentException()
             };
         }
@@ -138,19 +145,48 @@ namespace FaitLogic.Logic
             }
         }
 
+        private static string GetECTSMark(int mark)
+        {
+            if(mark >= 82)
+            {
+                if (mark >= 90)
+                    return  "A";
+
+                return "B";
+            }
+
+            if (mark >= 64)
+            {
+                if (mark >= 74)
+                    return "C";
+
+                return "D";
+            }
+
+            if (mark >= 60)
+                return "E";
+
+            if (mark >= 35)
+                return "FX";
+
+            return "F";
+        }
+
         private static void FillSemester(StudentSubjectDTO subject, Table table, ref int row, int semester)
         {
             if (subject.SubjectSemesters.Any(x => x.Semester == semester))
             {
                 Microsoft.Office.Interop.Word.Range cellRange;
-                for (int column = 3; column < 7; column++)
+                for (int column = 3; column <= 9; column++)
                 {
                     cellRange = table.Cell(row, column).Range;
                     cellRange.Text = GetInfoForRow(column, semester, subject);
+                    cellRange.Font.Bold = 0;
+                    if (column == 6)
+                    {
+                        cellRange.Font.Size = 10;
+                    }
                 }
-
-                cellRange = table.Cell(row, 9).Range;
-                cellRange.Text = GetInfoForRow(9, semester, subject);
 
                 row++;
             }

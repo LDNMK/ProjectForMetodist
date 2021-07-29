@@ -137,10 +137,10 @@ class StudentCardShowPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-input">
-                            <input id="birthday" data-obj-key="birthday" class="form-element-field" placeholder="Введіть дату народження"
+                            <input id="birthdate" data-obj-key="birthdate" class="form-element-field" placeholder="Введіть дату народження"
                                 type="date" disabled/>
                             <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="birthday">Дата народження</label>
+                            <label class="form-element-label" for="birthdate">Дата народження</label>
                         </div>
                         <div class="form-element form-input">
                             <input id="birthday-place" data-obj-key="birthPlace" class="form-element-field"
@@ -165,6 +165,21 @@ class StudentCardShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="marital-status">Сімейний стан</label>
+                        </div>
+                    </div>
+
+                    <div class="main__col-2">
+                        <div class="form-element form-input">
+                            <input id="graduated-school-name" class="form-element-field" placeholder="Введіть назву навчального закладу"
+                                type="text" data-obj-key="graduatedSchoolName" disabled/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="graduated-school-name">Закінчив(ла)</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <input id="graduated-year" class="form-element-field" placeholder="Введіть рік закінчення"
+                                type="number" data-obj-key="graduatedYear" disabled/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="graduated-year">Рік закінчення</label>
                         </div>
                     </div>
 
