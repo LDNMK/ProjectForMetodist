@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
+using FaitLogic.Logic.ILogic;
 using FaitLogic.Enums;
-using FaitLogic.Logic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebAPI.Helper;
@@ -16,9 +16,9 @@ namespace WebAPI.Controllers
     {
         private readonly IMapper mapper;
 
-        private readonly ProgressLogic progressLogic;
+        private readonly IProgressLogic progressLogic;
 
-        public ProgressController(IMapper mapper, ProgressLogic progressLogic)
+        public ProgressController(IMapper mapper, IProgressLogic progressLogic)
         {
             this.mapper = mapper;
             this.progressLogic = progressLogic;

@@ -13,11 +13,11 @@ namespace Fait.DAL.Repository.IRepository
 
         Group FindExistingGroup(int groupId);
 
-        ICollection<Group> FindGroupsByYearPlan(int yearPlanId);
+        //ICollection<Group> FindGroupsByYearPlan(int yearPlanId);
 
         ICollection<GroupNameWithId> GetGroupNames(IEnumerable<int> groupIds);
 
-        int GetNextGroupOfStudent(int groupId);
+        //int GetNextGroupOfStudent(int groupId);
 
         void UpdateGroup(Group group);
 
@@ -27,7 +27,7 @@ namespace Fait.DAL.Repository.IRepository
 
         ICollection<int> GetGroupIds(int course, int? year);
 
-        ICollection<Group> GetDeactivatedGroups();
+        //ICollection<Group> GetDeactivatedGroups();
 
         Task<ICollection<TransferStudent>> GetStudents(int groupId, int year);
 

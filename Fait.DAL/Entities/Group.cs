@@ -15,7 +15,7 @@ namespace Fait.DAL
 
         public int Id { get; set; }
         public int GroupNumber { get; set; }
-        public int? GroupPrefixId { get; set; }
+        public int GroupPrefixId { get; set; }
         public bool Actual { get; set; }
         public int Course { get; set; }
 

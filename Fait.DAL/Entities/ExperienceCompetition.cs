@@ -9,12 +9,12 @@ namespace Fait.DAL
     {
         public ExperienceCompetition()
         {
-            StudentsInfos = new HashSet<StudentsInfo>();
+            StudentInfos = new HashSet<StudentInfo>();
         }
 
         public byte Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<StudentsInfo> StudentsInfos { get; set; }
+        public virtual ICollection<StudentInfo> StudentInfos { get; set; }
     }
 }

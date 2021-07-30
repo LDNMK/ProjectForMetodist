@@ -6,10 +6,10 @@ namespace Fait.DAL.Repository.IRepository
 {
     public interface IStudentInfoRepository
     {
-        void AddStudentInfo(StudentsInfo studentInfo);
+        void AddStudentInfo(StudentInfo studentInfo);
 
-        void UpdateStudentInfo(StudentsInfo studentInfo);
+        void UpdateStudentInfo(StudentInfo studentInfo);
 
-        StudentsInfo GetStudentInfo(int studentId);
+        StudentInfo GetStudentInfo(int studentId);
     }
 }

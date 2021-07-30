@@ -2,13 +2,14 @@
 using Fait.DAL;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
+using FaitLogic.Logic.ILogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FaitLogic.Logic
 {
-    public class GroupLogic
+    public class GroupLogic : IGroupLogic
     {
         private readonly IMapper mapper;
 
@@ -47,7 +48,7 @@ namespace FaitLogic.Logic
             var newGroup = new Group
             {
                 GroupNumber = groupNumber,
-                GroupPrefixId = groupNameId,
+                GroupPrefixId = groupNameId.Value,
                 Actual = true,
                 Course = groupNumber / 10
             };
@@ -64,26 +65,26 @@ namespace FaitLogic.Logic
             return groupNames;
         }
 
-        public ICollection<GroupNameWithIdDTO> GetDeactivatedGroups()
-        {
-            var groups = unitOfWork.GroupRepository.GetDeactivatedGroups();
+        //public ICollection<GroupNameWithIdDTO> GetDeactivatedGroups()
+        //{
+        //    var groups = unitOfWork.GroupRepository.GetDeactivatedGroups();
 
-            var groupIds = groups.Select(X => X.Id);
-            var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupNames(groupIds));
+        //    var groupIds = groups.Select(X => X.Id);
+        //    var groupNames = mapper.Map<ICollection<GroupNameWithIdDTO>>(unitOfWork.GroupRepository.GetGroupNames(groupIds));
 
-            return groupNames;
-        }
+        //    return groupNames;
+        //}
 
-        public void ActivateGroups(int[] groupsIds)
-        {
-            foreach (var groupId in groupsIds)
-            {
-                var group = unitOfWork.GroupRepository.FindExistingGroup(groupId);
-                group.Actual = true;
+        //public void ActivateGroups(int[] groupsIds)
+        //{
+        //    foreach (var groupId in groupsIds)
+        //    {
+        //        var group = unitOfWork.GroupRepository.FindExistingGroup(groupId);
+        //        group.Actual = true;
 
-                unitOfWork.GroupRepository.UpdateGroup(group);
-            }
-            unitOfWork.Save();
-        }
+        //        unitOfWork.GroupRepository.UpdateGroup(group);
+        //    }
+        //    unitOfWork.Save();
+        //}
     }
 }

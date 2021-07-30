@@ -23,7 +23,7 @@ namespace FaitLogic.DTO
 
     public class StudentSubjectSemesterDTO
     {
-        public byte Semester { get; set; }
+        public byte SemesterId { get; set; }
 
         public int Mark { get; set; }
 

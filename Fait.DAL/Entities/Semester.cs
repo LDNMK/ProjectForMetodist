@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Fait.DAL
 {
-    public partial class Degree
+    public partial class Semester
     {
-        public Degree()
+        public Semester()
         {
-            StudentInfos = new HashSet<StudentInfo>();
+            SubjectSemesters = new HashSet<SubjectSemester>();
         }
 
         public byte Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<StudentInfo> StudentInfos { get; set; }
+        public virtual ICollection<SubjectSemester> SubjectSemesters { get; set; }
     }
 }

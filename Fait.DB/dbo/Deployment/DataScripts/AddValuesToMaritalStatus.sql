@@ -1,7 +1,7 @@
 ﻿
-SET IDENTITY_INSERT [marital_statuses] ON
+SET IDENTITY_INSERT [MaritalStatus] ON
 
-MERGE INTO [marital_statuses] AS o
+MERGE INTO [MaritalStatus] AS o
 USING (SELECT *
 	FROM
 	(
@@ -10,11 +10,11 @@ USING (SELECT *
 			(2, 'Одруженний'),
 			(3, 'Неодруженний')
 	)
-	SOURCE (Id, [marital_status_name])) AS n
+	SOURCE (Id, [Name])) AS n
 ON o.Id = n.Id
 WHEN NOT MATCHED BY TARGET THEN
-	INSERT (Id, [marital_status_name])
-	VALUES (n.Id, n.[marital_status_name]);
+	INSERT (Id, [Name])
+	VALUES (n.Id, n.[Name]);
 
-SET IDENTITY_INSERT [marital_statuses] OFF
+SET IDENTITY_INSERT [MaritalStatus] OFF
 GO

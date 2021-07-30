@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using FaitLogic.Logic;
+using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,29 +18,13 @@ namespace WebAPI.Controllers
     {
         private readonly IMapper _mapper;
 
-        private readonly TransferLogic transfLogic;
+        private readonly ITransferLogic transfLogic;
 
-        public TransferController(TransferLogic transferLogic, IMapper mapper)
+        public TransferController(ITransferLogic transferLogic, IMapper mapper)
         {
             this.transfLogic = transferLogic;
             this._mapper = mapper;
         }
-
-        //[HttpPatch]
-        //public IActionResult TransferGroups(int groupId)
-        //{
-        //    transfLogic.TransferGroup(groupId);
-
-        //    return Ok();
-        //}
-
-        //[HttpPatch]
-        //public IActionResult TransferStudent(int studentId, int groupId)
-        //{
-        //    transfLogic.TransferStudent(studentId, groupId);
-
-        //    return Ok();
-        //}
 
         [HttpGet]
         async public Task<IActionResult> GetStudentsForTransfer([FromQuery] int groupId, [FromQuery] int year)

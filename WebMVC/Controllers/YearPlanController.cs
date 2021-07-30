@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using FaitLogic.Logic;
+using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helper;
 using WebAPI.Helper.ResponseModel;
@@ -15,11 +15,11 @@ namespace WebAPI.Controllers
     {
         private readonly IMapper mapper;
 
-        private readonly YearPlanLogic yearPlanLogic;
+        private readonly IYearPlanLogic yearPlanLogic;
 
         public YearPlanController(
             IMapper mapper, 
-            YearPlanLogic yearPlanLogic)
+            IYearPlanLogic yearPlanLogic)
         {
             this.mapper = mapper;
             this.yearPlanLogic = yearPlanLogic;
