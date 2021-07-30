@@ -3,12 +3,13 @@ using Fait.DAL;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
+using FaitLogic.Logic.ILogic;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace FaitLogic.Logic
 {
-    public class YearPlanLogic
+    public class YearPlanLogic : IYearPlanLogic
     {
         private readonly IMapper mapper;
 
@@ -43,17 +44,17 @@ namespace FaitLogic.Logic
 
                 var subjectSemesters = unitOfWork.SubjectSemesterRepository.FindSubjectSemesters(subject.Id).ToList();
 
-                var autumn = subjectSemesters.Find(x => x.Semester == (int)SemesterEnum.Autumn);
+                var autumn = subjectSemesters.Find(x => x.SemesterId == (int)SemesterEnum.Autumn);
                 if (autumn != null)
                 {
-                    subjectDto.ControlFallType = autumn.ControlType;
+                    subjectDto.ControlFallType = autumn.ControlTypeId;
                     subjectDto.IndividualTaskFallType = autumn.IndividualTaskType;
                 }
 
-                var spring = subjectSemesters.Find(x => x.Semester == (int)SemesterEnum.Spring);
+                var spring = subjectSemesters.Find(x => x.SemesterId == (int)SemesterEnum.Spring);
                 if (spring != null)
                 {
-                    subjectDto.ControlSpringType = spring.ControlType;
+                    subjectDto.ControlSpringType = spring.ControlTypeId;
                     subjectDto.IndividualTaskSpringType = spring.IndividualTaskType;
                 }
                 subjectsDto.Add(subjectDto);
@@ -78,7 +79,7 @@ namespace FaitLogic.Logic
 
             foreach (var groupId in yearPlanInfo.GroupIds)
             {
-                unitOfWork.YearPlanGroupsRepository.AddYearPlanGroups(new YearPlanGroup { YearPlanId = yearPlanId , GroupId = groupId });
+                unitOfWork.YearPlanGroupsRepository.AddYearPlanGroups(new YearPlanGroup { YearPlanId = yearPlanId, GroupId = groupId });
             }
 
             foreach (var subject in yearPlanInfo.SubjectInfo)
@@ -96,7 +97,7 @@ namespace FaitLogic.Logic
             yearPlan.Year = yearPlanInfo.Year;
 
             var oldSubjects = unitOfWork.SubjectRepository.FindSubjects(yearPlanId);
-           
+
             foreach (var newSubject in yearPlanInfo.SubjectInfo)
             {
                 var oldSubject = oldSubjects.FirstOrDefault(x => x.Id == newSubject.Id);
@@ -152,9 +153,9 @@ namespace FaitLogic.Logic
                 var springSubject = new SubjectSemester
                 {
                     SubjectId = subjectInfoId,
-                    ControlType = subjectDto.ControlSpringType,
+                    ControlTypeId = subjectDto.ControlSpringType,
                     IndividualTaskType = subjectDto.IndividualTaskSpringType,
-                    Semester = (int)SemesterEnum.Spring
+                    SemesterId = (int)SemesterEnum.Spring
                 };
                 unitOfWork.SubjectSemesterRepository.AddSubjectSemester(springSubject);
             }
@@ -164,9 +165,9 @@ namespace FaitLogic.Logic
                 var autumnSubject = new SubjectSemester
                 {
                     SubjectId = subjectInfoId,
-                    ControlType = subjectDto.ControlFallType,
+                    ControlTypeId = subjectDto.ControlFallType,
                     IndividualTaskType = subjectDto.IndividualTaskFallType,
-                    Semester = (int)SemesterEnum.Autumn
+                    SemesterId = (int)SemesterEnum.Autumn
                 };
                 unitOfWork.SubjectSemesterRepository.AddSubjectSemester(autumnSubject);
             }
@@ -181,7 +182,7 @@ namespace FaitLogic.Logic
 
             var subjectSemesters = unitOfWork.SubjectSemesterRepository.FindSubjectSemesters(oldSubject.Id).ToList();
 
-            var subjectSpring = subjectSemesters.FirstOrDefault(x => x.Semester == (int)SemesterEnum.Spring);
+            var subjectSpring = subjectSemesters.FirstOrDefault(x => x.SemesterId == (int)SemesterEnum.Spring);
             if (newSubject.ControlSpringType == (int)MonitoringEnum.SemesterNotExist && subjectSpring != null)
             {
                 unitOfWork.SubjectSemesterRepository.DeleteSubjectSemester(subjectSpring);
@@ -189,22 +190,22 @@ namespace FaitLogic.Logic
             else if (newSubject.ControlSpringType != (int)MonitoringEnum.SemesterNotExist && subjectSpring != null)
             {
                 subjectSpring.IndividualTaskType = newSubject.IndividualTaskSpringType;
-                subjectSpring.ControlType = newSubject.ControlSpringType;
+                subjectSpring.ControlTypeId = newSubject.ControlSpringType;
             }
             else if (newSubject.ControlSpringType != (int)MonitoringEnum.SemesterNotExist && subjectSpring == null)
             {
                 var springSubject = new SubjectSemester
                 {
                     SubjectId = oldSubject.Id,
-                    ControlType = newSubject.ControlSpringType,
+                    ControlTypeId = newSubject.ControlSpringType,
                     IndividualTaskType = newSubject.IndividualTaskSpringType,
-                    Semester = (int)SemesterEnum.Spring
+                    SemesterId = (int)SemesterEnum.Spring
                 };
 
                 unitOfWork.SubjectSemesterRepository.AddSubjectSemester(springSubject);
             }
 
-            var subjectFall = subjectSemesters.FirstOrDefault(x => x.Semester == (int)SemesterEnum.Autumn);
+            var subjectFall = subjectSemesters.FirstOrDefault(x => x.SemesterId == (int)SemesterEnum.Autumn);
             if (newSubject.ControlFallType == (int)MonitoringEnum.SemesterNotExist && subjectFall != null)
             {
                 unitOfWork.SubjectSemesterRepository.DeleteSubjectSemester(subjectFall);
@@ -212,16 +213,16 @@ namespace FaitLogic.Logic
             else if (newSubject.ControlFallType != (int)MonitoringEnum.SemesterNotExist && subjectFall != null)
             {
                 subjectFall.IndividualTaskType = newSubject.IndividualTaskFallType;
-                subjectFall.ControlType = newSubject.ControlFallType;
+                subjectFall.ControlTypeId = newSubject.ControlFallType;
             }
             else if (newSubject.ControlFallType != (int)MonitoringEnum.SemesterNotExist && subjectFall == null)
             {
                 var autumnSubject = new SubjectSemester
                 {
                     SubjectId = oldSubject.Id,
-                    ControlType = newSubject.ControlFallType,
+                    ControlTypeId = newSubject.ControlFallType,
                     IndividualTaskType = newSubject.IndividualTaskFallType,
-                    Semester = (int)SemesterEnum.Autumn
+                    SemesterId = (int)SemesterEnum.Autumn
                 };
 
                 unitOfWork.SubjectSemesterRepository.AddSubjectSemester(autumnSubject);

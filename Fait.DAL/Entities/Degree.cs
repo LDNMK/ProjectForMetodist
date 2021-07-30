@@ -9,12 +9,12 @@ namespace Fait.DAL
     {
         public Degree()
         {
-            StudentsInfos = new HashSet<StudentsInfo>();
+            StudentInfos = new HashSet<StudentInfo>();
         }
 
-        public int Id { get; set; }
+        public byte Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<StudentsInfo> StudentsInfos { get; set; }
+        public virtual ICollection<StudentInfo> StudentInfos { get; set; }
     }
 }

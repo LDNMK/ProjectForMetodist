@@ -65,22 +65,19 @@
     <Folder Include="dbo\Deployment\DataScripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Functions\return_students_from_group.sql" />
     <Build Include="dbo\Tables\GroupStudents.sql" />
-    <Build Include="dbo\Tables\Amend.sql" />
+    <Build Include="dbo\Tables\Amends.sql" />
     <Build Include="dbo\Tables\GroupPrefix.sql" />
     <Build Include="dbo\Tables\Groups.sql" />
-    <Build Include="dbo\Tables\marital_statuses.sql" />
-    <Build Include="dbo\Tables\marks.sql" />
+    <Build Include="dbo\Tables\MaritalStatus.sql" />
+    <Build Include="dbo\Tables\Mark.sql" />
     <Build Include="dbo\Tables\Speciality.sql" />
     <Build Include="dbo\Tables\StudentState.sql" />
-    <Build Include="dbo\Tables\students.sql" />
-    <Build Include="dbo\Tables\students_info.sql" />
+    <Build Include="dbo\Tables\Student.sql" />
+    <Build Include="dbo\Tables\StudentInfo.sql" />
     <Build Include="dbo\Tables\SubjectSemester.sql" />
     <Build Include="dbo\Tables\YearPlan.sql" />
     <Build Include="dbo\Tables\Subject.sql" />
-    <Build Include="dbo\Stored Procedures\return_next_group_id_for_student.sql" />
-    <Build Include="dbo\Stored Procedures\return_student_group_id.sql" />
     <Build Include="dbo\Tables\ExperienceCompetitions.sql" />
     <Build Include="dbo\Tables\StudentTransferHistory.sql" />
     <PostDeploy Include="dbo\Deployment\PostDeploymentFAIT.sql" />
@@ -97,13 +94,18 @@
     <Build Include="dbo\Deployment\DataScripts\AddValuesToYearPlan.sql" />
     <Build Include="dbo\Tables\YearPlanGroups.sql" />
     <Build Include="dbo\Tables\Degree.sql" />
-    <Build Include="dbo\Stored Procedures\GetNextGroupId.sql" />
     <Build Include="dbo\Functions\GetGroupId.sql" />
     <None Include="dbo\Deployment\DataScripts\AddValuesToDegree.sql" />
+    <Build Include="dbo\Tables\ControlType.sql" />
+    <Build Include="dbo\Tables\Semester.sql" />
+    <Build Include="dbo\Stored Procedures\GetNextGroupId.sql" />
+    <Build Include="dbo\Stored Procedures\GetStudentsFromGroup.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fait.DB.publish.xml" />
     <Build Include="dbo\Deployment\DataScripts\AddValuesToYearPlanGroup.sql" />
+    <None Include="dbo\Deployment\DataScripts\AddValuesToSemester.sql" />
+    <None Include="dbo\Deployment\DataScripts\AddValuesToControlType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Fait.DB.refactorlog" />

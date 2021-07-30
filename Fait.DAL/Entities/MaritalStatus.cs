@@ -7,14 +7,12 @@ namespace Fait.DAL
     {
         public MaritalStatus()
         {
-            StudentsInfos = new HashSet<StudentsInfo>();
+            StudentInfos = new HashSet<StudentInfo>();
         }
 
         public byte Id { get; set; }
-        public string MaritalStatusName { get; set; }
+        public string Name { get; set; }
 
-        //  1 нет информации, 2 женат, 3 не женат
-
-        public virtual ICollection<StudentsInfo> StudentsInfos { get; set; }
+        public virtual ICollection<StudentInfo> StudentInfos { get; set; }
     }
 }

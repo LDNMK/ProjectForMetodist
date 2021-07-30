@@ -7,5 +7,5 @@
 	[Ects]			INT					NOT NULL,
 	[Department]	NVARCHAR (100)		NULL,
 	PRIMARY KEY CLUSTERED ([Id] ASC),
-	FOREIGN KEY ([PlanId]) REFERENCES [dbo].[YearPlan] ([Id]) ON DELETE SET DEFAULT
+	FOREIGN KEY ([PlanId]) REFERENCES [dbo].[YearPlan] ([Id])
 )

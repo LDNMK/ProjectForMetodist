@@ -6,8 +6,8 @@ AS
 		RETURN 
 		SELECT
 			s.Id as StudentId,
-			(first_name + ' ' + last_name + ' ' + patronymic) AS StudentName 
-		FROM Students s
+			(FirstName + ' ' + LastName + ' ' + Patronymic) AS StudentName 
+		FROM Student s
 		JOIN GroupStudents gs ON gs.StudentId = s.Id AND gs.GroupId = @GroupId
 
 	--RETURN 

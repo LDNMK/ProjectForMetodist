@@ -1,6 +1,5 @@
 ﻿using Fait.DAL.Entities.NotMapped;
 using Fait.DAL.Repository.IRepository;
-using Fait.DAL.Repository.UnitOfWork;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,11 +15,6 @@ namespace Fait.DAL.Repository
         public void AddGroupStudent(GroupStudent groupStudent)
         {
             base.Add(groupStudent);
-        }
-
-        public void AddGroupStudents(ICollection<GroupStudent> groupStudents)
-        {
-            base.AddRange(groupStudents);
         }
 
         public GroupStudent FindStudentActualGroup(int studentId)
@@ -43,11 +37,6 @@ namespace Fait.DAL.Repository
                         Course = x.Group.Course
                     })
                 .ToList();
-        }
-
-        public void UpdateActualGroup(GroupStudent group)
-        {
-            base.Update(group);
         }
     }
 }

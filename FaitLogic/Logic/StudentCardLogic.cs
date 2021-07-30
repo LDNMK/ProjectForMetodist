@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
 using Fait.DAL;
-using Fait.DAL.Repository.IRepository;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
+using FaitLogic.Logic.ILogic;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FaitLogic.Logic
 {
-    public class StudentCardLogic
+    public class StudentCardLogic : IStudentCardLogic
     {
         private readonly IMapper _mapper;
 
@@ -28,7 +26,7 @@ namespace FaitLogic.Logic
 
         public void AddStudentCardInfo(StudentCardDTO studentCard)
         {
-            var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
+            var studentInfo = _mapper.Map<StudentCardDTO, StudentInfo>(studentCard);
             var student = _mapper.Map<StudentCardDTO, Student>(studentCard);
 
             unitOfWork.BeginTransaction();
@@ -52,6 +50,7 @@ namespace FaitLogic.Logic
                 StudentId = studentId,
                 GroupId = studentCard.GroupId.HasValue ? studentCard.GroupId.Value : 0,
                 GroupYear = studentCard.GroupYear.HasValue ? studentCard.GroupYear.Value : 0,
+                IsActive = true
             };
 
             unitOfWork.GroupStudentRepository.AddGroupStudent(actualGroup);
@@ -60,7 +59,7 @@ namespace FaitLogic.Logic
 
         public void UpdateStudentCardInfo(int studentId, StudentCardDTO studentCard)
         {
-            var studentInfo = _mapper.Map<StudentCardDTO, StudentsInfo>(studentCard);
+            var studentInfo = _mapper.Map<StudentCardDTO, StudentInfo>(studentCard);
 
             studentInfo.Id = studentId;
 
@@ -103,7 +102,7 @@ namespace FaitLogic.Logic
         public StudentCardDTO GetStudentInfo(int studentId)
         {
             var studentInfo = unitOfWork.StudentInfoRepository.GetStudentInfo(studentId);
-            var studentFullInfo = _mapper.Map<StudentsInfo, StudentCardDTO>(studentInfo);
+            var studentFullInfo = _mapper.Map<StudentInfo, StudentCardDTO>(studentInfo);
 
             var student = unitOfWork.StudentRepository.GetStudentMainInfo(studentId);
 

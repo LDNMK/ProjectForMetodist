@@ -6,24 +6,24 @@ using System.Text;
 
 namespace Fait.DAL.Repository
 {
-    public class StudentInfoRepository: Repository<StudentsInfo>, IStudentInfoRepository
+    public class StudentInfoRepository: Repository<StudentInfo>, IStudentInfoRepository
     {
         public StudentInfoRepository(FAITContext context)
         : base(context)
         {
         }
 
-        public void AddStudentInfo(StudentsInfo studentInfo)
+        public void AddStudentInfo(StudentInfo studentInfo)
         {
             base.Add(studentInfo);
         }
 
-        public void UpdateStudentInfo(StudentsInfo studentInfo)
+        public void UpdateStudentInfo(StudentInfo studentInfo)
         {
             base.Update(studentInfo);
         }
 
-        public StudentsInfo GetStudentInfo(int studentId)
+        public StudentInfo GetStudentInfo(int studentId)
         {
             return base.FindById(studentId);
         }

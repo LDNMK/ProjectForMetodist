@@ -3,17 +3,17 @@ using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DictionariesWithValues;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
+using FaitLogic.Logic.ILogic;
 using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace FaitLogic.Logic
 {
-    public class ReportLogic
+    public class ReportLogic : IReportLogic
     {
         private readonly IMapper _mapper;
 
@@ -31,30 +31,29 @@ namespace FaitLogic.Logic
         {
             var orderDate = studentInfoDto.OrderDate.Value;
             var studentInfo = new Dictionary<string, string>();
-            studentInfo.Add("Degree", DictionaryWithValues.Degrees[studentInfoDto.DegreeId.Value]);
+            studentInfo.Add("Degree", DictionaryWithValues.Degrees[studentInfoDto.DegreeId]);
             studentInfo.Add("Speciality", DictionaryWithValues.Specialities[studentInfoDto.SpecialityId.Value]);
-            studentInfo.Add("Specialization", studentInfoDto.Specialization);
             studentInfo.Add("Name", string.Format("{0} {1} {2}", studentInfoDto.LastName, studentInfoDto.FirstName, studentInfoDto.Patronymic));
             studentInfo.Add("Birthday", studentInfoDto.Birthdate.ToString("dd.MM.yyyy"));
             studentInfo.Add("BirthPlace", studentInfoDto.BirthPlace);
             studentInfo.Add("Citizenship", studentInfoDto.Citizenship);
-            studentInfo.Add("MaritalStatus", DictionaryWithValues.MaritalStatus[studentInfoDto.MaritalStatusId.Value]);
-            studentInfo.Add("GraduatedSchoolName", studentInfoDto.GraduatedSchoolName); 
+            studentInfo.Add("MaritalStatus", DictionaryWithValues.MaritalStatus[studentInfoDto.MaritalStatusId]);
+            studentInfo.Add("GraduatedSchoolName", studentInfoDto.GraduatedSchoolName);
             studentInfo.Add("GraduatedYear", studentInfoDto.GraduatedYear.ToString());
             studentInfo.Add("Registration", studentInfoDto.Registration);
             studentInfo.Add("Exemption", studentInfoDto.Exemption);
-            studentInfo.Add("ExpirienceCompetition", DictionaryWithValues.ExperienceCompetition[studentInfoDto.ExpirienceCompetitionId.Value]);
+            studentInfo.Add("ExpirienceCompetition", DictionaryWithValues.ExperienceCompetition[studentInfoDto.ExperienceCompetitionId]);
             studentInfo.Add("TransferFrom", studentInfoDto.TransferFrom);
             studentInfo.Add("TransferDirection", studentInfoDto.TransferDirection);
             studentInfo.Add("CompetitionConditions", studentInfoDto.CompetitionConditions);
             studentInfo.Add("OutOfCompetitionInfo", studentInfoDto.OutOfCompetitionInfo);
-            studentInfo.Add("Amend", DictionaryWithValues.Ammends[studentInfoDto.AmendId.Value]);
+            studentInfo.Add("Amend", DictionaryWithValues.Ammends[studentInfoDto.AmendsId]);
             studentInfo.Add("OrderNumber", studentInfoDto.OrderNumber.ToString());
             studentInfo.Add("OrderDate", string.Format("\"{0}\" {1} {2} року", orderDate.Day.ToString().PadLeft(2, '0'), orderDate.ToMonthName(), orderDate.Year));
-            studentInfo.Add("Employment", 
-                string.Format("{0} {1} {2}", 
-                    studentInfoDto.EmploymentNumber.ToString(), 
-                    studentInfoDto.EmploymentGivenDate.GetValueOrDefault().ToString("dd.MM.yyyy"), 
+            studentInfo.Add("Employment",
+                string.Format("{0} {1} {2}",
+                    studentInfoDto.EmploymentNumber.ToString(),
+                    studentInfoDto.EmploymentGivenDate.GetValueOrDefault().ToString("dd.MM.yyyy"),
                     studentInfoDto.EmploymentAuthority));
             studentInfo.Add("RegistrOrPassportNumber", studentInfoDto.RegistrOrPassportNumber);
 
@@ -121,7 +120,7 @@ namespace FaitLogic.Logic
 
         private static string GetInfoForRow(int column, int semester, StudentSubjectDTO subject)
         {
-            var subjectSemester = subject.SubjectSemesters.Single(x => x.Semester == semester);
+            var subjectSemester = subject.SubjectSemesters.Single(x => x.SemesterId == semester);
             var ectsMark = GetECTSMark(subjectSemester.Mark);
             return column switch
             {
@@ -147,10 +146,10 @@ namespace FaitLogic.Logic
 
         private static string GetECTSMark(int mark)
         {
-            if(mark >= 82)
+            if (mark >= 82)
             {
                 if (mark >= 90)
-                    return  "A";
+                    return "A";
 
                 return "B";
             }
@@ -174,7 +173,7 @@ namespace FaitLogic.Logic
 
         private static void FillSemester(StudentSubjectDTO subject, Table table, ref int row, int semester)
         {
-            if (subject.SubjectSemesters.Any(x => x.Semester == semester))
+            if (subject.SubjectSemesters.Any(x => x.SemesterId == semester))
             {
                 Microsoft.Office.Interop.Word.Range cellRange;
                 for (int column = 3; column <= 9; column++)

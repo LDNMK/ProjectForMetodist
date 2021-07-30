@@ -3,14 +3,13 @@ using Fait.DAL;
 using Fait.DAL.Repository.UnitOfWork;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using System;
+using FaitLogic.Logic.ILogic;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FaitLogic.Logic
 {
-    public class ProgressLogic
+    public class ProgressLogic : IProgressLogic
     {
         private readonly IMapper _mapper;
 
@@ -34,7 +33,7 @@ namespace FaitLogic.Logic
             {
                 var subjectSemester = unitOfWork.SubjectSemesterRepository
                     .FindSubjectSemesters(subject.Id)
-                    .FirstOrDefault(x => x.Semester == semesterId);
+                    .FirstOrDefault(x => x.SemesterId == semesterId);
 
                 if (subjectSemester != null)
                 {
@@ -68,7 +67,7 @@ namespace FaitLogic.Logic
                     studentMarks.Add(new SubjectStudentMarkDTO
                     {
                         Id = mark.SubjectId,
-                        Mark = mark.SubjectMark, //(mark.SubjectMark + mark.TaskMark) / 2
+                        Mark = mark.SubjectMark,
                         TaskMark = mark.TaskMark.GetValueOrDefault(),
                         ModifiedOn = mark.ModifiedOn
                     });
@@ -97,9 +96,9 @@ namespace FaitLogic.Logic
 
                     if (mark != null && subject.Mark != null)
                     {
-                        mark.SubjectMark = (byte)subject.Mark.Value;
+                        mark.SubjectMark = subject.Mark;
                         mark.ModifiedOn = subject.ModifiedOn;
-                        mark.TaskMark = (byte?)subject.TaskMark.GetValueOrDefault();
+                        mark.TaskMark = subject.TaskMark;
                         unitOfWork.ProgressRepository.UpdateMark(mark);
                     }
                     else if (mark != null && subject.Mark == null)
@@ -113,14 +112,15 @@ namespace FaitLogic.Logic
                         {
                             StudentId = student.Id,
                             SubjectId = subject.Id,
-                            SubjectMark = (byte?)subject.Mark.GetValueOrDefault(),
-                            TaskMark = (byte?)subject.TaskMark.GetValueOrDefault(),
+                            SubjectMark = subject.Mark,
+                            TaskMark = subject.TaskMark,
                             ModifiedOn = subject.ModifiedOn
                         };
 
                         unitOfWork.ProgressRepository.AddMark(mark);
                     }
 
+                    //TODO: can we make it outside loop?
                     unitOfWork.Save();
                 }
             }
@@ -147,16 +147,16 @@ namespace FaitLogic.Logic
 
                     foreach (var subjectSemester in subjectSemesters)
                     {
-                        var semester = subjectSemester.Semester;
+                        var semester = subjectSemester.SemesterId;
                         var subjectMark = unitOfWork.ProgressRepository.FindMark(subjectSemester.Id, studentId);
 
                         var taskExist = subjectSemester.IndividualTaskType == (int)TaskEnum.CourseWork;
                         studentSubject.SubjectSemesters.Add(
-                            new StudentSubjectSemesterDTO() 
-                            { 
-                                Semester = semester, 
-                                Mark = taskExist ? 
-                                    (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark.GetValueOrDefault()) / 2 
+                            new StudentSubjectSemesterDTO()
+                            {
+                                SemesterId = semester,
+                                Mark = taskExist ?
+                                    (subjectMark.SubjectMark.GetValueOrDefault() + subjectMark.TaskMark.GetValueOrDefault()) / 2
                                     : subjectMark.SubjectMark.GetValueOrDefault(),
                                 ModifiedOn = subjectMark.ModifiedOn.GetValueOrDefault()
                             });

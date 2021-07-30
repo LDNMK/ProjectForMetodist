@@ -8,9 +8,8 @@ namespace FaitLogic.DTO
         public int? Course { get; set; }
         public int? GroupId { get; set; }
         public int? GroupYear { get; set; }
-        public int? DegreeId { get; set; }
+        public byte DegreeId { get; set; }
         public int? SpecialityId { get; set; }
-        public string Specialization { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Patronymic { get; set; }
@@ -19,20 +18,20 @@ namespace FaitLogic.DTO
         public string Citizenship { get; set; }             // Громадянство 
         public string GraduatedSchoolName { get; set; }
         public int? GraduatedYear { get; set; }
-        public byte? MaritalStatusId { get; set; }          // Сімейний стан
         public string Registration { get; set; }            // Місце проживання\регістрації
         public string Exemption { get; set; }               // Наявність пільг при втсупі
-        public byte? ExpirienceCompetitionId { get; set; }
+        public byte MaritalStatusId { get; set; }
+        public byte ExperienceCompetitionId { get; set; }
         public string TransferFrom { get; set; }
         public string TransferDirection { get; set; }
         public string CompetitionConditions { get; set; }
         public string OutOfCompetitionInfo { get; set; }
-        public int? AmendId { get; set; }
-        public int? OrderNumber { get; set; }                // Номер наказу 
-        public DateTime? OrderDate { get; set; }               // Дата наказу
-        public int? EmploymentNumber { get; set; }           // Код рабочей кнжики
-        public string EmploymentAuthority { get; set; }     // Кто выдал рабочую книжку
-        public DateTime? EmploymentGivenDate { get; set; }     // Дата ее выдачи
+        public byte AmendsId { get; set; }
+        public int? EmploymentNumber { get; set; }
+        public string EmploymentAuthority { get; set; }
+        public DateTime? EmploymentGivenDate { get; set; }
+        public int? OrderNumber { get; set; }
+        public DateTime? OrderDate { get; set; }
         public string RegistrOrPassportNumber { get; set; } // Код регистарции или серия и номер паспорта
         public int? StudentStateId { get; set; }             // Состояние студента
 

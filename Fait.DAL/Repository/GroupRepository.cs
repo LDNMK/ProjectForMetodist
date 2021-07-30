@@ -35,15 +35,6 @@ namespace Fait.DAL.Repository
             return base.FindById(groupId);
         }
 
-        public ICollection<Group> FindGroupsByYearPlan(int yearPlanId)
-        {
-            return base.Find(x => x.YearPlanGroups.Select(x=> x.YearPlanId).Contains(yearPlanId));
-            //return dbContext.Groups
-            //    .Include(x => x.GroupPrefix)
-            //    .Where(x => x.PlanId == yearPlanId)
-            //    .ToList();
-        }
-
         public ICollection<GroupNameWithId> GetGroupNames(IEnumerable<int> groupIds)
         {
             return dbContext.Groups
@@ -79,16 +70,6 @@ namespace Fait.DAL.Repository
             base.Update(group);
         }
 
-
-        // TODO: Check!
-        public int GetNextGroupOfStudent(int groupId)
-        {
-            using (IDbConnection db = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
-            {
-                return db.Query<int>("EXEC return_next_group_id_for_student @group_id", new SqlParameter("@group_id", groupId)).FirstOrDefault();
-            }
-        }
-
         public int GetNextGroupId(int groupId)
         {
             using (IDbConnection db = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
@@ -97,14 +78,10 @@ namespace Fait.DAL.Repository
             }
         }
 
-        public ICollection<Group> GetDeactivatedGroups()
-        {
-            return base.Find(x => x.Actual == false);
-            //return dbContext.Groups
-            //     .AsNoTracking()
-            //     .Where(x => x.Actual == false)
-            //     .ToList();
-        }
+        //public ICollection<Group> GetDeactivatedGroups()
+        //{
+        //    return base.Find(x => x.Actual == false);
+        //}
 
         async public Task<ICollection<TransferStudent>> GetStudents(int groupId, int year)
         {
