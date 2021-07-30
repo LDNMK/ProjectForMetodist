@@ -19,7 +19,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(x => x.OrderDate.GetValueOrDefault().ToString("yyyy-MM-dd")))
             .ForMember(dest => dest.Birthdate, opt => opt.MapFrom(x => x.Birthdate.ToString("yyyy-MM-dd")))
             .ForMember(dest => dest.EmploymentGivenDate, opt => opt.MapFrom(x => x.EmploymentGivenDate.GetValueOrDefault().ToString("yyyy-MM-dd")));
-        CreateMap<StudentCardDTO, StudentsInfo>().ReverseMap();
+        CreateMap<StudentCardDTO, StudentInfo>().ReverseMap();
         CreateMap<StudentCardDTO, Student>().ReverseMap();
         CreateMap<StudentNameWithIdDTO, StudentNameWithId>().ReverseMap();
 
