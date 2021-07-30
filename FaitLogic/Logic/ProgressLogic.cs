@@ -126,6 +126,14 @@ namespace FaitLogic.Logic
             }
         }
 
+        public decimal GetStudentAverageMark(int studentId)
+        {            
+            var studentMarks =  unitOfWork.ProgressRepository.GetStudentMarks(studentId);
+            if(studentMarks.Count != 0)
+                return studentMarks.Sum() / (decimal)studentMarks.Count;
+            return 0;
+        }
+
         public ICollection<StudentProgressDTO> GetStudentProgress(int studentId)
         {
             var studentGroups = unitOfWork.GroupStudentRepository.GetStudentGroups(studentId);

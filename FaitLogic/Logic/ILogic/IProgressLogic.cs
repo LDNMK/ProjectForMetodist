@@ -8,5 +8,6 @@ namespace FaitLogic.Logic.ILogic
         ProgressDTO GetProgress(int year, int groupId, int semesterId);
         ICollection<StudentProgressDTO> GetStudentProgress(int studentId);
         void UpdateProgress(ICollection<ProgressStudentDTO> students);
+        decimal GetStudentAverageMark(int studentId);
     }
 }

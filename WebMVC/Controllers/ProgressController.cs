@@ -80,5 +80,13 @@ namespace WebAPI.Controllers
                 NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.ProgressUpdated)
             });
         }
+
+        [HttpGet]
+        public IActionResult GetStudentAverageMark(int studentId)
+        {         
+            var result = progressLogic.GetStudentAverageMark(studentId);
+
+            return Ok(result);
+        }
     }
 }

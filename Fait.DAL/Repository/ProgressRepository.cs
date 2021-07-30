@@ -28,6 +28,13 @@ namespace Fait.DAL.Repository
             base.Delete(mark);
         }
 
+        public ICollection<int> GetStudentMarks(int studentId)
+        {
+            return base.Find(x => x.StudentId == studentId)
+                .Select(x => x.SubjectMark.GetValueOrDefault() + x.TaskMark.GetValueOrDefault())
+                .ToList();
+        }
+
         public ICollection<Mark> FindMarksBySubject(ICollection<int> subjectIds)
         {
             return base.Find(x => subjectIds.Contains(x.SubjectId));
