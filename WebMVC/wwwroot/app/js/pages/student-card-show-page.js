@@ -150,8 +150,8 @@ class StudentCardShowPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="marital-status" data-obj-key="maritalStatusId" disabled>
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Одружений/Заміжня</option>
-                                <option value="2">Не одружений/Не заміжня</option>
+                                <option value="2">Одружений/Заміжня</option>
+                                <option value="3">Не одружений/Не заміжня</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="marital-status">Сімейний стан</label>
@@ -396,7 +396,7 @@ class StudentCardShowPage extends Page {
                     return history;
                 });
 
-            apiHelper.fetchUpdateStudentCard(id, student);
+            apiHelper.fetchStudentCardUpdate(id, student);
         }
 
         async function findSpeciality() {

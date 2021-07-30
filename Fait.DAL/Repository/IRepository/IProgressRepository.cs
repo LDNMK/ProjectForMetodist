@@ -15,5 +15,7 @@ namespace Fait.DAL.Repository.IRepository
         ICollection<Mark> FindMarksBySubject(ICollection<int> subjectIds);
 
         Mark FindMark(int subjectId, int studentId);
+
+        ICollection<int> GetStudentMarks(int studentId);
     }
 }
