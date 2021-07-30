@@ -15,20 +15,6 @@ class StudentCardShowPage extends Page {
                 <div class="student-card__show-general">
                     <h1 class="main__page-title">Пошук</h1>
                     <div class="student-card__show-grid">
-                        <div class="form-checkbox form-checkbox-inline">
-                            <label class="form-checkbox-label">
-                                <input class="form-checkbox-field" type="checkbox" id="select-year"/>
-                                <i class="form-checkbox-button"></i>
-                                <span>Обрати рік<small>*</small></span>
-                            </label>
-                            <span class="form-element-hint form-element-hint--static">* - щоб знайти студента за попередні роки</span>
-                        </div>
-
-                        <div class="form-element form-input">
-                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" disabled />
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="year">Рік</label>
-                        </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -47,7 +33,11 @@ class StudentCardShowPage extends Page {
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
                         </div>
-
+                        <div class="form-element form-input">
+                            <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="year">Рік</label>
+                        </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="student">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
@@ -295,7 +285,7 @@ class StudentCardShowPage extends Page {
         const studentSelect = document.querySelector('#student');
         const specialitySelect = document.querySelector('#speciality');
 
-        const yearCheckbox = document.querySelector('#select-year');
+        // const yearCheckbox = document.querySelector('#select-year');
         const yearInput = document.querySelector('#year');
 
         findBtn.addEventListener('click', () => {
@@ -322,16 +312,16 @@ class StudentCardShowPage extends Page {
             console.log('Average score');
         });
 
-        yearCheckbox.addEventListener('change', () => {
-            yearInput.disabled = !yearCheckbox.checked;
+        // yearCheckbox.addEventListener('change', () => {
+        //     yearInput.disabled = !yearCheckbox.checked;
             
-            if (!yearCheckbox.checked) {
-                yearInput.value = "";
-                yearInput.classList.remove('-hasValue');
+        //     if (!yearCheckbox.checked) {
+        //         yearInput.value = "";
+        //         yearInput.classList.remove('-hasValue');
 
-                groupSelect.dispatchEvent(new Event('change'));
-            }
-        });
+        //         groupSelect.dispatchEvent(new Event('change'));
+        //     }
+        // });
 
         yearInput.addEventListener('change', () => {
             findStudents(groupSelect.value, yearInput.value);
@@ -342,13 +332,7 @@ class StudentCardShowPage extends Page {
         });
 
         groupSelect.addEventListener('change', () => {
-            if (yearCheckbox.checked && !yearInput.value) {
-                console.log("Error: year wasn't selected");
-            } else if (yearCheckbox.checked && yearInput.value) {
-                findStudents(groupSelect.value, yearInput.value);
-            } else {
-                findStudents(groupSelect.value);
-            }
+            findStudents(groupSelect.value, yearInput.value);
         });
 
         async function findGroups(course) {
