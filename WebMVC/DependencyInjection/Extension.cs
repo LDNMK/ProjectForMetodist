@@ -1,29 +1,19 @@
 ﻿using AutoMapper;
-using Fait.DAL.Repository;
-using Fait.DAL.Repository.IRepository;
 using FaitLogic.Logic;
+using FaitLogic.Logic.ILogic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class Extension
     {
-        //public static void AddRepositories(this IServiceCollection services)
-        //{
-        //    services.AddScoped<IStudentRepository, StudentRepository>();
-        //    services.AddScoped<IGroupRepository, GroupRepository>();
-        //    services.AddScoped<IYearPlanRepository, YearPlanRepository>();
-        //    services.AddScoped<IActualGroupRepository, ActualGroupRepository>();
-        //    services.AddScoped<ISubjectRepository, SubjectRepository>();
-        //}
-
         public static void AddCoreLogic(this IServiceCollection services)
         {
-            services.AddScoped<StudentCardLogic>();
-            services.AddScoped<GroupLogic>();
-            services.AddScoped<YearPlanLogic>();
-            services.AddScoped<TransferLogic>();
-            services.AddScoped<ProgressLogic>();
-            services.AddScoped<ReportLogic>();
+            services.AddScoped<IStudentCardLogic, StudentCardLogic>();
+            services.AddScoped<IGroupLogic, GroupLogic>();
+            services.AddScoped<IYearPlanLogic, YearPlanLogic>();
+            services.AddScoped<ITransferLogic, TransferLogic>();
+            services.AddScoped<IProgressLogic, ProgressLogic>();
+            services.AddScoped<IReportLogic, ReportLogic>();
         }
 
         public static void AddMapper(this IServiceCollection services)

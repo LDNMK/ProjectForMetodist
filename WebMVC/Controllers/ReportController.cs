@@ -1,11 +1,6 @@
 ﻿using FaitLogic.Enums;
-using FaitLogic.Logic;
-using Microsoft.AspNetCore.Http;
+using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPI.Helper;
 using WebAPI.Helper.ResponseModel;
 
@@ -15,11 +10,11 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ReportController : ControllerBase
     {
-        private readonly ReportLogic reportLogic;
-        private readonly StudentCardLogic studentLogic;
-        private readonly ProgressLogic progressLogic;
+        private readonly IReportLogic reportLogic;
+        private readonly IStudentCardLogic studentLogic;
+        private readonly IProgressLogic progressLogic;
 
-        public ReportController(ReportLogic reportLogic, StudentCardLogic studentLogic, ProgressLogic progressLogic)
+        public ReportController(IReportLogic reportLogic, IStudentCardLogic studentLogic, IProgressLogic progressLogic)
         {
             this.reportLogic = reportLogic;
             this.studentLogic = studentLogic;

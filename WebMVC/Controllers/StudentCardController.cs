@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
 using FaitLogic.Enums;
-using FaitLogic.Logic;
+using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebAPI.Helper;
@@ -16,9 +16,9 @@ namespace WebAPI.Controllers
     {
         private readonly IMapper mapper;
 
-        private readonly StudentCardLogic studentInfoLogic;
+        private readonly IStudentCardLogic studentInfoLogic;
 
-        public StudentCardController(IMapper mapper, StudentCardLogic studentInfoLogic)
+        public StudentCardController(IMapper mapper, IStudentCardLogic studentInfoLogic)
         {
             this.mapper = mapper;
             this.studentInfoLogic = studentInfoLogic;

@@ -109,8 +109,8 @@ class StudentCardAddPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="marital-status" data-obj-key="maritalStatusId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Одружений/Заміжня</option>
-                                <option value="2">Не одружений/Не заміжня</option>
+                                <option value="2">Одружений/Заміжня</option>
+                                <option value="3">Не одружений/Не заміжня</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="marital-status">Сімейний стан</label>
@@ -165,8 +165,8 @@ class StudentCardAddPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="experience" data-obj-key="experienceCompetitionId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Із стажем</option>
-                                <option value="2">Без стажу</option>
+                                <option value="2">Із стажем</option>
+                                <option value="3">Без стажу</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="experience">1. За конкурсом</label>
@@ -205,9 +205,9 @@ class StudentCardAddPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" id="amends" data-obj-key="amendsId">
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Державний кредит</option>
-                                <option value="2">Фізична особа</option>
-                                <option value="3">Юридичная особа</option>
+                                <option value="2">Державний кредит</option>
+                                <option value="3">Фізична особа</option>
+                                <option value="4">Юридичная особа</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="amends">6. На умовах повного

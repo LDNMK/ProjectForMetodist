@@ -1,11 +1,9 @@
 ﻿using Fait.DAL.Repository.IRepository;
-using Fait.DAL.Repository.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Fait.DAL.Repository
 {
@@ -68,11 +66,6 @@ namespace Fait.DAL.Repository
             }
 
             return query.ToList();
-        }
-
-        public void Submit()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using FaitLogic.Enums;
-using FaitLogic.Logic;
+using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helper;
 using WebAPI.Helper.ResponseModel;
@@ -10,9 +10,9 @@ namespace WebAPI.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-        private readonly GroupLogic groupLogic;
+        private readonly IGroupLogic groupLogic;
 
-        public GroupController(GroupLogic groupLogic)
+        public GroupController(IGroupLogic groupLogic)
         {
             this.groupLogic = groupLogic;
         }

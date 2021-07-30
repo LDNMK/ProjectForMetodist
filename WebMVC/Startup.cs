@@ -32,12 +32,11 @@ namespace WebMVC
             services.AddMapper();
             services.AddDbContext<FAITContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")), ServiceLifetime.Scoped);
 
-            //services.AddRepositories();
-
             services.AddCoreLogic();
 
             services.AddScoped<UnitOfWork>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.Scan(scan => 
                 scan.FromAssembliesOf(typeof(IRepository<>))
                 .AddClasses(x => x.AssignableTo(typeof(IRepository<>)))
