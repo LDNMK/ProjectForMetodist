@@ -396,7 +396,7 @@ class StudentCardShowPage extends Page {
                     return history;
                 });
 
-            apiHelper.fetchUpdateStudentCard(id, student);
+            apiHelper.fetchStudentCardUpdate(id, student);
         }
 
         async function findSpeciality() {

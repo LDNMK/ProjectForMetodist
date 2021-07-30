@@ -76,7 +76,7 @@ class CreateReportPage extends Page {
         });
 
         groupSelect.addEventListener('change', () => {
-            findStudents(groupSelect.value, yearInput.value);
+            findStudents(groupSelect.value);
         });
 
         createBtn.addEventListener('click', () => {
@@ -97,12 +97,12 @@ class CreateReportPage extends Page {
             studentSelect.classList.remove('-hasValue');
         };
 
-        async function findStudents(groupId, year) {
-            if (groupId == "" || year == "") {
+        async function findStudents(groupId) {
+            if (groupId == "") {
                 return;
             }
 
-            const options = await getStudentsAsOptions(groupId, year);
+            const options = await getStudentsAsOptions(groupId);
             studentSelect.innerHTML = options.join('');
             studentSelect.classList.remove('-hasValue');
         };
@@ -112,7 +112,9 @@ class CreateReportPage extends Page {
                 return;
             }
 
+            toggleMask();
             await apiHelper.fetchCreateReport(studentId);
+            toggleMask();
         };
     }
 }

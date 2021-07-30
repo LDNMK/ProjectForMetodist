@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
                 var studentProgress = progressLogic.GetStudentProgress(studentId);
                 reportLogic.CreateReport(studentInfo, studentProgress);
             }
-            catch
+            catch (Exception ex)
             {
                 return BadRequest(new ErrorResponseModel()
                 {

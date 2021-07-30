@@ -1,6 +1,7 @@
 // For variables which will not change (do this once)
 const msgContainer = document.querySelector('.notification__list');
-const content = document.body.querySelector('.main__content');
+const content = document.body.querySelector('.content');
+const mask = document.body.querySelector('.loading-mask');
 
 // Notifications
 const notificationTimeout = {
@@ -20,3 +21,7 @@ const notificationIcons = {
     warning: `<i class="warning-icon fas fa-exclamation-circle"></i>`,
     error:   `<i class="error-icon fas fa-times-circle"></i>`
 };
+
+function toggleMask() {
+    mask.classList.toggle('show');
+}

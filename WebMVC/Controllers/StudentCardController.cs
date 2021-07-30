@@ -3,6 +3,7 @@ using FaitLogic.DTO;
 using FaitLogic.Enums;
 using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using WebAPI.Helper;
 using WebAPI.Helper.ResponseModel;
@@ -52,7 +53,7 @@ namespace WebAPI.Controllers
             {
                 studentInfoLogic.UpdateStudentCardInfo(studentId, mapper.Map<StudentCardDTO>(model));
             }
-            catch
+            catch (Exception ex)
             {
                 return BadRequest(new ErrorResponseModel()
                 {

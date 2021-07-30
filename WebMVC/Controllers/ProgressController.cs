@@ -39,7 +39,8 @@ namespace WebAPI.Controllers
                     {
                         NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.ProgressSubjectsNotFound)
                     });
-                } else if (progress.Students.Count == 0)
+                } 
+                else if (progress.Students.Count == 0)
                 {
                     return NotFound(new WarningResponseModel()
                     {

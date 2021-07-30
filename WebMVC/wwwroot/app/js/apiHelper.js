@@ -8,11 +8,22 @@ class ApiHelper {
         //     return;
         // }
 
+        console.log('Response API');
+        console.log(responseApi);
+
         const responseData = await responseApi.json();
+
+        console.log('Response JSON');
+        console.log(responseData);
 
         if (responseData.notificationType) {
             NotificationHelper.addNotification(responseData.notificationType, responseData.notificationText);
-            return responseData.data;
+
+            if (responseData.notificationType == "success") {
+                return responseData.data;
+            }
+
+            return; // show error?
         }
 
         return responseData;
@@ -91,7 +102,7 @@ class ApiHelper {
 
     async fetchStudentCardUpdate(id, data) {
         await this._callApi(`api/StudentCard/UpdateStudentCardInfo?studentId=${id}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
@@ -112,6 +123,3 @@ class ApiHelper {
         });
     }
 };
-
-
-
