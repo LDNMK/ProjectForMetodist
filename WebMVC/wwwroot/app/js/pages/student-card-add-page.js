@@ -132,19 +132,18 @@ class StudentCardAddPage extends Page {
                         </div>
                     </div>
 
-                    <div class="main__col-2">
-                        <div class="form-element form-input">
+                    <div class="form-element form-input">
                             <input id="home" class="form-element-field"
                                 placeholder="Введіть місце проживання/реєстрації" type="text" data-obj-key="registration"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="home">Місце проживання/реєстрації</label>
-                        </div>
-                        <div class="form-element form-input">
-                            <input id="benefits" class="form-element-field" placeholder="Введіть пільги якщо є"
-                                type="text" data-obj-key="exemption"/>
-                            <div class="form-element-bar"></div>
-                            <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
-                        </div>
+                    </div>
+
+                    <div class="form-element form-input">
+                        <input id="benefits" class="form-element-field" placeholder="Введіть пільги якщо є"
+                            type="text" data-obj-key="exemption"/>
+                        <div class="form-element-bar"></div>
+                        <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
                     </div>
 
                     <div class="main__col-2">
