@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
 using FaitLogic.Logic.ILogic;
-using FaitLogic.Enums;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using WebAPI.Helper;
-using WebAPI.Helper.ResponseModel;
 using WebAPI.Models;
+using WebAPI.Helper.ValidationResponse.Enum;
+using WebAPI.Helper.ResponseMessageFactory;
 
 namespace WebAPI.Controllers
 {
@@ -35,25 +34,15 @@ namespace WebAPI.Controllers
                 
                 if (progress.Subjects.Count == 0)
                 {
-                    return NotFound(new WarningResponseModel()
-                    {
-                        NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.ProgressSubjectsNotFound)
-                    });
-                } 
-                else if (progress.Students.Count == 0)
+                    return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.ProgressSubjectsNotFound));
+                } else if (progress.Students.Count == 0)
                 {
-                    return NotFound(new WarningResponseModel()
-                    {
-                        NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.ProgressStudentsNotFound)
-                    });
+                    return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.ProgressStudentsNotFound));
                 }
             }
             catch
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.ProgressLoadFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressLoadFailed));
             }
             
             return Ok(progress);
@@ -69,16 +58,10 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.ProgressUpdateFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressUpdateFailed));
             }
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.ProgressUpdated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.ProgressUpdated));
         }
 
         [HttpGet]

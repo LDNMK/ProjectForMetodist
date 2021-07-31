@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
-using FaitLogic.Enums;
 using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Helper;
-using WebAPI.Helper.ResponseModel;
+using WebAPI.Helper.ResponseMessageFactory;
+using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -32,10 +31,7 @@ namespace WebAPI.Controllers
             var students = _mapper.Map<ICollection<TransferStudentModel>>(await transfLogic.GetStudents(groupId, year));
             if (students.Count == 0)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.TransferStudentsNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.TransferStudentsNotFound));
             }
 
             return Ok(students);
@@ -50,17 +46,11 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.TransferStudentsUpdateFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.TransferStudentsUpdateFailed));
             }
             
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.TransferStudentsUpdated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.TransferStudentsUpdated));
         }
     }
 }

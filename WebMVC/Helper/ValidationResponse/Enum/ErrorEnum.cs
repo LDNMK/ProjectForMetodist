@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace FaitLogic.Enums
+namespace  WebAPI.Helper.ValidationResponse.Enum
 {
     public enum ErrorEnum
     {

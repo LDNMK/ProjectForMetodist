@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
-using FaitLogic.Enums;
 using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Helper;
-using WebAPI.Helper.ResponseModel;
+using WebAPI.Helper.ResponseMessageFactory;
+using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -34,17 +33,11 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.CreateYearPlanFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateYearPlanFailed));
             }
 
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.YearPlanCreated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.YearPlanCreated));
         }
 
         [HttpPut]
@@ -56,17 +49,11 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.YearPlanUpdateFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.YearPlanUpdateFailed));
 
             }
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.YearPlanUpdated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.YearPlanUpdated));
         }
 
         [HttpGet]
@@ -76,10 +63,7 @@ namespace WebAPI.Controllers
 
             if (yearPlan == null)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.YearPlanNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.YearPlanNotFound));
             }
 
             return Ok(yearPlan);
@@ -99,19 +83,13 @@ namespace WebAPI.Controllers
             var yearPlanId = yearPlanLogic.GetYearPlanIdByGroup(groupId, year);
             if (!yearPlanId.HasValue)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.YearPlanNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.YearPlanNotFound));
             }
 
             var yearPlan = mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId.Value));
             if (yearPlan == null)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.YearPlanNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.YearPlanNotFound));
             }
 
             return Ok(yearPlan);

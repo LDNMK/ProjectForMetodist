@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Helper.ResponseModel
+namespace WebAPI.Helper.ValidationResponse.Interface
 {
     public interface IResponseModel
     {
