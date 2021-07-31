@@ -7,6 +7,7 @@
     [OperationDate]     DATE          NOT NULL,
     [OrderNumber]       NVARCHAR(50) NULL, 
     [OrderDate]         DATE NULL, 
+    [Content] NVARCHAR(MAX) NULL, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([StudentId]) REFERENCES [dbo].[Student] ([Id]),
     FOREIGN KEY ([StateId]) REFERENCES [dbo].[StudentState] ([Id])

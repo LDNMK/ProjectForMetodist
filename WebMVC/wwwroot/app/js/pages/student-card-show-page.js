@@ -68,6 +68,18 @@ class StudentCardShowPage extends Page {
                         </button>
                     </div>
 
+                    <div class="main__col student-card__show-transfer-history">
+                        <div class="student-card__show-transfer-history-header">
+                            <span>Курс</span>
+                            <span>Номер наказу</span>
+                            <span>Дата наказу</span>
+                            <span>Контент</span>
+                        </div>
+                        <div class="student-card__show-transfer-history-container">
+                            
+                        </div>
+                    </div>
+
                     <div class="main__col">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality" data-obj-key="specialityId" disabled>
@@ -248,16 +260,7 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    <div class="main__col student-card__show-transfer-history">
-                        <div class="main__col-3 student-card__show-transfer-history-header">
-                            <span>Курс</span>
-                            <span>Номер наказу</span>
-                            <span>Дата наказу</span>
-                        </div>
-                        <div class="student-card__show-transfer-history-container">
-                            
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         `;
@@ -311,17 +314,6 @@ class StudentCardShowPage extends Page {
         averageScoreBtn.addEventListener('click', () => {
             console.log('Average score');
         });
-
-        // yearCheckbox.addEventListener('change', () => {
-        //     yearInput.disabled = !yearCheckbox.checked;
-            
-        //     if (!yearCheckbox.checked) {
-        //         yearInput.value = "";
-        //         yearInput.classList.remove('-hasValue');
-
-        //         groupSelect.dispatchEvent(new Event('change'));
-        //     }
-        // });
 
         yearInput.addEventListener('change', () => {
             findStudents(groupSelect.value, yearInput.value);

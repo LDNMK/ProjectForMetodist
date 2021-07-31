@@ -57,21 +57,43 @@
         &-history {
             text-align: center;
 
-            &-header {
-                padding: 10px 0 15px;
-                // border-bottom: 1px solid #46637c65;
+            &-header,
+            &-row,
+            &-container {
+                display: grid;
             }
 
             &-container {
+                row-gap: 5px;
+            }
 
+            &-header,
+            &-row {
+                grid-template-columns: 50px 120px 140px auto;
+                column-gap: 5px;
+            }
+
+            &-header {
+                font-size: 12px;
+                font-weight: bold;
+                padding: 10px 0 15px;
             }
 
             &-row {
-                input {
-                    text-align: center;
+                input,
+                textarea {
                     padding: 5px;
                     border: none;
                     border-bottom: 1px solid #337ab7;
+                }
+
+                input {
+                    text-align: center;
+                }
+
+                textarea {
+                    text-align: left;
+                    resize: vertical;
                 }
 
                 & + & {
