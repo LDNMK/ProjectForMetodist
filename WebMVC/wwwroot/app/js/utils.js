@@ -175,29 +175,16 @@ function getProgressStudentRow(student, subjects) {
     `;
 }
 
-function getTransferStudentHead() {
-    return `
-        <li class="transfer__student-head">
-            <span>
-                ФІО
-            </span>
-            <span>
-                Статус
-            </span>
-        </li>
-    `;
-}
-
 function getTransferStudentRow(student) {
     return `
-        <li class="transfer__student-row">
+        <li class="transfer__student-row ${student.isActive ? "active" : ""}">
             <span class="display-none" data-transfer-key="id">${student.id}</span>
             <span>
                 <span data-transfer-key="lastName">${student.lastName}</span>
                 <span data-transfer-key="firstName">${student.firstName}</span>
                 <span data-transfer-key="patronymic">${student.patronymic}</span>
             </span>
-            <select name="status" data-transfer-key="stateId">
+            <select name="status" data-transfer-key="stateId" ${student.isActive ? '' : 'disabled'}>
                 <option value="1" ${student.stateId == 1 ? "selected" : ""}>Перехід з курсу на курс</option>
                 <option value="2" ${student.stateId == 2 ? "selected" : ""}>Перерва в академічному навчанні</option>
                 <option value="3" ${student.stateId == 3 ? "selected" : ""}>Відрахований</option>
