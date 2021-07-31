@@ -51,9 +51,15 @@ class TransferPage extends Page {
                 <div class="transfer__students">
                     <h1 class="main__page-subtitle">Список студентів</h1>
 
-                    <ul class="transfer__students-list">
-                        
-                    </ul>
+                    <div>
+                        <div class="transfer__student-head">
+                            <span>ФІО</span>
+                            <span>Статус</span>
+                        </div>
+                        <ul class="transfer__students-list">
+                            
+                        </ul>
+                    </div>
 
                     <div class="main__buttons">
                         <button class="btn transfer__btn-transfer" id="btn-transfer">
@@ -109,7 +115,6 @@ class TransferPage extends Page {
             studentsList.innerHTML = "";
 
             const students = await apiHelper.fetchGetStudentsForTransfer(groupId, year);
-            studentsList.insertAdjacentHTML('beforeend', getTransferStudentHead());
             students.forEach(x => {
                 studentsList.insertAdjacentHTML('beforeend', getTransferStudentRow(x));
             });
@@ -118,7 +123,7 @@ class TransferPage extends Page {
         async function saveTransferStudent() {
             let students = [];
 
-            const data = [...studentsList.querySelectorAll('.transfer__student-row')];
+            const data = [...studentsList.querySelectorAll('.transfer__student-row.active')];
             data.forEach(x => {
                 const studentData = x.querySelectorAll('[data-transfer-key]');
                 
