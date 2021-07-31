@@ -35,7 +35,8 @@ namespace WebAPI.Controllers
                 if (progress.Subjects.Count == 0)
                 {
                     return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.ProgressSubjectsNotFound));
-                } else if (progress.Students.Count == 0)
+                }
+                else if (progress.Students.Count == 0)
                 {
                     return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.ProgressStudentsNotFound));
                 }

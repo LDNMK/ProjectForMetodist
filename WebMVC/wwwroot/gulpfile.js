@@ -55,6 +55,7 @@ const jsFiles = [
 	'app/js/global.js',
 	'app/js/apiHelper.js',
 	'app/js/notificationHelper.js',
+	'app/js/loadingMaskHelper.js',
 	'app/js/features.js',
 	'app/js/sidebar.js',
 	'app/js/utils.js',

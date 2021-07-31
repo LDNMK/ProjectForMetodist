@@ -74,6 +74,7 @@ namespace FaitLogic.Logic
                 var transferHistoryCurrent = transferHistories.First(x => x.Id == thDb.Id);
                 thDb.OrderDate = transferHistoryCurrent.OrderDate;
                 thDb.OrderNumber = transferHistoryCurrent.OrderNumber;
+                thDb.Content = transferHistoryCurrent.Content;
             }
 
             unitOfWork.BeginTransaction();

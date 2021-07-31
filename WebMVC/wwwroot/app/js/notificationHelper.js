@@ -1,14 +1,33 @@
+const notificationContainer = document.querySelector('.notification__list');
+
+const notificationSettings = {
+    "SuccessEnum": {
+        timeout: 5000,
+        title: "Успішно",
+        icon: `<i class="success-icon fas fa-check-circle"></i>`,
+        type: "success"
+    },
+    "WarningEnum": {
+        timeout: 6000,
+        title: "Попередження",
+        icon: `<i class="warning-icon fas fa-exclamation-circle"></i>`,
+        type: "warning"
+    },
+    "ErrorEnum": {
+        timeout: 6000,
+        title: "Помилка",
+        icon: `<i class="error-icon fas fa-times-circle"></i>`,
+        type: "error"
+    }
+}
+
 class NotificationHelper {
     static addNotification(type, msg) {
-        let data = {
-            title: notificationTitle[type],
-            text: msg,
-            type: type,
-            timeout: notificationTimeout[type]
-        };
+        let data = notificationSettings[type];
+        data.text = msg;
     
         let el = this._getNotificationElement(data)
-        msgContainer.insertAdjacentElement('beforeend', el);
+        notificationContainer.insertAdjacentElement('beforeend', el);
     
         setTimeout(() => {
             el.classList.remove('showNotification');
@@ -18,17 +37,17 @@ class NotificationHelper {
         }, data.timeout);
     }
 
-    static _getNotificationElement(msg) {
+    static _getNotificationElement(data) {
         let elementHTML = `
-            <li class="notification__list-item showNotification ${msg.type}">
+            <li class="notification__list-item showNotification ${data.type}">
                 <div class="notification__list-item-container">
-                    ${notificationIcons[msg.type]}
+                    ${data.icon}
                     <span class="notification__list-item-title">
-                        ${msg.title}
+                        ${data.title}
                     </span>
                 </div>
                 <span class="notification__list-item-text">
-                    ${msg.text}
+                    ${data.text}
                 </span>
             </li>
         `;

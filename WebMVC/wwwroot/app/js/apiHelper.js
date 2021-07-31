@@ -18,12 +18,7 @@ class ApiHelper {
 
         if (responseData.notificationType) {
             NotificationHelper.addNotification(responseData.notificationType, responseData.notificationText);
-
-            if (responseData.notificationType == "success") {
-                return responseData.data;
-            }
-
-            return; // show error?
+            return;
         }
 
         return responseData;

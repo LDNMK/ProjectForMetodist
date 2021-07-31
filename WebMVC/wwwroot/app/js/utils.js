@@ -216,6 +216,7 @@ function getStudentTransferHistoryRows(transferHistory) {
                     <input type="number" data-history-key="toCourse" value="${x.toCourse}" disabled/>
                     <input type="text" data-history-key="orderNumber" value="${x.orderNumber ?? ""}" disabled/>
                     <input type="date" data-history-key="orderDate" value="${x.orderDate != null ? x.orderDate.split('T')[0] : null}" disabled/>
+                    <textarea data-history-key="content" disabled>${x.content ?? ""}</textarea>
                 </div>
             `;
         }).join('')}

@@ -21,5 +21,7 @@ namespace FaitLogic.DTO
         public string OrderNumber { get; set; }
 
         public DateTime? OrderDate { get; set; }
+
+        public string Content { get; set; }
     }
 }
