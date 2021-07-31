@@ -68,18 +68,6 @@ class StudentCardShowPage extends Page {
                         </button>
                     </div>
 
-                    <div class="main__col student-card__show-transfer-history">
-                        <div class="student-card__show-transfer-history-header">
-                            <span>Курс</span>
-                            <span>Номер наказу</span>
-                            <span>Дата наказу</span>
-                            <span>Контент</span>
-                        </div>
-                        <div class="student-card__show-transfer-history-container">
-                            
-                        </div>
-                    </div>
-
                     <div class="main__col">
                         <div class="form-element form-select">
                             <select class="form-element-field" id="speciality" data-obj-key="specialityId" disabled>
@@ -214,6 +202,60 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
+                    <div class="main__col-2">
+                        <div class="form-element form-select">
+                            <select class="form-element-field" id="experience" data-obj-key="experienceCompetitionId" disabled>
+                                <option class="form-select-placeholder" value="1" disabled selected></option>
+                                <option value="2">Із стажем</option>
+                                <option value="3">Без стажу</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="experience">1. За конкурсом</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <input id="transferFrom" class="form-element-field"
+                                placeholder="Введіть порядок переведення з" type="text" data-obj-key="transferFrom" disabled/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="transferFrom">2. У порядку переведення з</label>
+                        </div>
+                    </div>
+
+                    <div class="main__col-2">
+                        <div class="form-element form-input">
+                            <input id="transfer-direction" class="form-element-field" placeholder="Введіть направленням"
+                                type="text" data-obj-key="transferDirection" disabled/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="transfer-direction">3. За направленням</label>
+                        </div>
+                        <div class="form-element form-input">
+                            <input id="competition-conditions" class="form-element-field" placeholder="Введіть особливі умови"
+                                type="text" data-obj-key="competitionConditions" disabled/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="competition-conditions">4. За особливими умовами участі у
+                                конкурсі</label>
+                        </div>
+                    </div>
+
+                    <div class="main__col-2">
+                        <div class="form-element form-input">
+                            <input id="out-of-competitionInfo" class="form-element-field"
+                                placeholder="Введіть поза конкурсом" type="text" data-obj-key="outOfCompetitionInfo" disabled/>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="out-of-competitionInfo">5. Поза конкурсом</label>
+                        </div>
+                        <div class="form-element form-select">
+                            <select class="form-element-field" id="amends" data-obj-key="amendsId" disabled>
+                                <option class="form-select-placeholder" value="1" disabled selected></option>
+                                <option value="2">Державний кредит</option>
+                                <option value="3">Фізична особа</option>
+                                <option value="4">Юридичная особа</option>
+                            </select>
+                            <div class="form-element-bar"></div>
+                            <label class="form-element-label" for="amends">6. На умовах повного
+                                відшкодування</label>
+                        </div>
+                    </div>
+
                     <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="employment-number" class="form-element-field" placeholder="Введіть №"
@@ -260,7 +302,17 @@ class StudentCardShowPage extends Page {
                         </div>
                     </div>
 
-                    
+                    <div class="main__col student-card__show-transfer-history">
+                        <div class="student-card__show-transfer-history-header">
+                            <span>Курс</span>
+                            <span>Номер наказу</span>
+                            <span>Дата наказу</span>
+                            <span>Контент</span>
+                        </div>
+                        <div class="student-card__show-transfer-history-container">
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
