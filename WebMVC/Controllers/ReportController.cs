@@ -1,8 +1,7 @@
-﻿using FaitLogic.Enums;
-using FaitLogic.Logic.ILogic;
+﻿using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Helper;
-using WebAPI.Helper.ResponseModel;
+using WebAPI.Helper.ResponseMessageFactory;
+using WebAPI.Helper.ValidationResponse.Enum;
 
 namespace WebAPI.Controllers
 {
@@ -32,17 +31,11 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.CreateReportFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateReportFailed));
             }
 
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.ReportCreated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.ReportCreated));
         }
     }
 }

@@ -57,10 +57,10 @@ namespace FaitLogic.Logic
                     studentInfoDto.EmploymentAuthority));
             studentInfo.Add("RegistrOrPassportNumber", studentInfoDto.RegistrOrPassportNumber);
 
-            CreateDocument(studentInfo, studentProgresses);
+            CreateDocument(studentInfo, studentProgresses, studentInfoDto.TransferHistory);
         }
 
-        private void CreateDocument(Dictionary<string, string> studentInfo, ICollection<StudentProgressDTO> studentProgresses)
+        private void CreateDocument(Dictionary<string, string> studentInfo, ICollection<StudentProgressDTO> studentProgresses, ICollection<StudentTransferHistoryDTO> studentTransferHistories)
         {
             Application application = new Application();
             Document document = new Document();
@@ -93,7 +93,23 @@ namespace FaitLogic.Logic
                 bookmarkRange.Underline = WdUnderline.wdUnderlineSingle;
             }
 
-            Table table = document.Tables[2];
+            Table table = document.Tables[1];
+
+            foreach (var studentTransferHistory in studentTransferHistories)
+            {
+                var row = 2;
+                Microsoft.Office.Interop.Word.Range cellRange;
+                for (int column = 1; column <= 3; column++)
+                {
+                    cellRange = table.Cell(row, column).Range;
+                    cellRange.Text = GetInfoForTransferRow(column, studentTransferHistory);
+                    cellRange.Font.Bold = 0;
+
+                    row++;
+                }
+            }
+
+            table = document.Tables[2];
 
             var rows = new Dictionary<int, int[]>()
             {
@@ -106,11 +122,12 @@ namespace FaitLogic.Logic
                 { 6, new int[] {186, 204 } }
             };
 
+
             foreach (var studentProgress in studentProgresses)
             {
                 var courseSemesters = rows[studentProgress.Course];
 
-                FillTable(studentProgress, table, courseSemesters[0], courseSemesters[1]); // 0 - Autumn, 1 - Spring
+                FillProgressTable(studentProgress, table, courseSemesters[0], courseSemesters[1]); // 0 - Autumn, 1 - Spring
             }
 
             application.Visible = true;
@@ -118,7 +135,7 @@ namespace FaitLogic.Logic
             application.Quit(ref missingObj, ref missingObj, ref missingObj);
         }
 
-        private static string GetInfoForRow(int column, int semester, StudentSubjectDTO subject)
+        private static string GetInfoForProgressRow(int column, int semester, StudentSubjectDTO subject)
         {
             var subjectSemester = subject.SubjectSemesters.Single(x => x.SemesterId == semester);
             var ectsMark = GetECTSMark(subjectSemester.Mark);
@@ -135,7 +152,18 @@ namespace FaitLogic.Logic
             };
         }
 
-        private static void FillTable(StudentProgressDTO studentProgress, Table table, int rowAutumn, int rowSpring)
+        private static string GetInfoForTransferRow(int column, StudentTransferHistoryDTO studentTransferHistory)
+        {
+            return column switch
+            {
+                1 => studentTransferHistory.ToCourse.ToString(),
+                2 => string.Format("{0}  {1}", studentTransferHistory.OrderNumber, studentTransferHistory.OrderDate.ToString()),
+                3 => studentTransferHistory.Id.ToString(),
+                _ => throw new ArgumentException()
+            };
+        }
+
+        private static void FillProgressTable(StudentProgressDTO studentProgress, Table table, int rowAutumn, int rowSpring)
         {
             foreach (var subject in studentProgress.Subjects)
             {
@@ -179,7 +207,7 @@ namespace FaitLogic.Logic
                 for (int column = 3; column <= 9; column++)
                 {
                     cellRange = table.Cell(row, column).Range;
-                    cellRange.Text = GetInfoForRow(column, semester, subject);
+                    cellRange.Text = GetInfoForProgressRow(column, semester, subject);
                     cellRange.Font.Bold = 0;
                     if (column == 6)
                     {

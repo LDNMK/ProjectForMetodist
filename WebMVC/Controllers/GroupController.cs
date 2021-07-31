@@ -1,8 +1,7 @@
-﻿using FaitLogic.Enums;
-using FaitLogic.Logic.ILogic;
+﻿using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Helper;
-using WebAPI.Helper.ResponseModel;
+using WebAPI.Helper.ResponseMessageFactory;
+using WebAPI.Helper.ValidationResponse.Enum;
 
 namespace WebAPI.Controllers
 {
@@ -24,10 +23,7 @@ namespace WebAPI.Controllers
 
             if (groups.Count == 0)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.GroupsNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.GroupsNotFound));
             }
 
             return Ok(groups);
@@ -50,16 +46,10 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return NotFound(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.GroupAlreadyExist)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(ErrorEnum.GroupAlreadyExist));
             }
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = string.Format(ValidationHelper.GetEnumDescription(SuccessEnum.GroupCreated), groupName)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.GroupCreated));
         }
 
         //[HttpPost]

@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using FaitLogic.DTO;
-using FaitLogic.Enums;
 using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using WebAPI.Helper;
-using WebAPI.Helper.ResponseModel;
+using WebAPI.Helper.ResponseMessageFactory;
+using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
@@ -34,16 +33,10 @@ namespace WebAPI.Controllers
             }
             catch
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.StudentCardSaveFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.StudentCardSaveFailed));
             }
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.StudentCardUpdated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.StudentCardUpdated));
         }
 
         [HttpPut]
@@ -55,16 +48,10 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ErrorResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(ErrorEnum.StudentCardUpdateFailed)
-                });
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.StudentCardUpdateFailed));
             }
 
-            return Ok(new SuccessResponseModel()
-            {
-                NotificationText = ValidationHelper.GetEnumDescription(SuccessEnum.StudentCardUpdated)
-            });
+            return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.StudentCardUpdated));
         }
 
         [HttpGet]
@@ -73,10 +60,7 @@ namespace WebAPI.Controllers
             var result = studentInfoLogic.GetStudents(groupId, year);
             if(result.Count == 0)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.StudentsNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.StudentsNotFound));
             }
 
             return Ok(result);
@@ -88,10 +72,7 @@ namespace WebAPI.Controllers
             var result = mapper.Map<StudentCardModel>(studentInfoLogic.GetStudentInfo(studentId));
             if (result == null)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.StudentNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.StudentNotFound));
             }
 
             return Ok(result);
@@ -104,10 +85,7 @@ namespace WebAPI.Controllers
 
             if (result.Count == 0)
             {
-                return NotFound(new WarningResponseModel()
-                {
-                    NotificationText = ValidationHelper.GetEnumDescription(WarningEnum.SpecialitiesNotFound)
-                });
+                return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.SpecialitiesNotFound));
             }
 
             return Ok(result);
