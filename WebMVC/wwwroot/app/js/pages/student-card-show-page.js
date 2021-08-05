@@ -25,6 +25,7 @@ class StudentCardShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="course">Курс</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="group">
@@ -32,11 +33,13 @@ class StudentCardShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-input">
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="year">Рік</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="student">
@@ -44,6 +47,7 @@ class StudentCardShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="student">Студент</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                     </div>
 
@@ -368,16 +372,23 @@ class StudentCardShowPage extends Page {
         const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
         const transferHistoryContainer = document.querySelector('.student-card__show-transfer-history-container');
         
-        const groupSelect = document.querySelector('#group');
-        const courseSelect = document.querySelector('#course');
-        const studentSelect = document.querySelector('#student');
         const specialitySelect = document.querySelector('#speciality');
-
-        // const yearCheckbox = document.querySelector('#select-year');
+        const courseSelect = document.querySelector('#course');
+        const groupSelect = document.querySelector('#group');
         const yearInput = document.querySelector('#year');
+        const studentSelect = document.querySelector('#student');
+
+        let fieldsForValidation = [
+            courseSelect,
+            yearInput,
+            groupSelect,
+            studentSelect
+        ];
 
         findBtn.addEventListener('click', () => {
-            findStudent(studentSelect.value);
+            if (validateFields(fieldsForValidation)) {
+                findStudent(studentSelect.value);
+            }
         });
 
         editBtn.addEventListener('click', () => {
@@ -393,23 +404,35 @@ class StudentCardShowPage extends Page {
         });
 
         saveBtn.addEventListener('click', () => {
-            studentUpdate(studentSelect.value);
+            if (validateFields(StudentCardShowPage._dataObjKeyFields)) {
+                studentUpdate(studentSelect.value);
+            }
         });
 
         averageScoreBtn.addEventListener('click', () => {
             console.log('Average score');
         });
-
-        yearInput.addEventListener('change', () => {
-            findStudents(groupSelect.value, yearInput.value);
+        
+        courseSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value);
+            }
         });
 
-        courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value);
+        groupSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findStudents(groupSelect.value, yearInput.value);
+            }
         });
 
-        groupSelect.addEventListener('change', () => {
-            findStudents(groupSelect.value, yearInput.value);
+        yearInput.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findStudents(groupSelect.value, yearInput.value);
+            }
+        });
+        
+        studentSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
         });
 
         async function findGroups(course) {
@@ -455,10 +478,6 @@ class StudentCardShowPage extends Page {
         }
 
         async function studentUpdate(id) {
-            if (!validateFields(StudentCardShowPage._dataObjKeyFields)) {
-                return;
-            }
-
             let student = {};
             StudentCardShowPage._dataObjKeyFields.forEach(x => {
                 student[x.getAttribute('data-obj-key')] = x.value != "" ? x.value : undefined;

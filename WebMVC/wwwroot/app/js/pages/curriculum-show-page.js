@@ -18,6 +18,7 @@ class CurriculumShowPage extends Page {
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="year">Рік</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
@@ -29,6 +30,7 @@ class CurriculumShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="course">Курс</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="group">
@@ -36,6 +38,7 @@ class CurriculumShowPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-input display-none">
                             <input id="plan-id" class="form-element-field"
@@ -93,24 +96,36 @@ class CurriculumShowPage extends Page {
 
         const planIdInput = document.querySelector('#plan-id');
         const planNameInput = document.querySelector('#plan-name');
+
         const yearInput = document.querySelector('#year');
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
+        const fieldsForValidate = [groupSelect, courseSelect, yearInput];
 
         const curriculumFindBtn = document.querySelector('.curriculum__btn-find');
         const curriculumEditBtn = document.querySelector('.curriculum-info__btn-edit');
         const curriculumSaveBtn = document.querySelector('.curriculum-info__btn-save');
 
-        yearInput.addEventListener('change', () => {
-            findGroups(courseSelect.value, yearInput.value);
+        yearInput.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value, yearInput.value);
+            }
         });
 
-        courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value, yearInput.value);
+        courseSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value, yearInput.value);
+            }
         });
 
-        curriculumFindBtn.addEventListener('click', () => {
-            findYearPlan(groupSelect.value, yearInput.value);
+        groupSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
+        });
+
+        curriculumFindBtn.addEventListener('click', (e) => {
+            if (validateFields(fieldsForValidate)) {
+                findYearPlan(groupSelect.value, yearInput.value);
+            }
         });
 
         curriculumEditBtn.addEventListener('click', () => {

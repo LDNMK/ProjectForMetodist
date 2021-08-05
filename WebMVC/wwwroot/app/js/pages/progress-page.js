@@ -18,6 +18,7 @@ class ProgressPage extends Page {
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="year">Рік</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="course">
@@ -29,6 +30,7 @@ class ProgressPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="course">Курс</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="group">
@@ -36,6 +38,7 @@ class ProgressPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="semestr">
@@ -45,6 +48,7 @@ class ProgressPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="semestr">Семестр</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                     </div>
                     <div class="main__buttons">
@@ -102,6 +106,7 @@ class ProgressPage extends Page {
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
         const semestrSelect = document.querySelector('#semestr');
+        const fieldsForValidate = [yearInput, courseSelect, groupSelect, semestrSelect];
 
         const progressTable = document.querySelector('.progress__table');
         const subjectsList = document.querySelector('.progress__row-cell-subjects');
@@ -110,16 +115,30 @@ class ProgressPage extends Page {
         const progressEditBtn = document.querySelector('.progress__btn-edit');
         const progressSaveBtn = document.querySelector('.progress__btn-save');
 
-        yearInput.addEventListener('change', () => {
-            findGroups(courseSelect.value, yearInput.value);
+        yearInput.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value, yearInput.value);
+            }
         });
 
-        courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value, yearInput.value);
+        courseSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value, yearInput.value);
+            }
+        });
+
+        groupSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
+        });
+
+        semestrSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
         });
 
         progressFindBtn.addEventListener('click', () => {
-            findProgress(yearInput.value, groupSelect.value, semestrSelect.value);
+            if (validateFields(fieldsForValidate)) {
+                findProgress(yearInput.value, groupSelect.value, semestrSelect.value);
+            }
         });
 
         progressEditBtn.addEventListener('click', () => {
