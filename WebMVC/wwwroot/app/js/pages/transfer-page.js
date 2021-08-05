@@ -24,6 +24,7 @@ class TransferPage extends Page {
                         </select>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="course">Курс</label>
+                        <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
 
                     <div class="form-element form-select">
@@ -32,12 +33,14 @@ class TransferPage extends Page {
                         </select>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="group">Група</label>
+                        <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
 
                     <div class="form-element form-input">
                         <input id="year" class="form-element-field" data-obj-key="year" placeholder="Введіть рік" type="number" />
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="year">Рік</label>
+                        <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
 
                     <div class="main__buttons">
@@ -79,18 +82,33 @@ class TransferPage extends Page {
 
     static _groupCardSubscribe() {
         const studentsList = document.querySelector('.transfer__students-list');
-        const yearInput = document.querySelector('#year');
+
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
+        const yearInput = document.querySelector('#year');
+        const fieldsForValidate = [courseSelect, yearInput, groupSelect];
+        
         const findBtn = document.querySelector('#btn-find');
         const transferBtn = document.querySelector('#btn-transfer');
 
-        courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value);
+        courseSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value);
+            }
+        });
+
+        groupSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
+        });
+
+        yearInput.addEventListener('change', (e) => {
+            isFieldEmpty(e);
         });
 
         findBtn.addEventListener('click', () => {
-            findStudents(groupSelect.value, yearInput.value);
+            if (validateFields(fieldsForValidate)) {
+                findStudents(groupSelect.value, yearInput.value);
+            }
         });
 
         transferBtn.addEventListener('click', () => {

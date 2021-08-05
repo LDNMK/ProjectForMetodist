@@ -24,6 +24,7 @@ class CurriculumAddPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="course">Курс</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
                             <select class="form-element-field" id="group">
@@ -31,6 +32,7 @@ class CurriculumAddPage extends Page {
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="group">Група</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
 
                         <div class="main__buttons">
@@ -57,11 +59,13 @@ class CurriculumAddPage extends Page {
                                 placeholder="Введіть назву навчального плану" type="text" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="plan-name">Назва навчального плану</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
-                        <div class="form-element form-input form-element-w150">
+                        <div class="form-element form-input form-element-w170">
                             <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="year">Рік</label>
+                            <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
 
                         <button class="btn curriculum__info-add-btn">
@@ -131,27 +135,40 @@ class CurriculumAddPage extends Page {
 
         const courseSelect = document.querySelector('#course');
         const groupSelect = document.querySelector('#group');
+
         const groupAddBtn = document.querySelector('.curriculum-group__btn-add');
         const curriculumSaveBtn = document.querySelector('.curriculum__info-add-btn');
 
-        yearInput.addEventListener('change', () => {
-            console.log('year');
+        yearInput.addEventListener('change', (e) => {
+            isFieldEmpty(e);
         });
 
-        courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value);
+        groupSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
         });
 
-        groupAddBtn.addEventListener('click', () => {
-            let item = getGroupItemWithButton(groupSelect.options[group.selectedIndex].text, groupSelect.value, CurriculumAddPage.buttons['remove']);
-            if (item) {
-                list.insertAdjacentHTML('beforeend', item);
+        courseSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value);
+            }
+        });
+
+        planNameInput.addEventListener('change', (e) => {
+            isFieldEmpty(e);
+        });
+
+        groupAddBtn.addEventListener('click', (e) => {
+            if (validateFields([courseSelect, groupSelect], true)) {
+                let item = getGroupItemWithButton(groupSelect.options[group.selectedIndex].text, groupSelect.value, CurriculumAddPage.buttons['remove']);
+                if (item) {
+                    list.insertAdjacentHTML('beforeend', item);
+                }
             }
         });
 
         curriculumSaveBtn.addEventListener('click', () => {
-            if (yearInput == '' || planNameInput == '') {
-                return alert('bad');
+            if (!validateFields([yearInput, planNameInput], true)) {
+                return;
             }
 
             let curriculum = {};

@@ -4,5 +4,5 @@ function init() {
     initSidebar();
     // initMainPage();
 
-    setPageByAttribute(StudentCardAddPage.is);
+    setPageByAttribute(TransferPage.is);
 }

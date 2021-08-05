@@ -22,12 +22,14 @@ class CreateReportPage extends Page {
                         </select>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="course">Курс</label>
+                        <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
 
                     <div class="form-element form-input">
                         <input id="year" class="form-element-field" placeholder="Введіть рік" type="number" />
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="year">Рік</label>
+                        <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
 
                     <div class="form-element form-select">
@@ -36,6 +38,7 @@ class CreateReportPage extends Page {
                         </select>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="group">Група</label>
+                        <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
                 </div>
                 <div class="form-element form-select">
@@ -44,6 +47,7 @@ class CreateReportPage extends Page {
                     </select>
                     <div class="form-element-bar"></div>
                     <label class="form-element-label" for="student">Студент</label>
+                    <small class="form-element-hint">Необхідно задати значення</small>
                 </div>
                 <div class="main__buttons">
                     <button class="btn create-report__create-btn">
@@ -67,27 +71,42 @@ class CreateReportPage extends Page {
         const studentSelect = document.querySelector('#student');
         const createBtn = document.querySelector('.create-report__create-btn');
         
-        courseSelect.addEventListener('change', () => {
-            findGroups(courseSelect.value, yearInput.value);
+        let fieldsForValidation = [
+            courseSelect,
+            yearInput,
+            groupSelect,
+            studentSelect
+        ];
+
+        courseSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value, yearInput.value);
+            }
         });
 
-        yearInput.addEventListener('change', () => {
-            findGroups(courseSelect.value, yearInput.value);
+        yearInput.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findGroups(courseSelect.value, yearInput.value);
+            }
         });
 
-        groupSelect.addEventListener('change', () => {
-            findStudents(groupSelect.value);
+        groupSelect.addEventListener('change', (e) => {
+            if (!isFieldEmpty(e)) {
+                findStudents(groupSelect.value);
+            }
+        });
+
+        studentSelect.addEventListener('change', (e) => {
+            isFieldEmpty(e);
         });
 
         createBtn.addEventListener('click', () => {
-            createReport(studentSelect.value)
+            if (validateFields(fieldsForValidation)) {
+                createReport(studentSelect.value)
+            }
         })
 
         async function findGroups(course, year) {
-            if (course == "" || year =="") {
-                return;
-            }
-
             const options = await getGroupsAsOptions(course, year);
             groupSelect.innerHTML = options.join('');
             groupSelect.classList.remove('-hasValue');
@@ -98,20 +117,12 @@ class CreateReportPage extends Page {
         };
 
         async function findStudents(groupId) {
-            if (groupId == "") {
-                return;
-            }
-
             const options = await getStudentsAsOptions(groupId);
             studentSelect.innerHTML = options.join('');
             studentSelect.classList.remove('-hasValue');
         };
 
         async function createReport(studentId) {
-            if (studentId == "") {
-                return;
-            }
-
             toggleMask();
             await apiHelper.fetchCreateReport(studentId);
             toggleMask();

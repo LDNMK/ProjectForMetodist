@@ -213,4 +213,6 @@ function getStudentTransferHistoryRows(transferHistory) {
 function isFieldEmpty(event) {
     let e = event.target;
     e.closest('.form-element').classList[e.value ? 'remove' : 'add']('form-has-error');
+
+    return !(!!e.value);
 }
