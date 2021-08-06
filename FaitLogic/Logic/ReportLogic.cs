@@ -32,7 +32,7 @@ namespace FaitLogic.Logic
             var orderDate = studentInfoDto.OrderDate.Value;
             var studentInfo = new Dictionary<string, string>();
             studentInfo.Add("Degree", DictionaryWithValues.Degrees[studentInfoDto.DegreeId]);
-            studentInfo.Add("Speciality", DictionaryWithValues.Specialities[studentInfoDto.SpecialityId.Value]);
+            studentInfo.Add("Speciality", DictionaryWithValues.Specialities[studentInfoDto.SpecialityId]);
             studentInfo.Add("Name", string.Format("{0} {1} {2}", studentInfoDto.LastName, studentInfoDto.FirstName, studentInfoDto.Patronymic));
             studentInfo.Add("Birthday", studentInfoDto.Birthdate.ToString("dd.MM.yyyy"));
             studentInfo.Add("BirthPlace", studentInfoDto.BirthPlace);
@@ -48,7 +48,7 @@ namespace FaitLogic.Logic
             studentInfo.Add("CompetitionConditions", studentInfoDto.CompetitionConditions);
             studentInfo.Add("OutOfCompetitionInfo", studentInfoDto.OutOfCompetitionInfo);
             studentInfo.Add("Amend", DictionaryWithValues.Ammends[studentInfoDto.AmendsId]);
-            studentInfo.Add("OrderNumber", studentInfoDto.OrderNumber.ToString());
+            studentInfo.Add("OrderNumber", studentInfoDto.OrderNumber);
             studentInfo.Add("OrderDate", string.Format("\"{0}\" {1} {2} року", orderDate.Day.ToString().PadLeft(2, '0'), orderDate.ToMonthName(), orderDate.Year));
             studentInfo.Add("Employment",
                 string.Format("{0} {1} {2}",
@@ -94,19 +94,17 @@ namespace FaitLogic.Logic
             }
 
             Table table = document.Tables[1];
-
+            var row = 2;
             foreach (var studentTransferHistory in studentTransferHistories)
             {
-                var row = 2;
                 Microsoft.Office.Interop.Word.Range cellRange;
                 for (int column = 1; column <= 3; column++)
                 {
                     cellRange = table.Cell(row, column).Range;
                     cellRange.Text = GetInfoForTransferRow(column, studentTransferHistory);
                     cellRange.Font.Bold = 0;
-
-                    row++;
                 }
+                row++;
             }
 
             table = document.Tables[2];

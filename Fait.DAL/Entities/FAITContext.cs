@@ -97,7 +97,6 @@ namespace Fait.DAL
                 entity.HasOne(d => d.GroupPrefix)
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.GroupPrefixId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Groups__GroupPre__4CA06362");
             });
 
@@ -113,7 +112,7 @@ namespace Fait.DAL
             modelBuilder.Entity<GroupStudent>(entity =>
             {
                 entity.HasKey(e => new { e.GroupId, e.StudentId })
-                    .HasName("PK__GroupStu__97B6A1D335A92AD9");
+                    .HasName("PK__GroupStu__97B6A1D39D6B5A1E");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.GroupStudents)
@@ -212,7 +211,7 @@ namespace Fait.DAL
             {
                 entity.ToTable("StudentInfo");
 
-                entity.HasIndex(e => e.RegistrOrPassportNumber, "UQ__StudentI__C4B511032E7171CB")
+                entity.HasIndex(e => e.RegistrOrPassportNumber, "UQ__StudentI__C4B5110300DB3C45")
                     .IsUnique();
 
                 entity.Property(e => e.AmendsId).HasDefaultValueSql("((1))");
@@ -227,7 +226,7 @@ namespace Fait.DAL
                     .IsRequired()
                     .HasMaxLength(30);
 
-                entity.Property(e => e.CompetitionConditions).HasMaxLength(30);
+                entity.Property(e => e.CompetitionConditions).HasMaxLength(100);
 
                 entity.Property(e => e.EmploymentAuthority).HasMaxLength(30);
 
@@ -235,29 +234,31 @@ namespace Fait.DAL
 
                 entity.Property(e => e.Exemption)
                     .IsRequired()
-                    .HasMaxLength(30);
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.ExperienceCompetitionId).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.GraduatedSchoolName).HasMaxLength(200);
+                entity.Property(e => e.GraduatedSchoolName).HasMaxLength(170);
 
                 entity.Property(e => e.MaritalStatusId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.OrderDate).HasColumnType("date");
 
-                entity.Property(e => e.OutOfCompetitionInfo).HasMaxLength(30);
+                entity.Property(e => e.OrderNumber).HasMaxLength(10);
+
+                entity.Property(e => e.OutOfCompetitionInfo).HasMaxLength(100);
 
                 entity.Property(e => e.RegistrOrPassportNumber)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(25);
 
                 entity.Property(e => e.Registration)
                     .IsRequired()
-                    .HasMaxLength(30);
+                    .HasMaxLength(170);
 
-                entity.Property(e => e.TransferDirection).HasMaxLength(200);
+                entity.Property(e => e.TransferDirection).HasMaxLength(170);
 
-                entity.Property(e => e.TransferFrom).HasMaxLength(200);
+                entity.Property(e => e.TransferFrom).HasMaxLength(170);
 
                 entity.HasOne(d => d.Amends)
                     .WithMany(p => p.StudentInfos)
@@ -369,7 +370,7 @@ namespace Fait.DAL
             modelBuilder.Entity<YearPlanGroup>(entity =>
             {
                 entity.HasKey(e => new { e.YearPlanId, e.GroupId })
-                    .HasName("PK__YearPlan__E408884822BF115D");
+                    .HasName("PK__YearPlan__E4088848E1C1D790");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.YearPlanGroups)

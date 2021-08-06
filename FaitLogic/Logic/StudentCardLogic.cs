@@ -48,8 +48,8 @@ namespace FaitLogic.Logic
             var actualGroup = new GroupStudent
             {
                 StudentId = studentId,
-                GroupId = studentCard.GroupId.HasValue ? studentCard.GroupId.Value : 0,
-                GroupYear = studentCard.GroupYear.HasValue ? studentCard.GroupYear.Value : 0,
+                GroupId = studentCard.GroupId,
+                GroupYear = studentCard.GroupYear,
                 IsActive = true
             };
 
@@ -111,7 +111,7 @@ namespace FaitLogic.Logic
             studentFullInfo.FirstName = student.FirstName;
             studentFullInfo.Patronymic = student.Patronymic;
             studentFullInfo.StudentStateId = student.StudentStateId;
-            studentFullInfo.SpecialityId = student.SpecialityId;
+            studentFullInfo.SpecialityId = student.SpecialityId.GetValueOrDefault();
 
             studentFullInfo.TransferHistory = _mapper.Map<ICollection<StudentTransferHistoryDTO>>(unitOfWork.StudentTransferHistoryRepository.GetStudentTransferHistory(studentId));
 
