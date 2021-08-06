@@ -157,6 +157,10 @@ namespace FaitLogic.Logic
                     {
                         var semester = subjectSemester.SemesterId;
                         var subjectMark = unitOfWork.ProgressRepository.FindMark(subjectSemester.Id, studentId);
+                        if(subjectMark == null)
+                        {
+                            continue;
+                        }
 
                         var taskExist = subjectSemester.IndividualTaskType == (int)TaskEnum.CourseWork;
                         studentSubject.SubjectSemesters.Add(

@@ -26,7 +26,7 @@ namespace Fait.DAL
         public int? EmploymentNumber { get; set; }
         public string EmploymentAuthority { get; set; }
         public DateTime? EmploymentGivenDate { get; set; }
-        public int? OrderNumber { get; set; }
+        public string OrderNumber { get; set; }
         public DateTime? OrderDate { get; set; }
         public string RegistrOrPassportNumber { get; set; }
 

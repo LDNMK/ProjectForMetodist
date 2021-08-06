@@ -22,6 +22,8 @@ class StudentCardShowPage extends Page {
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="course">Курс</label>
@@ -215,7 +217,7 @@ class StudentCardShowPage extends Page {
                         </div>
                         <div class="form-element form-input">
                             <input id="order-number" class="form-element-field" placeholder="Введіть №"
-                                type="number" data-obj-key="orderNumber" disabled/>
+                                type="text" data-obj-key="orderNumber" disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="order-number">№</label>
                             <small class="form-element-hint">Необхідно задати значення</small>

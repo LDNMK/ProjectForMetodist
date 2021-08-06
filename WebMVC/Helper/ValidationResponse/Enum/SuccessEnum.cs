@@ -4,7 +4,7 @@ namespace WebAPI.Helper.ValidationResponse.Enum
 {
     public enum SuccessEnum
     {
-        [Description("Група {0} створена")]
+        [Description("Група створена")]
         GroupCreated,
 
         [Description("Звіт про студента створений")]
