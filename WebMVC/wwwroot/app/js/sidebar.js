@@ -7,7 +7,6 @@ function initSidebar() {
             let attr = e.target.getAttribute('data-page');
             setPageByAttribute(attr);
 
-
             items.forEach(item => item.classList.remove('active'));
             e.target.closest('.sidebar__menu-item').classList.add('active');
         });

@@ -76,7 +76,7 @@ class StudentCardShowPage extends Page {
 
                     <div class="main__col">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="speciality" data-obj-key="specialityId" disabled>
+                            <select class="form-element-field" id="speciality" data-obj-key="specialityId" data-required disabled>
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                             </select>
                             <div class="form-element-bar"></div>
@@ -87,7 +87,7 @@ class StudentCardShowPage extends Page {
 
                     <div class="main__col">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="degree" data-obj-key="degreeId" disabled>
+                            <select class="form-element-field" id="degree" data-obj-key="degreeId" data-required disabled>
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Бакалавр</option>
                                 <option value="2">Магістр</option>
@@ -103,30 +103,31 @@ class StudentCardShowPage extends Page {
                     <div class="main__col-3">
                         <div class="form-element form-input">
                             <input id="surname" data-obj-key="lastName" class="form-element-field" placeholder="Введіть прізвище"
-                                type="text" disabled/>
+                                type="text" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="surname">Прізвище</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-input">
-                            <input id="name" data-obj-key="firstName" class="form-element-field" placeholder="Введіть ім'я" type="text" disabled/>
+                            <input id="name" data-obj-key="firstName" class="form-element-field" placeholder="Введіть ім'я" type="text" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="name">Ім'я</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-input">
                             <input id="first-name" data-obj-key="patronymic" class="form-element-field" placeholder="Введіть по-батькові"
-                                type="text" disabled/>
+                                type="text" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="first-name">По-батькові</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                     </div>
 
+                    <!--
                     <div class="main__col-3 student-card__show-average-score">
                         <div class="form-element form-input">
                             <input id="average-score" class="form-element-field" placeholder="Введіть середній бал"
-                                type="text" disabled/>
+                                type="text" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="average-score">Середній бал</label>
 
@@ -135,18 +136,19 @@ class StudentCardShowPage extends Page {
                             </button>
                         </div>
                     </div>
+                    -->
 
                     <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="birthdate" data-obj-key="birthdate" class="form-element-field" placeholder="Введіть дату народження"
-                                type="date" disabled/>
+                                type="date" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="birthdate">Дата народження</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-input">
                             <input id="birthday-place" data-obj-key="birthPlace" class="form-element-field"
-                                placeholder="Введіть місце народження" type="text" disabled/>
+                                placeholder="Введіть місце народження" type="text" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="birthday-place">Місце народження</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
@@ -156,7 +158,7 @@ class StudentCardShowPage extends Page {
                     <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="nationality" class="form-element-field" placeholder="Введіть громадянство"
-                                type="text" data-obj-key="citizenship" disabled/>
+                                type="text" data-obj-key="citizenship" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="nationality">Громадянство</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
@@ -177,14 +179,14 @@ class StudentCardShowPage extends Page {
                     <div class="main__col-2">
                         <div class="form-element form-input">
                             <input id="graduated-school-name" class="form-element-field" placeholder="Введіть назву навчального закладу"
-                                type="text" data-obj-key="graduatedSchoolName" disabled/>
+                                type="text" data-obj-key="graduatedSchoolName" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="graduated-school-name">Закінчив(ла)</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-input">
                             <input id="graduated-year" class="form-element-field" placeholder="Введіть рік закінчення"
-                                type="number" data-obj-key="graduatedYear" disabled/>
+                                type="number" data-obj-key="graduatedYear" data-required disabled/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="graduated-year">Рік закінчення</label>
                             <small class="form-element-hint">Необхідно задати значення</small>
@@ -193,15 +195,15 @@ class StudentCardShowPage extends Page {
 
                     <div class="form-element form-input">
                         <input id="home" class="form-element-field"
-                            placeholder="Введіть місце проживання/реєстрації" type="text" data-obj-key="registration" disabled/>
-                        <div class="form-element-bar" ></div>
+                            placeholder="Введіть місце проживання/реєстрації" type="text" data-obj-key="registration" data-required disabled/>
+                        <div class="form-element-bar"></div>
                         <label class="form-element-label" for="home">Місце проживання/реєстрації</label>
                         <small class="form-element-hint">Необхідно задати значення</small>
                     </div>
 
                     <div class="form-element form-input">
                         <input id="benefits" class="form-element-field" placeholder="Введіть пільги якщо є"
-                            type="text" data-obj-key="exemption" disabled/>
+                            type="text" data-obj-key="exemption" data-required disabled/>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="benefits">Наявність пільг при вступі</label>
                         <small class="form-element-hint">Необхідно задати значення</small>
@@ -313,7 +315,7 @@ class StudentCardShowPage extends Page {
                     <div class="form-element form-input">
                         <input id="registration-number" class="form-element-field"
                             placeholder="Введіть реєстраційний номер облікової картки платника податків або серію та номер паспорту"
-                            type="text" data-obj-key="registrOrPassportNumber" disabled/>
+                            type="text" data-obj-key="registrOrPassportNumber" data-required disabled/>
                         <div class="form-element-bar"></div>
                         <label class="form-element-label" for="registration-number">Реєстраційний номер облікової
                             картки платника податків або серія та номер паспорту</label>
@@ -322,7 +324,7 @@ class StudentCardShowPage extends Page {
 
                     <div class="main__show-row">
                         <div class="form-element form-select">
-                            <select class="form-element-field" data-obj-key="studentStateId" id="student-status" disabled>
+                            <select class="form-element-field" data-obj-key="studentStateId" id="student-status" data-required disabled>
                                 <option class="form-select-placeholder" value="" disabled selected></option>
                                 <option value="1">Переведений з групою</option>
                                 <option value="2">В академічній відпустці</option>
@@ -361,8 +363,9 @@ class StudentCardShowPage extends Page {
 
     static _initDataObjKeyFields() {
         this._dataObjKeyFields = content.querySelectorAll("[data-obj-key]");
+        this._requiredFields = [...this._dataObjKeyFields].filter(x => x.hasAttribute('data-required'));
 
-        this._dataObjKeyFields.forEach(x => {
+        this._requiredFields.forEach(x => {
             x.addEventListener('change', (e) => isFieldEmpty(e));
         });
     }
@@ -371,7 +374,7 @@ class StudentCardShowPage extends Page {
         const findBtn = document.querySelector('.student-card__show-btn-find');
         const editBtn = document.querySelector('.student-card__show-btn-edit');
         const saveBtn = document.querySelector('.student-card__show-btn-save');
-        const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
+        // const averageScoreBtn = document.querySelector('.student-card__show-average-score-btn');
         const transferHistoryContainer = document.querySelector('.student-card__show-transfer-history-container');
         
         const specialitySelect = document.querySelector('#speciality');
@@ -380,7 +383,7 @@ class StudentCardShowPage extends Page {
         const yearInput = document.querySelector('#year');
         const studentSelect = document.querySelector('#student');
 
-        let fieldsForValidation = [
+        let requiredFieldsForFind = [
             courseSelect,
             yearInput,
             groupSelect,
@@ -388,7 +391,7 @@ class StudentCardShowPage extends Page {
         ];
 
         findBtn.addEventListener('click', () => {
-            if (validateFields(fieldsForValidation)) {
+            if (validateFields(requiredFieldsForFind)) {
                 findStudent(studentSelect.value);
             }
         });
@@ -406,14 +409,14 @@ class StudentCardShowPage extends Page {
         });
 
         saveBtn.addEventListener('click', () => {
-            if (validateFields(StudentCardShowPage._dataObjKeyFields)) {
+            if (validateFields(StudentCardShowPage._requiredFields)) {
                 studentUpdate(studentSelect.value);
             }
         });
 
-        averageScoreBtn.addEventListener('click', () => {
-            console.log('Average score');
-        });
+        // averageScoreBtn.addEventListener('click', () => {
+        //     console.log('Average score');
+        // });
         
         courseSelect.addEventListener('change', (e) => {
             if (!isFieldEmpty(e)) {

@@ -5,7 +5,10 @@ class MainPage extends Page {
 
     static get page() {
         return `
-            <h1>Main page</h1>
+            <h1 class="main__page-title">Головна сторінка</h1>
+            <p>
+                Скористайтеся меню зліва для зміни контенту
+            </p>
         `;
     }
 
