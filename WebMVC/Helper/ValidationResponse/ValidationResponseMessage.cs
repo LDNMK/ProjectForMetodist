@@ -7,5 +7,7 @@ namespace WebAPI.Helper.ValidationResponse
         public string NotificationType { get; set; }
 
         public string NotificationText { get; set; }
+
+        public string ExceptionJSON { get; set; }
     }
 }

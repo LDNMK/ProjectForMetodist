@@ -1,6 +1,7 @@
 ﻿using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Text.Json;
 using WebAPI.Helper.ResponseMessageFactory;
 using WebAPI.Helper.ValidationResponse.Enum;
 
@@ -32,9 +33,8 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateReportFailed));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateReportFailed, JsonSerializer.Serialize(ex)));
             }
-
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.ReportCreated));
         }

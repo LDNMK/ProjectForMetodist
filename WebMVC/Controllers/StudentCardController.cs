@@ -4,6 +4,7 @@ using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using WebAPI.Helper.ResponseMessageFactory;
 using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Models;
@@ -31,9 +32,9 @@ namespace WebAPI.Controllers
             {
                 studentInfoLogic.AddStudentCardInfo(mapper.Map<StudentCardDTO>(model));
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.StudentCardSaveFailed));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.StudentCardSaveFailed, JsonSerializer.Serialize(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.StudentCardUpdated));
@@ -48,7 +49,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.StudentCardUpdateFailed));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.StudentCardUpdateFailed, JsonSerializer.Serialize(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.StudentCardUpdated));
@@ -58,7 +59,7 @@ namespace WebAPI.Controllers
         public IActionResult GetStudents([FromQuery]int groupId, int? year)
         {
             var result = studentInfoLogic.GetStudents(groupId, year);
-            if(result.Count == 0)
+            if (result.Count == 0)
             {
                 return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.StudentsNotFound));
             }
@@ -82,7 +83,6 @@ namespace WebAPI.Controllers
         public IActionResult GetSpecialities(int degreeId)
         {
             var result = mapper.Map<ICollection<SpecialityModel>>(studentInfoLogic.GetSpecialities(degreeId));
-
             if (result.Count == 0)
             {
                 return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.SpecialitiesNotFound));
