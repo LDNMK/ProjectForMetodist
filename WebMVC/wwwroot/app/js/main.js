@@ -2,7 +2,7 @@ init();
 
 function init() {
     initSidebar();
-    initMainPage();
+    // initMainPage();
 
-    // setPageByAttribute(StudentCardShowPage.is);
+    setPageByAttribute(StudentCardShowPage.is);
 }

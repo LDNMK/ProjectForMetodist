@@ -2,6 +2,8 @@
 using FaitLogic.DTO;
 using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.Json;
 using WebAPI.Helper.ResponseMessageFactory;
 using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Models;
@@ -31,9 +33,9 @@ namespace WebAPI.Controllers
             {
                 yearPlanLogic.AddYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel));
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateYearPlanFailed));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateYearPlanFailed, JsonSerializer.Serialize(ex)));
             }
 
 
@@ -47,10 +49,9 @@ namespace WebAPI.Controllers
             {
                 yearPlanLogic.UpdateYearPlan(mapper.Map<YearPlanDTO>(yearPlanModel), yearPlanId);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.YearPlanUpdateFailed));
-
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.YearPlanUpdateFailed, JsonSerializer.Serialize(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.YearPlanUpdated));
@@ -60,7 +61,6 @@ namespace WebAPI.Controllers
         public IActionResult ShowYearPlan(int yearPlanId)
         {
             var yearPlan = mapper.Map<YearPlanModel>(yearPlanLogic.ShowYearPlan(yearPlanId));
-
             if (yearPlan == null)
             {
                 return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.YearPlanNotFound));
