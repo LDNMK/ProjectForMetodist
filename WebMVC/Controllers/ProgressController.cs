@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using WebAPI.Models;
 using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Helper.ResponseMessageFactory;
+using System;
+using System.Text.Json;
 
 namespace WebAPI.Controllers
 {
@@ -41,9 +43,9 @@ namespace WebAPI.Controllers
                     return NotFound(ResponseMessageCreator.GetMessage(WarningEnum.ProgressStudentsNotFound));
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressLoadFailed));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressLoadFailed, JsonSerializer.Serialize(ex)));
             }
             
             return Ok(progress);
@@ -57,9 +59,9 @@ namespace WebAPI.Controllers
                 var progressStudentsDto = mapper.Map<ICollection<ProgressStudentModel>, ICollection<ProgressStudentDTO>>(students);
                 progressLogic.UpdateProgress(progressStudentsDto);
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressUpdateFailed));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressUpdateFailed, JsonSerializer.Serialize(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.ProgressUpdated));

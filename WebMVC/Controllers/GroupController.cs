@@ -1,5 +1,7 @@
 ﻿using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.Json;
 using WebAPI.Helper.ResponseMessageFactory;
 using WebAPI.Helper.ValidationResponse.Enum;
 
@@ -44,9 +46,9 @@ namespace WebAPI.Controllers
             {
                 groupLogic.AddGroup(groupName);
             }
-            catch
+            catch (Exception ex)
             {
-                return NotFound(ResponseMessageCreator.GetMessage(ErrorEnum.GroupAlreadyExist));
+                return NotFound(ResponseMessageCreator.GetMessage(ErrorEnum.GroupAlreadyExist, JsonSerializer.Serialize(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.GroupCreated));

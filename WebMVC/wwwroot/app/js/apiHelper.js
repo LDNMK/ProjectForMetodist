@@ -16,6 +16,10 @@ class ApiHelper {
         console.log('Response JSON');
         console.log(responseData);
 
+        if (responseData.exceptionJSON !== "ok") {
+            console.log(responseData.exceptionJSON);
+        }
+
         if (responseData.notificationType) {
             NotificationHelper.addNotification(responseData.notificationType, responseData.notificationText);
             return;
