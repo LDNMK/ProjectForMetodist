@@ -182,9 +182,8 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-2">
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="experience" data-obj-key="experienceCompetitionId">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Інформація відсутня</option>
+                            <select class="form-element-field -hasValue" id="experience" data-obj-key="experienceCompetitionId">
+                                <option value="1" selected>Інформація відсутня</option>
                                 <option value="2">Із стажем</option>
                                 <option value="3">Без стажу</option>
                             </select>
@@ -228,9 +227,8 @@ class StudentCardAddPage extends Page {
                             <small class="form-element-hint">Необхідно задати значення</small>
                         </div>
                         <div class="form-element form-select">
-                            <select class="form-element-field" id="amends" data-obj-key="amendsId">
-                                <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Інформація відсутня</option>
+                            <select class="form-element-field -hasValue" id="amends" data-obj-key="amendsId">
+                                <option value="1" selected>Інформація відсутня</option>
                                 <option value="2">Державний кредит</option>
                                 <option value="3">Фізична особа</option>
                                 <option value="4">Юридичная особа</option>
@@ -244,7 +242,7 @@ class StudentCardAddPage extends Page {
 
                     <div class="main__col-3">
                         <div class="form-element form-input">
-                            <input id="employment-number" class="form-element-field" placeholder="Введіть №"
+                            <input id="employment-number" class="form-element-field" value="0" placeholder="Введіть №"
                                 type="number" data-obj-key="employmentNumber"/>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="employment-number">Трудова книжка №</label>
