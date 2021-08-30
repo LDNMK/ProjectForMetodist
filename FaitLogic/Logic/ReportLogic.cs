@@ -62,21 +62,20 @@ namespace FaitLogic.Logic
 
         private void CreateDocument(Dictionary<string, string> studentInfo, ICollection<StudentProgressDTO> studentProgresses, ICollection<StudentTransferHistoryDTO> studentTransferHistories)
         {
-            Application application = new Application();
-            Document document = new Document();
+            var application = new Application();
+            Document document = null;
 
             object missingObj = Missing.Value;
             object falseObj = false;
 
-            var path = Directory.GetParent(Directory.GetCurrentDirectory());
-            object documentPath = Path.Join(path.FullName, "\\FaitLogic\\WordDocument\\НАВЧАЛЬНА_КАРТКА_СТУДЕНТА.doc");
+            object documentPath = Path.GetFullPath("Student.doc");
             try
             {
                 document = application.Documents.Add(ref documentPath, ref missingObj, ref missingObj, ref missingObj);
             }
             catch (Exception e)
             {
-                document.Close(ref falseObj, ref missingObj, ref missingObj);
+                document?.Close(ref falseObj, ref missingObj, ref missingObj);
                 application.Quit(ref missingObj, ref missingObj, ref missingObj);
                 document = null;
                 application = null;
@@ -155,8 +154,8 @@ namespace FaitLogic.Logic
             return column switch
             {
                 1 => studentTransferHistory.ToCourse.ToString(),
-                2 => string.Format("{0}  {1}", studentTransferHistory.OrderNumber, studentTransferHistory.OrderDate.ToString()),
-                3 => studentTransferHistory.Id.ToString(),
+                2 => string.Format("{0}  {1}", studentTransferHistory.OrderNumber, studentTransferHistory.OrderDate?.Date.ToString("dd.MM.yyyy")),
+                3 => studentTransferHistory.Content,
                 _ => throw new ArgumentException()
             };
         }

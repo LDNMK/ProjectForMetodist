@@ -7,7 +7,7 @@ using WebAPI.Models;
 using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Helper.ResponseMessageFactory;
 using System;
-using System.Text.Json;
+using WebAPI.Helper;
 
 namespace WebAPI.Controllers
 {
@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressLoadFailed, JsonSerializer.Serialize(ex)));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressLoadFailed, ValidationHelper.GetSerializedErrorInfo(ex)));
             }
             
             return Ok(progress);
@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressUpdateFailed, JsonSerializer.Serialize(ex)));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.ProgressUpdateFailed, ValidationHelper.GetSerializedErrorInfo(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.ProgressUpdated));

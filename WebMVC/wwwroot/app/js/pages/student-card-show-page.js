@@ -326,12 +326,10 @@ class StudentCardShowPage extends Page {
                         <div class="form-element form-select">
                             <select class="form-element-field" data-obj-key="studentStateId" id="student-status" data-required disabled>
                                 <option class="form-select-placeholder" value="" disabled selected></option>
-                                <option value="1">Переведений з групою</option>
+                                <option value="1">Активний</option>
                                 <option value="2">В академічній відпустці</option>
-                                <option value="3">Перехід в іншу группу</option>
-                                <option value="4">Не закрив сесію</option>
-                                <option value="5">Відрахований</option>
-                                <option value="6">Здобув степінь</option>
+                                <option value="3">Відрахований</option>
+                                <option value="4">Здобув(ла) степінь</option>
                             </select>
                             <div class="form-element-bar"></div>
                             <label class="form-element-label" for="student-status">Статус студента</label>

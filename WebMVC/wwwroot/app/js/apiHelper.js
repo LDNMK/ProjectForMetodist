@@ -8,13 +8,7 @@ class ApiHelper {
         //     return;
         // }
 
-        console.log('Response API');
-        console.log(responseApi);
-
         const responseData = await responseApi.json();
-
-        console.log('Response JSON');
-        console.log(responseData);
 
         if (responseData.exceptionJSON !== "ok") {
             console.log(responseData.exceptionJSON);

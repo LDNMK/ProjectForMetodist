@@ -1,7 +1,7 @@
 ﻿using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Text.Json;
+using WebAPI.Helper;
 using WebAPI.Helper.ResponseMessageFactory;
 using WebAPI.Helper.ValidationResponse.Enum;
 
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound(ResponseMessageCreator.GetMessage(ErrorEnum.GroupAlreadyExist, JsonSerializer.Serialize(ex)));
+                return NotFound(ResponseMessageCreator.GetMessage(ErrorEnum.GroupAlreadyExist, ValidationHelper.GetSerializedErrorInfo(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.GroupCreated));
