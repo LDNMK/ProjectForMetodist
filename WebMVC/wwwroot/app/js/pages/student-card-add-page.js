@@ -347,7 +347,7 @@ class StudentCardAddPage extends Page {
             });
 
             console.log(student);
-            apiHelper.fetchStudentCardSave(student);           
+            apiHelper.fetchStudentCardSave(student);
         }
     }
 }
