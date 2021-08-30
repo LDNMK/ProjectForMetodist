@@ -1,6 +1,6 @@
 ﻿using EnumsNET;
-using FaitLogic.Enums;
-using WebAPI.Helper.ValidationResponse.Enum;
+using System;
+using System.Text.Json;
 
 namespace WebAPI.Helper
 {
@@ -21,9 +21,15 @@ namespace WebAPI.Helper
         //    return error.AsString(EnumFormat.Description);
         //}
         public static string GetEnumDescription<T>(T message)
-            where T : struct, System.Enum
+            where T : struct, Enum
         {
             return message.AsString(EnumFormat.Description);
+        }
+
+        public static string GetSerializedErrorInfo<T>(T exception)
+            where T : Exception
+        {
+            return JsonSerializer.Serialize($"{exception.Message}\n{exception.StackTrace}");
         }
     }
 }

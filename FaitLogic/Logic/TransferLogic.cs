@@ -61,9 +61,15 @@ namespace FaitLogic.Logic
 
                     studentTransferHistory.FromCourse = (byte)group.Course;
                     studentTransferHistory.ToCourse = (byte)(group.Course + 1);
-                }
 
-                unitOfWork.StudentTransferHistoryRepository.AddTransferHistory(studentTransferHistory);
+                    unitOfWork.StudentTransferHistoryRepository.AddTransferHistory(studentTransferHistory);
+                }
+                else
+                {
+                    var studentInfo = unitOfWork.StudentRepository.GetStudentMainInfo(student.Id);
+                    studentInfo.StudentStateId = student.StateId;
+                    unitOfWork.StudentRepository.UpdateStudent(studentInfo);
+                }
             }
 
             unitOfWork.Save();

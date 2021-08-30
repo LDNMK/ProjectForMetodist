@@ -3,7 +3,7 @@ using FaitLogic.DTO;
 using FaitLogic.Logic.ILogic;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Text.Json;
+using WebAPI.Helper;
 using WebAPI.Helper.ResponseMessageFactory;
 using WebAPI.Helper.ValidationResponse.Enum;
 using WebAPI.Models;
@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateYearPlanFailed, JsonSerializer.Serialize(ex)));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.CreateYearPlanFailed, ValidationHelper.GetSerializedErrorInfo(ex)));
             }
 
 
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.YearPlanUpdateFailed, JsonSerializer.Serialize(ex)));
+                return BadRequest(ResponseMessageCreator.GetMessage(ErrorEnum.YearPlanUpdateFailed, ValidationHelper.GetSerializedErrorInfo(ex)));
             }
 
             return Ok(ResponseMessageCreator.GetMessage(SuccessEnum.YearPlanUpdated));

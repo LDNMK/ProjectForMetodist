@@ -167,7 +167,7 @@ function getProgressStudentRow(student, subjects) {
                     ${
                         Math.round(student.subjects
                             .map(x => x.mark)
-                            ?.reduce((sum, mark) => sum += mark, 0) / student.subjects.length)
+                            ?.reduce((sum, mark) => sum += mark, 0) / student.subjects.length, 3)
                     }
                 </span>
             </div>

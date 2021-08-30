@@ -143,6 +143,11 @@ namespace FaitLogic.Logic
                 var studentProgress = new StudentProgressDTO();
                 studentProgress.Course = studentGroup.Course;
                 var yearPlan = unitOfWork.YearPlanRepository.GetYearPlanByGroup(studentGroup.GroupId, studentGroup.Year);
+                if(yearPlan == null)
+                {
+                    continue;
+                }
+
                 var subjects = unitOfWork.SubjectRepository.FindSubjects(yearPlan.Id);
 
                 var subjectsDto = new List<StudentSubjectDTO>();

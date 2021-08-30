@@ -33,7 +33,7 @@ namespace Fait.DAL.Repository
             return dbContext.YearPlanGroups
                 .Where(x => x.GroupId == groupId && x.YearPlan.Year == year)
                 .Select(x => x.YearPlan)
-                .Single();
+                .FirstOrDefault();
         }
 
         public int? GetYearPlanIdByGroup(int groupId, int year)
